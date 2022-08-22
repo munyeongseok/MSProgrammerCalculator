@@ -55,6 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\BitKeypadButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BitKeypadView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\FullKeypadView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -66,6 +74,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\BitKeypadButton.xaml.cs">
+      <DependentUpon>BitKeypadButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BitKeypadView.xaml.cs">
+      <DependentUpon>BitKeypadView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FullKeypadView.xaml.cs">
       <DependentUpon>FullKeypadView.xaml</DependentUpon>

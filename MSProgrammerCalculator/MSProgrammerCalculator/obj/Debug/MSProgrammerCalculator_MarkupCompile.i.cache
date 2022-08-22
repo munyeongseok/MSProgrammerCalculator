@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\App.xaml
-2-1426631315
+4-162919652
 
-71250451146
+92128328663
 13-38814620
-Views\FullKeypadView.xaml;MainWindow.xaml;
+Controls\BitKeypadButton.xaml;Views\BitKeypadView.xaml;Views\FullKeypadView.xaml;MainWindow.xaml;
 
-True
+False
 
