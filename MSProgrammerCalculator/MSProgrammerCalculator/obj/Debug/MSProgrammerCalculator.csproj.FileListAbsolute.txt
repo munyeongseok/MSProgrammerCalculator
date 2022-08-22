@@ -14,6 +14,6 @@ C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\MSProgrammerCalculator.csproj.CoreCompileInputs.cache
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\MSProgrammerCalculator.exe
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\MSProgrammerCalculator.pdb
-C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\FullKeypadView.g.cs
-C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\FullKeypadView.baml
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Views\FullKeypadView.g.cs
+C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Views\FullKeypadView.baml
