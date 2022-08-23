@@ -12,6 +12,7 @@ C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\MSProgrammerCalculator_MarkupCompile.cache
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\MSProgrammerCalculator_MarkupCompile.lref
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Controls\BitKeypadButton.baml
+C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Themes\Generic.baml
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Views\BitKeypadView.baml
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Views\FullKeypadView.baml
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\MainWindow.baml

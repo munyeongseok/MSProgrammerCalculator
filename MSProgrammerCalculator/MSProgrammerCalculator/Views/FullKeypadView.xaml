@@ -4,44 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MSProgrammerCalculator"
+             xmlns:controls="clr-namespace:MSProgrammerCalculator.Controls"
              mc:Ignorable="d"
              d:DesignWidth="360"
              d:DesignHeight="230">
-    <UserControl.Resources>
-        <Style x:Key="FullKeypadButtonStyle" TargetType="Button">
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="Background" Value="#DDFFFFFF"/>
-            <Setter Property="SnapsToDevicePixels" Value="True"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border x:Name="Border"
-                                TextBlock.Foreground="{TemplateBinding Foreground}"
-                                Background="{TemplateBinding Background}"
-                                CornerRadius="5"
-                                BorderBrush="#44000000"
-                                BorderThickness="1">
-                            <ContentPresenter Margin="2"
-                                              HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"
-                                              RecognizesAccessKey="True"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#DDFDFBFB"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#DDFCF7F7"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Background" Value="#DDFAF2F2"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -60,42 +26,42 @@
         </Grid.ColumnDefinitions>
         
         <!-- Hexadecimal Number Button -->
-        <Button x:Name="HexNumAButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="0" Grid.Column="0" Content="A"/>
-        <Button x:Name="HexNumBButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="1" Grid.Column="0" Content="B"/>
-        <Button x:Name="HexNumCButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="2" Grid.Column="0" Content="C"/>
-        <Button x:Name="HexNumDButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="3" Grid.Column="0" Content="D"/>
-        <Button x:Name="HexNumEButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="4" Grid.Column="0" Content="E"/>
-        <Button x:Name="HexNumFButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="5" Grid.Column="0" Content="F"/>
+        <controls:FullKeypadButton x:Name="HexNumAButton" Grid.Row="0" Grid.Column="0" Content="A"/>
+        <controls:FullKeypadButton x:Name="HexNumBButton" Grid.Row="1" Grid.Column="0" Content="B"/>
+        <controls:FullKeypadButton x:Name="HexNumCButton" Grid.Row="2" Grid.Column="0" Content="C"/>
+        <controls:FullKeypadButton x:Name="HexNumDButton" Grid.Row="3" Grid.Column="0" Content="D"/>
+        <controls:FullKeypadButton x:Name="HexNumEButton" Grid.Row="4" Grid.Column="0" Content="E"/>
+        <controls:FullKeypadButton x:Name="HexNumFButton" Grid.Row="5" Grid.Column="0" Content="F"/>
 
         <!-- Number Button -->
-        <Button x:Name="Num0Button" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="5" Grid.Column="2" Content="0"/>
-        <Button x:Name="Num1Button" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="4" Grid.Column="1" Content="1"/>
-        <Button x:Name="Num2Button" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="4" Grid.Column="2" Content="2"/>
-        <Button x:Name="Num3Button" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="4" Grid.Column="3" Content="3"/>
-        <Button x:Name="Num4Button" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="3" Grid.Column="1" Content="4"/>
-        <Button x:Name="Num5Button" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="3" Grid.Column="2" Content="5"/>
-        <Button x:Name="Num6Button" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="3" Grid.Column="3" Content="6"/>
-        <Button x:Name="Num7Button" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="2" Grid.Column="1" Content="7"/>
-        <Button x:Name="Num8Button" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="2" Grid.Column="2" Content="8"/>
-        <Button x:Name="Num9Button" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="2" Grid.Column="3" Content="9"/>
+        <controls:FullKeypadButton x:Name="Num0Button" Grid.Row="5" Grid.Column="2" Content="0"/>
+        <controls:FullKeypadButton x:Name="Num1Button" Grid.Row="4" Grid.Column="1" Content="1"/>
+        <controls:FullKeypadButton x:Name="Num2Button" Grid.Row="4" Grid.Column="2" Content="2"/>
+        <controls:FullKeypadButton x:Name="Num3Button" Grid.Row="4" Grid.Column="3" Content="3"/>
+        <controls:FullKeypadButton x:Name="Num4Button" Grid.Row="3" Grid.Column="1" Content="4"/>
+        <controls:FullKeypadButton x:Name="Num5Button" Grid.Row="3" Grid.Column="2" Content="5"/>
+        <controls:FullKeypadButton x:Name="Num6Button" Grid.Row="3" Grid.Column="3" Content="6"/>
+        <controls:FullKeypadButton x:Name="Num7Button" Grid.Row="2" Grid.Column="1" Content="7"/>
+        <controls:FullKeypadButton x:Name="Num8Button" Grid.Row="2" Grid.Column="2" Content="8"/>
+        <controls:FullKeypadButton x:Name="Num9Button" Grid.Row="2" Grid.Column="3" Content="9"/>
 
         <!-- Operator Button -->
-        <Button x:Name="OpLeftShiftButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="0" Grid.Column="1" Content="&lt;&lt;"/>
-        <Button x:Name="OpRightShiftButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="0" Grid.Column="2" Content=">>"/>
-        <Button x:Name="OpModButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="1" Grid.Column="3" Content="%"/>
-        <Button x:Name="OpDivideButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="1" Grid.Column="4" Content="÷"/>
-        <Button x:Name="OpMultiplyButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="2" Grid.Column="4" Content="×"/>
-        <Button x:Name="OpMinusButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="3" Grid.Column="4" Content="-"/>
-        <Button x:Name="OpPlusButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="4" Grid.Column="4" Content="+"/>
-        <Button x:Name="OpNegateButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="5" Grid.Column="1" Content="+/-"/>
+        <controls:FullKeypadButton x:Name="OpLeftShiftButton" Grid.Row="0" Grid.Column="1" Content="&lt;&lt;"/>
+        <controls:FullKeypadButton x:Name="OpRightShiftButton" Grid.Row="0" Grid.Column="2" Content=">>"/>
+        <controls:FullKeypadButton x:Name="OpModButton" Grid.Row="1" Grid.Column="3" Content="%"/>
+        <controls:FullKeypadButton x:Name="OpDivideButton" Grid.Row="1" Grid.Column="4" Content="÷"/>
+        <controls:FullKeypadButton x:Name="OpMultiplyButton" Grid.Row="2" Grid.Column="4" Content="×"/>
+        <controls:FullKeypadButton x:Name="OpMinusButton" Grid.Row="3" Grid.Column="4" Content="-"/>
+        <controls:FullKeypadButton x:Name="OpPlusButton" Grid.Row="4" Grid.Column="4" Content="+"/>
+        <controls:FullKeypadButton x:Name="OpNegateButton" Grid.Row="5" Grid.Column="1" Content="+/-"/>
         
         <!--  -->
-        <Button x:Name="ClearButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="0" Grid.Column="3" Content="C"/>
-        <Button x:Name="BackSpaceButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="0" Grid.Column="4" Content="←"/>
-        <Button x:Name="OpenParenthesisButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="1" Grid.Column="1" Content="("/>
-        <Button x:Name="CloseParenthesisButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="1" Grid.Column="2" Content=")"/>
-        <Button x:Name="DecimalSeparatorButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="5" Grid.Column="3" Content="."/>
-        <Button x:Name="EqualButton" Style="{StaticResource FullKeypadButtonStyle}" Grid.Row="5" Grid.Column="4" Content="="/>
+        <controls:FullKeypadButton x:Name="ClearButton" Grid.Row="0" Grid.Column="3" Content="C"/>
+        <controls:FullKeypadButton x:Name="BackSpaceButton" Grid.Row="0" Grid.Column="4" Content="←"/>
+        <controls:FullKeypadButton x:Name="OpenParenthesisButton" Grid.Row="1" Grid.Column="1" Content="("/>
+        <controls:FullKeypadButton x:Name="CloseParenthesisButton" Grid.Row="1" Grid.Column="2" Content=")"/>
+        <controls:FullKeypadButton x:Name="DecimalSeparatorButton" Grid.Row="5" Grid.Column="3" Content="."/>
+        <controls:FullKeypadButton x:Name="EqualButton" Grid.Row="5" Grid.Column="4" Content="="/>
         
     </Grid>
 </UserControl>
