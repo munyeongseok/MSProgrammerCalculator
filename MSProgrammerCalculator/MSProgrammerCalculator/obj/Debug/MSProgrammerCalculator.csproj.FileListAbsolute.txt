@@ -6,7 +6,6 @@ C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Controls\BitKeypadButton.g.cs
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Views\BitKeypadView.g.cs
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Views\FullKeypadView.g.cs
-C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\MainWindow.g.cs
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\App.g.cs
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\MSProgrammerCalculator_MarkupCompile.cache
@@ -15,10 +14,11 @@ C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Themes\Generic.baml
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Views\BitKeypadView.baml
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Views\FullKeypadView.baml
-C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\MainWindow.baml
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\MSProgrammerCalculator.g.resources
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\MSProgrammerCalculator.Properties.Resources.resources
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\MSProgrammerCalculator.csproj.GenerateResource.cache
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\MSProgrammerCalculator.csproj.CoreCompileInputs.cache
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\MSProgrammerCalculator.exe
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\MSProgrammerCalculator.pdb
+C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Calculator.g.cs
+C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Calculator.baml

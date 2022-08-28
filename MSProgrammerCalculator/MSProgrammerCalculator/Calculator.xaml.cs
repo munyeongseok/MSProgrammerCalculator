@@ -16,13 +16,18 @@ using System.Windows.Shapes;
 namespace MSProgrammerCalculator
 {
     /// <summary>
-    /// MainWindow.xaml에 대한 상호 작용 논리
+    /// Calculator.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Calculator : Window
     {
-        public MainWindow()
+        public Calculator()
         {
             InitializeComponent();
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            MemoryPanelColumn.Width = e.NewSize.Width > 570 ? new GridLength(8, GridUnitType.Star) : new GridLength(0);
         }
     }
 }
