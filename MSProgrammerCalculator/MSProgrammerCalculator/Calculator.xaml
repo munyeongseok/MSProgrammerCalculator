@@ -11,8 +11,9 @@
         Height="510"
         MinWidth="340"
         MinHeight="510"
+        Background="#FFF3F3F3"
         SizeChanged="Window_SizeChanged">
-    <Grid>
+    <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*" MaxHeight="70"/>
             <RowDefinition Height="8*"/>
@@ -24,9 +25,9 @@
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition x:Name="MemoryPanelColumn" Width="8*" MaxWidth="320"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Row="0" Background="Red"/>
+        <TextBlock Grid.Row="0" VerticalAlignment="Center" Margin="10" Text="프로그래머" FontSize="21" FontWeight="Bold"/>
         <Border Grid.Row="1" Background="Green"/>
-        <Border Grid.Row="2" Background="Blue"/>
+        <views:KeypadControlView x:Name="keypadControlView" Grid.Row="2"/>
         <Border Grid.Row="3" Background="Yellow"/>
         <views:FullKeypadView x:Name="FullKeypadView" Grid.Row="4"/>
         <views:BitKeypadView x:Name="BitKeypadView" Grid.Row="4"/>

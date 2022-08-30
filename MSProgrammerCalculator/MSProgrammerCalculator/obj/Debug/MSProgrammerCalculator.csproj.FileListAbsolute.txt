@@ -22,3 +22,5 @@ C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\MSProgrammerCalculator.pdb
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Calculator.g.cs
 C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Calculator.baml
+C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Views\KeypadControlView.g.cs
+C:\git\MSProgrammerCalculator\MSProgrammerCalculator\MSProgrammerCalculator\obj\Debug\Views\KeypadControlView.baml
