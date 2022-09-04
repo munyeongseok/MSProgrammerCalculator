@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\KeypadControlButton.cs" />
+    <Compile Include="Controls\KeypadControlRadioButton.cs" />
     <Compile Include="Views\KeypadControlView.xaml.cs">
       <DependentUpon>KeypadControlView.xaml</DependentUpon>
     </Compile>
@@ -130,6 +132,12 @@
   <ItemGroup>
     <Folder Include="Common\" />
     <Folder Include="ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\FullKeypadButtonIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BitKeypadButtonIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
