@@ -50,18 +50,25 @@
                             TextBlock.Foreground="{TemplateBinding Foreground}"
                             Background="{TemplateBinding Background}"
                             CornerRadius="5">
-                        <StackPanel Orientation="Vertical">
-                            <ContentPresenter Margin="2,5,2,2"
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*" MaxHeight="5"/>
+                            </Grid.RowDefinitions>
+                            <ContentPresenter Grid.Row="0"
                                               HorizontalAlignment="Center"
                                               VerticalAlignment="Center"
+                                              Margin="2,5,2,2"
                                               RecognizesAccessKey="True"/>
                             <Rectangle x:Name="rectangle"
+                                       Grid.Row="1"
+                                       VerticalAlignment="Bottom"
                                        Width="20"
                                        Height="4"
                                        RadiusX="2"
                                        RadiusY="2"
                                        Fill="#DD0067C0"/>
-                        </StackPanel>
+                        </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
