@@ -12,7 +12,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="Border"
+                    <Border x:Name="border"
                             TextBlock.Foreground="{TemplateBinding Foreground}"
                             Background="{TemplateBinding Background}"
                             CornerRadius="5"
@@ -46,7 +46,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RadioButton}">
-                    <Border x:Name="Border"
+                    <Border x:Name="border"
                             TextBlock.Foreground="{TemplateBinding Foreground}"
                             Background="{TemplateBinding Background}"
                             CornerRadius="5">
@@ -101,7 +101,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="Border"
+                    <Border x:Name="border"
                             TextBlock.Foreground="{TemplateBinding Foreground}"
                             Background="{TemplateBinding Background}"
                             CornerRadius="5">

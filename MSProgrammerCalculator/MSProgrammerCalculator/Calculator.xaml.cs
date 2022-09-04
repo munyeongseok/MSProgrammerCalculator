@@ -27,7 +27,7 @@ namespace MSProgrammerCalculator
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            MemoryPanelColumn.Width = e.NewSize.Width > 570 ? new GridLength(8, GridUnitType.Star) : new GridLength(0);
+            memoryPanelColumn.Width = e.NewSize.Width > 570 ? new GridLength(8, GridUnitType.Star) : new GridLength(0);
         }
     }
 }
