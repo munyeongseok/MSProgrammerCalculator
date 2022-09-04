@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\CombiningConverter.cs" />
+    <Compile Include="Converters\ComparisonConverter.cs" />
     <Compile Include="Controls\KeypadControlButton.cs" />
     <Compile Include="Controls\KeypadControlRadioButton.cs" />
     <Compile Include="Views\KeypadControlView.xaml.cs">

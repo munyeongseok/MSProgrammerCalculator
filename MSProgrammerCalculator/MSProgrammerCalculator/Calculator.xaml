@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MSProgrammerCalculator"
         xmlns:views="clr-namespace:MSProgrammerCalculator.Views"
+        xmlns:converters="clr-namespace:MSProgrammerCalculator.Converters"
         mc:Ignorable="d"
         Title="계산기"
         Width="580"
@@ -13,6 +14,12 @@
         MinHeight="510"
         Background="#FFF3F3F3"
         SizeChanged="Window_SizeChanged">
+    <Window.Resources>
+        <converters:CombiningConverter x:Key="enumToBooleanConverter">
+            <converters:ComparisonConverter/>
+            <BooleanToVisibilityConverter/>
+        </converters:CombiningConverter>
+    </Window.Resources>
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MaxHeight="70" />
@@ -26,8 +33,13 @@
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" VerticalAlignment="Center" Margin="10" Text="프로그래머" FontSize="21" FontWeight="Bold"/>
         <Border Grid.Row="1" Background="Green"/>
-        <views:KeypadControlView x:Name="keypadControlView" Grid.Row="2"/>
-        <views:FullKeypadView x:Name="FullKeypadView" Grid.Row="3"/>
-        <views:BitKeypadView x:Name="BitKeypadView" Grid.Row="3"/>
+        <views:KeypadControlView x:Name="keypadControlView"
+                                 Grid.Row="2"/>
+        <views:FullKeypadView x:Name="fullKeypadView"
+                              Grid.Row="3"
+                              Visibility="{Binding ElementName=keypadControlView, Path=KeypadMode, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static views:KeypadMode.FullKeypad}}"/>
+        <views:BitKeypadView x:Name="bitKeypadView"
+                             Grid.Row="3"
+                             Visibility="{Binding ElementName=keypadControlView, Path=KeypadMode, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static views:KeypadMode.BitKeypad}}"/>
     </Grid>
 </Window>

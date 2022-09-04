@@ -15,11 +15,28 @@ using System.Windows.Shapes;
 
 namespace MSProgrammerCalculator.Views
 {
+    public enum KeypadMode
+    {
+        FullKeypad,
+        BitKeypad
+    }
+
     /// <summary>
     /// KeypadControlView.xaml에 대한 상호 작용 논리
     /// </summary>
     public partial class KeypadControlView : UserControl
     {
+        public static readonly DependencyProperty KeypadModeProperty = DependencyProperty.Register(
+            nameof(KeypadMode),
+            typeof(KeypadMode),
+            typeof(KeypadControlView),
+            new PropertyMetadata(KeypadMode.FullKeypad));
+        public KeypadMode KeypadMode
+        {
+            get => (KeypadMode)GetValue(KeypadModeProperty);
+            set => SetValue(KeypadModeProperty, value);
+        }
+
         public KeypadControlView()
         {
             InitializeComponent();

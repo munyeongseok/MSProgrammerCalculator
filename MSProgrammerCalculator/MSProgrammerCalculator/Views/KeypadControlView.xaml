@@ -5,9 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MSProgrammerCalculator.Views"
              xmlns:controls="clr-namespace:MSProgrammerCalculator.Controls"
+             xmlns:converters="clr-namespace:MSProgrammerCalculator.Converters"
              mc:Ignorable="d"
              d:DesignWidth="340"
-             d:DesignHeight="30">
+             d:DesignHeight="40"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <UserControl.Resources>
+        <converters:ComparisonConverter x:Key="comparisonConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" MaxWidth="90"/>
@@ -17,11 +22,21 @@
             <ColumnDefinition Width="1*" MaxWidth="90"/>
         </Grid.ColumnDefinitions>
         <!-- Full Keypad Radio Button -->
-        <controls:KeypadControlRadioButton Grid.Column="0" MaxWidth="80" Margin="5" GroupName="keypad">
+        <controls:KeypadControlRadioButton x:Name="fullKeypadRadioButton"
+                                           Grid.Column="0"
+                                           MaxWidth="80"
+                                           Margin="5"
+                                           GroupName="keypad"
+                                           IsChecked="{Binding KeypadMode, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static local:KeypadMode.FullKeypad}}">
             <Image Width="16" Height="16" Source="..\Resources\FullKeypadButtonIcon.png"/>
         </controls:KeypadControlRadioButton>
         <!-- Bit Keypad Radio Button -->
-        <controls:KeypadControlRadioButton Grid.Column="1" MaxWidth="80" Margin="5" GroupName="keypad">
+        <controls:KeypadControlRadioButton x:Name="bitKeypadRadioButton"
+                                           Grid.Column="1"
+                                           MaxWidth="80"
+                                           Margin="5"
+                                           GroupName="keypad"
+                                           IsChecked="{Binding KeypadMode, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static local:KeypadMode.BitKeypad}}">
             <Image Width="16" Height="16" Source="..\Resources\BitKeypadButtonIcon.png"/>
         </controls:KeypadControlRadioButton>
         <!-- Data Type Button -->
