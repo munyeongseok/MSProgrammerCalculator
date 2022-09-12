@@ -16,6 +16,7 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -24,44 +25,106 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="5">
+            <!-- Bitwise Button-->
+            <controls:OperatorToggleButton x:Name="bitwiseButton"
+                                           Content="(Icon) 비트 ∨"
+                                           FontSize="14"/>
+            <Popup x:Name="bitwiseButtonPopup"
+                   Placement="{Binding ElementName=bitwiseButton}"
+                   PlacementTarget="{Binding ElementName=bitwiseButton}"
+                   IsOpen="{Binding IsChecked, ElementName=bitwiseButton}"
+                   AllowsTransparency="True"
+                   StaysOpen="False">
+                <Border Width="200"
+                        Height="100"
+                        Background="White"
+                        BorderBrush="LightGray"
+                        BorderThickness="1"
+                        CornerRadius="6">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <controls:FullKeypadButton Grid.Row="0" Grid.Column="0" Margin="3,3,1.5,1.5" Content="AND" FontSize="14"/>
+                        <controls:FullKeypadButton Grid.Row="0" Grid.Column="1" Margin="1.5,3,1.5,1.5" Content="OR" FontSize="14"/>
+                        <controls:FullKeypadButton Grid.Row="0" Grid.Column="2" Margin="1.5,3,3,1.5" Content="NOT" FontSize="14"/>
+                        <controls:FullKeypadButton Grid.Row="1" Grid.Column="0" Margin="3,1.5,1.5,3" Content="NAND" FontSize="14"/>
+                        <controls:FullKeypadButton Grid.Row="1" Grid.Column="1" Margin="1.5,1.5,1.5,3" Content="NOR" FontSize="14"/>
+                        <controls:FullKeypadButton Grid.Row="1" Grid.Column="2" Margin="1.5,1.5,3,3" Content="XOR" FontSize="14"/>
+                    </Grid>
+                </Border>
+            </Popup>
+            <!-- Bit Shift Button -->
+            <controls:OperatorToggleButton x:Name="bitShiftButton"
+                                           Content="(Icon) 비트 시프트 ∨"
+                                           FontSize="14"/>
+            <Popup x:Name="bitShiftButtonPopup"
+                   Placement="{Binding ElementName=bitShiftButton}"
+                   PlacementTarget="{Binding ElementName=bitShiftButton}"
+                   IsOpen="{Binding IsChecked, ElementName=bitShiftButton}"
+                   AllowsTransparency="True"
+                   StaysOpen="False">
+                <Border Width="200"
+                        Height="170"
+                        Background="White"
+                        BorderBrush="LightGray"
+                        BorderThickness="1"
+                        CornerRadius="6">
+                    <StackPanel Orientation="Vertical" Margin="10">
+                        <controls:FullKeypadRadioButton GroupName="bitShift" Margin="0,10,0,6" Content="산술 시프트" FontSize="14" IsChecked="True"/>
+                        <controls:FullKeypadRadioButton GroupName="bitShift" Margin="0,6,0,6" Content="논리적 시프트" FontSize="14"/>
+                        <controls:FullKeypadRadioButton GroupName="bitShift" Margin="0,6,0,6" Content="원형 시프트 회전" FontSize="14"/>
+                        <controls:FullKeypadRadioButton GroupName="bitShift" Margin="0,6,0,10" Content="자리올림 순환 시프트를 통해 회전" FontSize="14"/>
+                    </StackPanel>
+                </Border>
+            </Popup>
+        </StackPanel>
+
         <!-- Hexadecimal Number Button -->
-        <controls:FullKeypadButton x:Name="hexNumAButton" Grid.Row="0" Grid.Column="0" Content="A"/>
-        <controls:FullKeypadButton x:Name="hexNumBButton" Grid.Row="1" Grid.Column="0" Content="B"/>
-        <controls:FullKeypadButton x:Name="hexNumCButton" Grid.Row="2" Grid.Column="0" Content="C"/>
-        <controls:FullKeypadButton x:Name="hexNumDButton" Grid.Row="3" Grid.Column="0" Content="D"/>
-        <controls:FullKeypadButton x:Name="hexNumEButton" Grid.Row="4" Grid.Column="0" Content="E"/>
-        <controls:FullKeypadButton x:Name="hexNumFButton" Grid.Row="5" Grid.Column="0" Content="F"/>
+        <controls:FullKeypadButton x:Name="hexNumAButton" Grid.Row="1" Grid.Column="0" Content="A"/>
+        <controls:FullKeypadButton x:Name="hexNumBButton" Grid.Row="2" Grid.Column="0" Content="B"/>
+        <controls:FullKeypadButton x:Name="hexNumCButton" Grid.Row="3" Grid.Column="0" Content="C"/>
+        <controls:FullKeypadButton x:Name="hexNumDButton" Grid.Row="4" Grid.Column="0" Content="D"/>
+        <controls:FullKeypadButton x:Name="hexNumEButton" Grid.Row="5" Grid.Column="0" Content="E"/>
+        <controls:FullKeypadButton x:Name="hexNumFButton" Grid.Row="6" Grid.Column="0" Content="F"/>
 
         <!-- Number Button -->
-        <controls:FullKeypadButton x:Name="num0Button" Grid.Row="5" Grid.Column="2" Content="0"/>
-        <controls:FullKeypadButton x:Name="num1Button" Grid.Row="4" Grid.Column="1" Content="1"/>
-        <controls:FullKeypadButton x:Name="num2Button" Grid.Row="4" Grid.Column="2" Content="2"/>
-        <controls:FullKeypadButton x:Name="num3Button" Grid.Row="4" Grid.Column="3" Content="3"/>
-        <controls:FullKeypadButton x:Name="num4Button" Grid.Row="3" Grid.Column="1" Content="4"/>
-        <controls:FullKeypadButton x:Name="num5Button" Grid.Row="3" Grid.Column="2" Content="5"/>
-        <controls:FullKeypadButton x:Name="num6Button" Grid.Row="3" Grid.Column="3" Content="6"/>
-        <controls:FullKeypadButton x:Name="num7Button" Grid.Row="2" Grid.Column="1" Content="7"/>
-        <controls:FullKeypadButton x:Name="num8Button" Grid.Row="2" Grid.Column="2" Content="8"/>
-        <controls:FullKeypadButton x:Name="num9Button" Grid.Row="2" Grid.Column="3" Content="9"/>
+        <controls:FullKeypadButton x:Name="num0Button" Grid.Row="6" Grid.Column="2" Content="0"/>
+        <controls:FullKeypadButton x:Name="num1Button" Grid.Row="5" Grid.Column="1" Content="1"/>
+        <controls:FullKeypadButton x:Name="num2Button" Grid.Row="5" Grid.Column="2" Content="2"/>
+        <controls:FullKeypadButton x:Name="num3Button" Grid.Row="5" Grid.Column="3" Content="3"/>
+        <controls:FullKeypadButton x:Name="num4Button" Grid.Row="4" Grid.Column="1" Content="4"/>
+        <controls:FullKeypadButton x:Name="num5Button" Grid.Row="4" Grid.Column="2" Content="5"/>
+        <controls:FullKeypadButton x:Name="num6Button" Grid.Row="4" Grid.Column="3" Content="6"/>
+        <controls:FullKeypadButton x:Name="num7Button" Grid.Row="3" Grid.Column="1" Content="7"/>
+        <controls:FullKeypadButton x:Name="num8Button" Grid.Row="3" Grid.Column="2" Content="8"/>
+        <controls:FullKeypadButton x:Name="num9Button" Grid.Row="3" Grid.Column="3" Content="9"/>
 
         <!-- Operator Button -->
-        <controls:FullKeypadButton x:Name="opLeftShiftButton" Grid.Row="0" Grid.Column="1" Content="&lt;&lt;"/>
-        <controls:FullKeypadButton x:Name="opRightShiftButton" Grid.Row="0" Grid.Column="2" Content=">>"/>
-        <controls:FullKeypadButton x:Name="opModButton" Grid.Row="1" Grid.Column="3" Content="%"/>
-        <controls:FullKeypadButton x:Name="opDivideButton" Grid.Row="1" Grid.Column="4" Content="÷"/>
-        <controls:FullKeypadButton x:Name="opMultiplyButton" Grid.Row="2" Grid.Column="4" Content="×"/>
-        <controls:FullKeypadButton x:Name="opMinusButton" Grid.Row="3" Grid.Column="4" Content="-"/>
-        <controls:FullKeypadButton x:Name="opPlusButton" Grid.Row="4" Grid.Column="4" Content="+"/>
-        <controls:FullKeypadButton x:Name="opNegateButton" Grid.Row="5" Grid.Column="1" Content="+/-"/>
+        <controls:FullKeypadButton x:Name="opLeftShiftButton" Grid.Row="1" Grid.Column="1" Content="&lt;&lt;"/>
+        <controls:FullKeypadButton x:Name="opRightShiftButton" Grid.Row="1" Grid.Column="2" Content=">>"/>
+        <controls:FullKeypadButton x:Name="opModButton" Grid.Row="2" Grid.Column="3" Content="%"/>
+        <controls:FullKeypadButton x:Name="opDivideButton" Grid.Row="2" Grid.Column="4" Content="÷"/>
+        <controls:FullKeypadButton x:Name="opMultiplyButton" Grid.Row="3" Grid.Column="4" Content="×"/>
+        <controls:FullKeypadButton x:Name="opMinusButton" Grid.Row="4" Grid.Column="4" Content="-"/>
+        <controls:FullKeypadButton x:Name="opPlusButton" Grid.Row="5" Grid.Column="4" Content="+"/>
+        <controls:FullKeypadButton x:Name="opNegateButton" Grid.Row="6" Grid.Column="1" Content="+/-"/>
         
         <!--  -->
-        <controls:FullKeypadButton x:Name="clearButton" Grid.Row="0" Grid.Column="3" Content="C"/>
-        <controls:FullKeypadButton x:Name="backSpaceButton" Grid.Row="0" Grid.Column="4" Content="←"/>
-        <controls:FullKeypadButton x:Name="openParenthesisButton" Grid.Row="1" Grid.Column="1" Content="("/>
-        <controls:FullKeypadButton x:Name="closeParenthesisButton" Grid.Row="1" Grid.Column="2" Content=")"/>
-        <controls:FullKeypadButton x:Name="decimalSeparatorButton" Grid.Row="5" Grid.Column="3" Content="."/>
-        <controls:FullKeypadButton x:Name="equalButton" Grid.Row="5" Grid.Column="4" Content="="/>
+        <controls:FullKeypadButton x:Name="clearButton" Grid.Row="1" Grid.Column="3" Content="C"/>
+        <controls:FullKeypadButton x:Name="backSpaceButton" Grid.Row="1" Grid.Column="4" Content="←"/>
+        <controls:FullKeypadButton x:Name="openParenthesisButton" Grid.Row="2" Grid.Column="1" Content="("/>
+        <controls:FullKeypadButton x:Name="closeParenthesisButton" Grid.Row="2" Grid.Column="2" Content=")"/>
+        <controls:FullKeypadButton x:Name="decimalSeparatorButton" Grid.Row="6" Grid.Column="3" Content="."/>
+        <controls:FullKeypadButton x:Name="equalButton" Grid.Row="6" Grid.Column="4" Content="="/>
         
     </Grid>
 </UserControl>

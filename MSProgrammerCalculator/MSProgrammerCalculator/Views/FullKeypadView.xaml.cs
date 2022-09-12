@@ -23,6 +23,33 @@ namespace MSProgrammerCalculator.Views
         public FullKeypadView()
         {
             InitializeComponent();
+
+            var mainWindow = Application.Current.MainWindow;
+            mainWindow.SizeChanged += MainWindow_SizeChanged;
+            mainWindow.LocationChanged += MainWindow_LocationChanged;
+        }
+
+        private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            bitwiseButton.IsChecked = false;
+            bitShiftButton.IsChecked = false;
+        }
+
+        private void MainWindow_LocationChanged(object sender, EventArgs e)
+        {
+            if (bitwiseButtonPopup.IsOpen)
+            {
+                var offset = bitwiseButtonPopup.HorizontalOffset;
+                bitwiseButtonPopup.HorizontalOffset = offset + 1;
+                bitwiseButtonPopup.HorizontalOffset = offset;
+            }
+
+            if (bitShiftButtonPopup.IsOpen)
+            {
+                var offset = bitShiftButtonPopup.HorizontalOffset;
+                bitShiftButtonPopup.HorizontalOffset = offset + 1;
+                bitShiftButtonPopup.HorizontalOffset = offset;
+            }
         }
     }
 }

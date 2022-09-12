@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\FullKeypadRadioButton.cs" />
+    <Compile Include="Controls\OperatorToggleButton.cs" />
     <Compile Include="Converters\CombiningConverter.cs" />
     <Compile Include="Converters\ComparisonConverter.cs" />
     <Compile Include="Controls\KeypadControlButton.cs" />

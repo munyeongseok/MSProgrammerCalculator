@@ -16,7 +16,7 @@
                             TextBlock.Foreground="{TemplateBinding Foreground}"
                             Background="{TemplateBinding Background}"
                             CornerRadius="5"
-                            BorderBrush="#44000000"
+                            BorderBrush="LightGray"
                             BorderThickness="1">
                         <ContentPresenter Margin="2"
                                           HorizontalAlignment="Center"
@@ -29,6 +29,7 @@
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Background" Value="#DDFCF7F7"/>
+                            <Setter Property="Foreground" Value="#DD555555"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Background" Value="#DDFAF2F2"/>
@@ -38,7 +39,59 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
+    <!-- FullKeypadRadioButton -->
+    <Style TargetType="{x:Type controls:FullKeypadRadioButton}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <BulletDecorator Background="Transparent">
+                        <BulletDecorator.Bullet>
+                            <Grid Width="20" Height="20">
+                                <Ellipse x:Name="border"
+                                         StrokeThickness="1"
+                                         Stroke="#FF8A8787"
+                                         Fill="#FFF7F7F7"/>
+                                <Ellipse x:Name="checkMark"
+                                         Margin="5"
+                                         Visibility="Collapsed"
+                                         Fill="White"/>
+                            </Grid>
+                        </BulletDecorator.Bullet>
+                        <ContentPresenter HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"
+                                          Margin="8,0,0,0"
+                                          RecognizesAccessKey="True">
+                            <ContentPresenter.Resources>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                </Style>
+                            </ContentPresenter.Resources>
+                        </ContentPresenter>
+                    </BulletDecorator>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Fill" Value="#FFEEEAEA"/>
+                            <Setter TargetName="checkMark" Property="Margin" Value="4"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Fill" Value="#FFE2E0E0"/>
+                            <Setter TargetName="checkMark" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="checkMark" Property="Fill" Value="White"/>
+                            <Setter TargetName="checkMark" Property="Margin" Value="5"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="border" Property="Fill" Value="#FF0067C0"/>
+                            <Setter TargetName="checkMark" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- KeypadControlRadioButton -->
     <Style TargetType="{x:Type controls:KeypadControlRadioButton}">
         <Setter Property="Background" Value="Transparent"/>
@@ -115,6 +168,46 @@
                             <Setter Property="Background" Value="#DDE8E8E8"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="#99E8E8E8"/>
+                            <Setter Property="Foreground" Value="#FF777777"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#FFBBBBBB"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- OperatorToggleButton -->
+    <Style TargetType="{x:Type controls:OperatorToggleButton}">
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border x:Name="border"
+                            TextBlock.Foreground="{TemplateBinding Foreground}"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="5"
+                            Padding="2,0">
+                        <ContentPresenter Margin="2"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          RecognizesAccessKey="True"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#DDE8E8E8"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="#99E8E8E8"/>
+                            <Setter Property="Foreground" Value="#FF777777"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
                             <Setter Property="Background" Value="#99E8E8E8"/>
                             <Setter Property="Foreground" Value="#FF777777"/>
                         </Trigger>
