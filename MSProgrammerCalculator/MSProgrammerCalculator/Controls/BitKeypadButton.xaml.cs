@@ -20,6 +20,11 @@ namespace MSProgrammerCalculator.Controls
     /// </summary>
     public partial class BitKeypadButton : UserControl
     {
+        public int Bit0 { get; set; }
+        public int Bit1 { get; set; }
+        public int Bit2 { get; set; }
+        public int Bit3 { get; set; }
+
         public BitKeypadButton()
         {
             InitializeComponent();

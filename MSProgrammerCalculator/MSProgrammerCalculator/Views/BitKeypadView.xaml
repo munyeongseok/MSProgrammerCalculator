@@ -10,37 +10,47 @@
              d:DesignHeight="230">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
         
-        <controls:BitKeypadButton Grid.Row="0" Grid.Column="0"/>
-        <controls:BitKeypadButton Grid.Row="0" Grid.Column="1"/>
-        <controls:BitKeypadButton Grid.Row="0" Grid.Column="2"/>
-        <controls:BitKeypadButton Grid.Row="0" Grid.Column="3"/>
-
-        <controls:BitKeypadButton Grid.Row="1" Grid.Column="0"/>
         <controls:BitKeypadButton Grid.Row="1" Grid.Column="1"/>
-        <controls:BitKeypadButton Grid.Row="1" Grid.Column="2"/>
         <controls:BitKeypadButton Grid.Row="1" Grid.Column="3"/>
+        <controls:BitKeypadButton Grid.Row="1" Grid.Column="5"/>
+        <controls:BitKeypadButton Grid.Row="1" Grid.Column="7"/>
 
-        <controls:BitKeypadButton Grid.Row="2" Grid.Column="0"/>
-        <controls:BitKeypadButton Grid.Row="2" Grid.Column="1"/>
-        <controls:BitKeypadButton Grid.Row="2" Grid.Column="2"/>
-        <controls:BitKeypadButton Grid.Row="2" Grid.Column="3"/>
-
-        <controls:BitKeypadButton Grid.Row="3" Grid.Column="0"/>
         <controls:BitKeypadButton Grid.Row="3" Grid.Column="1"/>
-        <controls:BitKeypadButton Grid.Row="3" Grid.Column="2"/>
         <controls:BitKeypadButton Grid.Row="3" Grid.Column="3"/>
+        <controls:BitKeypadButton Grid.Row="3" Grid.Column="5"/>
+        <controls:BitKeypadButton Grid.Row="3" Grid.Column="7"/>
+
+        <controls:BitKeypadButton Grid.Row="5" Grid.Column="1"/>
+        <controls:BitKeypadButton Grid.Row="5" Grid.Column="3"/>
+        <controls:BitKeypadButton Grid.Row="5" Grid.Column="5"/>
+        <controls:BitKeypadButton Grid.Row="5" Grid.Column="7"/>
+
+        <controls:BitKeypadButton Grid.Row="7" Grid.Column="1"/>
+        <controls:BitKeypadButton Grid.Row="7" Grid.Column="3"/>
+        <controls:BitKeypadButton Grid.Row="7" Grid.Column="5"/>
+        <controls:BitKeypadButton Grid.Row="7" Grid.Column="7"/>
 
     </Grid>
 </UserControl>
