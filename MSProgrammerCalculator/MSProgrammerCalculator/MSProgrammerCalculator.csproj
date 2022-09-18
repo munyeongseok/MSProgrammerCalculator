@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\BitChangedEventArgs.cs" />
+    <Compile Include="Common\BitChangedEventHandler.cs" />
     <Compile Include="Controls\BitToggleButton.cs" />
     <Compile Include="Controls\FullKeypadRadioButton.cs" />
     <Compile Include="Controls\OperatorToggleButton.cs" />
@@ -135,7 +137,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>

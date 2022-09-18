@@ -50,7 +50,8 @@ namespace MSProgrammerCalculator.Controls
         public static readonly DependencyProperty BitProperty = DependencyProperty.Register(
             nameof(Bit),
             typeof(int),
-            typeof(BitToggleButton));
+            typeof(BitToggleButton),
+            new PropertyMetadata(0));
         public int Bit
         {
             get => (int)GetValue(BitProperty);

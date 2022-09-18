@@ -31,26 +31,26 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
-        
-        <controls:BitKeypadButton Grid.Row="1" Grid.Column="1"/>
-        <controls:BitKeypadButton Grid.Row="1" Grid.Column="3"/>
-        <controls:BitKeypadButton Grid.Row="1" Grid.Column="5"/>
-        <controls:BitKeypadButton Grid.Row="1" Grid.Column="7"/>
 
-        <controls:BitKeypadButton Grid.Row="3" Grid.Column="1"/>
-        <controls:BitKeypadButton Grid.Row="3" Grid.Column="3"/>
-        <controls:BitKeypadButton Grid.Row="3" Grid.Column="5"/>
-        <controls:BitKeypadButton Grid.Row="3" Grid.Column="7"/>
+        <controls:BitKeypadButton x:Name="bitButton60" Grid.Row="1" Grid.Column="1" LSBIndex="60" BitChanged="BitKeypadButton_BitChanged"/>
+        <controls:BitKeypadButton x:Name="bitButton56" Grid.Row="1" Grid.Column="3" LSBIndex="56" BitChanged="BitKeypadButton_BitChanged"/>
+        <controls:BitKeypadButton x:Name="bitButton52" Grid.Row="1" Grid.Column="5" LSBIndex="52" BitChanged="BitKeypadButton_BitChanged"/>
+        <controls:BitKeypadButton x:Name="bitButton48" Grid.Row="1" Grid.Column="7" LSBIndex="48" BitChanged="BitKeypadButton_BitChanged"/>
 
-        <controls:BitKeypadButton Grid.Row="5" Grid.Column="1"/>
-        <controls:BitKeypadButton Grid.Row="5" Grid.Column="3"/>
-        <controls:BitKeypadButton Grid.Row="5" Grid.Column="5"/>
-        <controls:BitKeypadButton Grid.Row="5" Grid.Column="7"/>
+        <controls:BitKeypadButton x:Name="bitButton44" Grid.Row="3" Grid.Column="1" LSBIndex="44" BitChanged="BitKeypadButton_BitChanged"/>
+        <controls:BitKeypadButton x:Name="bitButton40" Grid.Row="3" Grid.Column="3" LSBIndex="40" BitChanged="BitKeypadButton_BitChanged"/>
+        <controls:BitKeypadButton x:Name="bitButton36" Grid.Row="3" Grid.Column="5" LSBIndex="36" BitChanged="BitKeypadButton_BitChanged"/>
+        <controls:BitKeypadButton x:Name="bitButton32" Grid.Row="3" Grid.Column="7" LSBIndex="32" BitChanged="BitKeypadButton_BitChanged"/>
 
-        <controls:BitKeypadButton Grid.Row="7" Grid.Column="1"/>
-        <controls:BitKeypadButton Grid.Row="7" Grid.Column="3"/>
-        <controls:BitKeypadButton Grid.Row="7" Grid.Column="5"/>
-        <controls:BitKeypadButton Grid.Row="7" Grid.Column="7"/>
+        <controls:BitKeypadButton x:Name="bitButton28" Grid.Row="5" Grid.Column="1" LSBIndex="28" BitChanged="BitKeypadButton_BitChanged"/>
+        <controls:BitKeypadButton x:Name="bitButton24" Grid.Row="5" Grid.Column="3" LSBIndex="24" BitChanged="BitKeypadButton_BitChanged"/>
+        <controls:BitKeypadButton x:Name="bitButton20" Grid.Row="5" Grid.Column="5" LSBIndex="20" BitChanged="BitKeypadButton_BitChanged"/>
+        <controls:BitKeypadButton x:Name="bitButton16" Grid.Row="5" Grid.Column="7" LSBIndex="16" BitChanged="BitKeypadButton_BitChanged"/>
+
+        <controls:BitKeypadButton x:Name="bitButton12" Grid.Row="7" Grid.Column="1" LSBIndex="12" BitChanged="BitKeypadButton_BitChanged"/>
+        <controls:BitKeypadButton x:Name="bitButton8" Grid.Row="7" Grid.Column="3" LSBIndex="8" BitChanged="BitKeypadButton_BitChanged"/>
+        <controls:BitKeypadButton x:Name="bitButton4" Grid.Row="7" Grid.Column="5" LSBIndex="4" BitChanged="BitKeypadButton_BitChanged"/>
+        <controls:BitKeypadButton x:Name="bitButton0" Grid.Row="7" Grid.Column="7" LSBIndex="0" BitChanged="BitKeypadButton_BitChanged"/>
 
     </Grid>
 </UserControl>
