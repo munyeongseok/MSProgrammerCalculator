@@ -137,20 +137,6 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Bit" Value="1"/>
-            </Trigger>
-            <Trigger Property="IsChecked" Value="False">
-                <Setter Property="Bit" Value="0"/>
-            </Trigger>
-            <Trigger Property="Bit" Value="1">
-                <Setter Property="IsChecked" Value="True"/>
-            </Trigger>
-            <Trigger Property="Bit" Value="0">
-                <Setter Property="IsChecked" Value="False"/>
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
     <!-- KeypadControlRadioButton -->

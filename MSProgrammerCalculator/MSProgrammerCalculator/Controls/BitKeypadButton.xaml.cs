@@ -58,21 +58,20 @@ namespace MSProgrammerCalculator.Controls
 
         private void BitToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            Bit = $"{bit3.Bit}{bit2.Bit}{bit1.Bit}{bit0.Bit}";
-
+            var b3 = Convert.ToInt32(bit3.IsChecked);
+            var b2 = Convert.ToInt32(bit2.IsChecked);
+            var b1 = Convert.ToInt32(bit1.IsChecked);
+            var b0 = Convert.ToInt32(bit0.IsChecked);
+            Bit = $"{b3}{b2}{b1}{b0}";
             BitChanged?.Invoke(this, new BitChangedEventArgs(Bit));
         }
 
         private void OnBitChanged(string newValue)
         {
-            var b3 = newValue[0] == '1' ? 1 : 0;
-            var b2 = newValue[1] == '1' ? 1 : 0;
-            var b1 = newValue[2] == '1' ? 1 : 0;
-            var b0 = newValue[3] == '1' ? 1 : 0;
-            bit3.Bit = b3;
-            bit2.Bit = b2;
-            bit1.Bit = b1;
-            bit0.Bit = b0;
+            bit3.IsChecked = newValue[0] == '1' ? true : false;
+            bit2.IsChecked = newValue[1] == '1' ? true : false;
+            bit1.IsChecked = newValue[2] == '1' ? true : false;
+            bit0.IsChecked = newValue[3] == '1' ? true : false;
         }
     }
 }

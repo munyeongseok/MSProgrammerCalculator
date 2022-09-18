@@ -47,17 +47,6 @@ namespace MSProgrammerCalculator.Controls
     /// </summary>
     public class BitToggleButton : ToggleButton
     {
-        public static readonly DependencyProperty BitProperty = DependencyProperty.Register(
-            nameof(Bit),
-            typeof(int),
-            typeof(BitToggleButton),
-            new PropertyMetadata(0));
-        public int Bit
-        {
-            get => (int)GetValue(BitProperty);
-            set => SetValue(BitProperty, value);
-        }
-
         static BitToggleButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BitToggleButton), new FrameworkPropertyMetadata(typeof(BitToggleButton)));
