@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MSProgrammerCalculator.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,9 +38,31 @@ namespace MSProgrammerCalculator.Views
             set => SetValue(KeypadModeProperty, value);
         }
 
+        public static readonly DependencyProperty BitDataUnitProperty = DependencyProperty.Register(
+            nameof(BitDataUnit),
+            typeof(BitDataUnit),
+            typeof(KeypadControlView),
+            new PropertyMetadata(BitDataUnit.QWORD, (s, e) =>
+            {
+                var self = (KeypadControlView)s;
+                self.bitDataUnitButton.Content = e.NewValue.ToString();
+            }));
+        public BitDataUnit BitDataUnit
+        {
+            get => (BitDataUnit)GetValue(BitDataUnitProperty);
+            set => SetValue(BitDataUnitProperty, value);
+        }
+
         public KeypadControlView()
         {
             InitializeComponent();
+
+            DataContext = this;
+        }
+
+        private void BitDataUnitButton_Click(object sender, RoutedEventArgs e)
+        {
+            BitDataUnit = (BitDataUnit)(((int)BitDataUnit + 1) % 4);
         }
     }
 }

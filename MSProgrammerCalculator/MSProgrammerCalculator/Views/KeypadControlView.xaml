@@ -40,7 +40,12 @@
             <Image Width="16" Height="16" Source="..\Resources\BitKeypadButtonIcon.png"/>
         </controls:KeypadControlRadioButton>
         <!-- Data Type Button -->
-        <controls:KeypadControlButton Grid.Column="2" MaxWidth="80" Margin="5" Content="QWORD"/>
+        <controls:KeypadControlButton x:Name="bitDataUnitButton"
+                                      Grid.Column="2"
+                                      MaxWidth="80"
+                                      Margin="5"
+                                      Content="QWORD"
+                                      Click="BitDataUnitButton_Click"/>
         <!-- Memory Save Button -->
         <controls:KeypadControlButton Grid.Column="3" MaxWidth="80" Margin="5" Content="MS"/>
         <!-- Memory Button -->

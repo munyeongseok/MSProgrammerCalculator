@@ -21,16 +21,19 @@ namespace MSProgrammerCalculator.Controls
     /// </summary>
     public partial class BitKeypadButton : UserControl
     {
-        private static readonly DependencyPropertyKey BitKey = DependencyProperty.RegisterReadOnly(
+        private static readonly DependencyProperty BitProperty = DependencyProperty.Register(
             nameof(Bit),
             typeof(string),
             typeof(BitKeypadButton),
-            new PropertyMetadata("0000"));
-        public static readonly DependencyProperty BitProperty = BitKey.DependencyProperty;
+            new PropertyMetadata("0000", (s, e) =>
+            {
+                var self = (BitKeypadButton)s;
+                self.OnBitChanged((string)e.NewValue);
+            }));
         public string Bit
         {
             get => (string)GetValue(BitProperty);
-            private set => SetValue(BitKey, value);
+            set => SetValue(BitProperty, value);
         }
 
         public static readonly DependencyProperty LSBIndexProperty = DependencyProperty.Register(
@@ -58,6 +61,18 @@ namespace MSProgrammerCalculator.Controls
             Bit = $"{bit3.Bit}{bit2.Bit}{bit1.Bit}{bit0.Bit}";
 
             BitChanged?.Invoke(this, new BitChangedEventArgs(Bit));
+        }
+
+        private void OnBitChanged(string newValue)
+        {
+            var b3 = newValue[0] == '1' ? 1 : 0;
+            var b2 = newValue[1] == '1' ? 1 : 0;
+            var b1 = newValue[2] == '1' ? 1 : 0;
+            var b0 = newValue[3] == '1' ? 1 : 0;
+            bit3.Bit = b3;
+            bit2.Bit = b2;
+            bit1.Bit = b1;
+            bit0.Bit = b0;
         }
     }
 }
