@@ -65,6 +65,9 @@
     <Compile Include="Converters\ComparisonConverter.cs" />
     <Compile Include="Controls\KeypadControlButton.cs" />
     <Compile Include="Controls\KeypadControlRadioButton.cs" />
+    <Compile Include="Views\DisplayView.xaml.cs">
+      <DependentUpon>DisplayView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\KeypadControlView.xaml.cs">
       <DependentUpon>KeypadControlView.xaml</DependentUpon>
     </Compile>
@@ -77,6 +80,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\BitKeypadView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DisplayView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

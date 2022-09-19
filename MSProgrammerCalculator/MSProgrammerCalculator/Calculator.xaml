@@ -32,7 +32,8 @@
             <ColumnDefinition x:Name="memoryPanelColumn" Width="8*" MaxWidth="320"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" VerticalAlignment="Center" Margin="10" Text="프로그래머" FontSize="21" FontWeight="Bold"/>
-        <Border Grid.Row="1" Background="Green"/>
+        <views:DisplayView x:Name="displayView"
+                           Grid.Row="1"/>
         <views:KeypadControlView x:Name="keypadControlView"
                                  Grid.Row="2"/>
         <views:FullKeypadView x:Name="fullKeypadView"
