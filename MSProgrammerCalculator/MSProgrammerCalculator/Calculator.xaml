@@ -33,7 +33,8 @@
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" VerticalAlignment="Center" Margin="10" Text="프로그래머" FontSize="21" FontWeight="Bold"/>
         <views:DisplayView x:Name="displayView"
-                           Grid.Row="1"/>
+                           Grid.Row="1"
+                           DisplayValue="9999999"/>
         <views:KeypadControlView x:Name="keypadControlView"
                                  Grid.Row="2"/>
         <views:FullKeypadView x:Name="fullKeypadView"

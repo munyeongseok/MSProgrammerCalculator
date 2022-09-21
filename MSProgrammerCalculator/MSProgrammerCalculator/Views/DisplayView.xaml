@@ -7,20 +7,39 @@
              mc:Ignorable="d"
              d:DesignWidth="600"
              d:DesignHeight="300">
-    <Grid>
+    <Grid Margin="5,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" MaxHeight="60"/>
+            <RowDefinition Height="0.5*" MaxHeight="60" MinHeight="20"/>
             <RowDefinition Height="1.5*"/>
             <RowDefinition Height="1*" MaxHeight="45"/>
             <RowDefinition Height="1*" MaxHeight="45"/>
             <RowDefinition Height="1*" MaxHeight="45"/>
             <RowDefinition Height="1*" MaxHeight="45"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Background="Red"/>
-        <Border Grid.Row="1" Background="Green"/>
+        <TextBlock x:Name="expressionTextBlock"
+                   Grid.Row="0"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Bottom"
+                   Margin="5,0"
+                   Foreground="DimGray"
+                   FontSize="14"
+                   Text="(7777 OR 99) NOR 9969999 OR NOT(886962888)"/>
+        <Viewbox Grid.Row="1"
+                 HorizontalAlignment="Right"
+                 VerticalAlignment="Top"
+                 MaxHeight="100"
+                 Margin="5,0">
+            <TextBlock x:Name="displayValueTextBlock"
+                       FontSize="26"
+                       Text="0"/>
+        </Viewbox>
+        <!-- HEX RadioButton -->
         <Border Grid.Row="2" Background="Blue"/>
+        <!-- DEC RadioButton -->
         <Border Grid.Row="3" Background="Yellow"/>
+        <!-- OCT RadioButton -->
         <Border Grid.Row="4" Background="Gray"/>
+        <!-- BIN RadioButton -->
         <Border Grid.Row="5" Background="Khaki"/>
     </Grid>
 </UserControl>

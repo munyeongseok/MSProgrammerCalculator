@@ -20,9 +20,31 @@ namespace MSProgrammerCalculator.Views
     /// </summary>
     public partial class DisplayView : UserControl
     {
+        public static readonly DependencyProperty DisplayValueProperty = DependencyProperty.Register(
+            nameof(DisplayValue),
+            typeof(long),
+            typeof(DisplayView),
+            new PropertyMetadata(0L, (s, e) =>
+            {
+                var self = (DisplayView)s;
+                self.OnDisplayValueChanged((long)e.NewValue);
+            }));
+        public long DisplayValue
+        {
+            get => (long)GetValue(DisplayValueProperty);
+            set => SetValue(DisplayValueProperty, value);
+        }
+
         public DisplayView()
         {
             InitializeComponent();
+
+            DataContext = this;
+        }
+
+        private void OnDisplayValueChanged(long newValue)
+        {
+            displayValueTextBlock.Text = newValue.ToString("N0");
         }
     }
 }
