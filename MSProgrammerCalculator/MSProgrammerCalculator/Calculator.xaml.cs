@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MSProgrammerCalculator.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,11 @@ namespace MSProgrammerCalculator
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             memoryPanelColumn.Width = e.NewSize.Width > 570 ? new GridLength(8, GridUnitType.Star) : new GridLength(0);
+        }
+
+        private void BitKeypadView_ValueChanged(object sender, BitKeypadValueChangedEventArgs e)
+        {
+            displayView.DisplayValue = e.Value;
         }
     }
 }

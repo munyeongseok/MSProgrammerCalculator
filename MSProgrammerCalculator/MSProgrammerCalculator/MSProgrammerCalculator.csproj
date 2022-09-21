@@ -58,6 +58,8 @@
     <Compile Include="Common\BitChangedEventArgs.cs" />
     <Compile Include="Common\BitChangedEventHandler.cs" />
     <Compile Include="Common\BitDataUnit.cs" />
+    <Compile Include="Common\BitKeypadValueChangedEventArgs.cs" />
+    <Compile Include="Common\BitKeypadValueChangedEventHandler.cs" />
     <Compile Include="Controls\BitToggleButton.cs" />
     <Compile Include="Controls\FullKeypadRadioButton.cs" />
     <Compile Include="Controls\OperatorToggleButton.cs" />

@@ -36,6 +36,8 @@ namespace MSProgrammerCalculator.Views
             set => SetValue(BitDataUnitProperty, value);
         }
 
+        public event BitKeypadValueChangedEventHandler ValueChanged;
+
         public BitKeypadView()
         {
             InitializeComponent();
@@ -45,8 +47,7 @@ namespace MSProgrammerCalculator.Views
         {
             var allBit = $"{bitButton60.Bit}{bitButton56.Bit}{bitButton52.Bit}{bitButton48.Bit}{bitButton44.Bit}{bitButton40.Bit}{bitButton36.Bit}{bitButton32.Bit}{bitButton28.Bit}{bitButton24.Bit}{bitButton20.Bit}{bitButton16.Bit}{bitButton12.Bit}{bitButton8.Bit}{bitButton4.Bit}{bitButton0.Bit}";
             var bitValue = Convert.ToInt64(allBit, 2);
-
-            Console.WriteLine(bitValue.ToString());
+            ValueChanged?.Invoke(this, new BitKeypadValueChangedEventArgs(bitValue));
         }
 
         private void OnBitDataUnitChanged(BitDataUnit newValue)
