@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MSProgrammerCalculator.Common;
+using MSProgrammerCalculator.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,11 +37,20 @@ namespace MSProgrammerCalculator.Views
             set => SetValue(DisplayValueProperty, value);
         }
 
+        public static readonly DependencyProperty SelectedBaseNumberProperty = DependencyProperty.Register(
+            nameof(SelectedBaseNumber),
+            typeof(BaseNumber),
+            typeof(DisplayView),
+            new PropertyMetadata(BaseNumber.Decimal));
+        public BaseNumber SelectedBaseNumber
+        {
+            get => (BaseNumber)GetValue(SelectedBaseNumberProperty);
+            set => SetValue(SelectedBaseNumberProperty, value);
+        }
+
         public DisplayView()
         {
             InitializeComponent();
-
-            DataContext = this;
         }
 
         private void OnDisplayValueChanged(long newValue)

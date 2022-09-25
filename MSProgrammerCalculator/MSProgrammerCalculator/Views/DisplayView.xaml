@@ -5,9 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MSProgrammerCalculator.Views"
              xmlns:controls="clr-namespace:MSProgrammerCalculator.Controls"
+             xmlns:converters="clr-namespace:MSProgrammerCalculator.Converters"
+             xmlns:common="clr-namespace:MSProgrammerCalculator.Common"
              mc:Ignorable="d"
              d:DesignWidth="600"
              d:DesignHeight="300">
+    <UserControl.Resources>
+        <converters:ComparisonConverter x:Key="comparisonConverter"/>
+    </UserControl.Resources>
     <Grid Margin="5,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*" MaxHeight="60" MinHeight="20"/>
@@ -37,26 +42,30 @@
         <!-- HEX RadioButton -->
         <controls:DisplayViewRadioButton x:Name="hexRadioButton"
                                          Grid.Row="2"
-                                         GroupName="base"
+                                         GroupName="baseNumber"
                                          Base="HEX"
-                                         Content="FFFF FFFF FFFF FFFF"/>
+                                         Content="FFFF FFFF FFFF FFFF"
+                                         IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=SelectedBaseNumber, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static common:BaseNumber.Hexadecimal}}"/>
         <!-- DEC RadioButton -->
         <controls:DisplayViewRadioButton x:Name="decRadioButton"
                                          Grid.Row="3"
-                                         GroupName="base"
+                                         GroupName="baseNumber"
                                          Base="DEC"
-                                         Content="-1"/>
+                                         Content="-1"
+                                         IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=SelectedBaseNumber, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static common:BaseNumber.Decimal}}"/>
         <!-- OCT RadioButton -->
         <controls:DisplayViewRadioButton x:Name="octRadioButton"
                                          Grid.Row="4"
-                                         GroupName="base"
+                                         GroupName="baseNumber"
                                          Base="OCT"
-                                         Content="1 777 777 777 777 777 777 777"/>
+                                         Content="1 777 777 777 777 777 777 777"
+                                         IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=SelectedBaseNumber, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static common:BaseNumber.Octal}}"/>
         <!-- BIN RadioButton -->
         <controls:DisplayViewRadioButton x:Name="binRadioButton"
                                          Grid.Row="5"
-                                         GroupName="base"
+                                         GroupName="baseNumber"
                                          Base="BIN"
-                                         Content="1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111"/>
+                                         Content="1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111"
+                                         IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=SelectedBaseNumber, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static common:BaseNumber.Binary}}"/>
     </Grid>
 </UserControl>

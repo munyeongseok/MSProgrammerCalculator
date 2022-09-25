@@ -123,7 +123,7 @@
         <controls:FullKeypadButton x:Name="backSpaceButton" Grid.Row="1" Grid.Column="4" Content="←"/>
         <controls:FullKeypadButton x:Name="openParenthesisButton" Grid.Row="2" Grid.Column="1" Content="("/>
         <controls:FullKeypadButton x:Name="closeParenthesisButton" Grid.Row="2" Grid.Column="2" Content=")"/>
-        <controls:FullKeypadButton x:Name="decimalSeparatorButton" Grid.Row="6" Grid.Column="3" Content="."/>
+        <controls:FullKeypadButton x:Name="decimalSeparatorButton" Grid.Row="6" Grid.Column="3" Content="." IsEnabled="False"/>
         <controls:FullKeypadButton x:Name="equalButton" Grid.Row="6" Grid.Column="4" Content="="/>
         
     </Grid>

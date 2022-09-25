@@ -32,7 +32,8 @@
                             <Setter Property="Foreground" Value="#DD555555"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Background" Value="#DDFAF2F2"/>
+                            <Setter Property="Background" Value="#FFEEEEEE"/>
+                            <Setter Property="Foreground" Value="#FF999999"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
