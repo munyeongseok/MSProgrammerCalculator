@@ -61,6 +61,7 @@
     <Compile Include="Common\BitKeypadValueChangedEventArgs.cs" />
     <Compile Include="Common\BitKeypadValueChangedEventHandler.cs" />
     <Compile Include="Controls\BitToggleButton.cs" />
+    <Compile Include="Controls\DisplayViewRadioButton.cs" />
     <Compile Include="Controls\FullKeypadRadioButton.cs" />
     <Compile Include="Controls\OperatorToggleButton.cs" />
     <Compile Include="Converters\CombiningConverter.cs" />

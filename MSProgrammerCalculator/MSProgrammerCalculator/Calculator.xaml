@@ -42,8 +42,8 @@
                               Visibility="{Binding ElementName=keypadControlView, Path=KeypadMode, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static views:KeypadMode.FullKeypad}}"/>
         <views:BitKeypadView x:Name="bitKeypadView"
                              Grid.Row="3"
-                             ValueChanged="BitKeypadView_ValueChanged"
                              Visibility="{Binding ElementName=keypadControlView, Path=KeypadMode, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static views:KeypadMode.BitKeypad}}"
-                             BitDataUnit="{Binding ElementName=keypadControlView, Path=BitDataUnit}"/>
+                             BitDataUnit="{Binding ElementName=keypadControlView, Path=BitDataUnit}"
+                             ValueChanged="BitKeypadView_ValueChanged"/>
     </Grid>
 </Window>

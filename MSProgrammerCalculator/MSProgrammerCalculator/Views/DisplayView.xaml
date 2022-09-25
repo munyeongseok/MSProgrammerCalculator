@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MSProgrammerCalculator.Views"
+             xmlns:controls="clr-namespace:MSProgrammerCalculator.Controls"
              mc:Ignorable="d"
              d:DesignWidth="600"
              d:DesignHeight="300">
@@ -34,12 +35,28 @@
                        Text="0"/>
         </Viewbox>
         <!-- HEX RadioButton -->
-        <Border Grid.Row="2" Background="Blue"/>
+        <controls:DisplayViewRadioButton x:Name="hexRadioButton"
+                                         Grid.Row="2"
+                                         GroupName="base"
+                                         Base="HEX"
+                                         Content="FFFF FFFF FFFF FFFF"/>
         <!-- DEC RadioButton -->
-        <Border Grid.Row="3" Background="Yellow"/>
+        <controls:DisplayViewRadioButton x:Name="decRadioButton"
+                                         Grid.Row="3"
+                                         GroupName="base"
+                                         Base="DEC"
+                                         Content="-1"/>
         <!-- OCT RadioButton -->
-        <Border Grid.Row="4" Background="Gray"/>
+        <controls:DisplayViewRadioButton x:Name="octRadioButton"
+                                         Grid.Row="4"
+                                         GroupName="base"
+                                         Base="OCT"
+                                         Content="1 777 777 777 777 777 777 777"/>
         <!-- BIN RadioButton -->
-        <Border Grid.Row="5" Background="Khaki"/>
+        <controls:DisplayViewRadioButton x:Name="binRadioButton"
+                                         Grid.Row="5"
+                                         GroupName="base"
+                                         Base="BIN"
+                                         Content="1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111"/>
     </Grid>
 </UserControl>

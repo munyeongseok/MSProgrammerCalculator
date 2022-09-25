@@ -139,6 +139,76 @@
         </Setter>
     </Style>
 
+    <!-- DisplayViewRadioButton -->
+    <Style TargetType="{x:Type controls:DisplayViewRadioButton}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border x:Name="border"
+                            TextBlock.Foreground="{TemplateBinding Foreground}"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="12"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Rectangle x:Name="rectangle"
+                                       Grid.Row="0"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Width="3"
+                                       Height="14"
+                                       RadiusX="2"
+                                       RadiusY="2"
+                                       Fill="#DD0067C0"/>
+                            <TextBlock Grid.Column="1"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,0,2"
+                                       Text="{Binding Base}"/>
+                            <ContentPresenter Grid.Column="2"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="Center"
+                                              Margin="0,0,0,0"
+                                              RecognizesAccessKey="True">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="TextWrapping" Value="Wrap"/>
+                                        <Setter Property="LineStackingStrategy" Value="BlockLineHeight"/>
+                                        <Setter Property="LineHeight" Value="14"/>
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#DDE8E8E8"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="#99E8E8E8"/>
+                            <Setter Property="Foreground" Value="#FF777777"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#FFBBBBBB"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="rectangle" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="rectangle" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- KeypadControlRadioButton -->
     <Style TargetType="{x:Type controls:KeypadControlRadioButton}">
         <Setter Property="Background" Value="Transparent"/>
@@ -193,7 +263,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <!-- KeypadControlButton -->
     <Style TargetType="{x:Type controls:KeypadControlButton}">
         <Setter Property="Background" Value="Transparent"/>
@@ -267,5 +337,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-
+    
 </ResourceDictionary>
