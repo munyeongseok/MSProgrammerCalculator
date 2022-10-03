@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,11 +27,7 @@ namespace MSProgrammerCalculator.Views
             nameof(DisplayValue),
             typeof(long),
             typeof(DisplayView),
-            new PropertyMetadata(0L, (s, e) =>
-            {
-                var self = (DisplayView)s;
-                self.OnDisplayValueChanged((long)e.NewValue);
-            }));
+            new PropertyMetadata(0L));
         public long DisplayValue
         {
             get => (long)GetValue(DisplayValueProperty);
@@ -51,11 +48,6 @@ namespace MSProgrammerCalculator.Views
         public DisplayView()
         {
             InitializeComponent();
-        }
-
-        private void OnDisplayValueChanged(long newValue)
-        {
-            displayValueTextBlock.Text = newValue.ToString("N0");
         }
     }
 }
