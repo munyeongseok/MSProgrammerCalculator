@@ -70,7 +70,7 @@
     <Compile Include="Controls\KeypadControlButton.cs" />
     <Compile Include="Controls\KeypadControlRadioButton.cs" />
     <Compile Include="Converters\DisplayValueConverter.cs" />
-    <Compile Include="Converters\ValueToBaseNumberConverter.cs" />
+    <Compile Include="Converters\LongToBaseNumberConverter.cs" />
     <Compile Include="Views\DisplayView.xaml.cs">
       <DependentUpon>DisplayView.xaml</DependentUpon>
     </Compile>
