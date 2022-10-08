@@ -17,17 +17,17 @@ using System.Windows.Shapes;
 namespace MSProgrammerCalculator.Views
 {
     /// <summary>
-    /// FullKeypadView.xaml에 대한 상호 작용 논리
+    /// NumericKeypadView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class FullKeypadView : UserControl
+    public partial class NumericKeypadView : UserControl
     {
         public static readonly DependencyProperty TargetBaseNumberProperty = DependencyProperty.Register(
             nameof(TargetBaseNumber),
             typeof(BaseNumber),
-            typeof(FullKeypadView),
+            typeof(NumericKeypadView),
             new PropertyMetadata(BaseNumber.Unknown, (s, e) =>
             {
-                var self = (FullKeypadView)s;
+                var self = (NumericKeypadView)s;
                 self.OnTargetBaseNumberChanged((BaseNumber)e.NewValue);
             }));
         public BaseNumber TargetBaseNumber
@@ -35,7 +35,7 @@ namespace MSProgrammerCalculator.Views
             get => (BaseNumber)GetValue(TargetBaseNumberProperty);
             set => SetValue(TargetBaseNumberProperty, value);
         }
-        public FullKeypadView()
+        public NumericKeypadView()
         {
             InitializeComponent();
 

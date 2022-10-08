@@ -4,8 +4,8 @@
     xmlns:local="clr-namespace:MSProgrammerCalculator"
     xmlns:controls="clr-namespace:MSProgrammerCalculator.Controls">
 
-    <!-- FullKeypadButton -->
-    <Style TargetType="{x:Type controls:FullKeypadButton}">
+    <!-- NumericKeypadButton -->
+    <Style TargetType="{x:Type controls:NumericKeypadButton}">
         <Setter Property="Margin" Value="2"/>
         <Setter Property="Background" Value="#DDFFFFFF"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
@@ -41,8 +41,8 @@
         </Setter>
     </Style>
 
-    <!-- FullKeypadRadioButton -->
-    <Style TargetType="{x:Type controls:FullKeypadRadioButton}">
+    <!-- NumericKeypadRadioButton -->
+    <Style TargetType="{x:Type controls:NumericKeypadRadioButton}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="Template">

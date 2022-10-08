@@ -41,14 +41,14 @@ namespace MSProgrammerCalculator.Controls
     /// 2단계)
     /// 계속 진행하여 XAML 파일에서 컨트롤을 사용합니다.
     ///
-    ///     <MyNamespace:FullKeypadRadioButton/>
+    ///     <MyNamespace:NumericKeypadRadioButton/>
     ///
     /// </summary>
-    public class FullKeypadRadioButton : RadioButton
+    public class NumericKeypadRadioButton : RadioButton
     {
-        static FullKeypadRadioButton()
+        static NumericKeypadRadioButton()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(FullKeypadRadioButton), new FrameworkPropertyMetadata(typeof(FullKeypadRadioButton)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericKeypadRadioButton), new FrameworkPropertyMetadata(typeof(NumericKeypadRadioButton)));
         }
     }
 }

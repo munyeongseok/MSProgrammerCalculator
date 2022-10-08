@@ -1,0 +1,130 @@
+﻿<UserControl x:Class="MSProgrammerCalculator.Views.NumericKeypadView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MSProgrammerCalculator"
+             xmlns:controls="clr-namespace:MSProgrammerCalculator.Controls"
+             mc:Ignorable="d"
+             d:DesignWidth="360"
+             d:DesignHeight="230">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="5">
+            <!-- Bitwise Button-->
+            <controls:OperatorToggleButton x:Name="bitwiseButton"
+                                           Content="(Icon) 비트 ∨"
+                                           FontSize="14"/>
+            <Popup x:Name="bitwiseButtonPopup"
+                   Placement="{Binding ElementName=bitwiseButton}"
+                   PlacementTarget="{Binding ElementName=bitwiseButton}"
+                   IsOpen="{Binding IsChecked, ElementName=bitwiseButton}"
+                   AllowsTransparency="True"
+                   StaysOpen="False">
+                <Border Width="200"
+                        Height="100"
+                        Background="White"
+                        BorderBrush="LightGray"
+                        BorderThickness="1"
+                        CornerRadius="6">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <controls:NumericKeypadButton Grid.Row="0" Grid.Column="0" Margin="3,3,1.5,1.5" Content="AND" FontSize="14"/>
+                        <controls:NumericKeypadButton Grid.Row="0" Grid.Column="1" Margin="1.5,3,1.5,1.5" Content="OR" FontSize="14"/>
+                        <controls:NumericKeypadButton Grid.Row="0" Grid.Column="2" Margin="1.5,3,3,1.5" Content="NOT" FontSize="14"/>
+                        <controls:NumericKeypadButton Grid.Row="1" Grid.Column="0" Margin="3,1.5,1.5,3" Content="NAND" FontSize="14"/>
+                        <controls:NumericKeypadButton Grid.Row="1" Grid.Column="1" Margin="1.5,1.5,1.5,3" Content="NOR" FontSize="14"/>
+                        <controls:NumericKeypadButton Grid.Row="1" Grid.Column="2" Margin="1.5,1.5,3,3" Content="XOR" FontSize="14"/>
+                    </Grid>
+                </Border>
+            </Popup>
+            <!-- Bit Shift Button -->
+            <controls:OperatorToggleButton x:Name="bitShiftButton"
+                                           Content="(Icon) 비트 시프트 ∨"
+                                           FontSize="14"/>
+            <Popup x:Name="bitShiftButtonPopup"
+                   Placement="{Binding ElementName=bitShiftButton}"
+                   PlacementTarget="{Binding ElementName=bitShiftButton}"
+                   IsOpen="{Binding IsChecked, ElementName=bitShiftButton}"
+                   AllowsTransparency="True"
+                   StaysOpen="False">
+                <Border Width="200"
+                        Height="170"
+                        Background="White"
+                        BorderBrush="LightGray"
+                        BorderThickness="1"
+                        CornerRadius="6">
+                    <StackPanel Orientation="Vertical" Margin="10">
+                        <controls:NumericKeypadRadioButton GroupName="bitShift" Margin="0,10,0,6" Content="산술 시프트" FontSize="14" IsChecked="True"/>
+                        <controls:NumericKeypadRadioButton GroupName="bitShift" Margin="0,6,0,6" Content="논리적 시프트" FontSize="14"/>
+                        <controls:NumericKeypadRadioButton GroupName="bitShift" Margin="0,6,0,6" Content="원형 시프트 회전" FontSize="14"/>
+                        <controls:NumericKeypadRadioButton GroupName="bitShift" Margin="0,6,0,10" Content="자리올림 순환 시프트를 통해 회전" FontSize="14"/>
+                    </StackPanel>
+                </Border>
+            </Popup>
+        </StackPanel>
+
+        <!-- Hexadecimal Number Button -->
+        <controls:NumericKeypadButton x:Name="hexNumAButton" Grid.Row="1" Grid.Column="0" Content="A"/>
+        <controls:NumericKeypadButton x:Name="hexNumBButton" Grid.Row="2" Grid.Column="0" Content="B"/>
+        <controls:NumericKeypadButton x:Name="hexNumCButton" Grid.Row="3" Grid.Column="0" Content="C"/>
+        <controls:NumericKeypadButton x:Name="hexNumDButton" Grid.Row="4" Grid.Column="0" Content="D"/>
+        <controls:NumericKeypadButton x:Name="hexNumEButton" Grid.Row="5" Grid.Column="0" Content="E"/>
+        <controls:NumericKeypadButton x:Name="hexNumFButton" Grid.Row="6" Grid.Column="0" Content="F"/>
+
+        <!-- Number Button -->
+        <controls:NumericKeypadButton x:Name="num0Button" Grid.Row="6" Grid.Column="2" Content="0"/>
+        <controls:NumericKeypadButton x:Name="num1Button" Grid.Row="5" Grid.Column="1" Content="1"/>
+        <controls:NumericKeypadButton x:Name="num2Button" Grid.Row="5" Grid.Column="2" Content="2"/>
+        <controls:NumericKeypadButton x:Name="num3Button" Grid.Row="5" Grid.Column="3" Content="3"/>
+        <controls:NumericKeypadButton x:Name="num4Button" Grid.Row="4" Grid.Column="1" Content="4"/>
+        <controls:NumericKeypadButton x:Name="num5Button" Grid.Row="4" Grid.Column="2" Content="5"/>
+        <controls:NumericKeypadButton x:Name="num6Button" Grid.Row="4" Grid.Column="3" Content="6"/>
+        <controls:NumericKeypadButton x:Name="num7Button" Grid.Row="3" Grid.Column="1" Content="7"/>
+        <controls:NumericKeypadButton x:Name="num8Button" Grid.Row="3" Grid.Column="2" Content="8"/>
+        <controls:NumericKeypadButton x:Name="num9Button" Grid.Row="3" Grid.Column="3" Content="9"/>
+
+        <!-- Operator Button -->
+        <controls:NumericKeypadButton x:Name="opLeftShiftButton" Grid.Row="1" Grid.Column="1" Content="&lt;&lt;"/>
+        <controls:NumericKeypadButton x:Name="opRightShiftButton" Grid.Row="1" Grid.Column="2" Content=">>"/>
+        <controls:NumericKeypadButton x:Name="opModButton" Grid.Row="2" Grid.Column="3" Content="%"/>
+        <controls:NumericKeypadButton x:Name="opDivideButton" Grid.Row="2" Grid.Column="4" Content="÷"/>
+        <controls:NumericKeypadButton x:Name="opMultiplyButton" Grid.Row="3" Grid.Column="4" Content="×"/>
+        <controls:NumericKeypadButton x:Name="opMinusButton" Grid.Row="4" Grid.Column="4" Content="-"/>
+        <controls:NumericKeypadButton x:Name="opPlusButton" Grid.Row="5" Grid.Column="4" Content="+"/>
+        <controls:NumericKeypadButton x:Name="opNegateButton" Grid.Row="6" Grid.Column="1" Content="+/-"/>
+        
+        <!--  -->
+        <controls:NumericKeypadButton x:Name="clearButton" Grid.Row="1" Grid.Column="3" Content="C"/>
+        <controls:NumericKeypadButton x:Name="backSpaceButton" Grid.Row="1" Grid.Column="4" Content="←"/>
+        <controls:NumericKeypadButton x:Name="openParenthesisButton" Grid.Row="2" Grid.Column="1" Content="("/>
+        <controls:NumericKeypadButton x:Name="closeParenthesisButton" Grid.Row="2" Grid.Column="2" Content=")"/>
+        <controls:NumericKeypadButton x:Name="decimalSeparatorButton" Grid.Row="6" Grid.Column="3" Content="." IsEnabled="False"/>
+        <controls:NumericKeypadButton x:Name="equalButton" Grid.Row="6" Grid.Column="4" Content="="/>
+        
+    </Grid>
+</UserControl>

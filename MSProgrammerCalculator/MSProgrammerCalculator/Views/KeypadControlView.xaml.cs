@@ -18,7 +18,7 @@ namespace MSProgrammerCalculator.Views
 {
     public enum KeypadMode
     {
-        FullKeypad,
+        NumericKeypad,
         BitKeypad
     }
 
@@ -31,7 +31,7 @@ namespace MSProgrammerCalculator.Views
             nameof(KeypadMode),
             typeof(KeypadMode),
             typeof(KeypadControlView),
-            new PropertyMetadata(KeypadMode.FullKeypad));
+            new PropertyMetadata(KeypadMode.NumericKeypad));
         public KeypadMode KeypadMode
         {
             get => (KeypadMode)GetValue(KeypadModeProperty);

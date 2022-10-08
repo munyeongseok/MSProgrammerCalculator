@@ -22,13 +22,13 @@
             <ColumnDefinition Width="1*" MaxWidth="90"/>
         </Grid.ColumnDefinitions>
         <!-- Full Keypad Radio Button -->
-        <controls:KeypadControlRadioButton x:Name="fullKeypadRadioButton"
+        <controls:KeypadControlRadioButton x:Name="numericKeypadRadioButton"
                                            Grid.Column="0"
                                            MaxWidth="80"
                                            Margin="5"
                                            GroupName="keypad"
-                                           IsChecked="{Binding KeypadMode, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static local:KeypadMode.FullKeypad}}">
-            <Image Width="16" Height="16" Source="..\Resources\FullKeypadButtonIcon.png"/>
+                                           IsChecked="{Binding KeypadMode, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static local:KeypadMode.NumericKeypad}}">
+            <Image Width="16" Height="16" Source="..\Resources\NumericKeypadButtonIcon.png"/>
         </controls:KeypadControlRadioButton>
         <!-- Bit Keypad Radio Button -->
         <controls:KeypadControlRadioButton x:Name="bitKeypadRadioButton"

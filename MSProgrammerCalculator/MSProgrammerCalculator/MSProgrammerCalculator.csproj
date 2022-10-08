@@ -63,7 +63,7 @@
     <Compile Include="Common\BitKeypadValueChangedEventHandler.cs" />
     <Compile Include="Controls\BitToggleButton.cs" />
     <Compile Include="Controls\DisplayViewRadioButton.cs" />
-    <Compile Include="Controls\FullKeypadRadioButton.cs" />
+    <Compile Include="Controls\NumericKeypadRadioButton.cs" />
     <Compile Include="Controls\OperatorToggleButton.cs" />
     <Compile Include="Converters\CombiningConverter.cs" />
     <Compile Include="Converters\ComparisonConverter.cs" />
@@ -93,7 +93,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FullKeypadView.xaml">
+    <Page Include="Views\NumericKeypadView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -108,12 +108,12 @@
     <Compile Include="Controls\BitKeypadButton.xaml.cs">
       <DependentUpon>BitKeypadButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\FullKeypadButton.cs" />
+    <Compile Include="Controls\NumericKeypadButton.cs" />
     <Compile Include="Views\BitKeypadView.xaml.cs">
       <DependentUpon>BitKeypadView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FullKeypadView.xaml.cs">
-      <DependentUpon>FullKeypadView.xaml</DependentUpon>
+    <Compile Include="Views\NumericKeypadView.xaml.cs">
+      <DependentUpon>NumericKeypadView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Calculator.xaml.cs">
       <DependentUpon>Calculator.xaml</DependentUpon>
@@ -154,7 +154,7 @@
     <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\FullKeypadButtonIcon.png" />
+    <Resource Include="Resources\NumericKeypadButtonIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\BitKeypadButtonIcon.png" />

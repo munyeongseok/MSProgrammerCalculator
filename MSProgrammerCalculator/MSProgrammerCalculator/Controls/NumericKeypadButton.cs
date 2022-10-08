@@ -41,14 +41,14 @@ namespace MSProgrammerCalculator.Controls
     /// 2단계)
     /// 계속 진행하여 XAML 파일에서 컨트롤을 사용합니다.
     ///
-    ///     <MyNamespace:FullKeypadButton/>
+    ///     <MyNamespace:NumericKeypadButton/>
     ///
     /// </summary>
-    public class FullKeypadButton : Button
+    public class NumericKeypadButton : Button
     {
-        static FullKeypadButton()
+        static NumericKeypadButton()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(FullKeypadButton), new FrameworkPropertyMetadata(typeof(FullKeypadButton)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(NumericKeypadButton), new FrameworkPropertyMetadata(typeof(NumericKeypadButton)));
         }
     }
 }

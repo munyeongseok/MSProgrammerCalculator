@@ -37,9 +37,9 @@
                            DisplayValue="9999999"/>
         <views:KeypadControlView x:Name="keypadControlView"
                                  Grid.Row="2"/>
-        <views:FullKeypadView x:Name="fullKeypadView"
+        <views:NumericKeypadView x:Name="numericKeypadView"
                               Grid.Row="3"
-                              Visibility="{Binding ElementName=keypadControlView, Path=KeypadMode, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static views:KeypadMode.FullKeypad}}"
+                              Visibility="{Binding ElementName=keypadControlView, Path=KeypadMode, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static views:KeypadMode.NumericKeypad}}"
                               TargetBaseNumber="{Binding ElementName=displayView, Path=SelectedBaseNumber, Mode=OneWay}"/>
         <views:BitKeypadView x:Name="bitKeypadView"
                              Grid.Row="3"
