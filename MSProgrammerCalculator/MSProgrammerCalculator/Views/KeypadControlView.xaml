@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:MSProgrammerCalculator.Views"
              xmlns:controls="clr-namespace:MSProgrammerCalculator.Controls"
              xmlns:converters="clr-namespace:MSProgrammerCalculator.Converters"
+             xmlns:common="clr-namespace:MSProgrammerCalculator.Common"
              mc:Ignorable="d"
              d:DesignWidth="340"
              d:DesignHeight="40"
@@ -27,7 +28,7 @@
                                            MaxWidth="80"
                                            Margin="5"
                                            GroupName="keypad"
-                                           IsChecked="{Binding KeypadMode, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static local:KeypadMode.NumericKeypad}}">
+                                           IsChecked="{Binding KeypadMode, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static common:KeypadMode.NumericKeypad}}">
             <Image Width="16" Height="16" Source="..\Resources\NumericKeypadButtonIcon.png"/>
         </controls:KeypadControlRadioButton>
         <!-- Bit Keypad Radio Button -->
@@ -36,7 +37,7 @@
                                            MaxWidth="80"
                                            Margin="5"
                                            GroupName="keypad"
-                                           IsChecked="{Binding KeypadMode, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static local:KeypadMode.BitKeypad}}">
+                                           IsChecked="{Binding KeypadMode, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static common:KeypadMode.BitKeypad}}">
             <Image Width="16" Height="16" Source="..\Resources\BitKeypadButtonIcon.png"/>
         </controls:KeypadControlRadioButton>
         <!-- Data Type Button -->

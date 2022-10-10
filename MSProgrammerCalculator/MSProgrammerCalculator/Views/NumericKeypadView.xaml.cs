@@ -36,7 +36,7 @@ namespace MSProgrammerCalculator.Views
             set => SetValue(TargetBaseNumberProperty, value);
         }
 
-        #region Click Events: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+        #region Click Events: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F
 
         public static readonly RoutedEvent Click0Event = EventManager.RegisterRoutedEvent(
             nameof(Click0),
@@ -147,10 +147,6 @@ namespace MSProgrammerCalculator.Views
             add => AddHandler(Click9Event, value);
             remove => RemoveHandler(Click9Event, value);
         }
-
-        #endregion
-
-        #region Click Events: A, B, C, D, E, F
 
         public static readonly RoutedEvent ClickAEvent = EventManager.RegisterRoutedEvent(
             nameof(ClickA),
@@ -333,44 +329,44 @@ namespace MSProgrammerCalculator.Views
         }
 
         public static readonly RoutedEvent ClickOpenParenthesisEvent = EventManager.RegisterRoutedEvent(
-            nameof(ClickOpenParenthesisSpace),
+            nameof(ClickOpenParenthesis),
             RoutingStrategy.Bubble,
             typeof(RoutedEventHandler),
             typeof(NumericKeypadView));
-        public event RoutedEventHandler ClickOpenParenthesisSpace
+        public event RoutedEventHandler ClickOpenParenthesis
         {
             add => AddHandler(ClickOpenParenthesisEvent, value);
             remove => RemoveHandler(ClickOpenParenthesisEvent, value);
         }
 
         public static readonly RoutedEvent ClickCloseParenthesisEvent = EventManager.RegisterRoutedEvent(
-           nameof(ClickCloseParenthesisSpace),
+           nameof(ClickCloseParenthesis),
            RoutingStrategy.Bubble,
            typeof(RoutedEventHandler),
            typeof(NumericKeypadView));
-        public event RoutedEventHandler ClickCloseParenthesisSpace
+        public event RoutedEventHandler ClickCloseParenthesis
         {
             add => AddHandler(ClickCloseParenthesisEvent, value);
             remove => RemoveHandler(ClickCloseParenthesisEvent, value);
         }
 
         public static readonly RoutedEvent ClickDecimalSeparatorEvent = EventManager.RegisterRoutedEvent(
-           nameof(ClickDecimalSeparatorSpace),
+           nameof(ClickDecimalSeparator),
            RoutingStrategy.Bubble,
            typeof(RoutedEventHandler),
            typeof(NumericKeypadView));
-        public event RoutedEventHandler ClickDecimalSeparatorSpace
+        public event RoutedEventHandler ClickDecimalSeparator
         {
             add => AddHandler(ClickDecimalSeparatorEvent, value);
             remove => RemoveHandler(ClickDecimalSeparatorEvent, value);
         }
 
         public static readonly RoutedEvent ClickResultEvent = EventManager.RegisterRoutedEvent(
-           nameof(ClickResultSpace),
+           nameof(ClickResult),
            RoutingStrategy.Bubble,
            typeof(RoutedEventHandler),
            typeof(NumericKeypadView));
-        public event RoutedEventHandler ClickResultSpace
+        public event RoutedEventHandler ClickResult
         {
             add => AddHandler(ClickResultEvent, value);
             remove => RemoveHandler(ClickResultEvent, value);
@@ -404,7 +400,6 @@ namespace MSProgrammerCalculator.Views
             num7Button.Click += (s, e) => RaiseEvent(new RoutedEventArgs(Click7Event));
             num8Button.Click += (s, e) => RaiseEvent(new RoutedEventArgs(Click8Event));
             num9Button.Click += (s, e) => RaiseEvent(new RoutedEventArgs(Click9Event));
-
             numAButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickAEvent));
             numBButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickBEvent));
             numCButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickCEvent));
@@ -412,20 +407,20 @@ namespace MSProgrammerCalculator.Views
             numEButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickEEvent));
             numFButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickFEvent));
 
-            numLeftShiftButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickLeftShiftEvent));
-            numRightShiftButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickRightShiftEvent));
-            numModuloButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickModuloEvent));
-            numDivideButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickDivideEvent));
-            numMultiplyButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickMultiplyEvent));
-            numMinusButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickMinusEvent));
-            numPlusButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickPlusEvent));
-            numNegateButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickNegateEvent));
-            numClearButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickClearEvent));
-            numBackSpaceButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickBackSpaceEvent));
-            numOpenParenthesisButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickOpenParenthesisEvent));
-            numCloseParenthesisButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickCloseParenthesisEvent));
-            numDecimalSeparatorButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickDecimalSeparatorEvent));
-            numResultButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickResultEvent));
+            opLeftShiftButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickLeftShiftEvent));
+            opRightShiftButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickRightShiftEvent));
+            opModuloButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickModuloEvent));
+            opDivideButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickDivideEvent));
+            opMultiplyButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickMultiplyEvent));
+            opMinusButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickMinusEvent));
+            opPlusButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickPlusEvent));
+            opNegateButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickNegateEvent));
+            opClearButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickClearEvent));
+            opBackSpaceButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickBackSpaceEvent));
+            opOpenParenthesisButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickOpenParenthesisEvent));
+            opCloseParenthesisButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickCloseParenthesisEvent));
+            opDecimalSeparatorButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickDecimalSeparatorEvent));
+            opResultButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickResultEvent));
         }
 
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)

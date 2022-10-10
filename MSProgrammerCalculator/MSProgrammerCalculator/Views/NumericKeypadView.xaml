@@ -88,14 +88,6 @@
             </Popup>
         </StackPanel>
 
-        <!-- Hexadecimal Number Button -->
-        <controls:NumericKeypadButton x:Name="numAButton" Grid.Row="1" Grid.Column="0" Content="A"/>
-        <controls:NumericKeypadButton x:Name="numBButton" Grid.Row="2" Grid.Column="0" Content="B"/>
-        <controls:NumericKeypadButton x:Name="numCButton" Grid.Row="3" Grid.Column="0" Content="C"/>
-        <controls:NumericKeypadButton x:Name="numDButton" Grid.Row="4" Grid.Column="0" Content="D"/>
-        <controls:NumericKeypadButton x:Name="numEButton" Grid.Row="5" Grid.Column="0" Content="E"/>
-        <controls:NumericKeypadButton x:Name="numFButton" Grid.Row="6" Grid.Column="0" Content="F"/>
-
         <!-- Number Button -->
         <controls:NumericKeypadButton x:Name="num0Button" Grid.Row="6" Grid.Column="2" Content="0"/>
         <controls:NumericKeypadButton x:Name="num1Button" Grid.Row="5" Grid.Column="1" Content="1"/>
@@ -107,22 +99,28 @@
         <controls:NumericKeypadButton x:Name="num7Button" Grid.Row="3" Grid.Column="1" Content="7"/>
         <controls:NumericKeypadButton x:Name="num8Button" Grid.Row="3" Grid.Column="2" Content="8"/>
         <controls:NumericKeypadButton x:Name="num9Button" Grid.Row="3" Grid.Column="3" Content="9"/>
+        <controls:NumericKeypadButton x:Name="numAButton" Grid.Row="1" Grid.Column="0" Content="A"/>
+        <controls:NumericKeypadButton x:Name="numBButton" Grid.Row="2" Grid.Column="0" Content="B"/>
+        <controls:NumericKeypadButton x:Name="numCButton" Grid.Row="3" Grid.Column="0" Content="C"/>
+        <controls:NumericKeypadButton x:Name="numDButton" Grid.Row="4" Grid.Column="0" Content="D"/>
+        <controls:NumericKeypadButton x:Name="numEButton" Grid.Row="5" Grid.Column="0" Content="E"/>
+        <controls:NumericKeypadButton x:Name="numFButton" Grid.Row="6" Grid.Column="0" Content="F"/>
 
         <!-- Operator Button -->
-        <controls:NumericKeypadButton x:Name="numLeftShiftButton" Grid.Row="1" Grid.Column="1" Content="&lt;&lt;"/>
-        <controls:NumericKeypadButton x:Name="numRightShiftButton" Grid.Row="1" Grid.Column="2" Content=">>"/>
-        <controls:NumericKeypadButton x:Name="numModuloButton" Grid.Row="2" Grid.Column="3" Content="%"/>
-        <controls:NumericKeypadButton x:Name="numDivideButton" Grid.Row="2" Grid.Column="4" Content="÷"/>
-        <controls:NumericKeypadButton x:Name="numMultiplyButton" Grid.Row="3" Grid.Column="4" Content="×"/>
-        <controls:NumericKeypadButton x:Name="numMinusButton" Grid.Row="4" Grid.Column="4" Content="-"/>
-        <controls:NumericKeypadButton x:Name="numPlusButton" Grid.Row="5" Grid.Column="4" Content="+"/>
-        <controls:NumericKeypadButton x:Name="numNegateButton" Grid.Row="6" Grid.Column="1" Content="+/-"/>
-        <controls:NumericKeypadButton x:Name="numClearButton" Grid.Row="1" Grid.Column="3" Content="C"/>
-        <controls:NumericKeypadButton x:Name="numBackSpaceButton" Grid.Row="1" Grid.Column="4" Content="←"/>
-        <controls:NumericKeypadButton x:Name="numOpenParenthesisButton" Grid.Row="2" Grid.Column="1" Content="("/>
-        <controls:NumericKeypadButton x:Name="numCloseParenthesisButton" Grid.Row="2" Grid.Column="2" Content=")"/>
-        <controls:NumericKeypadButton x:Name="numDecimalSeparatorButton" Grid.Row="6" Grid.Column="3" Content="." IsEnabled="False"/>
-        <controls:NumericKeypadButton x:Name="numResultButton" Grid.Row="6" Grid.Column="4" Content="="/>
+        <controls:NumericKeypadButton x:Name="opLeftShiftButton" Grid.Row="1" Grid.Column="1" Content="&lt;&lt;"/>
+        <controls:NumericKeypadButton x:Name="opRightShiftButton" Grid.Row="1" Grid.Column="2" Content=">>"/>
+        <controls:NumericKeypadButton x:Name="opModuloButton" Grid.Row="2" Grid.Column="3" Content="%"/>
+        <controls:NumericKeypadButton x:Name="opDivideButton" Grid.Row="2" Grid.Column="4" Content="÷"/>
+        <controls:NumericKeypadButton x:Name="opMultiplyButton" Grid.Row="3" Grid.Column="4" Content="×"/>
+        <controls:NumericKeypadButton x:Name="opMinusButton" Grid.Row="4" Grid.Column="4" Content="-"/>
+        <controls:NumericKeypadButton x:Name="opPlusButton" Grid.Row="5" Grid.Column="4" Content="+"/>
+        <controls:NumericKeypadButton x:Name="opNegateButton" Grid.Row="6" Grid.Column="1" Content="+/-"/>
+        <controls:NumericKeypadButton x:Name="opClearButton" Grid.Row="1" Grid.Column="3" Content="C"/>
+        <controls:NumericKeypadButton x:Name="opBackSpaceButton" Grid.Row="1" Grid.Column="4" Content="←"/>
+        <controls:NumericKeypadButton x:Name="opOpenParenthesisButton" Grid.Row="2" Grid.Column="1" Content="("/>
+        <controls:NumericKeypadButton x:Name="opCloseParenthesisButton" Grid.Row="2" Grid.Column="2" Content=")"/>
+        <controls:NumericKeypadButton x:Name="opDecimalSeparatorButton" Grid.Row="6" Grid.Column="3" Content="." IsEnabled="False"/>
+        <controls:NumericKeypadButton x:Name="opResultButton" Grid.Row="6" Grid.Column="4" Content="="/>
         
     </Grid>
 </UserControl>

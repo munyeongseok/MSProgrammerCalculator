@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:MSProgrammerCalculator"
         xmlns:views="clr-namespace:MSProgrammerCalculator.Views"
+        xmlns:viewModels="clr-namespace:MSProgrammerCalculator.ViewModels"
         xmlns:converters="clr-namespace:MSProgrammerCalculator.Converters"
+        xmlns:common="clr-namespace:MSProgrammerCalculator.Common"
         mc:Ignorable="d"
         Title="계산기"
         Width="580"
@@ -14,6 +17,9 @@
         MinHeight="510"
         Background="#FFF3F3F3"
         SizeChanged="Window_SizeChanged">
+    <Window.DataContext>
+        <viewModels:CalculatorViewModel/>
+    </Window.DataContext>
     <Window.Resources>
         <converters:CombiningConverter x:Key="enumToBooleanConverter">
             <converters:ComparisonConverter/>
@@ -39,11 +45,104 @@
                                  Grid.Row="2"/>
         <views:NumericKeypadView x:Name="numericKeypadView"
                                  Grid.Row="3"
-                                 Visibility="{Binding ElementName=keypadControlView, Path=KeypadMode, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static views:KeypadMode.NumericKeypad}}"
-                                 TargetBaseNumber="{Binding ElementName=displayView, Path=SelectedBaseNumber, Mode=OneWay}"/>
+                                 Visibility="{Binding ElementName=keypadControlView, Path=KeypadMode, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static common:KeypadMode.NumericKeypad}}"
+                                 TargetBaseNumber="{Binding ElementName=displayView, Path=SelectedBaseNumber, Mode=OneWay}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click0">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.Num0}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="Click1">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.Num1}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="Click2">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.Num2}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="Click3">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.Num3}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="Click4">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.Num4}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="Click5">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.Num5}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="Click6">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.Num6}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="Click7">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.Num7}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="Click8">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.Num8}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="Click9">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.Num9}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickA">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.NumA}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickB">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.NumB}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickC">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.NumC}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickD">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.NumD}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickE">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.NumE}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickF">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.NumF}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickLeftShift">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.OpLeftShift}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickRightShift">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.OpRightShift}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickModulo">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.OpModulo}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickDivide">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.OpDivide}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickMultiply">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.OpMultiply}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickMinus">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.OpMinus}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickPlus">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.OpPlus}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickNegate">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.OpNegate}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickClear">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.OpClear}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickBackSpace">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.OpBackSpace}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickOpenParenthesis">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.OpOpenParenthesis}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickCloseParenthesis">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.OpCloseParenthesis}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickDecimalSeparator">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.OpDecimalSeparator}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickResult">
+                    <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.OpResult}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </views:NumericKeypadView>
         <views:BitKeypadView x:Name="bitKeypadView"
                              Grid.Row="3"
-                             Visibility="{Binding ElementName=keypadControlView, Path=KeypadMode, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static views:KeypadMode.BitKeypad}}"
+                             Visibility="{Binding ElementName=keypadControlView, Path=KeypadMode, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static common:KeypadMode.BitKeypad}}"
                              BitDataUnit="{Binding ElementName=keypadControlView, Path=BitDataUnit}"
                              ValueChanged="BitKeypadView_ValueChanged"/>
     </Grid>
