@@ -59,6 +59,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\BaseNumber.cs" />
+    <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BitChangedEventArgs.cs" />
     <Compile Include="Common\BitChangedEventHandler.cs" />
     <Compile Include="Common\BitDataUnit.cs" />
