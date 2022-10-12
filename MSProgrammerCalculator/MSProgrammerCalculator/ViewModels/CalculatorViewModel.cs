@@ -29,6 +29,8 @@ namespace MSProgrammerCalculator.ViewModels
             }
         }
 
+        public DelegateCommand BitwiseOperatorButtonClickCommand { get; private set; }
+
         public DelegateCommand NumericKeypadButtonClickCommand { get; private set; }
 
         private const long MSB1000 = unchecked((long)0b_1000000000000000_0000000000000000_0000000000000000_0000000000000000);
@@ -38,7 +40,23 @@ namespace MSProgrammerCalculator.ViewModels
 
         public CalculatorViewModel()
         {
+            BitwiseOperatorButtonClickCommand = new DelegateCommand(parameter => BitwiseOperatorButtonClicked(parameter));
             NumericKeypadButtonClickCommand = new DelegateCommand(parameter => NumericKeypadButtonClicked(parameter));
+        }
+
+        private void BitwiseOperatorButtonClicked(object parameter)
+        {
+            System.Diagnostics.Debug.WriteLine(parameter);
+
+            switch ((BitwiseOperators)parameter)
+            {
+                case BitwiseOperators.AND: break;
+                case BitwiseOperators.OR: break;
+                case BitwiseOperators.NOT: break;
+                case BitwiseOperators.NAND: break;
+                case BitwiseOperators.NOR: break;
+                case BitwiseOperators.XOR: break;
+            }
         }
 
         private void NumericKeypadButtonClicked(object parameter)

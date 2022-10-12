@@ -36,6 +36,76 @@ namespace MSProgrammerCalculator.Views
             set => SetValue(TargetBaseNumberProperty, value);
         }
 
+        #region Click Events: AND, OR, NOT, NAND, NOR, XOR
+
+        public static readonly RoutedEvent ClickANDEvent = EventManager.RegisterRoutedEvent(
+            nameof(ClickAND),
+            RoutingStrategy.Bubble,
+            typeof(RoutedEventHandler),
+            typeof(NumericKeypadView));
+        public event RoutedEventHandler ClickAND
+        {
+            add => AddHandler(ClickANDEvent, value);
+            remove => RemoveHandler(ClickANDEvent, value);
+        }
+
+        public static readonly RoutedEvent ClickOREvent = EventManager.RegisterRoutedEvent(
+            nameof(ClickOR),
+            RoutingStrategy.Bubble,
+            typeof(RoutedEventHandler),
+            typeof(NumericKeypadView));
+        public event RoutedEventHandler ClickOR
+        {
+            add => AddHandler(ClickOREvent, value);
+            remove => RemoveHandler(ClickOREvent, value);
+        }
+
+        public static readonly RoutedEvent ClickNOTEvent = EventManager.RegisterRoutedEvent(
+            nameof(ClickNOT),
+            RoutingStrategy.Bubble,
+            typeof(RoutedEventHandler),
+            typeof(NumericKeypadView));
+        public event RoutedEventHandler ClickNOT
+        {
+            add => AddHandler(ClickNOTEvent, value);
+            remove => RemoveHandler(ClickNOTEvent, value);
+        }
+
+        public static readonly RoutedEvent ClickNANDEvent = EventManager.RegisterRoutedEvent(
+            nameof(ClickNAND),
+            RoutingStrategy.Bubble,
+            typeof(RoutedEventHandler),
+            typeof(NumericKeypadView));
+        public event RoutedEventHandler ClickNAND
+        {
+            add => AddHandler(ClickNANDEvent, value);
+            remove => RemoveHandler(ClickNANDEvent, value);
+        }
+
+        public static readonly RoutedEvent ClickNOREvent = EventManager.RegisterRoutedEvent(
+            nameof(ClickNOR),
+            RoutingStrategy.Bubble,
+            typeof(RoutedEventHandler),
+            typeof(NumericKeypadView));
+        public event RoutedEventHandler ClickNOR
+        {
+            add => AddHandler(ClickNOREvent, value);
+            remove => RemoveHandler(ClickNOREvent, value);
+        }
+
+        public static readonly RoutedEvent ClickXOREvent = EventManager.RegisterRoutedEvent(
+            nameof(ClickXOR),
+            RoutingStrategy.Bubble,
+            typeof(RoutedEventHandler),
+            typeof(NumericKeypadView));
+        public event RoutedEventHandler ClickXOR
+        {
+            add => AddHandler(ClickXOREvent, value);
+            remove => RemoveHandler(ClickXOREvent, value);
+        }
+
+        #endregion
+
         #region Click Events: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F
 
         public static readonly RoutedEvent Click0Event = EventManager.RegisterRoutedEvent(
@@ -216,7 +286,7 @@ namespace MSProgrammerCalculator.Views
 
         #endregion
 
-        #region Click Events: <<, >>, %, ÷, ×, -, +, +/-, C, ←, (, ), ., =
+        #region Click Events: LeftShift, RightShift, Modulo, Divide, Multiply, Minus, Plus, Negate, Clear, BackSpace, OpenParenthesis, CloseParenthesis, DecimalSeparator, Result
 
         public static readonly RoutedEvent ClickLeftShiftEvent = EventManager.RegisterRoutedEvent(
             nameof(ClickLeftShift),
@@ -390,6 +460,13 @@ namespace MSProgrammerCalculator.Views
 
         private void SubscribeNumericKeypadButtonClickEvents()
         {
+            bitwiseAndButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickANDEvent));
+            bitwiseORButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickOREvent));
+            bitwiseNOTButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickNOTEvent));
+            bitwiseNANDButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickNANDEvent));
+            bitwiseNORButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickNOREvent));
+            bitwiseXORButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickXOREvent));
+
             num0Button.Click += (s, e) => RaiseEvent(new RoutedEventArgs(Click0Event));
             num1Button.Click += (s, e) => RaiseEvent(new RoutedEventArgs(Click1Event));
             num2Button.Click += (s, e) => RaiseEvent(new RoutedEventArgs(Click2Event));

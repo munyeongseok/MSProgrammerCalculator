@@ -49,6 +49,27 @@
                                  Visibility="{Binding ElementName=keypadControlView, Path=KeypadMode, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static common:KeypadMode.NumericKeypad}}"
                                  TargetBaseNumber="{Binding ElementName=displayView, Path=SelectedBaseNumber, Mode=OneWay}">
             <i:Interaction.Triggers>
+                <!-- #region Click Events Command Binding: AND, OR, NOT, NAND, NOR, XOR -->
+                <i:EventTrigger EventName="ClickAND">
+                    <i:InvokeCommandAction Command="{Binding BitwiseOperatorButtonClickCommand}" CommandParameter="{x:Static common:BitwiseOperators.AND}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickOR">
+                    <i:InvokeCommandAction Command="{Binding BitwiseOperatorButtonClickCommand}" CommandParameter="{x:Static common:BitwiseOperators.OR}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickNOT">
+                    <i:InvokeCommandAction Command="{Binding BitwiseOperatorButtonClickCommand}" CommandParameter="{x:Static common:BitwiseOperators.NOT}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickNAND">
+                    <i:InvokeCommandAction Command="{Binding BitwiseOperatorButtonClickCommand}" CommandParameter="{x:Static common:BitwiseOperators.NAND}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickNOR">
+                    <i:InvokeCommandAction Command="{Binding BitwiseOperatorButtonClickCommand}" CommandParameter="{x:Static common:BitwiseOperators.NOR}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ClickXOR">
+                    <i:InvokeCommandAction Command="{Binding BitwiseOperatorButtonClickCommand}" CommandParameter="{x:Static common:BitwiseOperators.XOR}"/>
+                </i:EventTrigger>
+                <!-- #endregion -->
+                <!-- #region Click Events Command Binding: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F -->
                 <i:EventTrigger EventName="Click0">
                     <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.Num0}"/>
                 </i:EventTrigger>
@@ -97,6 +118,8 @@
                 <i:EventTrigger EventName="ClickF">
                     <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.NumF}"/>
                 </i:EventTrigger>
+                <!-- #endregion -->
+                <!-- #region Click Events Command Binding: LeftShift, RightShift, Modulo, Divide, Multiply, Minus, Plus, Negate, Clear, BackSpace, OpenParenthesis, CloseParenthesis, DecimalSeparator, Result -->
                 <i:EventTrigger EventName="ClickLeftShift">
                     <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.OpLeftShift}"/>
                 </i:EventTrigger>
@@ -139,6 +162,7 @@
                 <i:EventTrigger EventName="ClickResult">
                     <i:InvokeCommandAction Command="{Binding NumericKeypadButtonClickCommand}" CommandParameter="{x:Static common:NumericKeypadKeys.OpResult}"/>
                 </i:EventTrigger>
+                <!-- #endregion -->
             </i:Interaction.Triggers>
         </views:NumericKeypadView>
         <views:BitKeypadView x:Name="bitKeypadView"
