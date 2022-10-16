@@ -84,23 +84,6 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void KeypadBinaryOperatorButtonClicked(object parameter)
         {
-            switch ((KeypadButtons)parameter)
-            {
-                case KeypadButtons.BitwiseAND:
-                case KeypadButtons.BitwiseOR:
-                case KeypadButtons.BitwiseNAND:
-                case KeypadButtons.BitwiseNOR:
-                case KeypadButtons.BitwiseXOR:
-                case KeypadButtons.LeftShift:
-                case KeypadButtons.RightShift:
-                case KeypadButtons.Modulo:
-                case KeypadButtons.Divide:
-                case KeypadButtons.Multiply:
-                case KeypadButtons.Minus:
-                case KeypadButtons.Plus:
-                    break;
-            }
-
             if (_rightHandOperand != 0)
             {
                 _leftHandOperand = _rightHandOperand;
@@ -181,6 +164,27 @@ namespace MSProgrammerCalculator.ViewModels
                     break;
                 case KeypadButtons.BitwiseXOR:
                     value = _leftHandOperand ^ _rightHandOperand;
+                    break;
+                case KeypadButtons.LeftShift:
+                    value = _leftHandOperand << (int)_rightHandOperand;
+                    break;
+                case KeypadButtons.RightShift:
+                    value = _leftHandOperand >> (int)_rightHandOperand;
+                    break;
+                case KeypadButtons.Modulo:
+                    value = _leftHandOperand % _rightHandOperand;
+                    break;
+                case KeypadButtons.Divide:
+                    value = _leftHandOperand / _rightHandOperand;
+                    break;
+                case KeypadButtons.Multiply:
+                    value = _leftHandOperand * _rightHandOperand;
+                    break;
+                case KeypadButtons.Minus:
+                    value = _leftHandOperand - _rightHandOperand;
+                    break;
+                case KeypadButtons.Plus:
+                    value = _leftHandOperand + _rightHandOperand;
                     break;
             }
 
