@@ -74,12 +74,18 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void KeypadUnaryOperatorButtonClicked(object parameter)
         {
+            var value = _rightHandOperand;
             switch ((KeypadButtons)parameter)
             {
                 case KeypadButtons.BitwiseNOT:
+                    value = ~value;
+                    break;
                 case KeypadButtons.Negate:
+                    value = -value;
                     break;
             }
+
+            DisplayValue = _rightHandOperand = value;
         }
 
         private void KeypadBinaryOperatorButtonClicked(object parameter)
@@ -103,7 +109,7 @@ namespace MSProgrammerCalculator.ViewModels
                 case KeypadButtons.DecimalSeparator:
                     break;
                 case KeypadButtons.Result:
-                    CalculateResult();
+                    CalculateBinaryOperatorResult();
                     break;
             }
         }
@@ -145,9 +151,9 @@ namespace MSProgrammerCalculator.ViewModels
             DisplayValue = _rightHandOperand = value;
         }
 
-        private void CalculateResult()
+        private void CalculateBinaryOperatorResult()
         {
-            long value = 0;
+            var value = 0L;
             switch (_operator)
             {
                 case KeypadButtons.BitwiseAND:
