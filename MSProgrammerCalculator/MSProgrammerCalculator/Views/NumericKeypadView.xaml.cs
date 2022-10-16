@@ -460,12 +460,12 @@ namespace MSProgrammerCalculator.Views
 
         private void SubscribeNumericKeypadButtonClickEvents()
         {
-            bitwiseAndButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickANDEvent));
-            bitwiseORButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickOREvent));
-            bitwiseNOTButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickNOTEvent));
-            bitwiseNANDButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickNANDEvent));
-            bitwiseNORButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickNOREvent));
-            bitwiseXORButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickXOREvent));
+            bitwiseAndButton.Click += (s, e) => { bitwiseButton.IsChecked = false; RaiseEvent(new RoutedEventArgs(ClickANDEvent)); };
+            bitwiseORButton.Click += (s, e) => { bitwiseButton.IsChecked = false; RaiseEvent(new RoutedEventArgs(ClickOREvent)); };
+            bitwiseNOTButton.Click += (s, e) => { bitwiseButton.IsChecked = false; RaiseEvent(new RoutedEventArgs(ClickNOTEvent)); };
+            bitwiseNANDButton.Click += (s, e) => { bitwiseButton.IsChecked = false; RaiseEvent(new RoutedEventArgs(ClickNANDEvent)); };
+            bitwiseNORButton.Click += (s, e) => { bitwiseButton.IsChecked = false; RaiseEvent(new RoutedEventArgs(ClickNOREvent)); };
+            bitwiseXORButton.Click += (s, e) => { bitwiseButton.IsChecked = false; RaiseEvent(new RoutedEventArgs(ClickXOREvent)); };
 
             num0Button.Click += (s, e) => RaiseEvent(new RoutedEventArgs(Click0Event));
             num1Button.Click += (s, e) => RaiseEvent(new RoutedEventArgs(Click1Event));
