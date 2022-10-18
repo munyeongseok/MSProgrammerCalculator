@@ -65,7 +65,8 @@
     <Compile Include="Common\BitDataUnit.cs" />
     <Compile Include="Common\BitKeypadValueChangedEventArgs.cs" />
     <Compile Include="Common\BitKeypadValueChangedEventHandler.cs" />
-    <Compile Include="Common\KeypadButtons.cs" />
+    <Compile Include="Common\KeypadNumbers.cs" />
+    <Compile Include="Common\KeypadOperators.cs" />
     <Compile Include="Common\DelegateCommand.cs" />
     <Compile Include="Common\KeypadMode.cs" />
     <Compile Include="Controls\BitToggleButton.cs" />

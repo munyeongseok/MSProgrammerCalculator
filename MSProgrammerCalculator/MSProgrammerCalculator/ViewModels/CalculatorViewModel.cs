@@ -39,9 +39,14 @@ namespace MSProgrammerCalculator.ViewModels
         private const long MSB1111 = unchecked((long)0b_1111000000000000_0000000000000000_0000000000000000_0000000000000000);
         private long _leftHandOperand;
         private long _rightHandOperand;
-        private KeypadButtons _operator;
+        private KeypadOperators _operator;
 
         public CalculatorViewModel()
+        {
+            InitializeCommands();
+        }
+
+        private void InitializeCommands()
         {
             KeypadNumberButtonClickCommand = new DelegateCommand(parameter => KeypadNumberButtonClicked(parameter));
             KeypadUnaryOperatorButtonClickCommand = new DelegateCommand(parameter => KeypadUnaryOperatorButtonClicked(parameter));
@@ -51,36 +56,36 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void KeypadNumberButtonClicked(object parameter)
         {
-            switch ((KeypadButtons)parameter)
+            switch ((KeypadNumbers)parameter)
             {
-                case KeypadButtons.Num0: AddNumber(0); break;
-                case KeypadButtons.Num1: AddNumber(1); break;
-                case KeypadButtons.Num2: AddNumber(2); break;
-                case KeypadButtons.Num3: AddNumber(3); break;
-                case KeypadButtons.Num4: AddNumber(4); break;
-                case KeypadButtons.Num5: AddNumber(5); break;
-                case KeypadButtons.Num6: AddNumber(6); break;
-                case KeypadButtons.Num7: AddNumber(7); break;
-                case KeypadButtons.Num8: AddNumber(8); break;
-                case KeypadButtons.Num9: AddNumber(9); break;
-                case KeypadButtons.NumA: AddNumber(10); break;
-                case KeypadButtons.NumB: AddNumber(11); break;
-                case KeypadButtons.NumC: AddNumber(12); break;
-                case KeypadButtons.NumD: AddNumber(13); break;
-                case KeypadButtons.NumE: AddNumber(14); break;
-                case KeypadButtons.NumF: AddNumber(15); break;
+                case KeypadNumbers.Num0: InsertNumber(0); break;
+                case KeypadNumbers.Num1: InsertNumber(1); break;
+                case KeypadNumbers.Num2: InsertNumber(2); break;
+                case KeypadNumbers.Num3: InsertNumber(3); break;
+                case KeypadNumbers.Num4: InsertNumber(4); break;
+                case KeypadNumbers.Num5: InsertNumber(5); break;
+                case KeypadNumbers.Num6: InsertNumber(6); break;
+                case KeypadNumbers.Num7: InsertNumber(7); break;
+                case KeypadNumbers.Num8: InsertNumber(8); break;
+                case KeypadNumbers.Num9: InsertNumber(9); break;
+                case KeypadNumbers.NumA: InsertNumber(10); break;
+                case KeypadNumbers.NumB: InsertNumber(11); break;
+                case KeypadNumbers.NumC: InsertNumber(12); break;
+                case KeypadNumbers.NumD: InsertNumber(13); break;
+                case KeypadNumbers.NumE: InsertNumber(14); break;
+                case KeypadNumbers.NumF: InsertNumber(15); break;
             }
         }
 
         private void KeypadUnaryOperatorButtonClicked(object parameter)
         {
             var value = _rightHandOperand;
-            switch ((KeypadButtons)parameter)
+            switch ((KeypadOperators)parameter)
             {
-                case KeypadButtons.BitwiseNOT:
+                case KeypadOperators.NOT:
                     value = ~value;
                     break;
-                case KeypadButtons.Negate:
+                case KeypadOperators.Negate:
                     value = -value;
                     break;
             }
@@ -94,27 +99,34 @@ namespace MSProgrammerCalculator.ViewModels
             {
                 _leftHandOperand = _rightHandOperand;
                 _rightHandOperand = 0;
-                _operator = (KeypadButtons)parameter;
+                _operator = (KeypadOperators)parameter;
             }
         }
 
         private void KeypadAuxiliaryOperatorButtonClicked(object parameter)
         {
-            switch ((KeypadButtons)parameter)
+            switch ((KeypadOperators)parameter)
             {
-                case KeypadButtons.Clear:
-                case KeypadButtons.BackSpace:
-                case KeypadButtons.OpenParenthesis:
-                case KeypadButtons.CloseParenthesis:
-                case KeypadButtons.DecimalSeparator:
+                case KeypadOperators.Clear:
+                    DisplayValue = _leftHandOperand = _rightHandOperand = 0;
+                    _operator = KeypadOperators.None;
                     break;
-                case KeypadButtons.Result:
+                case KeypadOperators.BackSpace:
+                    RemoveNumber();
+                    break;
+                case KeypadOperators.OpenParenthesis:
+                    break;
+                case KeypadOperators.CloseParenthesis:
+                    break;
+                case KeypadOperators.DecimalSeparator:
+                    break;
+                case KeypadOperators.Result:
                     CalculateBinaryOperatorResult();
                     break;
             }
         }
 
-        private void AddNumber(long number)
+        private void InsertNumber(long number)
         {
             var value = _rightHandOperand;
             switch (SelectedBaseNumber)
@@ -151,45 +163,50 @@ namespace MSProgrammerCalculator.ViewModels
             DisplayValue = _rightHandOperand = value;
         }
 
+        private void RemoveNumber()
+        {
+
+        }
+
         private void CalculateBinaryOperatorResult()
         {
             var value = 0L;
             switch (_operator)
             {
-                case KeypadButtons.BitwiseAND:
+                case KeypadOperators.AND:
                     value = _leftHandOperand & _rightHandOperand;
                     break;
-                case KeypadButtons.BitwiseOR:
+                case KeypadOperators.OR:
                     value = _leftHandOperand | _rightHandOperand;
                     break;
-                case KeypadButtons.BitwiseNAND:
+                case KeypadOperators.NAND:
                     value = ~(_leftHandOperand & _rightHandOperand);
                     break;
-                case KeypadButtons.BitwiseNOR:
+                case KeypadOperators.NOR:
                     value = ~(_leftHandOperand | _rightHandOperand);
                     break;
-                case KeypadButtons.BitwiseXOR:
+                case KeypadOperators.XOR:
                     value = _leftHandOperand ^ _rightHandOperand;
                     break;
-                case KeypadButtons.LeftShift:
+                case KeypadOperators.LeftShift:
                     value = _leftHandOperand << (int)_rightHandOperand;
                     break;
-                case KeypadButtons.RightShift:
+                case KeypadOperators.RightShift:
                     value = _leftHandOperand >> (int)_rightHandOperand;
                     break;
-                case KeypadButtons.Modulo:
+                case KeypadOperators.Modulo:
                     value = _leftHandOperand % _rightHandOperand;
                     break;
-                case KeypadButtons.Divide:
+                case KeypadOperators.Divide:
                     value = _leftHandOperand / _rightHandOperand;
                     break;
-                case KeypadButtons.Multiply:
+                case KeypadOperators.Multiply:
                     value = _leftHandOperand * _rightHandOperand;
                     break;
-                case KeypadButtons.Minus:
+                case KeypadOperators.Minus:
                     value = _leftHandOperand - _rightHandOperand;
                     break;
-                case KeypadButtons.Plus:
+                case KeypadOperators.Plus:
                     value = _leftHandOperand + _rightHandOperand;
                     break;
             }

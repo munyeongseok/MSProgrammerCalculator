@@ -6,32 +6,15 @@ using System.Threading.Tasks;
 
 namespace MSProgrammerCalculator.Common
 {
-    public enum KeypadButtons
+    public enum KeypadOperators
     {
-        Num0,
-        Num1,
-        Num2,
-        Num3,
-        Num4,
-        Num5,
-        Num6,
-        Num7,
-        Num8,
-        Num9,
-        NumA,
-        NumB,
-        NumC,
-        NumD,
-        NumE,
-        NumF,
-
-        BitwiseAND,
-        BitwiseOR,
-        BitwiseNOT,
-        BitwiseNAND,
-        BitwiseNOR,
-        BitwiseXOR,
-
+        None,
+        AND,
+        OR,
+        NOT,
+        NAND,
+        NOR,
+        XOR,
         LeftShift,
         RightShift,
         Modulo,

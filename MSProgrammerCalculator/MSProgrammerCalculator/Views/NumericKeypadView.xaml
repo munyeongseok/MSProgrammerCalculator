@@ -53,12 +53,12 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <controls:NumericKeypadButton x:Name="bitwiseAndButton" Grid.Row="0" Grid.Column="0" Margin="3,3,1.5,1.5" Content="AND" FontSize="14"/>
-                        <controls:NumericKeypadButton x:Name="bitwiseORButton" Grid.Row="0" Grid.Column="1" Margin="1.5,3,1.5,1.5" Content="OR" FontSize="14"/>
-                        <controls:NumericKeypadButton x:Name="bitwiseNOTButton" Grid.Row="0" Grid.Column="2" Margin="1.5,3,3,1.5" Content="NOT" FontSize="14"/>
-                        <controls:NumericKeypadButton x:Name="bitwiseNANDButton" Grid.Row="1" Grid.Column="0" Margin="3,1.5,1.5,3" Content="NAND" FontSize="14"/>
-                        <controls:NumericKeypadButton x:Name="bitwiseNORButton" Grid.Row="1" Grid.Column="1" Margin="1.5,1.5,1.5,3" Content="NOR" FontSize="14"/>
-                        <controls:NumericKeypadButton x:Name="bitwiseXORButton" Grid.Row="1" Grid.Column="2" Margin="1.5,1.5,3,3" Content="XOR" FontSize="14"/>
+                        <controls:NumericKeypadButton x:Name="AndButton" Grid.Row="0" Grid.Column="0" Margin="3,3,1.5,1.5" Content="AND" FontSize="14"/>
+                        <controls:NumericKeypadButton x:Name="ORButton" Grid.Row="0" Grid.Column="1" Margin="1.5,3,1.5,1.5" Content="OR" FontSize="14"/>
+                        <controls:NumericKeypadButton x:Name="NOTButton" Grid.Row="0" Grid.Column="2" Margin="1.5,3,3,1.5" Content="NOT" FontSize="14"/>
+                        <controls:NumericKeypadButton x:Name="NANDButton" Grid.Row="1" Grid.Column="0" Margin="3,1.5,1.5,3" Content="NAND" FontSize="14"/>
+                        <controls:NumericKeypadButton x:Name="NORButton" Grid.Row="1" Grid.Column="1" Margin="1.5,1.5,1.5,3" Content="NOR" FontSize="14"/>
+                        <controls:NumericKeypadButton x:Name="XORButton" Grid.Row="1" Grid.Column="2" Margin="1.5,1.5,3,3" Content="XOR" FontSize="14"/>
                     </Grid>
                 </Border>
             </Popup>

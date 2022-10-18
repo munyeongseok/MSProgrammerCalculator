@@ -51,116 +51,116 @@
             <i:Interaction.Triggers>
                 <!-- #region Click Events Command Binding: AND, OR, NOT, NAND, NOR, XOR -->
                 <i:EventTrigger EventName="ClickAND">
-                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.BitwiseAND}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.AND}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickOR">
-                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.BitwiseOR}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.OR}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickNOT">
-                    <i:InvokeCommandAction Command="{Binding KeypadUnaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.BitwiseNOT}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadUnaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.NOT}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickNAND">
-                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.BitwiseNAND}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.NAND}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickNOR">
-                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.BitwiseNOR}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.NOR}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickXOR">
-                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.BitwiseXOR}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.XOR}"/>
                 </i:EventTrigger>
                 <!-- #endregion -->
                 <!-- #region Click Events Command Binding: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F -->
                 <i:EventTrigger EventName="Click0">
-                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Num0}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadNumbers.Num0}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="Click1">
-                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Num1}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadNumbers.Num1}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="Click2">
-                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Num2}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadNumbers.Num2}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="Click3">
-                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Num3}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadNumbers.Num3}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="Click4">
-                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Num4}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadNumbers.Num4}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="Click5">
-                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Num5}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadNumbers.Num5}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="Click6">
-                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Num6}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadNumbers.Num6}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="Click7">
-                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Num7}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadNumbers.Num7}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="Click8">
-                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Num8}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadNumbers.Num8}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="Click9">
-                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Num9}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadNumbers.Num9}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickA">
-                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.NumA}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadNumbers.NumA}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickB">
-                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.NumB}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadNumbers.NumB}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickC">
-                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.NumC}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadNumbers.NumC}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickD">
-                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.NumD}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadNumbers.NumD}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickE">
-                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.NumE}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadNumbers.NumE}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickF">
-                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.NumF}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadNumberButtonClickCommand}" CommandParameter="{x:Static common:KeypadNumbers.NumF}"/>
                 </i:EventTrigger>
                 <!-- #endregion -->
                 <!-- #region Click Events Command Binding: LeftShift, RightShift, Modulo, Divide, Multiply, Minus, Plus, Negate, Clear, BackSpace, OpenParenthesis, CloseParenthesis, DecimalSeparator, Result -->
                 <i:EventTrigger EventName="ClickLeftShift">
-                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.LeftShift}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.LeftShift}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickRightShift">
-                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.RightShift}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.RightShift}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickModulo">
-                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Modulo}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.Modulo}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickDivide">
-                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Divide}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.Divide}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickMultiply">
-                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Multiply}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.Multiply}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickMinus">
-                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Minus}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.Minus}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickPlus">
-                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Plus}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.Plus}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickNegate">
-                    <i:InvokeCommandAction Command="{Binding KeypadUnaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Negate}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadUnaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.Negate}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickClear">
-                    <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Clear}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.Clear}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickBackSpace">
-                    <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.BackSpace}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.BackSpace}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickOpenParenthesis">
-                    <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.OpenParenthesis}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.OpenParenthesis}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickCloseParenthesis">
-                    <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.CloseParenthesis}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.CloseParenthesis}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickDecimalSeparator">
-                    <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.DecimalSeparator}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.DecimalSeparator}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickResult">
-                    <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadButtons.Result}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static common:KeypadOperators.Result}"/>
                 </i:EventTrigger>
                 <!-- #endregion -->
             </i:Interaction.Triggers>
