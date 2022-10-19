@@ -24,7 +24,7 @@ namespace MSProgrammerCalculator.ViewModels
             {
                 if (SetProperty(ref selectedBaseNumber, value))
                 {
-                    SelectedBaseNumberChanged();
+                    BaseNumberChanged();
                 }
             }
         }
@@ -108,8 +108,7 @@ namespace MSProgrammerCalculator.ViewModels
             switch ((KeypadOperators)parameter)
             {
                 case KeypadOperators.Clear:
-                    DisplayValue = _leftHandOperand = _rightHandOperand = 0;
-                    _operator = KeypadOperators.None;
+                    ClearNumber();
                     break;
                 case KeypadOperators.BackSpace:
                     RemoveNumber();
@@ -121,7 +120,7 @@ namespace MSProgrammerCalculator.ViewModels
                 case KeypadOperators.DecimalSeparator:
                     break;
                 case KeypadOperators.Result:
-                    CalculateBinaryOperatorResult();
+                    CalculateResult();
                     break;
             }
         }
@@ -165,10 +164,36 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void RemoveNumber()
         {
+            if (_rightHandOperand != 0)
+            {
+                var value = _rightHandOperand;
+                switch (SelectedBaseNumber)
+                {
+                    case BaseNumber.Binary:
+                        value >>= 1;
+                        break;
+                    case BaseNumber.Octal:
+                        value >>= 3;
+                        break;
+                    case BaseNumber.Decimal:
+                        value /= 10;
+                        break;
+                    case BaseNumber.Hexadecimal:
+                        value >>= 4;
+                        break;
+                }
 
+                DisplayValue = _leftHandOperand = _rightHandOperand = value;
+            }
         }
 
-        private void CalculateBinaryOperatorResult()
+        private void ClearNumber()
+        {
+            DisplayValue = _leftHandOperand = _rightHandOperand = 0;
+            _operator = KeypadOperators.None;
+        }
+
+        private void CalculateResult()
         {
             var value = 0L;
             switch (_operator)
@@ -215,7 +240,7 @@ namespace MSProgrammerCalculator.ViewModels
             DisplayValue = _leftHandOperand = value;
         }
 
-        private void SelectedBaseNumberChanged()
+        private void BaseNumberChanged()
         {
             _rightHandOperand = 0;
         }
