@@ -97,12 +97,9 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void KeypadBinaryOperatorButtonClicked(object parameter)
         {
-            if (_rightHandOperand != 0)
-            {
-                _operator = (KeypadOperators)parameter;
-                _leftHandOperand = _rightHandOperand;
-                _rightHandOperand = 0;
-            }
+            CalculateResult();
+
+            _operator = (KeypadOperators)parameter;
         }
 
         private void KeypadAuxiliaryOperatorButtonClicked(object parameter)
@@ -202,6 +199,9 @@ namespace MSProgrammerCalculator.ViewModels
             var value = 0L;
             switch (_operator)
             {
+                case KeypadOperators.None:
+                    value = _rightHandOperand;
+                    break;
                 case KeypadOperators.AND:
                     value = _leftHandOperand & _rightHandOperand;
                     break;
