@@ -37,9 +37,10 @@ namespace MSProgrammerCalculator.ViewModels
         private const long MSB1000 = unchecked((long)0b_1000000000000000_0000000000000000_0000000000000000_0000000000000000);
         private const long MSB1110 = unchecked((long)0b_1110000000000000_0000000000000000_0000000000000000_0000000000000000);
         private const long MSB1111 = unchecked((long)0b_1111000000000000_0000000000000000_0000000000000000_0000000000000000);
+
+        private KeypadOperators _operator;
         private long _leftHandOperand;
         private long _rightHandOperand;
-        private KeypadOperators _operator;
 
         public CalculatorViewModel()
         {
@@ -90,16 +91,17 @@ namespace MSProgrammerCalculator.ViewModels
                     break;
             }
 
-            DisplayValue = _rightHandOperand = value;
+            _rightHandOperand = value;
+            DisplayValue = value;
         }
 
         private void KeypadBinaryOperatorButtonClicked(object parameter)
         {
             if (_rightHandOperand != 0)
             {
+                _operator = (KeypadOperators)parameter;
                 _leftHandOperand = _rightHandOperand;
                 _rightHandOperand = 0;
-                _operator = (KeypadOperators)parameter;
             }
         }
 
@@ -189,8 +191,10 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void ClearNumber()
         {
-            DisplayValue = _leftHandOperand = _rightHandOperand = 0;
             _operator = KeypadOperators.None;
+            _leftHandOperand = 0;
+            _rightHandOperand = 0;
+            DisplayValue = 0;
         }
 
         private void CalculateResult()
@@ -236,8 +240,10 @@ namespace MSProgrammerCalculator.ViewModels
                     break;
             }
 
+            _operator = KeypadOperators.None;
+            _leftHandOperand = value;
             _rightHandOperand = 0;
-            DisplayValue = _leftHandOperand = value;
+            DisplayValue = value;
         }
 
         private void BaseNumberChanged()
