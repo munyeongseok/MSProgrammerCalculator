@@ -80,7 +80,7 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void KeypadUnaryOperatorButtonClicked(object parameter)
         {
-            var value = _rightHandOperand;
+            long value = _rightHandOperand;
             switch ((KeypadOperators)parameter)
             {
                 case KeypadOperators.NOT:
@@ -90,16 +90,14 @@ namespace MSProgrammerCalculator.ViewModels
                     value = -value;
                     break;
             }
-
-            _rightHandOperand = value;
-            DisplayValue = value;
+            
+            DisplayValue = _rightHandOperand = value;
         }
 
         private void KeypadBinaryOperatorButtonClicked(object parameter)
         {
-            CalculateResult();
-
             _operator = (KeypadOperators)parameter;
+            _leftHandOperand = _rightHandOperand;
         }
 
         private void KeypadAuxiliaryOperatorButtonClicked(object parameter)
@@ -119,14 +117,14 @@ namespace MSProgrammerCalculator.ViewModels
                 case KeypadOperators.DecimalSeparator:
                     break;
                 case KeypadOperators.Result:
-                    CalculateResult();
+                    SubmitResult();
                     break;
             }
         }
 
         private void InsertNumber(long number)
         {
-            var value = _rightHandOperand;
+            long value = _rightHandOperand;
             switch (SelectedBaseNumber)
             {
                 case BaseNumber.Binary:
@@ -165,7 +163,7 @@ namespace MSProgrammerCalculator.ViewModels
         {
             if (_rightHandOperand != 0)
             {
-                var value = _rightHandOperand;
+                long value = _rightHandOperand;
                 switch (SelectedBaseNumber)
                 {
                     case BaseNumber.Binary:
@@ -189,19 +187,14 @@ namespace MSProgrammerCalculator.ViewModels
         private void ClearNumber()
         {
             _operator = KeypadOperators.None;
-            _leftHandOperand = 0;
-            _rightHandOperand = 0;
-            DisplayValue = 0;
+            DisplayValue = _leftHandOperand = _rightHandOperand = 0;
         }
 
-        private void CalculateResult()
+        private void SubmitResult()
         {
-            var value = 0L;
+            long value;
             switch (_operator)
             {
-                case KeypadOperators.None:
-                    value = _rightHandOperand;
-                    break;
                 case KeypadOperators.AND:
                     value = _leftHandOperand & _rightHandOperand;
                     break;
@@ -238,12 +231,11 @@ namespace MSProgrammerCalculator.ViewModels
                 case KeypadOperators.Plus:
                     value = _leftHandOperand + _rightHandOperand;
                     break;
+                default:
+                    return;
             }
 
-            _operator = KeypadOperators.None;
-            _leftHandOperand = value;
-            _rightHandOperand = 0;
-            DisplayValue = value;
+            DisplayValue = _leftHandOperand = value;
         }
 
         private void BaseNumberChanged()
