@@ -31,7 +31,7 @@
                    Margin="5,0"
                    Foreground="DimGray"
                    FontSize="14"
-                   Text="(7777 OR 99) NOR 9969999 OR NOT(886962888)"/>
+                   Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=NumericalExpression}"/>
         <Viewbox Grid.Row="1"
                  HorizontalAlignment="Right"
                  VerticalAlignment="Top"

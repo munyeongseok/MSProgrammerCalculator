@@ -9,6 +9,13 @@ namespace MSProgrammerCalculator.ViewModels
 {
     public class CalculatorViewModel : BindableBase
     {
+        private string numericalExpression;
+        public string NumericalExpression
+        {
+            get => numericalExpression;
+            set => SetProperty(ref numericalExpression, value);
+        }
+
         private long displayValue;
         public long DisplayValue
         {
@@ -38,6 +45,7 @@ namespace MSProgrammerCalculator.ViewModels
         private const long MSB1110 = unchecked((long)0b_1110000000000000_0000000000000000_0000000000000000_0000000000000000);
         private const long MSB1111 = unchecked((long)0b_1111000000000000_0000000000000000_0000000000000000_0000000000000000);
 
+        private StringBuilder _expressionSB = new StringBuilder();
         private KeypadOperators _operator;
         private long _leftHandOperand;
         private long _rightHandOperand;
@@ -80,8 +88,9 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void KeypadUnaryOperatorButtonClicked(object parameter)
         {
-            long value = _rightHandOperand;
-            switch ((KeypadOperators)parameter)
+            var value = _rightHandOperand;
+            var op = (KeypadOperators)parameter;
+            switch (op)
             {
                 case KeypadOperators.NOT:
                     value = ~value;
@@ -89,20 +98,30 @@ namespace MSProgrammerCalculator.ViewModels
                 case KeypadOperators.Negate:
                     value = -value;
                     break;
+                default:
+                    return;
             }
-            
+
+            InsertExpression(op, value);
             DisplayValue = _rightHandOperand = value;
         }
 
         private void KeypadBinaryOperatorButtonClicked(object parameter)
         {
-            _operator = (KeypadOperators)parameter;
-            _leftHandOperand = _rightHandOperand;
+            var value = _rightHandOperand;
+            var op = (KeypadOperators)parameter;
+
+            InsertExpression(op, value);
+            _operator = op;
+            _leftHandOperand = value;
+            _rightHandOperand = 0;
         }
 
         private void KeypadAuxiliaryOperatorButtonClicked(object parameter)
         {
-            switch ((KeypadOperators)parameter)
+            var value = _rightHandOperand;
+            var op = (KeypadOperators)parameter;
+            switch (op)
             {
                 case KeypadOperators.Clear:
                     ClearNumber();
@@ -120,11 +139,66 @@ namespace MSProgrammerCalculator.ViewModels
                     SubmitResult();
                     break;
             }
+
+            InsertExpression(op, value);
+        }
+
+        private void InsertExpression(KeypadOperators op, long value)
+        {
+            switch (op)
+            {
+                case KeypadOperators.AND:
+                    _expressionSB.Append($" {value} AND");
+                    break;
+                case KeypadOperators.OR:
+                    _expressionSB.Append($" {value} OR");
+                    break;
+                case KeypadOperators.NOT:
+                    _expressionSB.Append($" NOT({value})");
+                    break;
+                case KeypadOperators.NAND:
+                    _expressionSB.Append($" {value} NAND");
+                    break;
+                case KeypadOperators.NOR:
+                    _expressionSB.Append($" {value} NOR");
+                    break;
+                case KeypadOperators.XOR:
+                    _expressionSB.Append($" {value} XOR");
+                    break;
+                case KeypadOperators.LeftShift:
+                    _expressionSB.Append($" {value} Lsh");
+                    break;
+                case KeypadOperators.RightShift:
+                    _expressionSB.Append($" {value} Rsh");
+                    break;
+                case KeypadOperators.Modulo:
+                    _expressionSB.Append($" {value} %");
+                    break;
+                case KeypadOperators.Divide:
+                    _expressionSB.Append($" {value} ÷");
+                    break;
+                case KeypadOperators.Multiply:
+                    _expressionSB.Append($" {value} ×");
+                    break;
+                case KeypadOperators.Minus:
+                    _expressionSB.Append($" {value} -");
+                    break;
+                case KeypadOperators.Plus:
+                    _expressionSB.Append($" {value} +");
+                    break;
+                case KeypadOperators.Result:
+                    _expressionSB.Append($" {value} =");
+                    break;
+                default:
+                    return;
+            }
+
+            NumericalExpression = _expressionSB.ToString();
         }
 
         private void InsertNumber(long number)
         {
-            long value = _rightHandOperand;
+            var value = _rightHandOperand;
             switch (SelectedBaseNumber)
             {
                 case BaseNumber.Binary:
@@ -163,7 +237,7 @@ namespace MSProgrammerCalculator.ViewModels
         {
             if (_rightHandOperand != 0)
             {
-                long value = _rightHandOperand;
+                var value = _rightHandOperand;
                 switch (SelectedBaseNumber)
                 {
                     case BaseNumber.Binary:
@@ -192,7 +266,7 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void SubmitResult()
         {
-            long value;
+            var value = 0L;
             switch (_operator)
             {
                 case KeypadOperators.AND:

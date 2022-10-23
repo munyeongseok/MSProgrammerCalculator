@@ -40,6 +40,7 @@
         <TextBlock Grid.Row="0" VerticalAlignment="Center" Margin="10" Text="프로그래머" FontSize="21" FontWeight="Bold"/>
         <views:DisplayView x:Name="displayView"
                            Grid.Row="1"
+                           NumericalExpression="{Binding NumericalExpression}"
                            DisplayValue="{Binding DisplayValue}"
                            SelectedBaseNumber="{Binding SelectedBaseNumber, Mode=OneWayToSource}"/>
         <views:KeypadControlView x:Name="keypadControlView"

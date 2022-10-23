@@ -23,6 +23,17 @@ namespace MSProgrammerCalculator.Views
     /// </summary>
     public partial class DisplayView : UserControl
     {
+        public static readonly DependencyProperty NumericalExpressionProperty = DependencyProperty.Register(
+            nameof(NumericalExpression),
+            typeof(string),
+            typeof(DisplayView),
+            new PropertyMetadata(string.Empty));
+        public string NumericalExpression
+        {
+            get => (string)GetValue(DisplayValueProperty);
+            set => SetValue(NumericalExpressionProperty, value);
+        }
+
         public static readonly DependencyProperty DisplayValueProperty = DependencyProperty.Register(
             nameof(DisplayValue),
             typeof(long),
