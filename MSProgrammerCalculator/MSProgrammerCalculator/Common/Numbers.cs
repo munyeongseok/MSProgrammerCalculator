@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MSProgrammerCalculator.Common
 {
-    public enum KeypadNumbers
+    public enum Numbers
     {
         Num0,
         Num1,

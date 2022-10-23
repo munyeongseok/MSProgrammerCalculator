@@ -47,7 +47,7 @@ namespace MSProgrammerCalculator.ViewModels
         private const long MSB1111 = unchecked((long)0b_1111000000000000_0000000000000000_0000000000000000_0000000000000000);
 
         private Stack<NumericalExpressionNode> _expressions = new Stack<NumericalExpressionNode>();
-        private KeypadOperators _operator;
+        private Operators _operator;
         private long _leftHandOperand;
         private long _rightHandOperand;
         private bool _isOperandChanged;
@@ -67,30 +67,30 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void KeypadNumberButtonClicked(object parameter)
         {
-            switch ((KeypadNumbers)parameter)
+            switch ((Numbers)parameter)
             {
-                case KeypadNumbers.Num0: InsertNumber(0); break;
-                case KeypadNumbers.Num1: InsertNumber(1); break;
-                case KeypadNumbers.Num2: InsertNumber(2); break;
-                case KeypadNumbers.Num3: InsertNumber(3); break;
-                case KeypadNumbers.Num4: InsertNumber(4); break;
-                case KeypadNumbers.Num5: InsertNumber(5); break;
-                case KeypadNumbers.Num6: InsertNumber(6); break;
-                case KeypadNumbers.Num7: InsertNumber(7); break;
-                case KeypadNumbers.Num8: InsertNumber(8); break;
-                case KeypadNumbers.Num9: InsertNumber(9); break;
-                case KeypadNumbers.NumA: InsertNumber(10); break;
-                case KeypadNumbers.NumB: InsertNumber(11); break;
-                case KeypadNumbers.NumC: InsertNumber(12); break;
-                case KeypadNumbers.NumD: InsertNumber(13); break;
-                case KeypadNumbers.NumE: InsertNumber(14); break;
-                case KeypadNumbers.NumF: InsertNumber(15); break;
+                case Numbers.Num0: InsertNumber(0); break;
+                case Numbers.Num1: InsertNumber(1); break;
+                case Numbers.Num2: InsertNumber(2); break;
+                case Numbers.Num3: InsertNumber(3); break;
+                case Numbers.Num4: InsertNumber(4); break;
+                case Numbers.Num5: InsertNumber(5); break;
+                case Numbers.Num6: InsertNumber(6); break;
+                case Numbers.Num7: InsertNumber(7); break;
+                case Numbers.Num8: InsertNumber(8); break;
+                case Numbers.Num9: InsertNumber(9); break;
+                case Numbers.NumA: InsertNumber(10); break;
+                case Numbers.NumB: InsertNumber(11); break;
+                case Numbers.NumC: InsertNumber(12); break;
+                case Numbers.NumD: InsertNumber(13); break;
+                case Numbers.NumE: InsertNumber(14); break;
+                case Numbers.NumF: InsertNumber(15); break;
             }
         }
 
         private void KeypadUnaryOperatorButtonClicked(object parameter)
         {
-            var keypadOperator = (KeypadOperators)parameter;
+            var keypadOperator = (Operators)parameter;
             if (_isOperandChanged)
             {
                 InsertExpression(keypadOperator, _rightHandOperand);
@@ -98,10 +98,10 @@ namespace MSProgrammerCalculator.ViewModels
                 var value = _rightHandOperand;
                 switch (keypadOperator)
                 {
-                    case KeypadOperators.NOT:
+                    case Operators.NOT:
                         value = ~value;
                         break;
-                    case KeypadOperators.Negate:
+                    case Operators.Negate:
                         value = -value;
                         break;
                     default:
@@ -115,7 +115,7 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void KeypadBinaryOperatorButtonClicked(object parameter)
         {
-            var keypadOperator = (KeypadOperators)parameter;
+            var keypadOperator = (Operators)parameter;
             if (_isOperandChanged)
             {
                 InsertExpression(keypadOperator, _rightHandOperand);
@@ -129,22 +129,22 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void KeypadAuxiliaryOperatorButtonClicked(object parameter)
         {
-            var keypadOperator = (KeypadOperators)parameter;
+            var keypadOperator = (Operators)parameter;
             switch (keypadOperator)
             {
-                case KeypadOperators.Clear:
+                case Operators.Clear:
                     ClearNumber();
                     break;
-                case KeypadOperators.BackSpace:
+                case Operators.BackSpace:
                     RemoveNumber();
                     break;
-                case KeypadOperators.OpenParenthesis:
+                case Operators.OpenParenthesis:
                     break;
-                case KeypadOperators.CloseParenthesis:
+                case Operators.CloseParenthesis:
                     break;
-                case KeypadOperators.DecimalSeparator:
+                case Operators.DecimalSeparator:
                     break;
-                case KeypadOperators.Result:
+                case Operators.Result:
                     SubmitResult();
                     break;
             }
@@ -152,12 +152,12 @@ namespace MSProgrammerCalculator.ViewModels
             InsertExpression(keypadOperator, _rightHandOperand);
         }
 
-        private void InsertExpression(KeypadOperators keypadOperator, long value)
+        private void InsertExpression(Operators keypadOperator, long value)
         {
             if (_expressions.Any())
             {
                 var topExNode = _expressions.Peek();
-                if (topExNode.Operator == KeypadOperators.NOT)
+                if (topExNode.Operator == Operators.NOT)
                 {
                     _expressions.Pop();
 
@@ -186,51 +186,51 @@ namespace MSProgrammerCalculator.ViewModels
             }
         }
 
-        private NumericalExpressionNode CreateExpressionNode(KeypadOperators keypadOperator, long value)
+        private NumericalExpressionNode CreateExpressionNode(Operators keypadOperator, long value)
         {
             string expression;
             switch (keypadOperator)
             {
-                case KeypadOperators.AND:
+                case Operators.AND:
                     expression = $"{value} AND ";
                     break;
-                case KeypadOperators.OR:
+                case Operators.OR:
                     expression = $"{value} OR ";
                     break;
-                case KeypadOperators.NOT:
+                case Operators.NOT:
                     expression = $"NOT( {value} ) ";
                     break;
-                case KeypadOperators.NAND:
+                case Operators.NAND:
                     expression = $"{value} NAND ";
                     break;
-                case KeypadOperators.NOR:
+                case Operators.NOR:
                     expression = $"{value} NOR ";
                     break;
-                case KeypadOperators.XOR:
+                case Operators.XOR:
                     expression = $"{value} XOR ";
                     break;
-                case KeypadOperators.LeftShift:
+                case Operators.LeftShift:
                     expression = $"{value} Lsh ";
                     break;
-                case KeypadOperators.RightShift:
+                case Operators.RightShift:
                     expression = $"{value} Rsh ";
                     break;
-                case KeypadOperators.Modulo:
+                case Operators.Modulo:
                     expression = $"{value} % ";
                     break;
-                case KeypadOperators.Divide:
+                case Operators.Divide:
                     expression = $"{value} ÷ ";
                     break;
-                case KeypadOperators.Multiply:
+                case Operators.Multiply:
                     expression = $"{value} × ";
                     break;
-                case KeypadOperators.Minus:
+                case Operators.Minus:
                     expression = $"{value} - ";
                     break;
-                case KeypadOperators.Plus:
+                case Operators.Plus:
                     expression = $"{value} + ";
                     break;
-                case KeypadOperators.Result:
+                case Operators.Result:
                     expression = $"{value} = ";
                     break;
                 default:
@@ -305,7 +305,7 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void ClearNumber()
         {
-            _operator = KeypadOperators.None;
+            _operator = Operators.None;
             DisplayValue = _leftHandOperand = _rightHandOperand = 0;
         }
 
@@ -314,40 +314,40 @@ namespace MSProgrammerCalculator.ViewModels
             var value = 0L;
             switch (_operator)
             {
-                case KeypadOperators.AND:
+                case Operators.AND:
                     value = _leftHandOperand & _rightHandOperand;
                     break;
-                case KeypadOperators.OR:
+                case Operators.OR:
                     value = _leftHandOperand | _rightHandOperand;
                     break;
-                case KeypadOperators.NAND:
+                case Operators.NAND:
                     value = ~(_leftHandOperand & _rightHandOperand);
                     break;
-                case KeypadOperators.NOR:
+                case Operators.NOR:
                     value = ~(_leftHandOperand | _rightHandOperand);
                     break;
-                case KeypadOperators.XOR:
+                case Operators.XOR:
                     value = _leftHandOperand ^ _rightHandOperand;
                     break;
-                case KeypadOperators.LeftShift:
+                case Operators.LeftShift:
                     value = _leftHandOperand << (int)_rightHandOperand;
                     break;
-                case KeypadOperators.RightShift:
+                case Operators.RightShift:
                     value = _leftHandOperand >> (int)_rightHandOperand;
                     break;
-                case KeypadOperators.Modulo:
+                case Operators.Modulo:
                     value = _leftHandOperand % _rightHandOperand;
                     break;
-                case KeypadOperators.Divide:
+                case Operators.Divide:
                     value = _leftHandOperand / _rightHandOperand;
                     break;
-                case KeypadOperators.Multiply:
+                case Operators.Multiply:
                     value = _leftHandOperand * _rightHandOperand;
                     break;
-                case KeypadOperators.Minus:
+                case Operators.Minus:
                     value = _leftHandOperand - _rightHandOperand;
                     break;
-                case KeypadOperators.Plus:
+                case Operators.Plus:
                     value = _leftHandOperand + _rightHandOperand;
                     break;
                 default:

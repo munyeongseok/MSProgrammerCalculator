@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MSProgrammerCalculator.Common
 {
-    public enum KeypadOperators
+    public enum Operators
     {
         None,
         AND,
