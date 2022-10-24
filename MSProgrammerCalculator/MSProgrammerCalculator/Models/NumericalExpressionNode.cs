@@ -13,9 +13,9 @@ namespace MSProgrammerCalculator.Models
 
         public string Expression { get; set; }
 
-        public NumericalExpressionNode(Operators keypadOperator, string expression)
+        public NumericalExpressionNode(Operators op, string expression)
         {
-            Operator = keypadOperator;
+            Operator = op;
             Expression = expression;
         }
     }

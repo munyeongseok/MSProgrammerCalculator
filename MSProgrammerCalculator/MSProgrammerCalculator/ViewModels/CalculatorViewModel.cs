@@ -42,10 +42,6 @@ namespace MSProgrammerCalculator.ViewModels
         public DelegateCommand KeypadBinaryOperatorButtonClickCommand { get; private set; }
         public DelegateCommand KeypadAuxiliaryOperatorButtonClickCommand { get; private set; }
 
-        private const long MSB1000 = unchecked((long)0b_1000000000000000_0000000000000000_0000000000000000_0000000000000000);
-        private const long MSB1110 = unchecked((long)0b_1110000000000000_0000000000000000_0000000000000000_0000000000000000);
-        private const long MSB1111 = unchecked((long)0b_1111000000000000_0000000000000000_0000000000000000_0000000000000000);
-
         private Stack<NumericalExpressionNode> _expressions = new Stack<NumericalExpressionNode>();
         private Operators _operator;
         private long _leftHandOperand;
@@ -90,37 +86,24 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void KeypadUnaryOperatorButtonClicked(object parameter)
         {
-            var keypadOperator = (Operators)parameter;
+            var op = (Operators)parameter;
             if (_isOperandChanged)
             {
-                InsertExpression(keypadOperator, _rightHandOperand);
+                InsertExpression(op, _rightHandOperand);
 
-                var value = _rightHandOperand;
-                switch (keypadOperator)
-                {
-                    case Operators.NOT:
-                        value = ~value;
-                        break;
-                    case Operators.Negate:
-                        value = -value;
-                        break;
-                    default:
-                        return;
-                }
-
-                DisplayValue = value;
+                DisplayValue = Calculation.UnaryOperation(_rightHandOperand, op);
                 _isOperandChanged = false;
             }
         }
 
         private void KeypadBinaryOperatorButtonClicked(object parameter)
         {
-            var keypadOperator = (Operators)parameter;
+            var op = (Operators)parameter;
             if (_isOperandChanged)
             {
-                InsertExpression(keypadOperator, _rightHandOperand);
+                InsertExpression(op, _rightHandOperand);
 
-                _operator = keypadOperator;
+                _operator = op;
                 _leftHandOperand = _rightHandOperand;
                 _rightHandOperand = 0;
                 _isOperandChanged = false;
@@ -129,8 +112,8 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void KeypadAuxiliaryOperatorButtonClicked(object parameter)
         {
-            var keypadOperator = (Operators)parameter;
-            switch (keypadOperator)
+            var op = (Operators)parameter;
+            switch (op)
             {
                 case Operators.Clear:
                     ClearNumber();
@@ -149,10 +132,10 @@ namespace MSProgrammerCalculator.ViewModels
                     break;
             }
 
-            InsertExpression(keypadOperator, _rightHandOperand);
+            InsertExpression(op, _rightHandOperand);
         }
 
-        private void InsertExpression(Operators keypadOperator, long value)
+        private void InsertExpression(Operators op, long value)
         {
             if (_expressions.Any())
             {
@@ -172,7 +155,7 @@ namespace MSProgrammerCalculator.ViewModels
                 }
             }
 
-            var newExNode = CreateExpressionNode(keypadOperator, value);
+            var newExNode = CreateExpressionNode(op, value);
             if (newExNode != null)
             {
                 _expressions.Push(newExNode);
@@ -186,95 +169,15 @@ namespace MSProgrammerCalculator.ViewModels
             }
         }
 
-        private NumericalExpressionNode CreateExpressionNode(Operators keypadOperator, long value)
+        private NumericalExpressionNode CreateExpressionNode(Operators op, long value)
         {
-            string expression;
-            switch (keypadOperator)
-            {
-                case Operators.AND:
-                    expression = $"{value} AND ";
-                    break;
-                case Operators.OR:
-                    expression = $"{value} OR ";
-                    break;
-                case Operators.NOT:
-                    expression = $"NOT( {value} ) ";
-                    break;
-                case Operators.NAND:
-                    expression = $"{value} NAND ";
-                    break;
-                case Operators.NOR:
-                    expression = $"{value} NOR ";
-                    break;
-                case Operators.XOR:
-                    expression = $"{value} XOR ";
-                    break;
-                case Operators.LeftShift:
-                    expression = $"{value} Lsh ";
-                    break;
-                case Operators.RightShift:
-                    expression = $"{value} Rsh ";
-                    break;
-                case Operators.Modulo:
-                    expression = $"{value} % ";
-                    break;
-                case Operators.Divide:
-                    expression = $"{value} ÷ ";
-                    break;
-                case Operators.Multiply:
-                    expression = $"{value} × ";
-                    break;
-                case Operators.Minus:
-                    expression = $"{value} - ";
-                    break;
-                case Operators.Plus:
-                    expression = $"{value} + ";
-                    break;
-                case Operators.Result:
-                    expression = $"{value} = ";
-                    break;
-                default:
-                    return null;
-            }
-
-            return new NumericalExpressionNode(keypadOperator, expression);
+            var expression = Calculation.CreateNumericalExpression(value, op);
+            return new NumericalExpressionNode(op, expression);
         }
 
         private void InsertNumber(long number)
         {
-            var value = _rightHandOperand;
-            switch (SelectedBaseNumber)
-            {
-                case BaseNumber.Binary:
-                    if ((value & MSB1000) == 0)
-                    {
-                        value = (value << 1) + number;
-                    }
-                    break;
-                case BaseNumber.Octal:
-                    if ((value & MSB1110) == 0)
-                    {
-                        value = (value << 3) + number;
-                    }
-                    break;
-                case BaseNumber.Decimal:
-                    try
-                    {
-                        value = checked(value * 10) + number;
-                    }
-                    catch (OverflowException)
-                    {
-                    }
-                    break;
-                case BaseNumber.Hexadecimal:
-                    if ((value & MSB1111) == 0)
-                    {
-                        value = (value << 4) + number;
-                    }
-                    break;
-            }
-
-            DisplayValue = _rightHandOperand = value;
+            DisplayValue = _rightHandOperand = Calculation.InsertNumberAtRight(_rightHandOperand, number, SelectedBaseNumber);
             _isOperandChanged = true;
         }
 
@@ -282,24 +185,7 @@ namespace MSProgrammerCalculator.ViewModels
         {
             if (_rightHandOperand != 0)
             {
-                var value = _rightHandOperand;
-                switch (SelectedBaseNumber)
-                {
-                    case BaseNumber.Binary:
-                        value >>= 1;
-                        break;
-                    case BaseNumber.Octal:
-                        value >>= 3;
-                        break;
-                    case BaseNumber.Decimal:
-                        value /= 10;
-                        break;
-                    case BaseNumber.Hexadecimal:
-                        value >>= 4;
-                        break;
-                }
-
-                DisplayValue = _leftHandOperand = _rightHandOperand = value;
+                DisplayValue = _leftHandOperand = _rightHandOperand = Calculation.RemoveNumberAtRight(_rightHandOperand, SelectedBaseNumber);
             }
         }
 
@@ -311,50 +197,8 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void SubmitResult()
         {
-            var value = 0L;
-            switch (_operator)
-            {
-                case Operators.AND:
-                    value = _leftHandOperand & _rightHandOperand;
-                    break;
-                case Operators.OR:
-                    value = _leftHandOperand | _rightHandOperand;
-                    break;
-                case Operators.NAND:
-                    value = ~(_leftHandOperand & _rightHandOperand);
-                    break;
-                case Operators.NOR:
-                    value = ~(_leftHandOperand | _rightHandOperand);
-                    break;
-                case Operators.XOR:
-                    value = _leftHandOperand ^ _rightHandOperand;
-                    break;
-                case Operators.LeftShift:
-                    value = _leftHandOperand << (int)_rightHandOperand;
-                    break;
-                case Operators.RightShift:
-                    value = _leftHandOperand >> (int)_rightHandOperand;
-                    break;
-                case Operators.Modulo:
-                    value = _leftHandOperand % _rightHandOperand;
-                    break;
-                case Operators.Divide:
-                    value = _leftHandOperand / _rightHandOperand;
-                    break;
-                case Operators.Multiply:
-                    value = _leftHandOperand * _rightHandOperand;
-                    break;
-                case Operators.Minus:
-                    value = _leftHandOperand - _rightHandOperand;
-                    break;
-                case Operators.Plus:
-                    value = _leftHandOperand + _rightHandOperand;
-                    break;
-                default:
-                    return;
-            }
-
-            DisplayValue = _leftHandOperand = value;
+            var result = Calculation.BinaryOperation(_leftHandOperand, _rightHandOperand, _operator);
+            DisplayValue = _leftHandOperand = result;
         }
 
         private void BaseNumberChanged()
