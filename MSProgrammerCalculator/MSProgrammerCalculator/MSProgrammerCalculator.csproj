@@ -58,12 +58,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Calculator\AddExpression.cs" />
-    <Compile Include="Calculator\BinaryExpression.cs" />
-    <Compile Include="Calculator\Calculator.cs" />
-    <Compile Include="Calculator\CalculatorContext.cs" />
-    <Compile Include="Calculator\ICalculatorExpression.cs" />
-    <Compile Include="Calculator\UnaryExpression.cs" />
     <Compile Include="Common\BaseNumber.cs" />
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BitChangedEventArgs.cs" />
@@ -114,7 +108,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Calculator.xaml">
+    <Page Include="CalculatorWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -132,8 +126,8 @@
     <Compile Include="Views\NumericKeypadView.xaml.cs">
       <DependentUpon>NumericKeypadView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Calculator.xaml.cs">
-      <DependentUpon>Calculator.xaml</DependentUpon>
+    <Compile Include="CalculatorWindow.xaml.cs">
+      <DependentUpon>CalculatorWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\KeypadControlView.xaml">
@@ -168,12 +162,17 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\NumericKeypadButtonIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\BitKeypadButtonIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Calculator\Calculator.csproj">
+      <Project>{4f8ee924-0acd-4622-a9e6-bd1c935185ee}</Project>
+      <Name>Calculator</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

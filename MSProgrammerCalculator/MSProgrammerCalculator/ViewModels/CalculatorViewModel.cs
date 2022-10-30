@@ -1,4 +1,5 @@
-﻿using MSProgrammerCalculator.Common;
+﻿using Calculator;
+using MSProgrammerCalculator.Common;
 using MSProgrammerCalculator.Models;
 using System;
 using System.Collections.Generic;
@@ -52,17 +53,17 @@ namespace MSProgrammerCalculator.ViewModels
         {
             InitializeCommands();
 
-            var calculatorContext = new MyCalculator.CalculatorContext();
-            var calculator = new MyCalculator.Calculator();
+            var calculatorContext = new CalculatorContext();
+            var calculator = new Calculator.Calculator();
             calculator.SetContext(calculatorContext);
-            calculator.PushExpression(new MyCalculator.AddExpression(9));
+            calculator.PushExpression(new AddExpression(9));
             calculator.Evaluate();
             var result1 = calculatorContext.LeftOperand;
-            calculator.PushExpression(new MyCalculator.AddExpression(10));
+            calculator.PushExpression(new AddExpression(10));
             calculator.Evaluate();
             var result2 = calculatorContext.LeftOperand;
-            calculator.PushExpression(new MyCalculator.AddExpression(-4));
-            calculator.PushExpression(new MyCalculator.AddExpression(-5));
+            calculator.PushExpression(new AddExpression(-4));
+            calculator.PushExpression(new AddExpression(-5));
             calculator.Evaluate();
             var result3 = calculatorContext.LeftOperand;
         }

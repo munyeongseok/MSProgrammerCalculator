@@ -17,11 +17,11 @@ using System.Windows.Shapes;
 namespace MSProgrammerCalculator
 {
     /// <summary>
-    /// Calculator.xaml에 대한 상호 작용 논리
+    /// CalculatorWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class Calculator : Window
+    public partial class CalculatorWindow : Window
     {
-        public Calculator()
+        public CalculatorWindow()
         {
             InitializeComponent();
         }
