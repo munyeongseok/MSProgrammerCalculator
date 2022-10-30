@@ -58,6 +58,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Calculator\AddExpression.cs" />
+    <Compile Include="Calculator\BinaryExpression.cs" />
+    <Compile Include="Calculator\Calculator.cs" />
+    <Compile Include="Calculator\CalculatorContext.cs" />
+    <Compile Include="Calculator\ICalculatorExpression.cs" />
+    <Compile Include="Calculator\UnaryExpression.cs" />
     <Compile Include="Common\BaseNumber.cs" />
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BitChangedEventArgs.cs" />

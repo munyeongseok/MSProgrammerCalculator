@@ -51,6 +51,20 @@ namespace MSProgrammerCalculator.ViewModels
         public CalculatorViewModel()
         {
             InitializeCommands();
+
+            var calculatorContext = new MyCalculator.CalculatorContext();
+            var calculator = new MyCalculator.Calculator();
+            calculator.SetContext(calculatorContext);
+            calculator.PushExpression(new MyCalculator.AddExpression(9));
+            calculator.Evaluate();
+            var result1 = calculatorContext.LeftOperand;
+            calculator.PushExpression(new MyCalculator.AddExpression(10));
+            calculator.Evaluate();
+            var result2 = calculatorContext.LeftOperand;
+            calculator.PushExpression(new MyCalculator.AddExpression(-4));
+            calculator.PushExpression(new MyCalculator.AddExpression(-5));
+            calculator.Evaluate();
+            var result3 = calculatorContext.LeftOperand;
         }
 
         private void InitializeCommands()
