@@ -41,7 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Expressions\AddExpression.cs" />
+    <Compile Include="Common\BaseNumber.cs" />
+    <Compile Include="Common\Numbers.cs" />
+    <Compile Include="Common\Operators.cs" />
+    <Compile Include="Infrastructure\CalculationHelper.cs" />
+    <Compile Include="Infrastructure\Expressions\PlusExpression.cs" />
     <Compile Include="Infrastructure\BinaryExpression.cs" />
     <Compile Include="Infrastructure\Calculator.cs" />
     <Compile Include="Infrastructure\CalculatorContext.cs" />

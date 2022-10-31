@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MSProgrammerCalculator.Common
+namespace Calculator
 {
-    public static class Calculation
+    internal static class CalculationHelper
     {
         private const long MSB1000 = unchecked((long)0b_1000000000000000_0000000000000000_0000000000000000_0000000000000000);
         private const long MSB1110 = unchecked((long)0b_1110000000000000_0000000000000000_0000000000000000_0000000000000000);
         private const long MSB1111 = unchecked((long)0b_1111000000000000_0000000000000000_0000000000000000_0000000000000000);
 
-        public static long BinaryOperation(long leftOperand, long rightOperand, Operators op)
+        public static long BinaryOperation(Operators op, long leftOperand, long rightOperand)
         {
             switch (op)
             {
@@ -58,44 +58,44 @@ namespace MSProgrammerCalculator.Common
             }
         }
 
-        public static string CreateNumericalExpression(long value, Operators op)
+        public static string AppendExpression(Operators op, string expression)
         {
             switch (op)
             {
                 case Operators.AND:
-                    return $"{value} AND ";
+                    return $"{expression} AND ";
                 case Operators.OR:
-                    return $"{value} OR ";
+                    return $"{expression} OR ";
                 case Operators.NOT:
-                    return $"NOT( {value} ) ";
+                    return $"NOT( {expression} ) ";
                 case Operators.NAND:
-                    return $"{value} NAND ";
+                    return $"{expression} NAND ";
                 case Operators.NOR:
-                    return $"{value} NOR ";
+                    return $"{expression} NOR ";
                 case Operators.XOR:
-                    return $"{value} XOR ";
+                    return $"{expression} XOR ";
                 case Operators.LeftShift:
-                    return $"{value} Lsh ";
+                    return $"{expression} Lsh ";
                 case Operators.RightShift:
-                    return $"{value} Rsh ";
+                    return $"{expression} Rsh ";
                 case Operators.Modulo:
-                    return $"{value} % ";
+                    return $"{expression} % ";
                 case Operators.Divide:
-                    return $"{value} ÷ ";
+                    return $"{expression} ÷ ";
                 case Operators.Multiply:
-                    return $"{value} × ";
+                    return $"{expression} × ";
                 case Operators.Minus:
-                    return $"{value} - ";
+                    return $"{expression} - ";
                 case Operators.Plus:
-                    return $"{value} + ";
+                    return $"{expression} + ";
                 case Operators.Result:
-                    return $"{value} = ";
+                    return $"{expression} = ";
                 default:
                     throw new InvalidOperationException();
             }
         }
 
-        public static long InsertNumberAtRight(long value, long number, BaseNumber baseNumber)
+        public static long InsertNumberAtRight(BaseNumber baseNumber, long value, long number)
         {
             switch (baseNumber)
             {
@@ -131,7 +131,7 @@ namespace MSProgrammerCalculator.Common
             return value;
         }
 
-        public static long RemoveNumberAtRight(long value, BaseNumber baseNumber)
+        public static long RemoveNumberAtRight(BaseNumber baseNumber, long value)
         {
             switch (baseNumber)
             {

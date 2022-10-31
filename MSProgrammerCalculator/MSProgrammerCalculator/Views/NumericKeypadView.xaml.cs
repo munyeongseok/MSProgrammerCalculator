@@ -1,4 +1,5 @@
-﻿using MSProgrammerCalculator.Common;
+﻿using Calculator;
+using MSProgrammerCalculator.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;

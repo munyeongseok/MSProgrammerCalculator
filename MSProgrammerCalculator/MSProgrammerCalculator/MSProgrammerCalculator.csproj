@@ -58,16 +58,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Common\BaseNumber.cs" />
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BitChangedEventArgs.cs" />
     <Compile Include="Common\BitChangedEventHandler.cs" />
     <Compile Include="Common\BitDataUnit.cs" />
     <Compile Include="Common\BitKeypadValueChangedEventArgs.cs" />
     <Compile Include="Common\BitKeypadValueChangedEventHandler.cs" />
-    <Compile Include="Common\Calculation.cs" />
-    <Compile Include="Common\Numbers.cs" />
-    <Compile Include="Common\Operators.cs" />
     <Compile Include="Common\DelegateCommand.cs" />
     <Compile Include="Common\KeypadMode.cs" />
     <Compile Include="Controls\BitToggleButton.cs" />

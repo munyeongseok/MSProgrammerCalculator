@@ -8,8 +8,10 @@ namespace Calculator
 {
     public class CalculatorContext
     {
-        public Stack<ICalculatorExpression> Expressions { get; } = new Stack<ICalculatorExpression>();
+        internal Stack<ICalculatorExpression> Expressions { get; } = new Stack<ICalculatorExpression>();
 
-        public double LeftOperand { get; set; }
+        public long Result { get; internal set; }
+
+        public string Expression { get; internal set; }
     }
 }

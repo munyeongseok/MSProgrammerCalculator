@@ -56,16 +56,19 @@ namespace MSProgrammerCalculator.ViewModels
             var calculatorContext = new CalculatorContext();
             var calculator = new Calculator.Calculator();
             calculator.SetContext(calculatorContext);
-            calculator.PushExpression(new AddExpression(9));
+            calculator.PushExpression(new PlusExpression(9));
             calculator.Evaluate();
-            var result1 = calculatorContext.LeftOperand;
-            calculator.PushExpression(new AddExpression(10));
+            var result1 = calculatorContext.Result;
+            var exp1 = calculatorContext.Expression;
+            calculator.PushExpression(new PlusExpression(10));
             calculator.Evaluate();
-            var result2 = calculatorContext.LeftOperand;
-            calculator.PushExpression(new AddExpression(-4));
-            calculator.PushExpression(new AddExpression(-5));
+            var result2 = calculatorContext.Result;
+            var exp2 = calculatorContext.Expression;
+            calculator.PushExpression(new PlusExpression(-4));
+            calculator.PushExpression(new PlusExpression(-5));
             calculator.Evaluate();
-            var result3 = calculatorContext.LeftOperand;
+            var result3 = calculatorContext.Result;
+            var exp3 = calculatorContext.Expression;
         }
 
         private void InitializeCommands()
@@ -106,8 +109,8 @@ namespace MSProgrammerCalculator.ViewModels
             {
                 InsertExpression(op, _rightHandOperand);
 
-                DisplayValue = Calculation.UnaryOperation(_rightHandOperand, op);
-                _isOperandChanged = false;
+                //DisplayValue = Calculation.UnaryOperation(_rightHandOperand, op);
+                //_isOperandChanged = false;
             }
         }
 
@@ -186,21 +189,23 @@ namespace MSProgrammerCalculator.ViewModels
 
         private NumericalExpressionNode CreateExpressionNode(Operators op, long value)
         {
-            var expression = Calculation.CreateNumericalExpression(value, op);
-            return new NumericalExpressionNode(op, expression);
+            //var expression = Calculation.CreateNumericalExpression(value, op);
+            //return new NumericalExpressionNode(op, expression);
+
+            return null;
         }
 
         private void InsertNumber(long number)
         {
-            DisplayValue = _rightHandOperand = Calculation.InsertNumberAtRight(_rightHandOperand, number, SelectedBaseNumber);
-            _isOperandChanged = true;
+            //DisplayValue = _rightHandOperand = Calculation.InsertNumberAtRight(_rightHandOperand, number, SelectedBaseNumber);
+            //_isOperandChanged = true;
         }
 
         private void RemoveNumber()
         {
             if (_rightHandOperand != 0)
             {
-                DisplayValue = _leftHandOperand = _rightHandOperand = Calculation.RemoveNumberAtRight(_rightHandOperand, SelectedBaseNumber);
+                //DisplayValue = _leftHandOperand = _rightHandOperand = Calculation.RemoveNumberAtRight(_rightHandOperand, SelectedBaseNumber);
             }
         }
 
@@ -212,8 +217,8 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void SubmitResult()
         {
-            var result = Calculation.BinaryOperation(_leftHandOperand, _rightHandOperand, _operator);
-            DisplayValue = _leftHandOperand = result;
+            //var result = Calculation.BinaryOperation(_leftHandOperand, _rightHandOperand, _operator);
+            //DisplayValue = _leftHandOperand = result;
         }
 
         private void BaseNumberChanged()

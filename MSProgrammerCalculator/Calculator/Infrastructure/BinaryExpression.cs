@@ -8,11 +8,11 @@ namespace Calculator
 {
     public abstract class BinaryExpression : ICalculatorExpression
     {
-        public double RightOperand { get; }
+        public long Operand { get; }
 
-        protected BinaryExpression(double rightOperand)
+        protected BinaryExpression(long operand)
         {
-            RightOperand = rightOperand;
+            Operand = operand;
         }
 
         public abstract void Evaluate(CalculatorContext context);

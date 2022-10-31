@@ -7,6 +7,7 @@
              xmlns:controls="clr-namespace:MSProgrammerCalculator.Controls"
              xmlns:converters="clr-namespace:MSProgrammerCalculator.Converters"
              xmlns:common="clr-namespace:MSProgrammerCalculator.Common"
+             xmlns:calculator="clr-namespace:Calculator;assembly=Calculator"
              mc:Ignorable="d"
              d:DesignWidth="600"
              d:DesignHeight="300">
@@ -52,28 +53,28 @@
                                          Grid.Row="2"
                                          GroupName="baseNumber"
                                          Base="HEX"
-                                         Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DisplayValue, Converter={StaticResource longToBaseNumberConverter}, ConverterParameter={x:Static common:BaseNumber.Hexadecimal}}"
-                                         IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=SelectedBaseNumber, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static common:BaseNumber.Hexadecimal}}"/>
+                                         Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DisplayValue, Converter={StaticResource longToBaseNumberConverter}, ConverterParameter={x:Static calculator:BaseNumber.Hexadecimal}}"
+                                         IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=SelectedBaseNumber, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static calculator:BaseNumber.Hexadecimal}}"/>
         <!-- DEC RadioButton -->
         <controls:DisplayViewRadioButton x:Name="decRadioButton"
                                          Grid.Row="3"
                                          GroupName="baseNumber"
                                          Base="DEC"
-                                         Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DisplayValue, Converter={StaticResource longToBaseNumberConverter}, ConverterParameter={x:Static common:BaseNumber.Decimal}}"
-                                         IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=SelectedBaseNumber, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static common:BaseNumber.Decimal}}"/>
+                                         Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DisplayValue, Converter={StaticResource longToBaseNumberConverter}, ConverterParameter={x:Static calculator:BaseNumber.Decimal}}"
+                                         IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=SelectedBaseNumber, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static calculator:BaseNumber.Decimal}}"/>
         <!-- OCT RadioButton -->
         <controls:DisplayViewRadioButton x:Name="octRadioButton"
                                          Grid.Row="4"
                                          GroupName="baseNumber"
                                          Base="OCT"
-                                         Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DisplayValue, Converter={StaticResource longToBaseNumberConverter}, ConverterParameter={x:Static common:BaseNumber.Octal}}"
-                                         IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=SelectedBaseNumber, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static common:BaseNumber.Octal}}"/>
+                                         Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DisplayValue, Converter={StaticResource longToBaseNumberConverter}, ConverterParameter={x:Static calculator:BaseNumber.Octal}}"
+                                         IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=SelectedBaseNumber, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static calculator:BaseNumber.Octal}}"/>
         <!-- BIN RadioButton -->
         <controls:DisplayViewRadioButton x:Name="binRadioButton"
                                          Grid.Row="5"
                                          GroupName="baseNumber"
                                          Base="BIN"
-                                         Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DisplayValue, Converter={StaticResource longToBaseNumberConverter}, ConverterParameter={x:Static common:BaseNumber.Binary}}"
-                                         IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=SelectedBaseNumber, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static common:BaseNumber.Binary}}"/>
+                                         Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DisplayValue, Converter={StaticResource longToBaseNumberConverter}, ConverterParameter={x:Static calculator:BaseNumber.Binary}}"
+                                         IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=SelectedBaseNumber, Converter={StaticResource comparisonConverter}, ConverterParameter={x:Static calculator:BaseNumber.Binary}}"/>
     </Grid>
 </UserControl>
