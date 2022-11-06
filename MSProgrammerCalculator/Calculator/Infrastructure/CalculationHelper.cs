@@ -62,33 +62,35 @@ namespace Calculator
         {
             switch (op)
             {
+                // Binary Expression
                 case Operators.AND:
-                    return null;
+                    return new BitwiseANDExpression(operand);
                 case Operators.OR:
-                    return null;
-                case Operators.NOT:
-                    return null;
+                    return new BitwiseORExpression(operand);
                 case Operators.NAND:
-                    return null;
+                    return new BitwiseNANDExpression(operand);
                 case Operators.NOR:
-                    return null;
+                    return new BitwiseNORExpression(operand);
                 case Operators.XOR:
-                    return null;
+                    return new BitwiseXORExpression(operand);
                 case Operators.LeftShift:
-                    return null;
+                    return new LeftShiftExpression(operand);
                 case Operators.RightShift:
-                    return null;
+                    return new RightShiftExpression(operand);
                 case Operators.Modulo:
-                    return null;
+                    return new ModuloExpression(operand);
                 case Operators.Divide:
-                    return null;
+                    return new DivideExpression(operand);
                 case Operators.Multiply:
-                    return null;
+                    return new MultiplyExpression(operand);
                 case Operators.Minus:
-                    return null;
+                    return new MinusExpression(operand);
                 case Operators.Plus:
                     return new PlusExpression(operand);
-                case Operators.Result:
+                // Unary Expression
+                case Operators.NOT:
+                    return null;
+                case Operators.Negate:
                     return null;
                 default:
                     throw new ArgumentException();
@@ -136,43 +138,6 @@ namespace Calculator
                     throw new ArgumentException();
             }
         }
-
-        //public static string GetOperatorExpression(Operators op)
-        //{
-        //    switch (op)
-        //    {
-        //        case Operators.AND:
-        //            return "AND";
-        //        case Operators.OR:
-        //            return "OR";
-        //        case Operators.NOT:
-        //            return $"NOT( {expression} ) ";
-        //        case Operators.NAND:
-        //            return $"{expression} NAND ";
-        //        case Operators.NOR:
-        //            return $"{expression} NOR ";
-        //        case Operators.XOR:
-        //            return $"{expression} XOR ";
-        //        case Operators.LeftShift:
-        //            return $"{expression} Lsh ";
-        //        case Operators.RightShift:
-        //            return $"{expression} Rsh ";
-        //        case Operators.Modulo:
-        //            return $"{expression} % ";
-        //        case Operators.Divide:
-        //            return $"{expression} ÷ ";
-        //        case Operators.Multiply:
-        //            return $"{expression} × ";
-        //        case Operators.Minus:
-        //            return $"{expression} - ";
-        //        case Operators.Plus:
-        //            return $"{expression} + ";
-        //        case Operators.Result:
-        //            return $"{expression} = ";
-        //        default:
-        //            throw new ArgumentException();
-        //    }
-        //}
 
         public static long InsertNumberAtRight(BaseNumber baseNumber, long value, long number)
         {
