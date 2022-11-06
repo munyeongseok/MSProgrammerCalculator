@@ -8,14 +8,14 @@ namespace Calculator
 {
     public class NegateExpression : UnaryExpression
     {
-        public NegateExpression()
+        public NegateExpression(long operand) : base(operand)
         {
         }
 
         public override void Evaluate(CalculatorContext context)
         {
-            context.Result = CalculationHelper.UnaryOperation(Operators.Negate, context.Result);
-            context.Expression = CalculationHelper.AppendExpression(Operators.Negate, context.Expression);
+            context.Result = CalculationHelper.UnaryOperation(Operators.Negate, Operand);
+            context.Expression = CalculationHelper.AppendExpression(Operators.Negate, Operand.ToString());
         }
     }
 }

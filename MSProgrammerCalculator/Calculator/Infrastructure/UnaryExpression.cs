@@ -8,8 +8,11 @@ namespace Calculator
 {
     public abstract class UnaryExpression : ICalculatorExpression
     {
-        protected UnaryExpression()
+        public long Operand { get; }
+
+        protected UnaryExpression(long operand)
         {
+            Operand = operand;
         }
 
         public abstract void Evaluate(CalculatorContext context);

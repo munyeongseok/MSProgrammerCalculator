@@ -94,28 +94,25 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void KeypadUnaryOperatorButtonClicked(object parameter)
         {
-            var op = (Operators)parameter;
             if (_currentOperandChanged)
             {
-                _calculator.PushExpression(op, _currentOperand);
+                _calculator.PushExpression((Operators)parameter, _currentOperand);
                 SubmitResult();
             }
         }
 
         private void KeypadBinaryOperatorButtonClicked(object parameter)
         {
-            var op = (Operators)parameter;
             if (_currentOperandChanged)
             {
-                _calculator.PushExpression(op, _currentOperand);
+                _calculator.PushExpression((Operators)parameter, _currentOperand);
                 SubmitResult();
             }
         }
 
         private void KeypadAuxiliaryOperatorButtonClicked(object parameter)
         {
-            var op = (Operators)parameter;
-            switch (op)
+            switch ((Operators)parameter)
             {
                 case Operators.Clear:
                     ClearNumber();

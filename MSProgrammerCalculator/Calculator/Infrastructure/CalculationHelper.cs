@@ -89,9 +89,9 @@ namespace Calculator
                     return new PlusExpression(operand);
                 // Unary Expression
                 case Operators.NOT:
-                    return new BitwiseNOTExpression();
+                    return new BitwiseNOTExpression(operand);
                 case Operators.Negate:
-                    return new NegateExpression();
+                    return new NegateExpression(operand);
                 default:
                     throw new ArgumentException();
             }
