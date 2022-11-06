@@ -13,5 +13,7 @@ namespace Calculator
         public long Result { get; internal set; }
 
         public string Expression { get; internal set; }
+
+        internal Operators CurrentOperator { get; set; }
     }
 }

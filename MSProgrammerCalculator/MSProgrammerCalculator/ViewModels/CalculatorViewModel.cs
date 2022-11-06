@@ -1,6 +1,5 @@
 ﻿using Calculator;
 using MSProgrammerCalculator.Common;
-using MSProgrammerCalculator.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,32 +42,18 @@ namespace MSProgrammerCalculator.ViewModels
         public DelegateCommand KeypadBinaryOperatorButtonClickCommand { get; private set; }
         public DelegateCommand KeypadAuxiliaryOperatorButtonClickCommand { get; private set; }
 
-        private Stack<NumericalExpressionNode> _expressions = new Stack<NumericalExpressionNode>();
-        private Operators _operator;
-        private long _leftHandOperand;
-        private long _rightHandOperand;
-        private bool _isOperandChanged;
+        private long _currentOperand;
+        private bool _currentOperandChanged;
+        private CalculatorContext _currentContext;
+        private Calculator.Calculator _calculator;
 
         public CalculatorViewModel()
         {
             InitializeCommands();
 
-            var calculatorContext = new CalculatorContext();
-            var calculator = new Calculator.Calculator();
-            calculator.SetContext(calculatorContext);
-            calculator.PushExpression(new PlusExpression(9));
-            calculator.Evaluate();
-            var result1 = calculatorContext.Result;
-            var exp1 = calculatorContext.Expression;
-            calculator.PushExpression(new PlusExpression(10));
-            calculator.Evaluate();
-            var result2 = calculatorContext.Result;
-            var exp2 = calculatorContext.Expression;
-            calculator.PushExpression(new PlusExpression(-4));
-            calculator.PushExpression(new PlusExpression(-5));
-            calculator.Evaluate();
-            var result3 = calculatorContext.Result;
-            var exp3 = calculatorContext.Expression;
+            _currentContext = new CalculatorContext();
+            _calculator = new Calculator.Calculator();
+            _calculator.SetContext(_currentContext);
         }
 
         private void InitializeCommands()
@@ -105,9 +90,10 @@ namespace MSProgrammerCalculator.ViewModels
         private void KeypadUnaryOperatorButtonClicked(object parameter)
         {
             var op = (Operators)parameter;
-            if (_isOperandChanged)
+            if (_currentOperandChanged)
             {
-                InsertExpression(op, _rightHandOperand);
+                _calculator.PushExpression(op, _currentOperand);
+                _currentOperandChanged = false;
 
                 //DisplayValue = Calculation.UnaryOperation(_rightHandOperand, op);
                 //_isOperandChanged = false;
@@ -117,14 +103,10 @@ namespace MSProgrammerCalculator.ViewModels
         private void KeypadBinaryOperatorButtonClicked(object parameter)
         {
             var op = (Operators)parameter;
-            if (_isOperandChanged)
+            if (_currentOperandChanged)
             {
-                InsertExpression(op, _rightHandOperand);
-
-                _operator = op;
-                _leftHandOperand = _rightHandOperand;
-                _rightHandOperand = 0;
-                _isOperandChanged = false;
+                _calculator.PushExpression(op, _currentOperand);
+                SubmitResult();
             }
         }
 
@@ -149,81 +131,40 @@ namespace MSProgrammerCalculator.ViewModels
                     SubmitResult();
                     break;
             }
-
-            InsertExpression(op, _rightHandOperand);
-        }
-
-        private void InsertExpression(Operators op, long value)
-        {
-            if (_expressions.Any())
-            {
-                var topExNode = _expressions.Peek();
-                if (topExNode.Operator == Operators.NOT)
-                {
-                    _expressions.Pop();
-
-                    //if (_isOperandChanged)
-                    //{
-                    //    _expressions.Pop();
-                    //}
-                    //else
-                    //{
-                    //    _expressions
-                    //}
-                }
-            }
-
-            var newExNode = CreateExpressionNode(op, value);
-            if (newExNode != null)
-            {
-                _expressions.Push(newExNode);
-
-                var sb = new StringBuilder();
-                foreach (var exNode in _expressions)
-                {
-                    sb.Append(exNode.Expression);
-                }
-                NumericalExpression = sb.ToString();
-            }
-        }
-
-        private NumericalExpressionNode CreateExpressionNode(Operators op, long value)
-        {
-            //var expression = Calculation.CreateNumericalExpression(value, op);
-            //return new NumericalExpressionNode(op, expression);
-
-            return null;
         }
 
         private void InsertNumber(long number)
         {
-            //DisplayValue = _rightHandOperand = Calculation.InsertNumberAtRight(_rightHandOperand, number, SelectedBaseNumber);
-            //_isOperandChanged = true;
+            DisplayValue = _currentOperand = CalculationHelper.InsertNumberAtRight(SelectedBaseNumber, _currentOperand, number);
+            _currentOperandChanged = true;
         }
 
         private void RemoveNumber()
         {
-            if (_rightHandOperand != 0)
+            if (_currentOperand != 0)
             {
-                //DisplayValue = _leftHandOperand = _rightHandOperand = Calculation.RemoveNumberAtRight(_rightHandOperand, SelectedBaseNumber);
+                DisplayValue = _currentOperand = CalculationHelper.RemoveNumberAtRight(SelectedBaseNumber, _currentOperand);
             }
         }
 
         private void ClearNumber()
         {
-            _operator = Operators.None;
-            DisplayValue = _leftHandOperand = _rightHandOperand = 0;
+            DisplayValue = _currentOperand = 0;
         }
 
         private void SubmitResult()
         {
-            //var result = Calculation.BinaryOperation(_leftHandOperand, _rightHandOperand, _operator);
-            //DisplayValue = _leftHandOperand = result;
+            _currentOperand = 0;
+            _currentOperandChanged = false;
+            _calculator.Evaluate();
+
+            NumericalExpression = _currentContext.Expression;
+            DisplayValue = _currentContext.Result;
         }
 
         private void BaseNumberChanged()
         {
-            _rightHandOperand = 0;
+            _currentOperand = 0;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    internal static class CalculationHelper
+    public static class CalculationHelper
     {
         private const long MSB1000 = unchecked((long)0b_1000000000000000_0000000000000000_0000000000000000_0000000000000000);
         private const long MSB1110 = unchecked((long)0b_1110000000000000_0000000000000000_0000000000000000_0000000000000000);
@@ -58,6 +58,53 @@ namespace Calculator
             }
         }
 
+        public static ICalculatorExpression CreateExpression(Operators op, long operand)
+        {
+            switch (op)
+            {
+                case Operators.AND:
+                    return null;
+                case Operators.OR:
+                    return null;
+                case Operators.NOT:
+                    return null;
+                case Operators.NAND:
+                    return null;
+                case Operators.NOR:
+                    return null;
+                case Operators.XOR:
+                    return null;
+                case Operators.LeftShift:
+                    return null;
+                case Operators.RightShift:
+                    return null;
+                case Operators.Modulo:
+                    return null;
+                case Operators.Divide:
+                    return null;
+                case Operators.Multiply:
+                    return null;
+                case Operators.Minus:
+                    return null;
+                case Operators.Plus:
+                    return new PlusExpression(operand);
+                case Operators.Result:
+                    return null;
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        public static string AppendExpression(Operators op, long operand)
+        {
+            return AppendExpression(op, operand.ToString());
+        }
+
+        public static string AppendExpression(Operators op, string expression, long operand)
+        {
+            return AppendExpression(op, $"{expression}{operand}");
+        }
+
         public static string AppendExpression(Operators op, string expression)
         {
             switch (op)
@@ -91,9 +138,46 @@ namespace Calculator
                 case Operators.Result:
                     return $"{expression} = ";
                 default:
-                    throw new InvalidOperationException();
+                    throw new ArgumentException();
             }
         }
+
+        //public static string GetOperatorExpression(Operators op)
+        //{
+        //    switch (op)
+        //    {
+        //        case Operators.AND:
+        //            return "AND";
+        //        case Operators.OR:
+        //            return "OR";
+        //        case Operators.NOT:
+        //            return $"NOT( {expression} ) ";
+        //        case Operators.NAND:
+        //            return $"{expression} NAND ";
+        //        case Operators.NOR:
+        //            return $"{expression} NOR ";
+        //        case Operators.XOR:
+        //            return $"{expression} XOR ";
+        //        case Operators.LeftShift:
+        //            return $"{expression} Lsh ";
+        //        case Operators.RightShift:
+        //            return $"{expression} Rsh ";
+        //        case Operators.Modulo:
+        //            return $"{expression} % ";
+        //        case Operators.Divide:
+        //            return $"{expression} ÷ ";
+        //        case Operators.Multiply:
+        //            return $"{expression} × ";
+        //        case Operators.Minus:
+        //            return $"{expression} - ";
+        //        case Operators.Plus:
+        //            return $"{expression} + ";
+        //        case Operators.Result:
+        //            return $"{expression} = ";
+        //        default:
+        //            throw new ArgumentException();
+        //    }
+        //}
 
         public static long InsertNumberAtRight(BaseNumber baseNumber, long value, long number)
         {

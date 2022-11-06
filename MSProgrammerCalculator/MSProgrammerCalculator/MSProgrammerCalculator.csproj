@@ -76,7 +76,6 @@
     <Compile Include="Controls\KeypadControlRadioButton.cs" />
     <Compile Include="Converters\DisplayValueConverter.cs" />
     <Compile Include="Converters\LongToBaseNumberConverter.cs" />
-    <Compile Include="Models\NumericalExpressionNode.cs" />
     <Compile Include="ViewModels\CalculatorViewModel.cs" />
     <Compile Include="Views\DisplayView.xaml.cs">
       <DependentUpon>DisplayView.xaml</DependentUpon>
@@ -169,6 +168,9 @@
       <Project>{4f8ee924-0acd-4622-a9e6-bd1c935185ee}</Project>
       <Name>Calculator</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

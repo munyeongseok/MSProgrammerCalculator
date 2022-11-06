@@ -19,8 +19,18 @@ namespace Calculator
             _context = context;
         }
 
+        public void PushExpression(Operators op, long operand)
+        {
+            var expression = CalculationHelper.CreateExpression(op, operand);
+            PushExpression(expression);
+        }
+
         public void PushExpression(ICalculatorExpression expression)
         {
+            if (expression == null)
+            {
+                throw new ArgumentNullException(nameof(expression));
+            }
             if (_context == null)
             {
                 throw new NullReferenceException("Context is null.");
@@ -36,7 +46,10 @@ namespace Calculator
                 throw new NullReferenceException("Context is null.");
             }
 
-            _context.Expressions.Pop();
+            if (_context.Expressions.Any())
+            {
+                _context.Expressions.Pop();
+            }
         }
 
         public void Evaluate()
