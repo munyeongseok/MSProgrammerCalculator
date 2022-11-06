@@ -47,7 +47,9 @@
     <Compile Include="Infrastructure\CalculationHelper.cs" />
     <Compile Include="Infrastructure\Expressions\BitwiseANDExpression.cs" />
     <Compile Include="Infrastructure\Expressions\BitwiseNANDExpression.cs" />
+    <Compile Include="Infrastructure\Expressions\NegateExpression.cs" />
     <Compile Include="Infrastructure\Expressions\BitwiseNORExpression.cs" />
+    <Compile Include="Infrastructure\Expressions\BitwiseNOTExpression.cs" />
     <Compile Include="Infrastructure\Expressions\BitwiseORExpression.cs" />
     <Compile Include="Infrastructure\Expressions\BitwiseXORExpression.cs" />
     <Compile Include="Infrastructure\Expressions\DivideExpression.cs" />

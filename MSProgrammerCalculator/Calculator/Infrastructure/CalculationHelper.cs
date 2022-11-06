@@ -45,7 +45,7 @@ namespace Calculator
             }
         }
 
-        public static long UnaryOperation(long operand, Operators op)
+        public static long UnaryOperation(Operators op, long operand)
         {
             switch (op)
             {
@@ -89,9 +89,9 @@ namespace Calculator
                     return new PlusExpression(operand);
                 // Unary Expression
                 case Operators.NOT:
-                    return null;
+                    return new BitwiseNOTExpression();
                 case Operators.Negate:
-                    return null;
+                    return new NegateExpression();
                 default:
                     throw new ArgumentException();
             }
@@ -106,12 +106,11 @@ namespace Calculator
         {
             switch (op)
             {
+                // Binary Expression
                 case Operators.AND:
                     return $"{expression} AND ";
                 case Operators.OR:
                     return $"{expression} OR ";
-                case Operators.NOT:
-                    return $"NOT( {expression} ) ";
                 case Operators.NAND:
                     return $"{expression} NAND ";
                 case Operators.NOR:
@@ -132,6 +131,12 @@ namespace Calculator
                     return $"{expression} - ";
                 case Operators.Plus:
                     return $"{expression} + ";
+                // Unary Expression
+                case Operators.NOT:
+                    return $"NOT( {expression} ) ";
+                case Operators.Negate:
+                    return $"negate( {expression} ) ";
+                // Auxiliary Expression
                 case Operators.Result:
                     return $"{expression} = ";
                 default:

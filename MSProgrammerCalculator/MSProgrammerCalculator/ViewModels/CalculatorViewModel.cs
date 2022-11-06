@@ -98,10 +98,7 @@ namespace MSProgrammerCalculator.ViewModels
             if (_currentOperandChanged)
             {
                 _calculator.PushExpression(op, _currentOperand);
-                _currentOperandChanged = false;
-
-                //DisplayValue = Calculation.UnaryOperation(_rightHandOperand, op);
-                //_isOperandChanged = false;
+                SubmitResult();
             }
         }
 
