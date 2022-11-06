@@ -45,15 +45,12 @@ namespace MSProgrammerCalculator.ViewModels
         private long _currentOperand;
         private bool _currentOperandChanged;
         private CalculatorContext _currentContext;
-        private Calculator.Calculator _calculator;
+        private readonly Calculator.Calculator _calculator = new Calculator.Calculator();
 
         public CalculatorViewModel()
         {
             InitializeCommands();
-
-            _currentContext = new CalculatorContext();
-            _calculator = new Calculator.Calculator();
-            _calculator.SetContext(_currentContext);
+            InitializeValue();
         }
 
         private void InitializeCommands()
@@ -62,6 +59,14 @@ namespace MSProgrammerCalculator.ViewModels
             KeypadUnaryOperatorButtonClickCommand = new DelegateCommand(parameter => KeypadUnaryOperatorButtonClicked(parameter));
             KeypadBinaryOperatorButtonClickCommand = new DelegateCommand(parameter => KeypadBinaryOperatorButtonClicked(parameter));
             KeypadAuxiliaryOperatorButtonClickCommand = new DelegateCommand(parameter => KeypadAuxiliaryOperatorButtonClicked(parameter));
+        }
+
+        private void InitializeValue()
+        {
+            _currentOperand = 0;
+            _currentOperandChanged = true;
+            _currentContext = new CalculatorContext();
+            _calculator.SetContext(_currentContext);
         }
 
         private void KeypadNumberButtonClicked(object parameter)

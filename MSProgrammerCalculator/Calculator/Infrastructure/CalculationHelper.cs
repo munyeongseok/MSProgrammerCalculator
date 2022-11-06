@@ -95,14 +95,9 @@ namespace Calculator
             }
         }
 
-        public static string AppendExpression(Operators op, long operand)
-        {
-            return AppendExpression(op, operand.ToString());
-        }
-
         public static string AppendExpression(Operators op, string expression, long operand)
         {
-            return AppendExpression(op, $"{expression}{operand}");
+            return AppendExpression(op, expression == null ? $"{operand}" : $"{expression}{operand}");
         }
 
         public static string AppendExpression(Operators op, string expression)
