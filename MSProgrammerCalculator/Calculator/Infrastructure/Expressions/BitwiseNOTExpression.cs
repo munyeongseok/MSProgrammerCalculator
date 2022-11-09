@@ -15,7 +15,7 @@ namespace Calculator
         public override void Evaluate(CalculatorContext context)
         {
             context.Result = CalculationHelper.UnaryOperation(Operators.NOT, Operand);
-            context.Expression = CalculationHelper.AppendExpression(Operators.NOT, Operand.ToString());
+            context.Expression = $"{context.Expression}{CalculationHelper.AppendExpression(Operators.NOT, Operand.ToString())}";
         }
     }
 }
