@@ -106,7 +106,12 @@ namespace MSProgrammerCalculator.ViewModels
             if (_currentOperandChanged)
             {
                 _calculator.PushExpression((Operators)parameter, _currentOperand);
-                SubmitResult();
+                _calculator.Evaluate();
+                _currentOperand = 0;
+                _currentOperandChanged = false;
+
+                NumericalExpression = _currentContext.Expression;
+                DisplayValue = _currentContext.Result;
             }
         }
 

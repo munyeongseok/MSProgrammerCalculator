@@ -9,14 +9,19 @@ namespace Calculator
     public class Calculator
     {
         private CalculatorContext _context;
+        private bool _firstExpression;
+        private readonly Stack<ICalculatorExpression> _expressions;
 
         public Calculator()
         {
+            _expressions = new Stack<ICalculatorExpression>();
         }
 
         public void SetContext(CalculatorContext context)
         {
             _context = context;
+            _firstExpression = true;
+            _expressions.Clear();
         }
 
         public void PushExpression(Operators op, long operand)
@@ -27,42 +32,30 @@ namespace Calculator
 
         public void PushExpression(ICalculatorExpression expression)
         {
-            if (expression == null)
+            if (expression != null)
             {
-                throw new ArgumentNullException(nameof(expression));
+                _expressions.Push(expression);
             }
-            if (_context == null)
-            {
-                throw new NullReferenceException("Context is null.");
-            }
-
-            _context.Expressions.Push(expression);
         }
 
         public void PopExpression()
         {
-            if (_context == null)
+            if (_expressions.Any())
             {
-                throw new NullReferenceException("Context is null.");
-            }
-
-            if (_context.Expressions.Any())
-            {
-                _context.Expressions.Pop();
+                _expressions.Pop();
             }
         }
 
         public void Evaluate()
         {
-            if (_context == null)
+            if (_context != null)
             {
-                throw new NullReferenceException("Context is null.");
-            }
-
-            while (_context.Expressions.Any())
-            {
-                var currentExpression = _context.Expressions.Pop();
-                currentExpression.Evaluate(_context);
+                while (_expressions.Any())
+                {
+                    var expression = _expressions.Pop();
+                    expression.Evaluate(_context, _firstExpression);
+                    _firstExpression = false;
+                }
             }
         }
     }

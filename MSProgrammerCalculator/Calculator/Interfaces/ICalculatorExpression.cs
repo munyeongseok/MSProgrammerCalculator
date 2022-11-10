@@ -8,6 +8,6 @@ namespace Calculator
 {
     public interface ICalculatorExpression
     {
-        void Evaluate(CalculatorContext context);
+        void Evaluate(CalculatorContext context, bool firstExpression);
     }
 }

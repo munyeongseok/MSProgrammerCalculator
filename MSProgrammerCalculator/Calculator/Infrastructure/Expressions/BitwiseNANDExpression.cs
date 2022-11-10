@@ -12,7 +12,7 @@ namespace Calculator
         {
         }
 
-        public override void Evaluate(CalculatorContext context)
+        public override void Evaluate(CalculatorContext context, bool firstExpression)
         {
             context.Result = CalculationHelper.BinaryOperation(Operators.NAND, context.Result, Operand);
             context.Expression = CalculationHelper.AppendExpression(Operators.NAND, context.Expression, Operand);
