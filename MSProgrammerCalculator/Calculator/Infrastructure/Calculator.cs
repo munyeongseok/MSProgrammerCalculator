@@ -9,7 +9,6 @@ namespace Calculator
     public class Calculator
     {
         private CalculatorContext _context;
-        private bool _firstExpression;
         private readonly Stack<ICalculatorExpression> _expressions;
 
         public Calculator()
@@ -20,7 +19,6 @@ namespace Calculator
         public void SetContext(CalculatorContext context)
         {
             _context = context;
-            _firstExpression = true;
             _expressions.Clear();
         }
 
@@ -53,8 +51,7 @@ namespace Calculator
                 while (_expressions.Any())
                 {
                     var expression = _expressions.Pop();
-                    expression.Evaluate(_context, _firstExpression);
-                    _firstExpression = false;
+                    expression.Evaluate(_context);
                 }
             }
         }

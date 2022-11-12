@@ -15,6 +15,6 @@ namespace Calculator
             Operand = operand;
         }
 
-        public abstract void Evaluate(CalculatorContext context, bool firstExpression);
+        public abstract void Evaluate(CalculatorContext context);
     }
 }

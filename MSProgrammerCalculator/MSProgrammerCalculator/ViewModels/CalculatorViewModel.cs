@@ -111,7 +111,7 @@ namespace MSProgrammerCalculator.ViewModels
                 _currentOperandChanged = false;
 
                 NumericalExpression = _currentContext.Expression;
-                DisplayValue = _currentContext.Result;
+                DisplayValue = (long)_currentContext.Result;
             }
         }
 
@@ -163,7 +163,7 @@ namespace MSProgrammerCalculator.ViewModels
             _calculator.Evaluate();
 
             NumericalExpression = _currentContext.Expression;
-            DisplayValue = _currentContext.Result;
+            DisplayValue = (long)_currentContext.Result;
         }
 
         private void BaseNumberChanged()

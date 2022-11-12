@@ -12,7 +12,7 @@ namespace Calculator
         {
         }
 
-        public override void Evaluate(CalculatorContext context, bool firstExpression)
+        public override void Evaluate(CalculatorContext context)
         {
             context.Result = CalculationHelper.UnaryOperation(Operators.NOT, Operand);
             context.Expression = $"{context.Expression}{CalculationHelper.AppendExpression(Operators.NOT, Operand.ToString())}";
