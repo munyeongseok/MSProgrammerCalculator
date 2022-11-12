@@ -14,7 +14,7 @@ namespace Calculator
 
         public override void Evaluate(CalculatorContext context)
         {
-            context.Result = CalculationHelper.BinaryOperation(Operators.LeftShift, (long)context.Result, Operand);
+            context.Result = context.Result == null ? Operand : CalculationHelper.BinaryOperation(Operators.LeftShift, (long)context.Result, Operand);
             context.Expression = CalculationHelper.AppendExpression(Operators.LeftShift, context.Expression, Operand);
         }
     }
