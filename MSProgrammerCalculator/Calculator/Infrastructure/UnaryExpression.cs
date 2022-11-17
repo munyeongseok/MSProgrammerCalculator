@@ -10,9 +10,12 @@ namespace Calculator
     {
         public long Operand { get; }
 
-        protected UnaryExpression(long operand)
+        public bool IsNewOperand { get; }
+
+        protected UnaryExpression(long operand, bool isNewOperand)
         {
             Operand = operand;
+            IsNewOperand = isNewOperand;
         }
 
         public abstract void Evaluate(CalculatorContext context);

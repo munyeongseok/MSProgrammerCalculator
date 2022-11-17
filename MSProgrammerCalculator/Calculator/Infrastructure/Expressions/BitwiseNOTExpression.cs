@@ -8,14 +8,14 @@ namespace Calculator
 {
     public class BitwiseNOTExpression : UnaryExpression
     {
-        public BitwiseNOTExpression(long operand) : base(operand)
+        public BitwiseNOTExpression(long operand, bool isNewOperand) : base(operand, isNewOperand)
         {
         }
 
         public override void Evaluate(CalculatorContext context)
         {
             context.Result = CalculationHelper.UnaryOperation(Operators.NOT, Operand);
-            context.Expression = $"{context.Expression}{CalculationHelper.AppendExpression(Operators.NOT, Operand.ToString())}";
+            context.Expression = CalculationHelper.AppendExpression(Operators.NOT, IsNewOperand ? Operand.ToString() : context.Expression);
         }
     }
 }

@@ -9,22 +9,25 @@ namespace Calculator
     public class Calculator
     {
         private CalculatorContext _context;
-        private readonly Stack<ICalculatorExpression> _expressions;
 
         public Calculator()
         {
-            _expressions = new Stack<ICalculatorExpression>();
         }
 
         public void SetContext(CalculatorContext context)
         {
             _context = context;
-            _expressions.Clear();
         }
 
-        public void PushExpression(Operators op, long operand)
+        public void PushUnaryExpression(Operators op, long operand, bool isNewOperanad)
         {
-            var expression = CalculationHelper.CreateExpression(op, operand);
+            var expression = CalculationHelper.CreateUnaryExpression(op, operand, isNewOperanad);
+            PushExpression(expression);
+        }
+
+        public void PushBinaryExpression(Operators op, long operand)
+        {
+            var expression = CalculationHelper.CreateBinaryExpression(op, operand);
             PushExpression(expression);
         }
 
@@ -32,15 +35,7 @@ namespace Calculator
         {
             if (expression != null)
             {
-                _expressions.Push(expression);
-            }
-        }
-
-        public void PopExpression()
-        {
-            if (_expressions.Any())
-            {
-                _expressions.Pop();
+                _context.ExpressionStack.Push(expression);
             }
         }
 
@@ -48,9 +43,9 @@ namespace Calculator
         {
             if (_context != null)
             {
-                while (_expressions.Any())
+                while (_context.ExpressionStack.Any())
                 {
-                    var expression = _expressions.Pop();
+                    var expression = _context.ExpressionStack.Pop();
                     expression.Evaluate(_context);
                 }
             }

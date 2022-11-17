@@ -58,11 +58,23 @@ namespace Calculator
             }
         }
 
-        public static ICalculatorExpression CreateExpression(Operators op, long operand)
+        public static ICalculatorExpression CreateUnaryExpression(Operators op, long operand, bool isNewOperand)
         {
             switch (op)
             {
-                // Binary Expression
+                case Operators.NOT:
+                    return new BitwiseNOTExpression(operand, isNewOperand);
+                case Operators.Negate:
+                    return new NegateExpression(operand, isNewOperand);
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        public static ICalculatorExpression CreateBinaryExpression(Operators op, long operand)
+        {
+            switch (op)
+            {
                 case Operators.AND:
                     return new BitwiseANDExpression(operand);
                 case Operators.OR:
@@ -87,11 +99,6 @@ namespace Calculator
                     return new MinusExpression(operand);
                 case Operators.Plus:
                     return new PlusExpression(operand);
-                // Unary Expression
-                case Operators.NOT:
-                    return new BitwiseNOTExpression(operand);
-                case Operators.Negate:
-                    return new NegateExpression(operand);
                 default:
                     throw new ArgumentException();
             }
@@ -133,9 +140,9 @@ namespace Calculator
                     return $"{expression} + ";
                 // Unary Expression
                 case Operators.NOT:
-                    return $"NOT( {expression} ) ";
+                    return $"NOT( {expression} )";
                 case Operators.Negate:
-                    return $"negate( {expression} ) ";
+                    return $"negate( {expression} )";
                 // Auxiliary Expression
                 case Operators.Result:
                     return $"{expression} = ";

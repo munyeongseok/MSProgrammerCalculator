@@ -94,22 +94,22 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void KeypadUnaryOperatorButtonClicked(object parameter)
         {
-            if (_currentOperandChanged)
-            {
-                _calculator.PushExpression((Operators)parameter, _currentOperand);
-                SubmitResult();
-            }
+            _calculator.PushUnaryExpression((Operators)parameter, _currentOperandChanged ? _currentOperand : (long)_currentContext.Result, _currentOperandChanged);
+            _calculator.Evaluate();
+            _currentOperand = 0;
+            _currentOperandChanged = false;
+            NumericalExpression = _currentContext.Expression;
+            DisplayValue = (long)_currentContext.Result;
         }
 
         private void KeypadBinaryOperatorButtonClicked(object parameter)
         {
             if (_currentOperandChanged)
             {
-                _calculator.PushExpression((Operators)parameter, _currentOperand);
+                _calculator.PushBinaryExpression((Operators)parameter, _currentOperand);
                 _calculator.Evaluate();
                 _currentOperand = 0;
                 _currentOperandChanged = false;
-
                 NumericalExpression = _currentContext.Expression;
                 DisplayValue = (long)_currentContext.Result;
             }
