@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public enum Numbers
+    public enum Numbers : long
     {
-        Num0,
-        Num1,
-        Num2,
-        Num3,
-        Num4,
-        Num5,
-        Num6,
-        Num7,
-        Num8,
-        Num9,
-        NumA,
-        NumB,
-        NumC,
-        NumD,
-        NumE,
-        NumF
+        Num0 = 0,
+        Num1 = 1,
+        Num2 = 2,
+        Num3 = 3,
+        Num4 = 4,
+        Num5 = 5,
+        Num6 = 6,
+        Num7 = 7,
+        Num8 = 8,
+        Num9 = 9,
+        NumA = 10,
+        NumB = 11,
+        NumC = 12,
+        NumD = 13,
+        NumE = 14,
+        NumF = 15
     }
 }

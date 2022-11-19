@@ -8,16 +8,16 @@ namespace Calculator
 {
     public class NegateExpression : UnaryExpression
     {
-        public NegateExpression(long operand, bool isNewOperand) : base(operand, isNewOperand)
+        public NegateExpression(long operand) : base(operand)
         {
         }
 
         public override void Evaluate(CalculatorContext context)
         {
-            context.Result = CalculationHelper.UnaryOperation(Operators.Negate, Operand);
+            context.Result = CalculatorHelper.UnaryOperation(Operators.Negate, Operand);
             context.Expression = "";
             // 소괄호 추가 후 확인
-            //context.Expression = CalculationHelper.AppendExpression(Operators.Negate, IsNewOperand ? Operand.ToString() : context.Expression);
+            //context.Expression = CalculatorHelper.AppendExpression(Operators.Negate, context.Expression == null ? Operand.ToString() : context.Expression);
         }
     }
 }

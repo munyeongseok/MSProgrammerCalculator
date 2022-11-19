@@ -32,7 +32,7 @@ namespace MSProgrammerCalculator.ViewModels
             {
                 if (SetProperty(ref selectedBaseNumber, value))
                 {
-                    BaseNumberChanged();
+                    _calculator.SetBaseNumber(selectedBaseNumber);
                 }
             }
         }
@@ -42,15 +42,13 @@ namespace MSProgrammerCalculator.ViewModels
         public DelegateCommand KeypadBinaryOperatorButtonClickCommand { get; private set; }
         public DelegateCommand KeypadAuxiliaryOperatorButtonClickCommand { get; private set; }
 
-        private long _currentOperand;
-        private bool _currentOperandChanged;
         private CalculatorContext _currentContext;
         private readonly Calculator.Calculator _calculator = new Calculator.Calculator();
 
         public CalculatorViewModel()
         {
             InitializeCommands();
-            InitializeValue();
+            InitializeCalculator();
         }
 
         private void InitializeCommands()
@@ -61,58 +59,32 @@ namespace MSProgrammerCalculator.ViewModels
             KeypadAuxiliaryOperatorButtonClickCommand = new DelegateCommand(parameter => KeypadAuxiliaryOperatorButtonClicked(parameter));
         }
 
-        private void InitializeValue()
+        private void InitializeCalculator()
         {
-            _currentOperand = 0;
-            _currentOperandChanged = true;
             _currentContext = new CalculatorContext();
             _calculator.SetContext(_currentContext);
         }
 
         private void KeypadNumberButtonClicked(object parameter)
         {
-            switch ((Numbers)parameter)
-            {
-                case Numbers.Num0: InsertNumber(0); break;
-                case Numbers.Num1: InsertNumber(1); break;
-                case Numbers.Num2: InsertNumber(2); break;
-                case Numbers.Num3: InsertNumber(3); break;
-                case Numbers.Num4: InsertNumber(4); break;
-                case Numbers.Num5: InsertNumber(5); break;
-                case Numbers.Num6: InsertNumber(6); break;
-                case Numbers.Num7: InsertNumber(7); break;
-                case Numbers.Num8: InsertNumber(8); break;
-                case Numbers.Num9: InsertNumber(9); break;
-                case Numbers.NumA: InsertNumber(10); break;
-                case Numbers.NumB: InsertNumber(11); break;
-                case Numbers.NumC: InsertNumber(12); break;
-                case Numbers.NumD: InsertNumber(13); break;
-                case Numbers.NumE: InsertNumber(14); break;
-                case Numbers.NumF: InsertNumber(15); break;
-            }
+            _calculator.InsertNumber((Numbers)parameter);
+            DisplayValue = _currentContext.Operand;
         }
 
         private void KeypadUnaryOperatorButtonClicked(object parameter)
         {
-            _calculator.PushUnaryExpression((Operators)parameter, _currentOperandChanged ? _currentOperand : (long)_currentContext.Result, _currentOperandChanged);
+            _calculator.PushUnaryExpression((Operators)parameter);
             _calculator.Evaluate();
-            _currentOperand = 0;
-            _currentOperandChanged = false;
             NumericalExpression = _currentContext.Expression;
-            DisplayValue = (long)_currentContext.Result;
+            DisplayValue = _currentContext.Result;
         }
 
         private void KeypadBinaryOperatorButtonClicked(object parameter)
         {
-            if (_currentOperandChanged)
-            {
-                _calculator.PushBinaryExpression((Operators)parameter, _currentOperand);
-                _calculator.Evaluate();
-                _currentOperand = 0;
-                _currentOperandChanged = false;
-                NumericalExpression = _currentContext.Expression;
-                DisplayValue = (long)_currentContext.Result;
-            }
+            _calculator.PushBinaryExpression((Operators)parameter);
+            _calculator.Evaluate();
+            NumericalExpression = _currentContext.Expression;
+            DisplayValue = _currentContext.Result;
         }
 
         private void KeypadAuxiliaryOperatorButtonClicked(object parameter)
@@ -120,10 +92,12 @@ namespace MSProgrammerCalculator.ViewModels
             switch ((Operators)parameter)
             {
                 case Operators.Clear:
-                    ClearNumber();
+                    _calculator.ClearNumber();
+                    DisplayValue = 0;
                     break;
                 case Operators.BackSpace:
-                    RemoveNumber();
+                    _calculator.RemoveNumber();
+                    DisplayValue = _currentContext.Operand;
                     break;
                 case Operators.OpenParenthesis:
                     break;
@@ -132,43 +106,11 @@ namespace MSProgrammerCalculator.ViewModels
                 case Operators.DecimalSeparator:
                     break;
                 case Operators.Result:
-                    SubmitResult();
+                    _calculator.Evaluate();
+                    NumericalExpression = _currentContext.Expression;
+                    DisplayValue = _currentContext.Result;
                     break;
             }
-        }
-
-        private void InsertNumber(long number)
-        {
-            DisplayValue = _currentOperand = CalculationHelper.InsertNumberAtRight(SelectedBaseNumber, _currentOperand, number);
-            _currentOperandChanged = true;
-        }
-
-        private void RemoveNumber()
-        {
-            if (_currentOperand != 0)
-            {
-                DisplayValue = _currentOperand = CalculationHelper.RemoveNumberAtRight(SelectedBaseNumber, _currentOperand);
-            }
-        }
-
-        private void ClearNumber()
-        {
-            DisplayValue = _currentOperand = 0;
-        }
-
-        private void SubmitResult()
-        {
-            _currentOperand = 0;
-            _currentOperandChanged = false;
-            _calculator.Evaluate();
-
-            NumericalExpression = _currentContext.Expression;
-            DisplayValue = (long)_currentContext.Result;
-        }
-
-        private void BaseNumberChanged()
-        {
-            _currentOperand = 0;
         }
     }
 }

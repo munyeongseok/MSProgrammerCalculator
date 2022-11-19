@@ -19,24 +19,55 @@ namespace Calculator
             _context = context;
         }
 
-        public void PushUnaryExpression(Operators op, long operand, bool isNewOperanad)
+        public void SetBaseNumber(BaseNumber baseNumber)
         {
-            var expression = CalculationHelper.CreateUnaryExpression(op, operand, isNewOperanad);
+            _context.BaseNumber = baseNumber;
+            _context.Operand = 0;
+        }
+
+        public void InsertNumber(Numbers number)
+        {
+            _context.Operand = CalculatorHelper.InsertNumberAtRight(_context.BaseNumber, _context.Operand, (long)number);
+            _context.OperandChanged = true;
+        }
+
+        public void RemoveNumber()
+        {
+            _context.Operand = CalculatorHelper.RemoveNumberAtRight(_context.BaseNumber, _context.Operand);
+            _context.OperandChanged = true;
+        }
+
+        public void ClearNumber()
+        {
+            // Operand 초기화 외에 추가 작업 필요
+            _context.Operand = 0;
+        }
+
+        public void PushUnaryExpression(Operators op)
+        {
+            var operand = _context.OperandChanged ? _context.Operand : _context.Result;
+            var expression = CalculatorHelper.CreateExpression(op, operand);
             PushExpression(expression);
         }
 
-        public void PushBinaryExpression(Operators op, long operand)
+        public void PushBinaryExpression(Operators op)
         {
-            var expression = CalculationHelper.CreateBinaryExpression(op, operand);
-            PushExpression(expression);
+            if (_context.OperandChanged)
+            {
+                var operand = _context.Operand;
+                var expression = CalculatorHelper.CreateExpression(op, operand);
+                PushExpression(expression);
+            }
         }
 
         public void PushExpression(ICalculatorExpression expression)
         {
-            if (expression != null)
+            if (expression == null)
             {
-                _context.ExpressionStack.Push(expression);
+                throw new ArgumentNullException(nameof(expression));
             }
+
+            _context.ExpressionStack.Push(expression);
         }
 
         public void Evaluate()
@@ -48,6 +79,9 @@ namespace Calculator
                     var expression = _context.ExpressionStack.Pop();
                     expression.Evaluate(_context);
                 }
+
+                _context.Operand = 0;
+                _context.OperandChanged = false;
             }
         }
     }

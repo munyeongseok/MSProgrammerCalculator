@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public static class CalculationHelper
+    internal static class CalculatorHelper
     {
         private const long MSB1000 = unchecked((long)0b_1000000000000000_0000000000000000_0000000000000000_0000000000000000);
         private const long MSB1110 = unchecked((long)0b_1110000000000000_0000000000000000_0000000000000000_0000000000000000);
@@ -58,23 +58,11 @@ namespace Calculator
             }
         }
 
-        public static ICalculatorExpression CreateUnaryExpression(Operators op, long operand, bool isNewOperand)
+        public static ICalculatorExpression CreateExpression(Operators op, long operand)
         {
             switch (op)
             {
-                case Operators.NOT:
-                    return new BitwiseNOTExpression(operand, isNewOperand);
-                case Operators.Negate:
-                    return new NegateExpression(operand, isNewOperand);
-                default:
-                    throw new ArgumentException();
-            }
-        }
-
-        public static ICalculatorExpression CreateBinaryExpression(Operators op, long operand)
-        {
-            switch (op)
-            {
+                // Binary Expression
                 case Operators.AND:
                     return new BitwiseANDExpression(operand);
                 case Operators.OR:
@@ -99,6 +87,11 @@ namespace Calculator
                     return new MinusExpression(operand);
                 case Operators.Plus:
                     return new PlusExpression(operand);
+                // Unary Expression
+                case Operators.NOT:
+                    return new BitwiseNOTExpression(operand);
+                case Operators.Negate:
+                    return new NegateExpression(operand);
                 default:
                     throw new ArgumentException();
             }

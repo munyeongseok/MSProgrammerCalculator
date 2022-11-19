@@ -10,7 +10,13 @@ namespace Calculator
     {
         internal Stack<ICalculatorExpression> ExpressionStack { get; } = new Stack<ICalculatorExpression>();
 
-        public long? Result { get; internal set; }
+        public BaseNumber BaseNumber { get; internal set; }
+
+        public long Operand { get; internal set; }
+
+        public bool OperandChanged { get; internal set; }
+
+        public long Result { get; internal set; }
 
         public string Expression { get; internal set; }
     }

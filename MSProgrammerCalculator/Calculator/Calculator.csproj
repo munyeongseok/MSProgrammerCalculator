@@ -44,7 +44,7 @@
     <Compile Include="Common\BaseNumber.cs" />
     <Compile Include="Common\Numbers.cs" />
     <Compile Include="Common\Operators.cs" />
-    <Compile Include="Infrastructure\CalculationHelper.cs" />
+    <Compile Include="Infrastructure\CalculatorHelper.cs" />
     <Compile Include="Infrastructure\Expressions\BitwiseANDExpression.cs" />
     <Compile Include="Infrastructure\Expressions\BitwiseNANDExpression.cs" />
     <Compile Include="Infrastructure\Expressions\NegateExpression.cs" />
