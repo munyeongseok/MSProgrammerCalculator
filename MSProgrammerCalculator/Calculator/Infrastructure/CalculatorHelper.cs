@@ -12,6 +12,19 @@ namespace Calculator
         private const long MSB1110 = unchecked((long)0b_1110000000000000_0000000000000000_0000000000000000_0000000000000000);
         private const long MSB1111 = unchecked((long)0b_1111000000000000_0000000000000000_0000000000000000_0000000000000000);
 
+        public static long UnaryOperation(Operators op, long operand)
+        {
+            switch (op)
+            {
+                case Operators.NOT:
+                    return ~operand;
+                case Operators.Negate:
+                    return -operand;
+                default:
+                    throw new InvalidOperationException();
+            }
+        }
+
         public static long BinaryOperation(Operators op, long leftOperand, long rightOperand)
         {
             switch (op)
@@ -45,23 +58,15 @@ namespace Calculator
             }
         }
 
-        public static long UnaryOperation(Operators op, long operand)
-        {
-            switch (op)
-            {
-                case Operators.NOT:
-                    return ~operand;
-                case Operators.Negate:
-                    return -operand;
-                default:
-                    throw new InvalidOperationException();
-            }
-        }
-
         public static ICalculatorExpression CreateExpression(Operators op, long operand)
         {
             switch (op)
             {
+                // Unary Expression
+                case Operators.NOT:
+                    return new BitwiseNOTExpression(operand);
+                case Operators.Negate:
+                    return new NegateExpression(operand);
                 // Binary Expression
                 case Operators.AND:
                     return new BitwiseANDExpression(operand);
@@ -87,11 +92,27 @@ namespace Calculator
                     return new MinusExpression(operand);
                 case Operators.Plus:
                     return new PlusExpression(operand);
-                // Unary Expression
-                case Operators.NOT:
-                    return new BitwiseNOTExpression(operand);
-                case Operators.Negate:
-                    return new NegateExpression(operand);
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        public static ICalculatorExpression CreateAuxiliaryExpression(Operators op)
+        {
+            switch (op)
+            {
+                case Operators.Clear:
+                    return new ClearExpression();
+                case Operators.Backspace:
+                    return new BackspaceExpression();
+                case Operators.OpenParenthesis:
+                    return new OpenParenthesisExpression();
+                case Operators.CloseParenthesis:
+                    return new CloseParenthesisExpression();
+                case Operators.DecimalSeparator:
+                    return new DecimalSeparatorExpression();
+                case Operators.Submit:
+                    return new SubmitExpression();
                 default:
                     throw new ArgumentException();
             }
@@ -106,6 +127,11 @@ namespace Calculator
         {
             switch (op)
             {
+                // Unary Expression
+                case Operators.NOT:
+                    return $"NOT( {expression} )";
+                case Operators.Negate:
+                    return $"negate( {expression} )";
                 // Binary Expression
                 case Operators.AND:
                     return $"{expression} AND ";
@@ -131,13 +157,8 @@ namespace Calculator
                     return $"{expression} - ";
                 case Operators.Plus:
                     return $"{expression} + ";
-                // Unary Expression
-                case Operators.NOT:
-                    return $"NOT( {expression} )";
-                case Operators.Negate:
-                    return $"negate( {expression} )";
                 // Auxiliary Expression
-                case Operators.Result:
+                case Operators.Submit:
                     return $"{expression} = ";
                 default:
                     throw new ArgumentException();

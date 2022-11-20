@@ -432,15 +432,15 @@ namespace MSProgrammerCalculator.Views
             remove => RemoveHandler(ClickDecimalSeparatorEvent, value);
         }
 
-        public static readonly RoutedEvent ClickResultEvent = EventManager.RegisterRoutedEvent(
-           nameof(ClickResult),
+        public static readonly RoutedEvent ClickSubmitEvent = EventManager.RegisterRoutedEvent(
+           nameof(ClickSubmit),
            RoutingStrategy.Bubble,
            typeof(RoutedEventHandler),
            typeof(NumericKeypadView));
-        public event RoutedEventHandler ClickResult
+        public event RoutedEventHandler ClickSubmit
         {
-            add => AddHandler(ClickResultEvent, value);
-            remove => RemoveHandler(ClickResultEvent, value);
+            add => AddHandler(ClickSubmitEvent, value);
+            remove => RemoveHandler(ClickSubmitEvent, value);
         }
 
         #endregion
@@ -498,7 +498,7 @@ namespace MSProgrammerCalculator.Views
             opOpenParenthesisButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickOpenParenthesisEvent));
             opCloseParenthesisButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickCloseParenthesisEvent));
             opDecimalSeparatorButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickDecimalSeparatorEvent));
-            opResultButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickResultEvent));
+            opResultButton.Click += (s, e) => RaiseEvent(new RoutedEventArgs(ClickSubmitEvent));
         }
 
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)

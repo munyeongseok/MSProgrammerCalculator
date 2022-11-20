@@ -24,10 +24,10 @@ namespace Calculator
         Plus,
         Negate,
         Clear,
-        BackSpace,
+        Backspace,
         OpenParenthesis,
         CloseParenthesis,
         DecimalSeparator,
-        Result
+        Submit
     }
 }

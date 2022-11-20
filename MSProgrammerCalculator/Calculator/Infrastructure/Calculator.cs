@@ -31,18 +31,6 @@ namespace Calculator
             _context.OperandChanged = true;
         }
 
-        public void RemoveNumber()
-        {
-            _context.Operand = CalculatorHelper.RemoveNumberAtRight(_context.BaseNumber, _context.Operand);
-            _context.OperandChanged = true;
-        }
-
-        public void ClearNumber()
-        {
-            // Operand 초기화 외에 추가 작업 필요
-            _context.Operand = 0;
-        }
-
         public void PushUnaryExpression(Operators op)
         {
             var operand = _context.OperandChanged ? _context.Operand : _context.Result;
@@ -58,6 +46,12 @@ namespace Calculator
                 var expression = CalculatorHelper.CreateExpression(op, operand);
                 PushExpression(expression);
             }
+        }
+
+        public void PushAuxiliaryExpression(Operators op)
+        {
+            var expression = CalculatorHelper.CreateAuxiliaryExpression(op);
+            PushExpression(expression);
         }
 
         public void PushExpression(ICalculatorExpression expression)

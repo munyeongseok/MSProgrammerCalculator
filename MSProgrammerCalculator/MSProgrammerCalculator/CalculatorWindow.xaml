@@ -150,7 +150,7 @@
                     <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.Clear}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickBackSpace">
-                    <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.BackSpace}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.Backspace}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickOpenParenthesis">
                     <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.OpenParenthesis}"/>
@@ -161,8 +161,8 @@
                 <i:EventTrigger EventName="ClickDecimalSeparator">
                     <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.DecimalSeparator}"/>
                 </i:EventTrigger>
-                <i:EventTrigger EventName="ClickResult">
-                    <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.Result}"/>
+                <i:EventTrigger EventName="ClickSubmit">
+                    <i:InvokeCommandAction Command="{Binding KeypadAuxiliaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.Submit}"/>
                 </i:EventTrigger>
                 <!-- #endregion -->
             </i:Interaction.Triggers>

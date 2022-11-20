@@ -42,8 +42,8 @@ namespace MSProgrammerCalculator.ViewModels
         public DelegateCommand KeypadBinaryOperatorButtonClickCommand { get; private set; }
         public DelegateCommand KeypadAuxiliaryOperatorButtonClickCommand { get; private set; }
 
-        private CalculatorContext _currentContext;
-        private readonly Calculator.Calculator _calculator = new Calculator.Calculator();
+        private CalculatorContext _calculatorContext;
+        private Calculator.Calculator _calculator;
 
         public CalculatorViewModel()
         {
@@ -61,56 +61,39 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void InitializeCalculator()
         {
-            _currentContext = new CalculatorContext();
-            _calculator.SetContext(_currentContext);
+            _calculatorContext = new CalculatorContext();
+            _calculator = new Calculator.Calculator();
+            _calculator.SetContext(_calculatorContext);
         }
 
         private void KeypadNumberButtonClicked(object parameter)
         {
             _calculator.InsertNumber((Numbers)parameter);
-            DisplayValue = _currentContext.Operand;
+            DisplayValue = _calculatorContext.Operand;
         }
 
         private void KeypadUnaryOperatorButtonClicked(object parameter)
         {
             _calculator.PushUnaryExpression((Operators)parameter);
             _calculator.Evaluate();
-            NumericalExpression = _currentContext.Expression;
-            DisplayValue = _currentContext.Result;
+            NumericalExpression = _calculatorContext.Expression;
+            DisplayValue = _calculatorContext.Result;
         }
 
         private void KeypadBinaryOperatorButtonClicked(object parameter)
         {
             _calculator.PushBinaryExpression((Operators)parameter);
             _calculator.Evaluate();
-            NumericalExpression = _currentContext.Expression;
-            DisplayValue = _currentContext.Result;
+            NumericalExpression = _calculatorContext.Expression;
+            DisplayValue = _calculatorContext.Result;
         }
 
         private void KeypadAuxiliaryOperatorButtonClicked(object parameter)
         {
-            switch ((Operators)parameter)
-            {
-                case Operators.Clear:
-                    _calculator.ClearNumber();
-                    DisplayValue = 0;
-                    break;
-                case Operators.BackSpace:
-                    _calculator.RemoveNumber();
-                    DisplayValue = _currentContext.Operand;
-                    break;
-                case Operators.OpenParenthesis:
-                    break;
-                case Operators.CloseParenthesis:
-                    break;
-                case Operators.DecimalSeparator:
-                    break;
-                case Operators.Result:
-                    _calculator.Evaluate();
-                    NumericalExpression = _currentContext.Expression;
-                    DisplayValue = _currentContext.Result;
-                    break;
-            }
+            _calculator.PushAuxiliaryExpression((Operators)parameter);
+            _calculator.Evaluate();
+            NumericalExpression = _calculatorContext.Expression;
+            DisplayValue = _calculatorContext.Result;
         }
     }
 }
