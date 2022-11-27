@@ -12,10 +12,12 @@ namespace Calculator
         {
         }
 
-        public override void Evaluate(CalculatorContext context)
+        public override long Evaluate(CalculatorContext context)
         {
             context.Operand = CalculatorHelper.RemoveNumberAtRight(context.BaseNumber, context.Operand);
             context.OperandChanged = true;
+
+            return -1;
         }
     }
 }

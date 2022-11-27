@@ -12,7 +12,7 @@ namespace Calculator
         {
         }
 
-        public override void Evaluate(CalculatorContext context)
+        public override long Evaluate(CalculatorContext context)
         {
             if (context.Operand != 0)
             {
@@ -24,6 +24,8 @@ namespace Calculator
             {
                 context.Expression = "";
             }
+
+            return -1;
         }
     }
 }

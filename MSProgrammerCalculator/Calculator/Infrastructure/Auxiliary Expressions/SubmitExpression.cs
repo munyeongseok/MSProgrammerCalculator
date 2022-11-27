@@ -12,9 +12,9 @@ namespace Calculator
         {
         }
 
-        public override void Evaluate(CalculatorContext context)
+        public override long Evaluate(CalculatorContext context)
         {
-            throw new NotImplementedException();
+            return -1;
         }
     }
 }

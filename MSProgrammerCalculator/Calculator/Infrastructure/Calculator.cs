@@ -34,7 +34,7 @@ namespace Calculator
         public void PushUnaryExpression(Operators op)
         {
             var operand = _context.OperandChanged ? _context.Operand : _context.Result;
-            var expression = CalculatorHelper.CreateExpression(op, operand);
+            var expression = CalculatorHelper.CreateUnaryExpression(op, operand);
             PushExpression(expression);
         }
 
@@ -42,8 +42,9 @@ namespace Calculator
         {
             if (_context.OperandChanged)
             {
-                var operand = _context.Operand;
-                var expression = CalculatorHelper.CreateExpression(op, operand);
+                var leftOperand = _context.Operand;
+                var rightOperanad = _context.Result;
+                var expression = CalculatorHelper.CreateBinaryExpression(op, leftOperand, rightOperanad);
                 PushExpression(expression);
             }
         }
@@ -54,23 +55,23 @@ namespace Calculator
             PushExpression(expression);
         }
 
-        public void PushExpression(ICalculatorExpression expression)
+        public void PushExpression(IExpression expression)
         {
             if (expression == null)
             {
                 throw new ArgumentNullException(nameof(expression));
             }
 
-            _context.ExpressionStack.Push(expression);
+            _context.Expressions.Push(expression);
         }
 
         public void Evaluate()
         {
             if (_context != null)
             {
-                while (_context.ExpressionStack.Any())
+                while (_context.Expressions.Any())
                 {
-                    var expression = _context.ExpressionStack.Pop();
+                    var expression = _context.Expressions.Pop();
                     expression.Evaluate(_context);
                 }
 

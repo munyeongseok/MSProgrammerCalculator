@@ -12,8 +12,9 @@ namespace Calculator
         {
         }
 
-        public override void Evaluate(CalculatorContext context)
+        public override long Evaluate(CalculatorContext context)
         {
+            return -1;
         }
     }
 }

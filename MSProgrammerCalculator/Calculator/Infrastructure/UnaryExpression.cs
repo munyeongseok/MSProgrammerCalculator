@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public abstract class UnaryExpression : ICalculatorExpression
+    public abstract class UnaryExpression : IExpression
     {
-        public long Operand { get; }
+        public IExpression Operand { get; }
 
-        protected UnaryExpression(long operand)
+        protected UnaryExpression(IExpression operand)
         {
             Operand = operand;
         }
 
-        public abstract void Evaluate(CalculatorContext context);
+        public abstract long Evaluate(CalculatorContext context);
     }
 }

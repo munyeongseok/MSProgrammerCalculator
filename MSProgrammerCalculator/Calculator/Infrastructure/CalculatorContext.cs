@@ -8,7 +8,7 @@ namespace Calculator
 {
     public class CalculatorContext
     {
-        internal Stack<ICalculatorExpression> ExpressionStack { get; } = new Stack<ICalculatorExpression>();
+        internal Stack<IExpression> Expressions { get; } = new Stack<IExpression>();
 
         public BaseNumber BaseNumber { get; internal set; }
 

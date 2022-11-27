@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public abstract class AuxiliaryExpression : ICalculatorExpression
+    public abstract class AuxiliaryExpression : IExpression
     {
-        public abstract void Evaluate(CalculatorContext context);
+        public abstract long Evaluate(CalculatorContext context);
     }
 }

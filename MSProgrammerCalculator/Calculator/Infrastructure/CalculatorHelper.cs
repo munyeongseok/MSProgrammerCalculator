@@ -12,92 +12,56 @@ namespace Calculator
         private const long MSB1110 = unchecked((long)0b_1110000000000000_0000000000000000_0000000000000000_0000000000000000);
         private const long MSB1111 = unchecked((long)0b_1111000000000000_0000000000000000_0000000000000000_0000000000000000);
 
-        public static long UnaryOperation(Operators op, long operand)
+        public static IExpression CreateUnaryExpression(Operators op, long operand)
         {
+            var operandExpression = new ValueExpression(operand);
             switch (op)
             {
                 case Operators.NOT:
-                    return ~operand;
+                    return new BitwiseNOTExpression(operandExpression);
                 case Operators.Negate:
-                    return -operand;
-                default:
-                    throw new InvalidOperationException();
-            }
-        }
-
-        public static long BinaryOperation(Operators op, long leftOperand, long rightOperand)
-        {
-            switch (op)
-            {
-                case Operators.AND:
-                    return leftOperand & rightOperand;
-                case Operators.OR:
-                    return leftOperand | rightOperand;
-                case Operators.NAND:
-                    return ~(leftOperand & rightOperand);
-                case Operators.NOR:
-                    return ~(leftOperand | rightOperand);
-                case Operators.XOR:
-                    return leftOperand ^ rightOperand;
-                case Operators.LeftShift:
-                    return leftOperand << (int)rightOperand;
-                case Operators.RightShift:
-                    return leftOperand >> (int)rightOperand;
-                case Operators.Modulo:
-                    return leftOperand % rightOperand;
-                case Operators.Divide:
-                    return leftOperand / rightOperand;
-                case Operators.Multiply:
-                    return leftOperand * rightOperand;
-                case Operators.Minus:
-                    return leftOperand - rightOperand;
-                case Operators.Plus:
-                    return leftOperand + rightOperand;
-                default:
-                    throw new InvalidOperationException();
-            }
-        }
-
-        public static ICalculatorExpression CreateExpression(Operators op, long operand)
-        {
-            switch (op)
-            {
-                // Unary Expression
-                case Operators.NOT:
-                    return new BitwiseNOTExpression(operand);
-                case Operators.Negate:
-                    return new NegateExpression(operand);
-                // Binary Expression
-                case Operators.AND:
-                    return new BitwiseANDExpression(operand);
-                case Operators.OR:
-                    return new BitwiseORExpression(operand);
-                case Operators.NAND:
-                    return new BitwiseNANDExpression(operand);
-                case Operators.NOR:
-                    return new BitwiseNORExpression(operand);
-                case Operators.XOR:
-                    return new BitwiseXORExpression(operand);
-                case Operators.LeftShift:
-                    return new LeftShiftExpression(operand);
-                case Operators.RightShift:
-                    return new RightShiftExpression(operand);
-                case Operators.Modulo:
-                    return new ModuloExpression(operand);
-                case Operators.Divide:
-                    return new DivideExpression(operand);
-                case Operators.Multiply:
-                    return new MultiplyExpression(operand);
-                case Operators.Minus:
-                    return new MinusExpression(operand);
-                case Operators.Plus:
-                    return new PlusExpression(operand);
+                    return new NegateExpression(operandExpression);
                 default:
                     throw new ArgumentException();
             }
         }
 
-        public static ICalculatorExpression CreateAuxiliaryExpression(Operators op)
+        public static IExpression CreateBinaryExpression(Operators op, long leftOperand, long rightOperand)
+        {
+            var leftOperandExpression = new ValueExpression(leftOperand);
+            var rightOperandExpression = new ValueExpression(rightOperand);
+            switch (op)
+            {
+                case Operators.AND:
+                    return new BitwiseANDExpression(leftOperandExpression, rightOperandExpression);
+                case Operators.OR:
+                    return new BitwiseORExpression(leftOperandExpression, rightOperandExpression);
+                case Operators.NAND:
+                    return new BitwiseNANDExpression(leftOperandExpression, rightOperandExpression);
+                case Operators.NOR:
+                    return new BitwiseNORExpression(leftOperandExpression, rightOperandExpression);
+                case Operators.XOR:
+                    return new BitwiseXORExpression(leftOperandExpression, rightOperandExpression);
+                case Operators.LeftShift:
+                    return new LeftShiftExpression(leftOperandExpression, rightOperandExpression);
+                case Operators.RightShift:
+                    return new RightShiftExpression(leftOperandExpression, rightOperandExpression);
+                case Operators.Modulo:
+                    return new ModuloExpression(leftOperandExpression, rightOperandExpression);
+                case Operators.Divide:
+                    return new DivideExpression(leftOperandExpression, rightOperandExpression);
+                case Operators.Multiply:
+                    return new MultiplyExpression(leftOperandExpression, rightOperandExpression);
+                case Operators.Minus:
+                    return new MinusExpression(leftOperandExpression, rightOperandExpression);
+                case Operators.Plus:
+                    return new PlusExpression(leftOperandExpression, rightOperandExpression);
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        public static IExpression CreateAuxiliaryExpression(Operators op)
         {
             switch (op)
             {
@@ -106,9 +70,8 @@ namespace Calculator
                 case Operators.Backspace:
                     return new BackspaceExpression();
                 case Operators.OpenParenthesis:
-                    return new OpenParenthesisExpression();
                 case Operators.CloseParenthesis:
-                    return new CloseParenthesisExpression();
+                    return new ParenthesisExpression();
                 case Operators.DecimalSeparator:
                     return new DecimalSeparatorExpression();
                 case Operators.Submit:
