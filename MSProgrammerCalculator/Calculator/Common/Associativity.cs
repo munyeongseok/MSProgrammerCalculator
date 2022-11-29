@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public interface IExpression
+    /// <summary>
+    /// Operataor Associativity.
+    /// </summary>
+    public enum Associativity
     {
+        LeftToRight,
+        RightToLeft
     }
 }

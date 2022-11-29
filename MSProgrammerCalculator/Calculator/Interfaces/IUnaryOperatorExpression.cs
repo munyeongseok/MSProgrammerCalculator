@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public interface IExpression
+    public interface IUnaryOperatorExpression : IOperatorExpression
     {
+        IValueExpression Operand { get; }
     }
 }
