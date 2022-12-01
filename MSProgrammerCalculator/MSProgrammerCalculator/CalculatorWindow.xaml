@@ -53,22 +53,22 @@
             <i:Interaction.Triggers>
                 <!-- #region Click Events Command Binding: AND, OR, NOT, NAND, NOR, XOR -->
                 <i:EventTrigger EventName="ClickAND">
-                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.AND}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.BitwiseAND}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickOR">
-                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.OR}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.BitwiseOR}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickNOT">
-                    <i:InvokeCommandAction Command="{Binding KeypadUnaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.NOT}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadUnaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.BitwiseNOT}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickNAND">
-                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.NAND}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.BitwiseNAND}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickNOR">
-                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.NOR}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.BitwiseNOR}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="ClickXOR">
-                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.XOR}"/>
+                    <i:InvokeCommandAction Command="{Binding KeypadBinaryOperatorButtonClickCommand}" CommandParameter="{x:Static calculator:Operators.BitwiseXOR}"/>
                 </i:EventTrigger>
                 <!-- #endregion -->
                 <!-- #region Click Events Command Binding: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F -->

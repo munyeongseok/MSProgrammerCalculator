@@ -12,12 +12,89 @@ namespace Calculator
         private const long MSB1110 = unchecked((long)0b_1110000000000000_0000000000000000_0000000000000000_0000000000000000);
         private const long MSB1111 = unchecked((long)0b_1111000000000000_0000000000000000_0000000000000000_0000000000000000);
 
+        /// <summary>
+        /// C Operator Precedence 기준.
+        /// https://en.cppreference.com/w/c/language/operator_precedence
+        /// </summary>
+        /// <param name="op"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static int GetPrecedence(Operators op)
+        {
+            switch (op)
+            {
+                case Operators.OpenParenthesis:
+                case Operators.CloseParenthesis:
+                case Operators.DecimalSeparator:
+                    return 1;
+                case Operators.Negate:
+                case Operators.BitwiseNOT:
+                    return 2;
+                case Operators.Multiply:
+                case Operators.Divide:
+                case Operators.Modulo:
+                    return 3;
+                case Operators.Plus:
+                case Operators.Minus:
+                    return 4;
+                case Operators.LeftShift:
+                case Operators.RightShift:
+                    return 5;
+                case Operators.BitwiseAND:
+                case Operators.BitwiseNAND:
+                    return 8;
+                case Operators.BitwiseXOR:
+                    return 9;
+                case Operators.BitwiseOR:
+                case Operators.BitwiseNOR:
+                    return 10;
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        /// <summary>
+        /// C Operator Precedence 기준.
+        /// https://en.cppreference.com/w/c/language/operator_precedence
+        /// </summary>
+        /// <param name="op"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static Associativity GetAssociativity(Operators op)
+        {
+            switch (op)
+            {
+                case Operators.OpenParenthesis:
+                case Operators.CloseParenthesis:
+                case Operators.DecimalSeparator:
+                    return Associativity.LeftToRight;
+                case Operators.Negate:
+                case Operators.BitwiseNOT:
+                    return Associativity.RightToLeft;
+                case Operators.Multiply:
+                case Operators.Divide:
+                case Operators.Modulo:
+                case Operators.Plus:
+                case Operators.Minus:
+                case Operators.LeftShift:
+                case Operators.RightShift:
+                case Operators.BitwiseAND:
+                case Operators.BitwiseNAND:
+                case Operators.BitwiseXOR:
+                case Operators.BitwiseOR:
+                case Operators.BitwiseNOR:
+                    return Associativity.LeftToRight;
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
         public static IExpression CreateUnaryExpression(Operators op, long operand)
         {
             var operandExpression = new ValueExpression(operand);
             switch (op)
             {
-                case Operators.NOT:
+                case Operators.BitwiseNOT:
                     return new BitwiseNOTExpression(operandExpression);
                 case Operators.Negate:
                     return new NegateExpression(operandExpression);
@@ -32,15 +109,15 @@ namespace Calculator
             var rightOperandExpression = new ValueExpression(rightOperand);
             switch (op)
             {
-                case Operators.AND:
+                case Operators.BitwiseAND:
                     return new BitwiseANDExpression(leftOperandExpression, rightOperandExpression);
-                case Operators.OR:
+                case Operators.BitwiseOR:
                     return new BitwiseORExpression(leftOperandExpression, rightOperandExpression);
-                case Operators.NAND:
+                case Operators.BitwiseNAND:
                     return new BitwiseNANDExpression(leftOperandExpression, rightOperandExpression);
-                case Operators.NOR:
+                case Operators.BitwiseNOR:
                     return new BitwiseNORExpression(leftOperandExpression, rightOperandExpression);
-                case Operators.XOR:
+                case Operators.BitwiseXOR:
                     return new BitwiseXORExpression(leftOperandExpression, rightOperandExpression);
                 case Operators.LeftShift:
                     return new LeftShiftExpression(leftOperandExpression, rightOperandExpression);
@@ -91,20 +168,20 @@ namespace Calculator
             switch (op)
             {
                 // Unary Expression
-                case Operators.NOT:
+                case Operators.BitwiseNOT:
                     return $"NOT( {expression} )";
                 case Operators.Negate:
                     return $"negate( {expression} )";
                 // Binary Expression
-                case Operators.AND:
+                case Operators.BitwiseAND:
                     return $"{expression} AND ";
-                case Operators.OR:
+                case Operators.BitwiseOR:
                     return $"{expression} OR ";
-                case Operators.NAND:
+                case Operators.BitwiseNAND:
                     return $"{expression} NAND ";
-                case Operators.NOR:
+                case Operators.BitwiseNOR:
                     return $"{expression} NOR ";
-                case Operators.XOR:
+                case Operators.BitwiseXOR:
                     return $"{expression} XOR ";
                 case Operators.LeftShift:
                     return $"{expression} Lsh ";

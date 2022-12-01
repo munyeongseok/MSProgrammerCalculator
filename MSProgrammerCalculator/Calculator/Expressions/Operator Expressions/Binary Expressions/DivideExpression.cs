@@ -9,15 +9,14 @@ namespace Calculator
     public class DivideExpression : BinaryOperatorExpression
     {
         public DivideExpression(IValueExpression leftOperand, IValueExpression rightOperand)
-            : base(leftOperand, rightOperand, 3, Associativity.LeftToRight)
+            : base(leftOperand, rightOperand,
+                  CalculatorHelper.GetPrecedence(Operators.Divide),
+                  CalculatorHelper.GetAssociativity(Operators.Divide))
         {
         }
 
         public override long Evaluate(CalculatorContext context)
         {
-            //context.Result = context.Expression == null ? Operand : CalculatorHelper.BinaryOperation(Operators.Divide, context.Result, Operand);
-            //context.Expression = CalculatorHelper.AppendExpression(Operators.Divide, context.Expression, Operand);
-
             return LeftOperand.Value / RightOperand.Value;
         }
     }

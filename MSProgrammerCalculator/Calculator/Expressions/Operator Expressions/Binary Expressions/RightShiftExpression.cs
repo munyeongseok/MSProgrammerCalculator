@@ -9,15 +9,14 @@ namespace Calculator
     public class RightShiftExpression : BinaryOperatorExpression
     {
         public RightShiftExpression(IValueExpression leftOperand, IValueExpression rightOperand)
-            : base(leftOperand, rightOperand, 5, Associativity.LeftToRight)
+            : base(leftOperand, rightOperand,
+                  CalculatorHelper.GetPrecedence(Operators.RightShift),
+                  CalculatorHelper.GetAssociativity(Operators.RightShift))
         {
         }
 
         public override long Evaluate(CalculatorContext context)
         {
-            //context.Result = context.Expression == null ? Operand : CalculatorHelper.BinaryOperation(Operators.RightShift, context.Result, Operand);
-            //context.Expression = CalculatorHelper.AppendExpression(Operators.RightShift, context.Expression, Operand);
-
             return LeftOperand.Value >> (int)RightOperand.Value;
         }
     }

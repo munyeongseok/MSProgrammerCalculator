@@ -11,21 +11,5 @@ namespace Calculator
         public ClearExpression()
         {
         }
-
-        //public override long Evaluate(CalculatorContext context)
-        //{
-        //    if (context.Operand != 0)
-        //    {
-        //        context.Operand = 0;
-        //        context.OperandChanged = false;
-        //        context.Result = 0;
-        //    }
-        //    else
-        //    {
-        //        context.Expression = "";
-        //    }
-
-        //    return -1;
-        //}
     }
 }

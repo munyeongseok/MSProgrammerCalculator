@@ -9,15 +9,14 @@ namespace Calculator
     public class BitwiseANDExpression : BinaryOperatorExpression
     {
         public BitwiseANDExpression(IValueExpression leftOperand, IValueExpression rightOperand)
-            : base(leftOperand, rightOperand, 2, Associativity.RightToLeft)
+            : base(leftOperand, rightOperand,
+                  CalculatorHelper.GetPrecedence(Operators.BitwiseAND),
+                  CalculatorHelper.GetAssociativity(Operators.BitwiseAND))
         {
         }
 
         public override long Evaluate(CalculatorContext context)
         {
-            //context.Result = context.Expression == null ? Operand : CalculatorHelper.BinaryOperation(Operators.AND, context.Result, Operand);
-            //context.Expression = CalculatorHelper.AppendExpression(Operators.AND, context.Expression, Operand);
-
             return LeftOperand.Value & RightOperand.Value;
         }
     }

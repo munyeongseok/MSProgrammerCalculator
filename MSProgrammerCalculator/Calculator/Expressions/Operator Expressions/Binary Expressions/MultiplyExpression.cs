@@ -9,15 +9,14 @@ namespace Calculator
     public class MultiplyExpression : BinaryOperatorExpression
     {
         public MultiplyExpression(IValueExpression leftOperand, IValueExpression rightOperand)
-            : base(leftOperand, rightOperand, 3, Associativity.LeftToRight)
+            : base(leftOperand, rightOperand,
+                  CalculatorHelper.GetPrecedence(Operators.Multiply),
+                  CalculatorHelper.GetAssociativity(Operators.Multiply))
         {
         }
 
         public override long Evaluate(CalculatorContext context)
         {
-            //context.Result = context.Expression == null ? Operand : CalculatorHelper.BinaryOperation(Operators.Multiply, context.Result, Operand);
-            //context.Expression = CalculatorHelper.AppendExpression(Operators.Multiply, context.Expression, Operand);
-
             return LeftOperand.Value * RightOperand.Value;
         }
     }

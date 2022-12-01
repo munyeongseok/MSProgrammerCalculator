@@ -9,15 +9,14 @@ namespace Calculator
     public class BitwiseNORExpression : BinaryOperatorExpression
     {
         public BitwiseNORExpression(IValueExpression leftOperand, IValueExpression rightOperand)
-            : base(leftOperand, rightOperand, 10, Associativity.LeftToRight)
+            : base(leftOperand, rightOperand,
+                  CalculatorHelper.GetPrecedence(Operators.BitwiseNOR),
+                  CalculatorHelper.GetAssociativity(Operators.BitwiseNOR))
         {
         }
 
         public override long Evaluate(CalculatorContext context)
         {
-            //context.Result = context.Expression == null ? Operand : CalculatorHelper.BinaryOperation(Operators.NOR, context.Result, Operand);
-            //context.Expression = CalculatorHelper.AppendExpression(Operators.NOR, context.Expression, Operand);
-
             return ~(LeftOperand.Value | RightOperand.Value);
         }
     }

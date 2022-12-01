@@ -14,8 +14,8 @@ namespace Calculator
 
         public DecimalSeparatorExpression()
         {
-            Precedence = 1;
-            Associativity = Associativity.LeftToRight;
+            Precedence = CalculatorHelper.GetPrecedence(Operators.DecimalSeparator);
+            Associativity = CalculatorHelper.GetAssociativity(Operators.DecimalSeparator);
         }
 
         public long Evaluate(CalculatorContext context)

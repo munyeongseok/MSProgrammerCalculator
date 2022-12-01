@@ -9,12 +9,12 @@ namespace Calculator
     public enum Operators
     {
         None,
-        AND,
-        OR,
-        NOT,
-        NAND,
-        NOR,
-        XOR,
+        BitwiseAND,
+        BitwiseOR,
+        BitwiseNOT,
+        BitwiseNAND,
+        BitwiseNOR,
+        BitwiseXOR,
         LeftShift,
         RightShift,
         Modulo,

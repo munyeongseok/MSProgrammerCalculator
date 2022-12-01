@@ -11,10 +11,5 @@ namespace Calculator
         public SubmitExpression()
         {
         }
-
-        //public override long Evaluate(CalculatorContext context)
-        //{
-        //    return -1;
-        //}
     }
 }

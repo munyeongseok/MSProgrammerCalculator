@@ -14,8 +14,8 @@ namespace Calculator
 
         public OpenParenthesisExpression()
         {
-            Precedence = 1;
-            Associativity = Associativity.LeftToRight;
+            Precedence = CalculatorHelper.GetPrecedence(Operators.OpenParenthesis);
+            Associativity = CalculatorHelper.GetAssociativity(Operators.OpenParenthesis);
         }
 
         public long Evaluate(CalculatorContext context)
