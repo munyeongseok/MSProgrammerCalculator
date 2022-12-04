@@ -14,5 +14,10 @@ namespace Calculator
         {
             Value = value;
         }
+
+        public long Evaluate(CalculatorContext context)
+        {
+            return Value;
+        }
     }
 }

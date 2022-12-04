@@ -11,7 +11,5 @@ namespace Calculator
         int Precedence { get; }
 
         Associativity Associativity { get; }
-
-        long Evaluate(CalculatorContext context);
     }
 }

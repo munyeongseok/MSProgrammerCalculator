@@ -8,6 +8,10 @@ namespace Calculator
 {
     public class BitwiseNOTExpression : UnaryOperatorExpression
     {
+        public BitwiseNOTExpression() : this(null)
+        {
+        }
+
         public BitwiseNOTExpression(IValueExpression operand)
             : base(operand,
                   CalculatorHelper.GetPrecedence(Operators.BitwiseNOT),
@@ -17,7 +21,7 @@ namespace Calculator
 
         public override long Evaluate(CalculatorContext context)
         {
-            return ~Operand.Value;
+            return ~Operand.Evaluate(context);
         }
     }
 }

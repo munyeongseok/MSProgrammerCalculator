@@ -8,6 +8,10 @@ namespace Calculator
 {
     public class MinusExpression : BinaryOperatorExpression
     {
+        public MinusExpression() : this(null, null)
+        {
+        }
+
         public MinusExpression(IValueExpression leftOperand, IValueExpression rightOperand)
             : base(leftOperand, rightOperand,
                   CalculatorHelper.GetPrecedence(Operators.Minus),
@@ -17,7 +21,7 @@ namespace Calculator
 
         public override long Evaluate(CalculatorContext context)
         {
-            return LeftOperand.Value - RightOperand.Value;
+            return LeftOperand.Evaluate(context) - RightOperand.Evaluate(context);
         }
     }
 }

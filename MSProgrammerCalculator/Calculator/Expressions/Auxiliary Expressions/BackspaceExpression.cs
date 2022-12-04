@@ -11,5 +11,10 @@ namespace Calculator
         public BackspaceExpression()
         {
         }
+
+        public long Evaluate(CalculatorContext context)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

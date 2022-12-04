@@ -8,6 +8,6 @@ namespace Calculator
 {
     public interface IUnaryOperatorExpression : IOperatorExpression
     {
-        IValueExpression Operand { get; }
+        IExpression Operand { get; set; }
     }
 }

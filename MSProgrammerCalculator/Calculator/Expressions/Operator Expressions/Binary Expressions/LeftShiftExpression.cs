@@ -8,6 +8,10 @@ namespace Calculator
 {
     public class LeftShiftExpression : BinaryOperatorExpression
     {
+        public LeftShiftExpression() : this(null, null)
+        {
+        }
+
         public LeftShiftExpression(IValueExpression leftOperand, IValueExpression rightOperand)
             : base(leftOperand, rightOperand,
                   CalculatorHelper.GetPrecedence(Operators.LeftShift),
@@ -17,7 +21,7 @@ namespace Calculator
 
         public override long Evaluate(CalculatorContext context)
         {
-            return LeftOperand.Value << (int)RightOperand.Value;
+            return LeftOperand.Evaluate(context) << (int)RightOperand.Evaluate(context);
         }
     }
 }

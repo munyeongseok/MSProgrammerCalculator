@@ -8,6 +8,10 @@ namespace Calculator
 {
     public class BitwiseXORExpression : BinaryOperatorExpression
     {
+        public BitwiseXORExpression() : this(null, null)
+        {
+        }
+
         public BitwiseXORExpression(IValueExpression leftOperand, IValueExpression rightOperand)
             : base(leftOperand, rightOperand,
                   CalculatorHelper.GetPrecedence(Operators.BitwiseXOR),
@@ -17,7 +21,7 @@ namespace Calculator
 
         public override long Evaluate(CalculatorContext context)
         {
-            return LeftOperand.Value ^ RightOperand.Value;
+            return LeftOperand.Evaluate(context) ^ RightOperand.Evaluate(context);
         }
     }
 }

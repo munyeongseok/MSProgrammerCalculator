@@ -8,15 +8,15 @@ namespace Calculator
 {
     public abstract class BinaryOperatorExpression : IBinaryOperatorExpression
     {
-        public IValueExpression LeftOperand { get; }
+        public IExpression LeftOperand { get; set; }
 
-        public IValueExpression RightOperand { get; }
+        public IExpression RightOperand { get; set; }
 
         public int Precedence { get; }
 
         public Associativity Associativity { get; }
 
-        protected BinaryOperatorExpression(IValueExpression leftOperand, IValueExpression rightOperand, int precedence, Associativity associativity)
+        protected BinaryOperatorExpression(IExpression leftOperand, IExpression rightOperand, int precedence, Associativity associativity)
         {
             LeftOperand = leftOperand;
             RightOperand = rightOperand;

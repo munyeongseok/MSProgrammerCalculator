@@ -16,14 +16,14 @@ namespace Calculator
         /// <exception cref="InvalidOperationException"></exception>
         public static Queue<IExpression> InfixToPostfix(IEnumerable<IExpression> infixExpressions)
         {
-            var outputs = new Queue<IExpression>();
-            var operators = new Stack<IOperatorExpression>();
+            var outputQueue = new Queue<IExpression>();
+            var operatorStack = new Stack<IOperatorExpression>();
             foreach (var expression in infixExpressions)
             {
                 // 숫자일 경우 출력 큐에 추가
                 if (expression is IValueExpression)
                 {
-                    outputs.Enqueue(expression);
+                    outputQueue.Enqueue(expression);
                 }
                 // 연산자일 경우
                 else if (expression is IOperatorExpression currentOperator)
@@ -32,15 +32,15 @@ namespace Calculator
                     if (currentOperator is CloseParenthesisExpression)
                     {
                         // 연산자 스택에서 여는 괄호가 나타날 때까지 연산자를 꺼내서 출력 큐에 추가
-                        while (operators.Any() && !(operators.Peek() is OpenParenthesisExpression))
+                        while (operatorStack.Any() && !(operatorStack.Peek() is OpenParenthesisExpression))
                         {
-                            outputs.Enqueue(operators.Pop());
+                            outputQueue.Enqueue(operatorStack.Pop());
                         }
 
                         // 연산자 스택에서 여는 괄호가 나타나면 여는 괄호 연산자를 제거
-                        if (operators.Any() && operators.Peek() is OpenParenthesisExpression)
+                        if (operatorStack.Any() && operatorStack.Peek() is OpenParenthesisExpression)
                         {
-                            operators.Pop();
+                            operatorStack.Pop();
                         }
                         else
                         {
@@ -53,14 +53,14 @@ namespace Calculator
                         // 연산자 스택의 맨 위의 연산자의 우선순위가 현재 연산자의 우선순위보다 높거나,
                         // 우선순위가 같고 현재 연산자가 좌측 결합 연산자일 경우,
                         // 연산자 스택에서 연산자를 꺼내서 출력 큐에 추가
-                        while (operators.Any())
+                        while (operatorStack.Any())
                         {
-                            var topOperator = operators.Peek();
+                            var topOperator = operatorStack.Peek();
                             if (!(topOperator is OpenParenthesisExpression) &&
                                 topOperator.Precedence < currentOperator.Precedence ||
                                 topOperator.Precedence == currentOperator.Precedence && currentOperator.Associativity == Associativity.LeftToRight)
                             {
-                                outputs.Enqueue(operators.Pop());
+                                outputQueue.Enqueue(operatorStack.Pop());
                             }
                             else
                             {
@@ -69,23 +69,48 @@ namespace Calculator
                         }
 
                         // 연산자 스택에 연산자를 추가
-                        operators.Push(currentOperator);
+                        operatorStack.Push(currentOperator);
                     }
                 }
             }
 
             // 연산자 스택에 남은 연산자를 전부 꺼내서 출력 큐에 추가
-            while (operators.Any())
+            while (operatorStack.Any())
             {
-                if (operators.Peek() is OpenParenthesisExpression || operators.Peek() is CloseParenthesisExpression)
+                if (operatorStack.Peek() is OpenParenthesisExpression || operatorStack.Peek() is CloseParenthesisExpression)
                 {
                     throw new InvalidOperationException("Mismatched parentheses.");
                 }
 
-                outputs.Enqueue(operators.Pop());
+                outputQueue.Enqueue(operatorStack.Pop());
             }
 
-            return outputs;
+            return outputQueue;
+        }
+
+        public static IExpression EvaluatePostfix(IEnumerable<IExpression> postfixExpressions)
+        {
+            var stack = new Stack<IExpression>();
+            foreach (var expression in postfixExpressions)
+            {
+                if (expression is IValueExpression)
+                {
+                    stack.Push(expression);
+                }
+                else if (expression is IUnaryOperatorExpression unaryOperator)
+                {
+                    unaryOperator.Operand = stack.Pop();
+                    stack.Push(unaryOperator);
+                }
+                else if (expression is IBinaryOperatorExpression binaryOperator)
+                {
+                    binaryOperator.RightOperand = stack.Pop();
+                    binaryOperator.LeftOperand = stack.Pop();
+                    stack.Push(binaryOperator);
+                }
+            }
+
+            return stack.Pop();
         }
     }
 }

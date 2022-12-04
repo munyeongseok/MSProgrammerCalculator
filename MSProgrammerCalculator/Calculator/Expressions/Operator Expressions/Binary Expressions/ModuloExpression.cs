@@ -8,6 +8,10 @@ namespace Calculator
 {
     public class ModuloExpression : BinaryOperatorExpression
     {
+        public ModuloExpression() : this(null, null)
+        {
+        }
+
         public ModuloExpression(IValueExpression leftOperand, IValueExpression rightOperand)
             : base(leftOperand, rightOperand,
                   CalculatorHelper.GetPrecedence(Operators.Modulo),
@@ -17,7 +21,7 @@ namespace Calculator
 
         public override long Evaluate(CalculatorContext context)
         {
-            return LeftOperand.Value % RightOperand.Value;
+            return LeftOperand.Evaluate(context) % RightOperand.Evaluate(context);
         }
     }
 }

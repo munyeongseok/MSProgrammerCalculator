@@ -8,6 +8,10 @@ namespace Calculator
 {
     public class BitwiseANDExpression : BinaryOperatorExpression
     {
+        public BitwiseANDExpression() : this(null, null)
+        {
+        }
+
         public BitwiseANDExpression(IValueExpression leftOperand, IValueExpression rightOperand)
             : base(leftOperand, rightOperand,
                   CalculatorHelper.GetPrecedence(Operators.BitwiseAND),
@@ -17,7 +21,7 @@ namespace Calculator
 
         public override long Evaluate(CalculatorContext context)
         {
-            return LeftOperand.Value & RightOperand.Value;
+            return LeftOperand.Evaluate(context) & RightOperand.Evaluate(context);
         }
     }
 }

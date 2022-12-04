@@ -8,6 +8,10 @@ namespace Calculator
 {
     public class DivideExpression : BinaryOperatorExpression
     {
+        public DivideExpression() : this(null, null)
+        {
+        }
+
         public DivideExpression(IValueExpression leftOperand, IValueExpression rightOperand)
             : base(leftOperand, rightOperand,
                   CalculatorHelper.GetPrecedence(Operators.Divide),
@@ -17,7 +21,7 @@ namespace Calculator
 
         public override long Evaluate(CalculatorContext context)
         {
-            return LeftOperand.Value / RightOperand.Value;
+            return LeftOperand.Evaluate(context) / RightOperand.Evaluate(context);
         }
     }
 }

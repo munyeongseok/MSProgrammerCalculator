@@ -8,6 +8,10 @@ namespace Calculator
 {
     public class BitwiseNORExpression : BinaryOperatorExpression
     {
+        public BitwiseNORExpression() : this(null, null)
+        {
+        }
+
         public BitwiseNORExpression(IValueExpression leftOperand, IValueExpression rightOperand)
             : base(leftOperand, rightOperand,
                   CalculatorHelper.GetPrecedence(Operators.BitwiseNOR),
@@ -17,7 +21,7 @@ namespace Calculator
 
         public override long Evaluate(CalculatorContext context)
         {
-            return ~(LeftOperand.Value | RightOperand.Value);
+            return ~(LeftOperand.Evaluate(context) | RightOperand.Evaluate(context));
         }
     }
 }

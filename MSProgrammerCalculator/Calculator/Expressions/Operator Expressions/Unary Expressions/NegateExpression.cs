@@ -8,6 +8,10 @@ namespace Calculator
 {
     public class NegateExpression : UnaryOperatorExpression
     {
+        public NegateExpression() : this(null)
+        {
+        }
+
         public NegateExpression(IValueExpression operand)
             : base(operand,
                   CalculatorHelper.GetPrecedence(Operators.Negate),
@@ -17,7 +21,7 @@ namespace Calculator
 
         public override long Evaluate(CalculatorContext context)
         {
-            return -Operand.Value;
+            return -Operand.Evaluate(context);
         }
     }
 }

@@ -11,5 +11,10 @@ namespace Calculator
         public ClearExpression()
         {
         }
+
+        public long Evaluate(CalculatorContext context)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

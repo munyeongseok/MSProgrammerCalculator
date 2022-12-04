@@ -8,8 +8,8 @@ namespace Calculator
 {
     public interface IBinaryOperatorExpression : IOperatorExpression
     {
-        IValueExpression LeftOperand { get; }
+        IExpression LeftOperand { get; set; }
 
-        IValueExpression RightOperand { get; }
+        IExpression RightOperand { get; set; }
     }
 }
