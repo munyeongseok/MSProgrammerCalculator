@@ -45,6 +45,7 @@
     <Compile Include="Common\Numbers.cs" />
     <Compile Include="Common\Associativity.cs" />
     <Compile Include="Common\Operators.cs" />
+    <Compile Include="Common\ShuntingYard.cs" />
     <Compile Include="Expressions\Operator Expressions\CloseParenthesisExpression.cs" />
     <Compile Include="CalculatorHelper.cs" />
     <Compile Include="Expressions\Auxiliary Expressions\BackspaceExpression.cs" />
