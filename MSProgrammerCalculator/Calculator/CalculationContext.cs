@@ -8,6 +8,12 @@ namespace Calculator
 {
     public class CalculationContext
     {
+        internal Queue<IExpression> InputQueue { get; } = new Queue<IExpression>();
+
+        internal Queue<IExpression> OutputQueue { get; } = new Queue<IExpression>();
+
+        internal Stack<IOperatorExpression> OperatorStack { get; } = new Stack<IOperatorExpression>();
+
         internal Stack<IExpression> Expressions { get; } = new Stack<IExpression>();
 
         public BaseNumber BaseNumber { get; internal set; }
