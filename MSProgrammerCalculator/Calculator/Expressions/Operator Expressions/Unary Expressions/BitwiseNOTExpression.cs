@@ -19,7 +19,7 @@ namespace Calculator
         {
         }
 
-        public override long Evaluate(CalculatorContext context)
+        public override long Evaluate(CalculationContext context)
         {
             return ~Operand.Evaluate(context);
         }

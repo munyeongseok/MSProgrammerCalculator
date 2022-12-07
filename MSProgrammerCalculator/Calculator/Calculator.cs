@@ -8,13 +8,13 @@ namespace Calculator
 {
     public class Calculator
     {
-        private CalculatorContext _context;
+        private CalculationContext _context;
 
         public Calculator()
         {
         }
 
-        public void SetContext(CalculatorContext context)
+        public void SetContext(CalculationContext context)
         {
             _context = context;
         }

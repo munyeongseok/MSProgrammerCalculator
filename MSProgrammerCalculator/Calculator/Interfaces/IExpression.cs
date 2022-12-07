@@ -8,6 +8,6 @@ namespace Calculator
 {
     public interface IExpression
     {
-        long Evaluate(CalculatorContext context);
+        long Evaluate(CalculationContext context);
     }
 }

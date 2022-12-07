@@ -15,7 +15,7 @@ namespace Calculator
             Value = value;
         }
 
-        public long Evaluate(CalculatorContext context)
+        public long Evaluate(CalculationContext context)
         {
             return Value;
         }

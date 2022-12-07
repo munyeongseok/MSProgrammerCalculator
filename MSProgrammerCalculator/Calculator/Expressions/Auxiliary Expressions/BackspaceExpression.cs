@@ -12,7 +12,7 @@ namespace Calculator
         {
         }
 
-        public long Evaluate(CalculatorContext context)
+        public long Evaluate(CalculationContext context)
         {
             throw new NotImplementedException();
         }

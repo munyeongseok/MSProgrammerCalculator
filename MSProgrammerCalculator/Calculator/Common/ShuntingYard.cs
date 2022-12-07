@@ -88,6 +88,11 @@ namespace Calculator
             return outputQueue;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="postfixExpressions"></param>
+        /// <returns></returns>
         public static IExpression EvaluatePostfix(IEnumerable<IExpression> postfixExpressions)
         {
             var stack = new Stack<IExpression>();
