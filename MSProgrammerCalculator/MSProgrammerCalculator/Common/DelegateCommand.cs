@@ -7,19 +7,19 @@ using System.Windows.Input;
 
 namespace MSProgrammerCalculator.Common
 {
-    public class DelegateCommand : ICommand
+    public class DelegateCommand<T> : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
-        private readonly Action<object> _execute;
-        private readonly Predicate<object> _canExecute;
+        private readonly Action<T> _execute;
+        private readonly Predicate<T> _canExecute;
 
-        public DelegateCommand(Action<object> execute)
+        public DelegateCommand(Action<T> execute)
             : this(execute, null)
         {
         }
 
-        public DelegateCommand(Action<object> execute, Predicate<object> canExecute)
+        public DelegateCommand(Action<T> execute, Predicate<T> canExecute)
         {
             _execute = execute;
             _canExecute = canExecute;
@@ -27,12 +27,12 @@ namespace MSProgrammerCalculator.Common
 
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null ? true : _canExecute(parameter);
+            return _canExecute == null ? true : _canExecute((T)parameter);
         }
 
         public void Execute(object parameter)
         {
-            _execute(parameter);
+            _execute((T)parameter);
         }
 
         public void RaiseCanExecuteChanged()

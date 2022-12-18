@@ -37,26 +37,26 @@ namespace MSProgrammerCalculator.ViewModels
             }
         }
 
-        public DelegateCommand NumberButtonClickCommand { get; private set; }
-        public DelegateCommand OperatorButtonClickCommand { get; private set; }
+        public DelegateCommand<Numbers> NumberButtonClickCommand { get; private set; }
+        public DelegateCommand<Operators> OperatorButtonClickCommand { get; private set; }
 
         private readonly ICalculator _calculator = new Calculator.Calculator();
 
         public CalculatorViewModel()
         {
-            NumberButtonClickCommand = new DelegateCommand(parameter => NumberButtonClick(parameter));
-            OperatorButtonClickCommand = new DelegateCommand(parameter => OperatorButtonClick(parameter));
+            NumberButtonClickCommand = new DelegateCommand<Numbers>(parameter => NumberButtonClick(parameter));
+            OperatorButtonClickCommand = new DelegateCommand<Operators>(parameter => OperatorButtonClick(parameter));
         }
 
-        private void NumberButtonClick(object parameter)
+        private void NumberButtonClick(Numbers number)
         {
-            _calculator.InsertNumber((Numbers)parameter);
+            _calculator.InsertNumber(number);
             DisplayValue = _calculator.CurrentDisplayValue;
         }
 
-        private void OperatorButtonClick(object parameter)
+        private void OperatorButtonClick(Operators op)
         {
-            _calculator.TryEnqueueExpression((Operators)parameter);
+            _calculator.TryEnqueueExpression(op);
             _calculator.Evaluate();
             DisplayValue = _calculator.CurrentDisplayValue;
             NumericalExpression = _calculator.CurrentNumericalExpression;
