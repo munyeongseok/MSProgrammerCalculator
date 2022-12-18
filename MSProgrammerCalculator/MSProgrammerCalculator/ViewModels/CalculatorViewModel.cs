@@ -10,18 +10,18 @@ namespace MSProgrammerCalculator.ViewModels
 {
     public class CalculatorViewModel : BindableBase
     {
-        private string numericalExpression;
-        public string NumericalExpression
-        {
-            get => numericalExpression;
-            set => SetProperty(ref numericalExpression, value);
-        }
-
         private long displayValue;
         public long DisplayValue
         {
             get => displayValue;
             set => SetProperty(ref displayValue, value);
+        }
+
+        private string numericalExpression;
+        public string NumericalExpression
+        {
+            get => numericalExpression;
+            set => SetProperty(ref numericalExpression, value);
         }
 
         private BaseNumber selectedBaseNumber;
@@ -32,68 +32,34 @@ namespace MSProgrammerCalculator.ViewModels
             {
                 if (SetProperty(ref selectedBaseNumber, value))
                 {
-                    _calculator.SetBaseNumber(selectedBaseNumber);
+                    _calculator.ChangeBaseNumber(selectedBaseNumber);
                 }
             }
         }
 
-        public DelegateCommand KeypadNumberButtonClickCommand { get; private set; }
-        public DelegateCommand KeypadUnaryOperatorButtonClickCommand { get; private set; }
-        public DelegateCommand KeypadBinaryOperatorButtonClickCommand { get; private set; }
-        public DelegateCommand KeypadAuxiliaryOperatorButtonClickCommand { get; private set; }
+        public DelegateCommand NumberButtonClickCommand { get; private set; }
+        public DelegateCommand OperatorButtonClickCommand { get; private set; }
 
-        private CalculationContext _context;
-        private Calculator.Calculator _calculator;
+        private readonly ICalculator _calculator = new Calculator.Calculator();
 
         public CalculatorViewModel()
         {
-            InitializeCommands();
-            InitializeCalculator();
+            NumberButtonClickCommand = new DelegateCommand(parameter => NumberButtonClick(parameter));
+            OperatorButtonClickCommand = new DelegateCommand(parameter => OperatorButtonClick(parameter));
         }
 
-        private void InitializeCommands()
-        {
-            KeypadNumberButtonClickCommand = new DelegateCommand(parameter => KeypadNumberButtonClicked(parameter));
-            KeypadUnaryOperatorButtonClickCommand = new DelegateCommand(parameter => KeypadUnaryOperatorButtonClicked(parameter));
-            KeypadBinaryOperatorButtonClickCommand = new DelegateCommand(parameter => KeypadBinaryOperatorButtonClicked(parameter));
-            KeypadAuxiliaryOperatorButtonClickCommand = new DelegateCommand(parameter => KeypadAuxiliaryOperatorButtonClicked(parameter));
-        }
-
-        private void InitializeCalculator()
-        {
-            _context = new CalculationContext();
-            _calculator = new Calculator.Calculator();
-            _calculator.SetContext(_context);
-        }
-
-        private void KeypadNumberButtonClicked(object parameter)
+        private void NumberButtonClick(object parameter)
         {
             _calculator.InsertNumber((Numbers)parameter);
-            DisplayValue = _context.Operand;
+            DisplayValue = _calculator.CurrentDisplayValue;
         }
 
-        private void KeypadUnaryOperatorButtonClicked(object parameter)
+        private void OperatorButtonClick(object parameter)
         {
-            _calculator.PushUnaryExpression((Operators)parameter);
+            _calculator.TryEnqueueExpression((Operators)parameter);
             _calculator.Evaluate();
-            NumericalExpression = _context.Expression;
-            DisplayValue = _context.Result;
-        }
-
-        private void KeypadBinaryOperatorButtonClicked(object parameter)
-        {
-            _calculator.PushBinaryExpression((Operators)parameter);
-            _calculator.Evaluate();
-            NumericalExpression = _context.Expression;
-            DisplayValue = _context.Result;
-        }
-
-        private void KeypadAuxiliaryOperatorButtonClicked(object parameter)
-        {
-            _calculator.PushAuxiliaryExpression((Operators)parameter);
-            _calculator.Evaluate();
-            NumericalExpression = _context.Expression;
-            DisplayValue = _context.Result;
+            DisplayValue = _calculator.CurrentDisplayValue;
+            NumericalExpression = _calculator.CurrentNumericalExpression;
         }
     }
 }

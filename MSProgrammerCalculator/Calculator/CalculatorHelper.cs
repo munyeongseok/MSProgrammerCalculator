@@ -89,80 +89,79 @@ namespace Calculator
             }
         }
 
-        public static IExpression CreateUnaryExpression(Operators op, long operand)
+        /// <summary>
+        /// 연산자 Expression을 생성합니다.
+        /// </summary>
+        /// <param name="op"></param>
+        /// <returns></returns>
+        public static IExpression CreateExpression(Operators op)
         {
-            var operandExpression = new ValueExpression(operand);
-            switch (op)
-            {
-                case Operators.BitwiseNOT:
-                    return new BitwiseNOTExpression(operandExpression);
-                case Operators.Negate:
-                    return new NegateExpression(operandExpression);
-                default:
-                    throw new ArgumentException();
-            }
-        }
-
-        public static IExpression CreateBinaryExpression(Operators op, long leftOperand, long rightOperand)
-        {
-            var leftOperandExpression = new ValueExpression(leftOperand);
-            var rightOperandExpression = new ValueExpression(rightOperand);
             switch (op)
             {
                 case Operators.BitwiseAND:
-                    return new BitwiseANDExpression(leftOperandExpression, rightOperandExpression);
+                    return new BitwiseANDExpression();
                 case Operators.BitwiseOR:
-                    return new BitwiseORExpression(leftOperandExpression, rightOperandExpression);
+                    return new BitwiseORExpression();
+                case Operators.BitwiseNOT:
+                    return new BitwiseNOTExpression();
                 case Operators.BitwiseNAND:
-                    return new BitwiseNANDExpression(leftOperandExpression, rightOperandExpression);
+                    return new BitwiseNANDExpression();
                 case Operators.BitwiseNOR:
-                    return new BitwiseNORExpression(leftOperandExpression, rightOperandExpression);
+                    return new BitwiseNORExpression();
                 case Operators.BitwiseXOR:
-                    return new BitwiseXORExpression(leftOperandExpression, rightOperandExpression);
+                    return new BitwiseXORExpression();
                 case Operators.LeftShift:
-                    return new LeftShiftExpression(leftOperandExpression, rightOperandExpression);
+                    return new LeftShiftExpression();
                 case Operators.RightShift:
-                    return new RightShiftExpression(leftOperandExpression, rightOperandExpression);
+                    return new RightShiftExpression();
                 case Operators.Modulo:
-                    return new ModuloExpression(leftOperandExpression, rightOperandExpression);
+                    return new ModuloExpression();
                 case Operators.Divide:
-                    return new DivideExpression(leftOperandExpression, rightOperandExpression);
+                    return new DivideExpression();
                 case Operators.Multiply:
-                    return new MultiplyExpression(leftOperandExpression, rightOperandExpression);
+                    return new MultiplyExpression();
                 case Operators.Minus:
-                    return new MinusExpression(leftOperandExpression, rightOperandExpression);
+                    return new MinusExpression();
                 case Operators.Plus:
-                    return new PlusExpression(leftOperandExpression, rightOperandExpression);
-                default:
-                    throw new ArgumentException();
-            }
-        }
-
-        public static IExpression CreateAuxiliaryExpression(Operators op)
-        {
-            switch (op)
-            {
+                    return new PlusExpression();
+                case Operators.Negate:
+                    return new NegateExpression();
                 case Operators.Clear:
-                    return new ClearExpression();
+                    return new ClearExpression(); // 해당 Expression은 확인 후 제거될 수 있음
                 case Operators.Backspace:
-                    return new BackspaceExpression();
+                    return new BackspaceExpression(); // 해당 Expression은 확인 후 제거될 수 있음
                 case Operators.OpenParenthesis:
-                case Operators.CloseParenthesis:
                     return new OpenParenthesisExpression();
+                case Operators.CloseParenthesis:
+                    return new CloseParenthesisExpression();
                 case Operators.DecimalSeparator:
                     return new DecimalSeparatorExpression();
                 case Operators.Submit:
-                    return new SubmitExpression();
+                    return new SubmitExpression(); // 해당 Expression은 확인 후 제거될 수 있음
                 default:
-                    throw new ArgumentException();
+                    return null;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="op"></param>
+        /// <param name="expression"></param>
+        /// <param name="operand"></param>
+        /// <returns></returns>
         public static string AppendExpression(Operators op, string expression, long operand)
         {
             return AppendExpression(op, expression == null ? $"{operand}" : $"{expression}{operand}");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="op"></param>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public static string AppendExpression(Operators op, string expression)
         {
             switch (op)
@@ -205,6 +204,13 @@ namespace Calculator
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="baseNumber"></param>
+        /// <param name="value"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
         public static long InsertNumberAtRight(BaseNumber baseNumber, long value, long number)
         {
             switch (baseNumber)
@@ -241,6 +247,12 @@ namespace Calculator
             return value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="baseNumber"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static long RemoveNumberAtRight(BaseNumber baseNumber, long value)
         {
             switch (baseNumber)

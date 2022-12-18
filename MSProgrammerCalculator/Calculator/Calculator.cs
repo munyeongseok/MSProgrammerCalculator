@@ -6,78 +6,66 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public class Calculator
+    public class Calculator : ICalculator
     {
+        public long CurrentDisplayValue => _context.Result;
+
+        public string CurrentNumericalExpression => _context.Expression;
+
         private CalculationContext _context;
 
-        public Calculator()
+        public Calculator(BaseNumber baseNumber = BaseNumber.Decimal)
+            : this(new CalculationContext(baseNumber))
         {
         }
 
-        public void SetContext(CalculationContext context)
+        public Calculator(CalculationContext context)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             _context = context;
         }
 
-        public void SetBaseNumber(BaseNumber baseNumber)
+        public void Evaluate()
+        {
+            if (_context.InputQueue.Any())
+            {
+                var infixExpressions = _context.InputQueue.ToList();
+                var postfixExpressions = ShuntingYard.InfixToPostfix(infixExpressions);
+                var rootExpression = ShuntingYard.EvaluatePostfix(postfixExpressions);
+                var result = rootExpression.Evaluate(null);
+            }
+        }
+
+        public void ChangeBaseNumber(BaseNumber baseNumber)
         {
             _context.BaseNumber = baseNumber;
             _context.Operand = 0;
         }
-
         public void InsertNumber(Numbers number)
         {
             _context.Operand = CalculatorHelper.InsertNumberAtRight(_context.BaseNumber, _context.Operand, (long)number);
             _context.OperandChanged = true;
         }
 
-        public void PushUnaryExpression(Operators op)
+        public void RemoveNumber()
         {
-            var operand = _context.OperandChanged ? _context.Operand : _context.Result;
-            var expression = CalculatorHelper.CreateUnaryExpression(op, operand);
-            PushExpression(expression);
+            _context.Operand = CalculatorHelper.RemoveNumberAtRight(_context.BaseNumber, _context.Operand);
+            _context.OperandChanged = true;
         }
 
-        public void PushBinaryExpression(Operators op)
+        public bool TryEnqueueExpression(Operators op)
         {
-            if (_context.OperandChanged)
+            var expression = CalculatorHelper.CreateExpression(op);
+            if (expression != null)
             {
-                var leftOperand = _context.Operand;
-                var rightOperanad = _context.Result;
-                var expression = CalculatorHelper.CreateBinaryExpression(op, leftOperand, rightOperanad);
-                PushExpression(expression);
+                _context.InputQueue.Enqueue(expression);
+                return true;
             }
-        }
-
-        public void PushAuxiliaryExpression(Operators op)
-        {
-            var expression = CalculatorHelper.CreateAuxiliaryExpression(op);
-            PushExpression(expression);
-        }
-
-        public void PushExpression(IExpression expression)
-        {
-            if (expression == null)
-            {
-                throw new ArgumentNullException(nameof(expression));
-            }
-
-            _context.Expressions.Push(expression);
-        }
-
-        public void Evaluate()
-        {
-            if (_context != null)
-            {
-                //while (_context.Expressions.Any())
-                //{
-                //    var expression = _context.Expressions.Pop();
-                //    expression.Evaluate(_context);
-                //}
-
-                //_context.Operand = 0;
-                //_context.OperandChanged = false;
-            }
+            return false;
         }
     }
 }

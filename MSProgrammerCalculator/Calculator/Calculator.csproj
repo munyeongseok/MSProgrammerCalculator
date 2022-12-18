@@ -72,6 +72,7 @@
     <Compile Include="Expressions\Auxiliary Expressions\SubmitExpression.cs" />
     <Compile Include="Expressions\ValueExpression.cs" />
     <Compile Include="Interfaces\IBinaryOperatorExpression.cs" />
+    <Compile Include="Interfaces\ICalculator.cs" />
     <Compile Include="Interfaces\IExpression.cs" />
     <Compile Include="Expressions\UnaryOperatorExpression.cs" />
     <Compile Include="Interfaces\IOperatorExpression.cs" />
