@@ -8,9 +8,9 @@ namespace Calculator
 {
     public class Calculator : ICalculator
     {
-        public long CurrentDisplayValue => _context.Result;
+        public long CurrentDisplayValue => _context.DisplayValue;
 
-        public string CurrentNumericalExpression => _context.Expression;
+        public string CurrentNumericalExpression => _context.NumericalExpression;
 
         private CalculationContext _context;
 
@@ -48,13 +48,11 @@ namespace Calculator
         public void InsertNumber(Numbers number)
         {
             _context.Operand = CalculatorHelper.InsertNumberAtRight(_context.BaseNumber, _context.Operand, (long)number);
-            _context.OperandChanged = true;
         }
 
         public void RemoveNumber()
         {
             _context.Operand = CalculatorHelper.RemoveNumberAtRight(_context.BaseNumber, _context.Operand);
-            _context.OperandChanged = true;
         }
 
         public bool TryEnqueueExpression(Operators op)

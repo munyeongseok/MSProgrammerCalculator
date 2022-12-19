@@ -14,17 +14,11 @@ namespace Calculator
 
         internal Stack<IOperatorExpression> OperatorStack { get; }
 
-        internal Stack<IExpression> Expressions { get; }
-
         public BaseNumber BaseNumber { get; internal set; }
 
-        public long Operand { get; internal set; }
+        public long DisplayValue { get; internal set; }
 
-        public bool OperandChanged { get; internal set; }
-
-        public long Result { get; internal set; }
-
-        public string Expression { get; internal set; }
+        public string NumericalExpression { get; internal set; }
 
         public CalculationContext()
             : this(BaseNumber.Unknown)
@@ -36,7 +30,6 @@ namespace Calculator
             InputQueue = new Queue<IExpression>();
             OutputQueue = new Queue<IExpression>();
             OperatorStack = new Stack<IOperatorExpression>();
-            Expressions = new Stack<IExpression>();
             BaseNumber = baseNumber;
         }
     }
