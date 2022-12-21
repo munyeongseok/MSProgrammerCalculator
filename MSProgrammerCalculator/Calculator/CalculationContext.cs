@@ -16,7 +16,7 @@ namespace Calculator
 
         public BaseNumber BaseNumber { get; internal set; }
 
-        public long DisplayValue { get; internal set; }
+        public long CurrentOperand { get; internal set; }
 
         public string NumericalExpression { get; internal set; }
 

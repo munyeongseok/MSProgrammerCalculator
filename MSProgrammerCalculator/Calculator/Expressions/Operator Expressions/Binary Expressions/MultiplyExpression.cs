@@ -12,7 +12,7 @@ namespace Calculator
         {
         }
 
-        public MultiplyExpression(IValueExpression leftOperand, IValueExpression rightOperand)
+        public MultiplyExpression(IOperandExpression leftOperand, IOperandExpression rightOperand)
             : base(leftOperand, rightOperand,
                   CalculatorHelper.GetPrecedence(Operators.Multiply),
                   CalculatorHelper.GetAssociativity(Operators.Multiply))

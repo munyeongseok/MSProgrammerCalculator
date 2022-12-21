@@ -12,7 +12,7 @@ namespace Calculator
         {
         }
 
-        public MinusExpression(IValueExpression leftOperand, IValueExpression rightOperand)
+        public MinusExpression(IOperandExpression leftOperand, IOperandExpression rightOperand)
             : base(leftOperand, rightOperand,
                   CalculatorHelper.GetPrecedence(Operators.Minus),
                   CalculatorHelper.GetAssociativity(Operators.Minus))

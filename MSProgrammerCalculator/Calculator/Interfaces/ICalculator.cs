@@ -11,7 +11,7 @@ namespace Calculator
         /// <summary>
         /// 현재 표시 값.
         /// </summary>
-        long CurrentDisplayValue { get; }
+        long CurrentOperand { get; }
 
         /// <summary>
         /// 현재 수치 표현식.

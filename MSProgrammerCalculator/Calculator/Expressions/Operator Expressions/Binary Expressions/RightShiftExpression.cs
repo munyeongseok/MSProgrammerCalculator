@@ -12,7 +12,7 @@ namespace Calculator
         {
         }
 
-        public RightShiftExpression(IValueExpression leftOperand, IValueExpression rightOperand)
+        public RightShiftExpression(IOperandExpression leftOperand, IOperandExpression rightOperand)
             : base(leftOperand, rightOperand,
                   CalculatorHelper.GetPrecedence(Operators.RightShift),
                   CalculatorHelper.GetAssociativity(Operators.RightShift))

@@ -12,7 +12,7 @@ namespace Calculator
         {
         }
 
-        public DivideExpression(IValueExpression leftOperand, IValueExpression rightOperand)
+        public DivideExpression(IOperandExpression leftOperand, IOperandExpression rightOperand)
             : base(leftOperand, rightOperand,
                   CalculatorHelper.GetPrecedence(Operators.Divide),
                   CalculatorHelper.GetAssociativity(Operators.Divide))

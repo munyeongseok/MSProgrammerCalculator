@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public class ValueExpression : IValueExpression
+    public class OperandExpression : IOperandExpression
     {
-        public long Value { get; }
+        public long Operand { get; }
 
-        public ValueExpression(long value)
+        public OperandExpression(long operand)
         {
-            Value = value;
+            Operand = operand;
         }
 
         public long Evaluate(CalculationContext context)
         {
-            return Value;
+            return Operand;
         }
     }
 }

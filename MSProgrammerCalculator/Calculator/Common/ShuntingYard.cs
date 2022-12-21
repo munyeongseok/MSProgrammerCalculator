@@ -21,7 +21,7 @@ namespace Calculator
             foreach (var expression in infixExpressions)
             {
                 // 숫자일 경우 출력 큐에 추가
-                if (expression is IValueExpression)
+                if (expression is IOperandExpression)
                 {
                     outputQueue.Enqueue(expression);
                 }
@@ -98,7 +98,7 @@ namespace Calculator
             var stack = new Stack<IExpression>();
             foreach (var expression in postfixExpressions)
             {
-                if (expression is IValueExpression)
+                if (expression is IOperandExpression)
                 {
                     stack.Push(expression);
                 }

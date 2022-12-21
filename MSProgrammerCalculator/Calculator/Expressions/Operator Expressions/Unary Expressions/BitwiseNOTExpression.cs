@@ -12,7 +12,7 @@ namespace Calculator
         {
         }
 
-        public BitwiseNOTExpression(IValueExpression operand)
+        public BitwiseNOTExpression(IOperandExpression operand)
             : base(operand,
                   CalculatorHelper.GetPrecedence(Operators.BitwiseNOT),
                   CalculatorHelper.GetAssociativity(Operators.BitwiseNOT))

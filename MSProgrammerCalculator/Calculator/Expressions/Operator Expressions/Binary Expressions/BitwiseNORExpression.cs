@@ -12,7 +12,7 @@ namespace Calculator
         {
         }
 
-        public BitwiseNORExpression(IValueExpression leftOperand, IValueExpression rightOperand)
+        public BitwiseNORExpression(IOperandExpression leftOperand, IOperandExpression rightOperand)
             : base(leftOperand, rightOperand,
                   CalculatorHelper.GetPrecedence(Operators.BitwiseNOR),
                   CalculatorHelper.GetAssociativity(Operators.BitwiseNOR))

@@ -12,7 +12,7 @@ namespace Calculator
         {
         }
 
-        public BitwiseNANDExpression(IValueExpression leftOperand, IValueExpression rightOperand)
+        public BitwiseNANDExpression(IOperandExpression leftOperand, IOperandExpression rightOperand)
             : base(leftOperand, rightOperand,
                   CalculatorHelper.GetPrecedence(Operators.BitwiseNAND),
                   CalculatorHelper.GetAssociativity(Operators.BitwiseNAND))

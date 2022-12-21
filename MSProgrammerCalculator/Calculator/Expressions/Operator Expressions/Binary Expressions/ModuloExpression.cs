@@ -12,7 +12,7 @@ namespace Calculator
         {
         }
 
-        public ModuloExpression(IValueExpression leftOperand, IValueExpression rightOperand)
+        public ModuloExpression(IOperandExpression leftOperand, IOperandExpression rightOperand)
             : base(leftOperand, rightOperand,
                   CalculatorHelper.GetPrecedence(Operators.Modulo),
                   CalculatorHelper.GetAssociativity(Operators.Modulo))

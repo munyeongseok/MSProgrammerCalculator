@@ -12,7 +12,7 @@ namespace Calculator
         {
         }
 
-        public NegateExpression(IValueExpression operand)
+        public NegateExpression(IOperandExpression operand)
             : base(operand,
                   CalculatorHelper.GetPrecedence(Operators.Negate),
                   CalculatorHelper.GetAssociativity(Operators.Negate))

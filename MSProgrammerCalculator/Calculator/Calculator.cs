@@ -8,7 +8,7 @@ namespace Calculator
 {
     public class Calculator : ICalculator
     {
-        public long CurrentDisplayValue => _context.DisplayValue;
+        public long CurrentOperand => _context.CurrentOperand;
 
         public string CurrentNumericalExpression => _context.NumericalExpression;
 
@@ -43,16 +43,16 @@ namespace Calculator
         public void ChangeBaseNumber(BaseNumber baseNumber)
         {
             _context.BaseNumber = baseNumber;
-            _context.Operand = 0;
+            _context.CurrentOperand = 0;
         }
         public void InsertNumber(Numbers number)
         {
-            _context.Operand = CalculatorHelper.InsertNumberAtRight(_context.BaseNumber, _context.Operand, (long)number);
+            _context.CurrentOperand = CalculatorHelper.InsertNumberAtRight(_context.BaseNumber, _context.CurrentOperand, (long)number);
         }
 
         public void RemoveNumber()
         {
-            _context.Operand = CalculatorHelper.RemoveNumberAtRight(_context.BaseNumber, _context.Operand);
+            _context.CurrentOperand = CalculatorHelper.RemoveNumberAtRight(_context.BaseNumber, _context.CurrentOperand);
         }
 
         public bool TryEnqueueExpression(Operators op)

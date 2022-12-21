@@ -12,7 +12,7 @@ namespace Calculator
         {
         }
 
-        public BitwiseXORExpression(IValueExpression leftOperand, IValueExpression rightOperand)
+        public BitwiseXORExpression(IOperandExpression leftOperand, IOperandExpression rightOperand)
             : base(leftOperand, rightOperand,
                   CalculatorHelper.GetPrecedence(Operators.BitwiseXOR),
                   CalculatorHelper.GetAssociativity(Operators.BitwiseXOR))

@@ -10,11 +10,11 @@ namespace MSProgrammerCalculator.ViewModels
 {
     public class CalculatorViewModel : BindableBase
     {
-        private long displayValue;
-        public long DisplayValue
+        private long displayOperand;
+        public long DisplayOperand
         {
-            get => displayValue;
-            set => SetProperty(ref displayValue, value);
+            get => displayOperand;
+            set => SetProperty(ref displayOperand, value);
         }
 
         private string numericalExpression;
@@ -51,14 +51,14 @@ namespace MSProgrammerCalculator.ViewModels
         private void NumberButtonClick(Numbers number)
         {
             _calculator.InsertNumber(number);
-            DisplayValue = _calculator.CurrentDisplayValue;
+            DisplayOperand = _calculator.CurrentOperand;
         }
 
         private void OperatorButtonClick(Operators op)
         {
             _calculator.TryEnqueueExpression(op);
             _calculator.Evaluate();
-            DisplayValue = _calculator.CurrentDisplayValue;
+            DisplayOperand = _calculator.CurrentOperand;
             NumericalExpression = _calculator.CurrentNumericalExpression;
         }
     }

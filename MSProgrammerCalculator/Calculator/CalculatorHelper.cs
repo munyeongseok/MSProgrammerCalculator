@@ -208,70 +208,70 @@ namespace Calculator
         /// 
         /// </summary>
         /// <param name="baseNumber"></param>
-        /// <param name="value"></param>
+        /// <param name="operand"></param>
         /// <param name="number"></param>
         /// <returns></returns>
-        public static long InsertNumberAtRight(BaseNumber baseNumber, long value, long number)
+        public static long InsertNumberAtRight(BaseNumber baseNumber, long operand, long number)
         {
             switch (baseNumber)
             {
                 case BaseNumber.Binary:
-                    if ((value & MSB1000) == 0)
+                    if ((operand & MSB1000) == 0)
                     {
-                        value = (value << 1) + number;
+                        operand = (operand << 1) + number;
                     }
                     break;
                 case BaseNumber.Octal:
-                    if ((value & MSB1110) == 0)
+                    if ((operand & MSB1110) == 0)
                     {
-                        value = (value << 3) + number;
+                        operand = (operand << 3) + number;
                     }
                     break;
                 case BaseNumber.Decimal:
                     try
                     {
-                        value = checked(value * 10) + number;
+                        operand = checked(operand * 10) + number;
                     }
                     catch (OverflowException)
                     {
                     }
                     break;
                 case BaseNumber.Hexadecimal:
-                    if ((value & MSB1111) == 0)
+                    if ((operand & MSB1111) == 0)
                     {
-                        value = (value << 4) + number;
+                        operand = (operand << 4) + number;
                     }
                     break;
             }
 
-            return value;
+            return operand;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="baseNumber"></param>
-        /// <param name="value"></param>
+        /// <param name="operand"></param>
         /// <returns></returns>
-        public static long RemoveNumberAtRight(BaseNumber baseNumber, long value)
+        public static long RemoveNumberAtRight(BaseNumber baseNumber, long operand)
         {
             switch (baseNumber)
             {
                 case BaseNumber.Binary:
-                    value >>= 1;
+                    operand >>= 1;
                     break;
                 case BaseNumber.Octal:
-                    value >>= 3;
+                    operand >>= 3;
                     break;
                 case BaseNumber.Decimal:
-                    value /= 10;
+                    operand /= 10;
                     break;
                 case BaseNumber.Hexadecimal:
-                    value >>= 4;
+                    operand >>= 4;
                     break;
             }
 
-            return value;
+            return operand;
         }
     }
 }
