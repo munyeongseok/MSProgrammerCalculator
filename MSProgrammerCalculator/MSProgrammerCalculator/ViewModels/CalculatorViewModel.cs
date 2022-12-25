@@ -44,22 +44,39 @@ namespace MSProgrammerCalculator.ViewModels
 
         public CalculatorViewModel()
         {
+            InitializeCommands();
+            SubscribeCalculatorEvents();
+        }
+
+        private void InitializeCommands()
+        {
             NumberButtonClickCommand = new DelegateCommand<Numbers>(parameter => NumberButtonClick(parameter));
             OperatorButtonClickCommand = new DelegateCommand<Operators>(parameter => OperatorButtonClick(parameter));
+        }
+
+        private void SubscribeCalculatorEvents()
+        {
+            _calculator.OperandChanged += (s, e) =>
+            {
+                DisplayOperand = e.CurrentOperand;
+            };
+
+            _calculator.ExpressionEvaluated += (s, e) =>
+            {
+                DisplayOperand = e.CurrentOperand;
+                NumericalExpression = e.CurrentExpression;
+            };
         }
 
         private void NumberButtonClick(Numbers number)
         {
             _calculator.InsertNumber(number);
-            DisplayOperand = _calculator.CurrentOperand;
         }
 
         private void OperatorButtonClick(Operators op)
         {
             _calculator.TryEnqueueExpression(op);
             _calculator.Evaluate();
-            DisplayOperand = _calculator.CurrentOperand;
-            NumericalExpression = _calculator.CurrentNumericalExpression;
         }
     }
 }

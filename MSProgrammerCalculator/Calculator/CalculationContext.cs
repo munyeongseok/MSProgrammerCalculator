@@ -18,7 +18,7 @@ namespace Calculator
 
         public long CurrentOperand { get; internal set; }
 
-        public string NumericalExpression { get; internal set; }
+        public string CurrentExpression { get; internal set; }
 
         public CalculationContext()
             : this(BaseNumber.Unknown)

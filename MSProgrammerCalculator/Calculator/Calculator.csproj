@@ -42,8 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\BaseNumber.cs" />
+    <Compile Include="Common\ExpressionEvaluatedEventArgs.cs" />
     <Compile Include="Common\Numbers.cs" />
     <Compile Include="Common\Associativity.cs" />
+    <Compile Include="Common\OperandChangedEventArgs.cs" />
     <Compile Include="Common\Operators.cs" />
     <Compile Include="Common\ShuntingYard.cs" />
     <Compile Include="Expressions\Operator Expressions\CloseParenthesisExpression.cs" />

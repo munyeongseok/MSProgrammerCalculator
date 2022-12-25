@@ -9,14 +9,29 @@ namespace Calculator
     public interface ICalculator
     {
         /// <summary>
-        /// 현재 표시 값.
+        /// 현재 기수(Radix).
+        /// </summary>
+        BaseNumber CurrentBaseNumber { get; }
+
+        /// <summary>
+        /// 현재 피연산자.
         /// </summary>
         long CurrentOperand { get; }
 
         /// <summary>
-        /// 현재 수치 표현식.
+        /// 현재 표현식.
         /// </summary>
-        string CurrentNumericalExpression { get; }
+        string CurrentExpression { get; }
+
+        /// <summary>
+        /// 피연산자가 변경됐을 때 발생합니다.
+        /// </summary>
+        event EventHandler<OperandChangedEventArgs> OperandChanged;
+
+        /// <summary>
+        /// 식이 평가됐을 때 발생합니다.
+        /// </summary>
+        event EventHandler<ExpressionEvaluatedEventArgs> ExpressionEvaluated;
 
         /// <summary>
         /// 식을 평가합니다.
