@@ -9,19 +9,19 @@ namespace Calculator
     public class ExpressionEvaluatedEventArgs : EventArgs
     {
         /// <summary>
-        /// 현재 피연산자.
+        /// 피연산자.
         /// </summary>
-        public long CurrentOperand { get; }
+        public long Operand { get; }
 
         /// <summary>
-        /// 현재 표현식.
+        /// 표현식.
         /// </summary>
-        public string CurrentExpression { get; }
+        public string Expression { get; }
 
-        public ExpressionEvaluatedEventArgs(long currentOperand, string currentExpression)
+        public ExpressionEvaluatedEventArgs(long operand, string expression)
         {
-            CurrentOperand = currentOperand;
-            CurrentExpression = currentExpression;
+            Operand = operand;
+            Expression = expression;
         }
     }
 }

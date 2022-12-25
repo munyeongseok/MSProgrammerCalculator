@@ -11,36 +11,37 @@ namespace Calculator
         public BaseNumber CurrentBaseNumber
         {
             get => _context.BaseNumber;
-            private set
+            set
             {
                 if (_context.BaseNumber != value)
                 {
                     _context.BaseNumber = value;
+                    CurrentOperand = 0;
                 }
             }
         }
 
         public long CurrentOperand
         {
-            get => _context.CurrentOperand;
+            get => _context.Operand;
             private set
             {
-                if (_context.CurrentOperand != value)
+                if (_context.Operand != value)
                 {
-                    _context.CurrentOperand = value;
-                    OperandChanged?.Invoke(this, new OperandChangedEventArgs(value));
+                    _context.Operand = value;
+                    OperandChanged?.Invoke(this, new OperandChangedEventArgs(CurrentOperand));
                 }
             }
         }
 
         public string CurrentExpression
         {
-            get => _context.CurrentExpression;
+            get => _context.Expression;
             private set
             {
-                if (_context.CurrentExpression != value)
+                if (_context.Expression != value)
                 {
-                    _context.CurrentExpression = value;
+                    _context.Expression = value;
                 }
             }
         }
@@ -74,23 +75,18 @@ namespace Calculator
                 var postfixExpressions = ShuntingYard.InfixToPostfix(infixExpressions);
                 var rootExpression = ShuntingYard.EvaluatePostfix(postfixExpressions);
                 var result = rootExpression.Evaluate(null);
-                ExpressionEvaluated?.Invoke(this, new ExpressionEvaluatedEventArgs(_context.CurrentOperand, _context.CurrentExpression));
+                ExpressionEvaluated?.Invoke(this, new ExpressionEvaluatedEventArgs(_context.Operand, _context.Expression));
             }
         }
 
-        public void ChangeBaseNumber(BaseNumber baseNumber)
-        {
-            CurrentBaseNumber = baseNumber;
-            CurrentOperand = 0;
-        }
         public void InsertNumber(Numbers number)
         {
-            CurrentOperand = CalculatorHelper.InsertNumberAtRight(_context.BaseNumber, _context.CurrentOperand, (long)number);
+            CurrentOperand = CalculatorHelper.InsertNumberAtRight(_context.BaseNumber, _context.Operand, (long)number);
         }
 
         public void RemoveNumber()
         {
-            CurrentOperand = CalculatorHelper.RemoveNumberAtRight(_context.BaseNumber, _context.CurrentOperand);
+            CurrentOperand = CalculatorHelper.RemoveNumberAtRight(_context.BaseNumber, _context.Operand);
         }
 
         public bool TryEnqueueExpression(Operators op)

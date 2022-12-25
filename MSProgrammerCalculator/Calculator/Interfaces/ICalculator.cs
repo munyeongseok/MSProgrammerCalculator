@@ -11,7 +11,7 @@ namespace Calculator
         /// <summary>
         /// 현재 기수(Radix).
         /// </summary>
-        BaseNumber CurrentBaseNumber { get; }
+        BaseNumber CurrentBaseNumber { get; set; }
 
         /// <summary>
         /// 현재 피연산자.
@@ -37,12 +37,6 @@ namespace Calculator
         /// 식을 평가합니다.
         /// </summary>
         void Evaluate();
-
-        /// <summary>
-        /// 기수(Radix)를 변경합니다.
-        /// </summary>
-        /// <param name="baseNumber"></param>
-        void ChangeBaseNumber(BaseNumber baseNumber);
 
         /// <summary>
         /// 표시 값 오른쪽에 숫자를 삽입합니다.
