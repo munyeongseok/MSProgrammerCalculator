@@ -8,7 +8,6 @@ namespace Calculator
 {
     public enum Operators
     {
-        None,
         BitwiseAND,
         BitwiseOR,
         BitwiseNOT,

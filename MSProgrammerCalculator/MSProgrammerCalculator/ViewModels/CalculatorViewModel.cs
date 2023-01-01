@@ -75,8 +75,10 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void OperatorButtonClick(Operators op)
         {
-            _calculator.TryEnqueueExpression(op);
-            _calculator.Evaluate();
+            if (_calculator.TryEnqueueToken(op))
+            {
+                _calculator.Evaluate();
+            }
         }
     }
 }

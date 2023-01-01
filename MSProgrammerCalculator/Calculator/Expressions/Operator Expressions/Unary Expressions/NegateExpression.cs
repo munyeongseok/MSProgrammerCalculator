@@ -21,7 +21,12 @@ namespace Calculator
 
         public override long Evaluate(CalculationContext context)
         {
-            return -Operand.Evaluate(context);
+            var operand = Operand.Evaluate(context);
+            var newOperand = -operand;
+            context.Operand = newOperand;
+            context.Expression = CalculatorHelper.AppendUnaryExpression(Operators.Negate, context.Expression, operand);
+
+            return newOperand;
         }
     }
 }

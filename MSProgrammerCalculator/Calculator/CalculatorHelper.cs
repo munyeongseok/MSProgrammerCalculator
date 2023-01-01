@@ -54,6 +54,43 @@ namespace Calculator
         }
 
         /// <summary>
+        /// 연산자 타입을 리턴합니다.
+        /// </summary>
+        /// <param name="op"></param>
+        /// <returns></returns>
+        public static OperatorType GetOperatorType(Operators op)
+        {
+            switch (op)
+            {
+                case Operators.BitwiseNOT:
+                case Operators.Negate:
+                    return OperatorType.Unary;
+                case Operators.BitwiseAND:
+                case Operators.BitwiseOR:
+                case Operators.BitwiseNAND:
+                case Operators.BitwiseNOR:
+                case Operators.BitwiseXOR:
+                case Operators.LeftShift:
+                case Operators.RightShift:
+                case Operators.Modulo:
+                case Operators.Divide:
+                case Operators.Multiply:
+                case Operators.Minus:
+                case Operators.Plus:
+                    return OperatorType.Binary;
+                case Operators.Clear:
+                case Operators.Backspace:
+                case Operators.OpenParenthesis:
+                case Operators.CloseParenthesis:
+                case Operators.DecimalSeparator:
+                case Operators.Submit:
+                    return OperatorType.Auxiliary;
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        /// <summary>
         /// C Operator Precedence 기준.
         /// https://en.cppreference.com/w/c/language/operator_precedence
         /// </summary>
@@ -126,18 +163,12 @@ namespace Calculator
                     return new PlusExpression();
                 case Operators.Negate:
                     return new NegateExpression();
-                case Operators.Clear:
-                    return new ClearExpression(); // 해당 Expression은 확인 후 제거될 수 있음
-                case Operators.Backspace:
-                    return new BackspaceExpression(); // 해당 Expression은 확인 후 제거될 수 있음
                 case Operators.OpenParenthesis:
                     return new OpenParenthesisExpression();
                 case Operators.CloseParenthesis:
                     return new CloseParenthesisExpression();
                 case Operators.DecimalSeparator:
                     return new DecimalSeparatorExpression();
-                case Operators.Submit:
-                    return new SubmitExpression(); // 해당 Expression은 확인 후 제거될 수 있음
                 default:
                     return null;
             }
@@ -150,7 +181,19 @@ namespace Calculator
         /// <param name="expression"></param>
         /// <param name="operand"></param>
         /// <returns></returns>
-        public static string AppendExpression(Operators op, string expression, long operand)
+        public static string AppendUnaryExpression(Operators op, string expression, long operand)
+        {
+            return AppendExpression(op, expression == null ? $"{operand}" : $"{expression}");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="op"></param>
+        /// <param name="expression"></param>
+        /// <param name="operand"></param>
+        /// <returns></returns>
+        public static string AppendBinaryExpression(Operators op, string expression, long operand)
         {
             return AppendExpression(op, expression == null ? $"{operand}" : $"{expression}{operand}");
         }
@@ -162,7 +205,7 @@ namespace Calculator
         /// <param name="expression"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static string AppendExpression(Operators op, string expression)
+        private static string AppendExpression(Operators op, string expression)
         {
             switch (op)
             {

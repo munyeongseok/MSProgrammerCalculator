@@ -87,35 +87,5 @@ namespace Calculator
 
             return outputQueue;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="postfixExpressions"></param>
-        /// <returns></returns>
-        public static IExpression EvaluatePostfix(IEnumerable<IExpression> postfixExpressions)
-        {
-            var stack = new Stack<IExpression>();
-            foreach (var expression in postfixExpressions)
-            {
-                if (expression is IOperandExpression)
-                {
-                    stack.Push(expression);
-                }
-                else if (expression is IUnaryOperatorExpression unaryOperator)
-                {
-                    unaryOperator.Operand = stack.Pop();
-                    stack.Push(unaryOperator);
-                }
-                else if (expression is IBinaryOperatorExpression binaryOperator)
-                {
-                    binaryOperator.RightOperand = stack.Pop();
-                    binaryOperator.LeftOperand = stack.Pop();
-                    stack.Push(binaryOperator);
-                }
-            }
-
-            return stack.Pop();
-        }
     }
 }
