@@ -21,6 +21,6 @@ namespace Calculator
             Associativity = associativity;
         }
 
-        public abstract long Evaluate(CalculationContext context);
+        public abstract EvaluationResult Evaluate();
     }
 }

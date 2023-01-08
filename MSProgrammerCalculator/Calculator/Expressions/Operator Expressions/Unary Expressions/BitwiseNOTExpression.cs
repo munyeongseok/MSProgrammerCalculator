@@ -19,14 +19,10 @@ namespace Calculator
         {
         }
 
-        public override long Evaluate(CalculationContext context)
+        public override EvaluationResult Evaluate()
         {
-            var operand = Operand.Evaluate(context);
-            var newOperand = ~operand;
-            context.Operand = newOperand;
-            context.Expression = CalculatorHelper.AppendUnaryExpression(Operators.BitwiseNOT, context.Expression, operand);
-
-            return newOperand;
+            var result = Operand.Evaluate();
+            return new EvaluationResult(~result.Result, CalculatorHelper.AppendUnaryExpression(Operators.BitwiseNOT, result.Expression, result.Result));
         }
     }
 }

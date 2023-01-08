@@ -18,7 +18,7 @@ namespace Calculator
             Associativity = CalculatorHelper.GetAssociativity(Operators.CloseParenthesis);
         }
 
-        public long Evaluate(CalculationContext context)
+        public EvaluationResult Evaluate()
         {
             throw new NotImplementedException();
         }

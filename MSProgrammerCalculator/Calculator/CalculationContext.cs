@@ -6,31 +6,19 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public class CalculationContext
+    internal class CalculationContext
     {
-        internal Queue<IExpression> InputQueue { get; }
+        public Queue<IExpression> InputQueue { get; }
 
-        internal Queue<IExpression> OutputQueue { get; }
+        public Queue<IExpression> OutputQueue { get; }
 
-        internal Stack<IOperatorExpression> OperatorStack { get; }
-
-        public BaseNumber BaseNumber { get; internal set; }
-
-        public long Operand { get; internal set; }
-
-        public string Expression { get; internal set; }
+        public Stack<IOperatorExpression> OperatorStack { get; }
 
         public CalculationContext()
-            : this(BaseNumber.Unknown)
-        {
-        }
-
-        public CalculationContext(BaseNumber baseNumber)
         {
             InputQueue = new Queue<IExpression>();
             OutputQueue = new Queue<IExpression>();
             OperatorStack = new Stack<IOperatorExpression>();
-            BaseNumber = baseNumber;
         }
     }
 }

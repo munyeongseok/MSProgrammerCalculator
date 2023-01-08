@@ -15,9 +15,9 @@ namespace Calculator
             Operand = operand;
         }
 
-        public long Evaluate(CalculationContext context)
+        public EvaluationResult Evaluate()
         {
-            return Operand;
+            return new EvaluationResult(Operand, null);
         }
     }
 }

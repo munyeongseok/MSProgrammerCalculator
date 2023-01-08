@@ -8,40 +8,43 @@ namespace Calculator
 {
     public class Calculator : ICalculator
     {
+        private BaseNumber currentBaseNumber;
         public BaseNumber CurrentBaseNumber
         {
-            get => _context.BaseNumber;
+            get => currentBaseNumber;
             set
             {
-                if (_context.BaseNumber != value)
+                if (currentBaseNumber != value)
                 {
-                    _context.BaseNumber = value;
+                    currentBaseNumber = value;
                     CurrentOperand = 0;
                 }
             }
         }
 
+        private long currentOperand;
         public long CurrentOperand
         {
-            get => _context.Operand;
+            get => currentOperand;
             private set
             {
-                if (_context.Operand != value)
+                if (currentOperand != value)
                 {
-                    _context.Operand = value;
-                    OperandChanged?.Invoke(this, new OperandChangedEventArgs(CurrentOperand));
+                    currentOperand = value;
+                    OperandChanged?.Invoke(this, new OperandChangedEventArgs(currentOperand));
                 }
             }
         }
 
+        private string currentExpression;
         public string CurrentExpression
         {
-            get => _context.Expression;
+            get => currentExpression;
             private set
             {
-                if (_context.Expression != value)
+                if (currentExpression != value)
                 {
-                    _context.Expression = value;
+                    currentExpression = value;
                 }
             }
         }
@@ -54,32 +57,21 @@ namespace Calculator
         private bool _operandInitialized;
 
         public Calculator(BaseNumber baseNumber = BaseNumber.Decimal)
-            : this(new CalculationContext(baseNumber))
         {
-        }
-
-        public Calculator(CalculationContext context)
-        {
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
-            _context = context;
+            _context = new CalculationContext();
             _operandInitialized = true;
+            CurrentBaseNumber = baseNumber;
         }
 
         public void Evaluate()
         {
             if (_context.InputQueue.Any())
             {
-                _context.Operand = 0;
-                _context.Expression = null;
                 var infixExpressions = _context.InputQueue.ToList();
                 var postfixExpressions = ShuntingYard.InfixToPostfix(infixExpressions);
                 var rootExpression = EvaluatePostfix(postfixExpressions);
-                var result = rootExpression.Evaluate(_context);
-                ExpressionEvaluated?.Invoke(this, new ExpressionEvaluatedEventArgs(_context.Operand, _context.Expression));
+                var result = rootExpression.Evaluate();
+                ExpressionEvaluated?.Invoke(this, new ExpressionEvaluatedEventArgs(result.Result, result.Expression));
             }
         }
 
@@ -110,13 +102,13 @@ namespace Calculator
 
         public void InsertNumber(Numbers number)
         {
-            CurrentOperand = CalculatorHelper.InsertNumberAtRight(_context.BaseNumber, _context.Operand, (long)number);
+            CurrentOperand = CalculatorHelper.InsertNumberAtRight(CurrentBaseNumber, CurrentOperand, (long)number);
             _operandInitialized = false;
         }
 
         public void RemoveNumber()
         {
-            CurrentOperand = CalculatorHelper.RemoveNumberAtRight(_context.BaseNumber, _context.Operand);
+            CurrentOperand = CalculatorHelper.RemoveNumberAtRight(CurrentBaseNumber, CurrentOperand);
             _operandInitialized = CurrentOperand == 0;
         }
 
@@ -144,7 +136,7 @@ namespace Calculator
                     return false;
                 }
                 
-                if (_context.Expression == null)
+                if (CurrentExpression == null)
                 {
                     CurrentOperand = -CurrentOperand;
                     return false;

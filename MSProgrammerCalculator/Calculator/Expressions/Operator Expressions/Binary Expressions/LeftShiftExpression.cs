@@ -19,9 +19,11 @@ namespace Calculator
         {
         }
 
-        public override long Evaluate(CalculationContext context)
+        public override EvaluationResult Evaluate()
         {
-            return LeftOperand.Evaluate(context) << (int)RightOperand.Evaluate(context);
+            var leftResult = LeftOperand.Evaluate();
+            var rightResult = RightOperand.Evaluate();
+            return new EvaluationResult(leftResult.Result << (int)rightResult.Result, string.Empty);
         }
     }
 }
