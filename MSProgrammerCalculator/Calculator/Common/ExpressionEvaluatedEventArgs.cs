@@ -8,19 +8,13 @@ namespace Calculator
 {
     public class ExpressionEvaluatedEventArgs : EventArgs
     {
-        /// <summary>
-        /// 피연산자.
-        /// </summary>
-        public long Operand { get; }
+        public long Result { get; }
 
-        /// <summary>
-        /// 표현식.
-        /// </summary>
         public string Expression { get; }
 
-        public ExpressionEvaluatedEventArgs(long operand, string expression)
+        public ExpressionEvaluatedEventArgs(long result, string expression)
         {
-            Operand = operand;
+            Result = result;
             Expression = expression;
         }
     }

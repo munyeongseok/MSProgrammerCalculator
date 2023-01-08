@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public class OperandChangedEventArgs : EventArgs
+    public class CurrentOperandChangedEventArgs : EventArgs
     {
         /// <summary>
         /// 피연산자.
         /// </summary>
         public long Operand { get; }
 
-        public OperandChangedEventArgs(long operand)
+        public CurrentOperandChangedEventArgs(long operand)
         {
             Operand = operand;
         }

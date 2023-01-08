@@ -56,14 +56,14 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void SubscribeCalculatorEvents()
         {
-            _calculator.OperandChanged += (s, e) =>
+            _calculator.CurrentOperandChanged += (s, e) =>
             {
                 DisplayOperand = e.Operand;
             };
 
             _calculator.ExpressionEvaluated += (s, e) =>
             {
-                DisplayOperand = e.Operand;
+                DisplayOperand = e.Result;
                 NumericalExpression = e.Expression;
             };
         }

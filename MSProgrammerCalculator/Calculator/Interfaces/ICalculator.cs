@@ -24,9 +24,9 @@ namespace Calculator
         string CurrentExpression { get; }
 
         /// <summary>
-        /// 피연산자가 변경됐을 때 발생합니다.
+        /// 현재 피연산자가 변경됐을 때 발생합니다.
         /// </summary>
-        event EventHandler<OperandChangedEventArgs> OperandChanged;
+        event EventHandler<CurrentOperandChangedEventArgs> CurrentOperandChanged;
 
         /// <summary>
         /// 식이 평가됐을 때 발생합니다.

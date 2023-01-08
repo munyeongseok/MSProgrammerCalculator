@@ -45,7 +45,7 @@
     <Compile Include="Common\ExpressionEvaluatedEventArgs.cs" />
     <Compile Include="Common\Numbers.cs" />
     <Compile Include="Common\Associativity.cs" />
-    <Compile Include="Common\OperandChangedEventArgs.cs" />
+    <Compile Include="Common\CurrentOperandChangedEventArgs.cs" />
     <Compile Include="Common\Operators.cs" />
     <Compile Include="Common\OperatorType.cs" />
     <Compile Include="Common\ShuntingYard.cs" />

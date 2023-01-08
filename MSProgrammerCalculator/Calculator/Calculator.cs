@@ -31,7 +31,7 @@ namespace Calculator
                 if (currentOperand != value)
                 {
                     currentOperand = value;
-                    OperandChanged?.Invoke(this, new OperandChangedEventArgs(currentOperand));
+                    CurrentOperandChanged?.Invoke(this, new CurrentOperandChangedEventArgs(currentOperand));
                 }
             }
         }
@@ -49,7 +49,7 @@ namespace Calculator
             }
         }
         
-        public event EventHandler<OperandChangedEventArgs> OperandChanged; 
+        public event EventHandler<CurrentOperandChangedEventArgs> CurrentOperandChanged; 
 
         public event EventHandler<ExpressionEvaluatedEventArgs> ExpressionEvaluated;
 
@@ -73,7 +73,8 @@ namespace Calculator
                 var result = rootExpression.Evaluate();
 
                 _userOperandInitialized = true;
-                ExpressionEvaluated?.Invoke(this, new ExpressionEvaluatedEventArgs(result.Result, result.Expression));                
+                CurrentOperand = result.Result;
+                ExpressionEvaluated?.Invoke(this, new ExpressionEvaluatedEventArgs(result.Result, result.Expression));
             }
         }
 
