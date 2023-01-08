@@ -22,7 +22,9 @@ namespace Calculator
         public override EvaluationResult Evaluate()
         {
             var result = Operand.Evaluate();
-            return new EvaluationResult(-result.Result, CalculatorHelper.AppendUnaryExpression(Operators.Negate, result.Expression, result.Result));
+            var newResult = -result.Result;
+            var newExpression = CalculatorHelper.AppendUnaryExpression(Operators.Negate, result.Expression, result.Result);
+            return new EvaluationResult(newResult, newExpression);
         }
     }
 }

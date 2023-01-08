@@ -54,12 +54,12 @@ namespace Calculator
         public event EventHandler<ExpressionEvaluatedEventArgs> ExpressionEvaluated;
 
         private CalculationContext _context;
-        private bool _operandInitialized;
+        private bool _userOperandInitialized;
 
         public Calculator(BaseNumber baseNumber = BaseNumber.Decimal)
         {
             _context = new CalculationContext();
-            _operandInitialized = true;
+            _userOperandInitialized = true;
             CurrentBaseNumber = baseNumber;
         }
 
@@ -71,7 +71,9 @@ namespace Calculator
                 var postfixExpressions = ShuntingYard.InfixToPostfix(infixExpressions);
                 var rootExpression = EvaluatePostfix(postfixExpressions);
                 var result = rootExpression.Evaluate();
-                ExpressionEvaluated?.Invoke(this, new ExpressionEvaluatedEventArgs(result.Result, result.Expression));
+
+                _userOperandInitialized = true;
+                ExpressionEvaluated?.Invoke(this, new ExpressionEvaluatedEventArgs(result.Result, result.Expression));                
             }
         }
 
@@ -91,8 +93,8 @@ namespace Calculator
                 }
                 else if (expression is IBinaryOperatorExpression binaryOperator)
                 {
-                    binaryOperator.RightOperand = stack.Pop();
                     binaryOperator.LeftOperand = stack.Pop();
+                    binaryOperator.RightOperand = stack.Any() ? stack.Pop() : null;
                     stack.Push(binaryOperator);
                 }
             }
@@ -102,14 +104,14 @@ namespace Calculator
 
         public void InsertNumber(Numbers number)
         {
-            CurrentOperand = CalculatorHelper.InsertNumberAtRight(CurrentBaseNumber, CurrentOperand, (long)number);
-            _operandInitialized = false;
+            CurrentOperand = CalculatorHelper.InsertNumberAtRight(CurrentBaseNumber, _userOperandInitialized ? 0 : CurrentOperand, (long)number);
+            _userOperandInitialized = false;
         }
 
         public void RemoveNumber()
         {
             CurrentOperand = CalculatorHelper.RemoveNumberAtRight(CurrentBaseNumber, CurrentOperand);
-            _operandInitialized = CurrentOperand == 0;
+            _userOperandInitialized = CurrentOperand == 0;
         }
 
         public bool TryEnqueueToken(Operators op)
@@ -131,7 +133,7 @@ namespace Calculator
         {
             if (unaryOperator == Operators.Negate)
             {
-                if (_operandInitialized)
+                if (_userOperandInitialized)
                 {
                     return false;
                 }
@@ -143,16 +145,14 @@ namespace Calculator
                 }
             }
 
-            var unaryOperatorEx = (IUnaryOperatorExpression)CalculatorHelper.CreateExpression(unaryOperator);
             if (_context.InputQueue.Any() && _context.InputQueue.Last() is IUnaryOperatorExpression)
             {
-                _context.InputQueue.Enqueue(unaryOperatorEx);
+                _context.InputQueue.Enqueue(CalculatorHelper.CreateExpression(unaryOperator));
             }
             else
             {
-                var operandEx = new OperandExpression(CurrentOperand);
-                _context.InputQueue.Enqueue(operandEx);
-                _context.InputQueue.Enqueue(unaryOperatorEx);
+                _context.InputQueue.Enqueue(new OperandExpression(CurrentOperand));
+                _context.InputQueue.Enqueue(CalculatorHelper.CreateExpression(unaryOperator));
             }
 
             return true;
@@ -160,7 +160,8 @@ namespace Calculator
 
         private bool ProcessBinaryOperation(Operators binaryOperator)
         {
-            
+            _context.InputQueue.Enqueue(new OperandExpression(CurrentOperand));
+            _context.InputQueue.Enqueue(CalculatorHelper.CreateExpression(binaryOperator));
 
             return true;
         }
