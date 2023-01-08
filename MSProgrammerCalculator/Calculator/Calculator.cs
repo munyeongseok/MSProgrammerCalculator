@@ -94,8 +94,11 @@ namespace Calculator
                 }
                 else if (expression is IBinaryOperatorExpression binaryOperator)
                 {
+                    if (stack.Count >= 2)
+                    {
+                        binaryOperator.RightOperand = stack.Pop();
+                    }
                     binaryOperator.LeftOperand = stack.Pop();
-                    binaryOperator.RightOperand = stack.Any() ? stack.Pop() : null;
                     stack.Push(binaryOperator);
                 }
             }
