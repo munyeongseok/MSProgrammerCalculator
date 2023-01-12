@@ -21,9 +21,7 @@ namespace Calculator
 
         public override EvaluationResult Evaluate()
         {
-            var leftResult = LeftOperand.Evaluate();
-            var rightResult = RightOperand.Evaluate();
-            return new EvaluationResult(leftResult.Result >> (int)rightResult.Result, string.Empty);
+            return CalculatorHelper.CreateBinaryOperationResult(Operators.RightShift, LeftOperand, RightOperand);
         }
     }
 }
