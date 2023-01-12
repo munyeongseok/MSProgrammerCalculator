@@ -178,6 +178,90 @@ namespace Calculator
         /// 
         /// </summary>
         /// <param name="op"></param>
+        /// <param name="leftOperand"></param>
+        /// <param name="rightOperand"></param>
+        /// <returns></returns>
+        public static EvaluationResult CreateBinaryOperationResult(Operators op, IExpression leftOperand, IExpression rightOperand)
+        {
+            if (leftOperand == null)
+            {
+                throw new ArgumentNullException(nameof(leftOperand));
+            }
+
+            var newResult = 0L;
+            var newExpression = "";
+            if (rightOperand == null)
+            {
+                var leftResult = leftOperand.Evaluate();
+                newResult = leftResult.Result;
+                newExpression = AppendExpression(op, GetExpression(leftResult));
+            }
+            else
+            {
+                var leftResult = leftOperand.Evaluate();
+                var rightResult = rightOperand.Evaluate();
+                newResult = BinaryOperation(op, leftResult.Result, rightResult.Result);
+                newExpression = AppendExpression(op, GetExpression(leftResult), GetExpression(rightResult));
+            }
+
+            return new EvaluationResult(newResult, newExpression);
+        }
+
+        private static long UnaryOperation(Operators op, long operand)
+        {
+            switch (op)
+            {
+                case Operators.BitwiseNOT:
+                    return ~operand;
+                case Operators.Negate:
+                    return -operand;
+                default:
+                    throw new InvalidOperationException();
+            }
+        }
+
+        private static long BinaryOperation(Operators op, long leftOperand, long rightOperand)
+        {
+            switch (op)
+            {
+                case Operators.BitwiseAND:
+                    return leftOperand & rightOperand;
+                case Operators.BitwiseOR:
+                    return leftOperand | rightOperand;
+                case Operators.BitwiseNAND:
+                    return ~(leftOperand & rightOperand);
+                case Operators.BitwiseNOR:
+                    return ~(leftOperand | rightOperand);
+                case Operators.BitwiseXOR:
+                    return leftOperand ^ rightOperand;
+                case Operators.LeftShift:
+                    return leftOperand << (int)rightOperand;
+                case Operators.RightShift:
+                    return leftOperand >> (int)rightOperand;
+                case Operators.Modulo:
+                    return leftOperand % rightOperand;
+                case Operators.Divide:
+                    return leftOperand / rightOperand;
+                case Operators.Multiply:
+                    return leftOperand * rightOperand;
+                case Operators.Minus:
+                    return leftOperand - rightOperand;
+                case Operators.Plus:
+                    return leftOperand + rightOperand;
+                default:
+                    throw new InvalidOperationException();
+            }
+        }
+
+        private static string GetExpression(EvaluationResult result)
+        {
+            return result.Expression != null ? result.Expression : result.Result.ToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="op"></param>
         /// <param name="expression"></param>
         /// <param name="operand"></param>
         /// <returns></returns>
@@ -198,13 +282,11 @@ namespace Calculator
             return AppendExpression(op, expression == null ? $"{operand}" : $"{expression}{operand}");
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="op"></param>
-        /// <param name="expression"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
+        private static string AppendExpression(Operators op, string leftExpression, string rightExpression)
+        {
+            return $"{AppendExpression(op, leftExpression)}{rightExpression}";
+        }
+
         private static string AppendExpression(Operators op, string expression)
         {
             switch (op)
