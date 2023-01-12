@@ -177,6 +177,95 @@ namespace Calculator
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="baseNumber"></param>
+        /// <param name="operand"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static long InsertNumberAtRight(BaseNumber baseNumber, long operand, long number)
+        {
+            switch (baseNumber)
+            {
+                case BaseNumber.Binary:
+                    if ((operand & MSB1000) == 0)
+                    {
+                        operand = (operand << 1) + number;
+                    }
+                    break;
+                case BaseNumber.Octal:
+                    if ((operand & MSB1110) == 0)
+                    {
+                        operand = (operand << 3) + number;
+                    }
+                    break;
+                case BaseNumber.Decimal:
+                    try
+                    {
+                        operand = checked(operand * 10) + number;
+                    }
+                    catch (OverflowException)
+                    {
+                    }
+                    break;
+                case BaseNumber.Hexadecimal:
+                    if ((operand & MSB1111) == 0)
+                    {
+                        operand = (operand << 4) + number;
+                    }
+                    break;
+            }
+
+            return operand;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="baseNumber"></param>
+        /// <param name="operand"></param>
+        /// <returns></returns>
+        public static long RemoveNumberAtRight(BaseNumber baseNumber, long operand)
+        {
+            switch (baseNumber)
+            {
+                case BaseNumber.Binary:
+                    operand >>= 1;
+                    break;
+                case BaseNumber.Octal:
+                    operand >>= 3;
+                    break;
+                case BaseNumber.Decimal:
+                    operand /= 10;
+                    break;
+                case BaseNumber.Hexadecimal:
+                    operand >>= 4;
+                    break;
+            }
+
+            return operand;
+        }
+
+        /// <summary>
+        /// 단항 연산 결과를 생성합니다.
+        /// </summary>
+        /// <param name="op"></param>
+        /// <param name="operand"></param>
+        /// <returns></returns>
+        public static EvaluationResult CreateUnaryOperationResult(Operators op, IExpression operand)
+        {
+            if (operand == null)
+            {
+                throw new ArgumentNullException(nameof(operand));
+            }
+
+            var result = operand.Evaluate();
+            var newResult = UnaryOperation(op, result.Result);
+            var newExpression = AppendExpression(op, GetExpression(result));
+            return new EvaluationResult(newResult, newExpression);
+        }
+
+        /// <summary>
+        /// 이진 연산 결과를 생성합니다.
+        /// </summary>
         /// <param name="op"></param>
         /// <param name="leftOperand"></param>
         /// <param name="rightOperand"></param>
@@ -258,30 +347,6 @@ namespace Calculator
             return result.Expression != null ? result.Expression : result.Result.ToString();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="op"></param>
-        /// <param name="expression"></param>
-        /// <param name="operand"></param>
-        /// <returns></returns>
-        public static string AppendUnaryExpression(Operators op, string expression, long operand)
-        {
-            return AppendExpression(op, expression == null ? $"{operand}" : $"{expression}");
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="op"></param>
-        /// <param name="expression"></param>
-        /// <param name="operand"></param>
-        /// <returns></returns>
-        public static string AppendBinaryExpression(Operators op, string expression, long operand)
-        {
-            return AppendExpression(op, expression == null ? $"{operand}" : $"{expression}{operand}");
-        }
-
         private static string AppendExpression(Operators op, string leftExpression, string rightExpression)
         {
             return $"{AppendExpression(op, leftExpression)}{rightExpression}";
@@ -327,76 +392,6 @@ namespace Calculator
                 default:
                     throw new ArgumentException();
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="baseNumber"></param>
-        /// <param name="operand"></param>
-        /// <param name="number"></param>
-        /// <returns></returns>
-        public static long InsertNumberAtRight(BaseNumber baseNumber, long operand, long number)
-        {
-            switch (baseNumber)
-            {
-                case BaseNumber.Binary:
-                    if ((operand & MSB1000) == 0)
-                    {
-                        operand = (operand << 1) + number;
-                    }
-                    break;
-                case BaseNumber.Octal:
-                    if ((operand & MSB1110) == 0)
-                    {
-                        operand = (operand << 3) + number;
-                    }
-                    break;
-                case BaseNumber.Decimal:
-                    try
-                    {
-                        operand = checked(operand * 10) + number;
-                    }
-                    catch (OverflowException)
-                    {
-                    }
-                    break;
-                case BaseNumber.Hexadecimal:
-                    if ((operand & MSB1111) == 0)
-                    {
-                        operand = (operand << 4) + number;
-                    }
-                    break;
-            }
-
-            return operand;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="baseNumber"></param>
-        /// <param name="operand"></param>
-        /// <returns></returns>
-        public static long RemoveNumberAtRight(BaseNumber baseNumber, long operand)
-        {
-            switch (baseNumber)
-            {
-                case BaseNumber.Binary:
-                    operand >>= 1;
-                    break;
-                case BaseNumber.Octal:
-                    operand >>= 3;
-                    break;
-                case BaseNumber.Decimal:
-                    operand /= 10;
-                    break;
-                case BaseNumber.Hexadecimal:
-                    operand >>= 4;
-                    break;
-            }
-
-            return operand;
         }
     }
 }
