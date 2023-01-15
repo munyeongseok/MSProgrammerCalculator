@@ -8,6 +8,8 @@ namespace Calculator
 {
     public class OperandExpression : IOperandExpression
     {
+        public static readonly OperandExpression Null = null;
+
         public long Operand { get; }
 
         public OperandExpression(long operand)
@@ -17,7 +19,7 @@ namespace Calculator
 
         public EvaluationResult Evaluate()
         {
-            return new EvaluationResult(Operand, null);
+            return new EvaluationResult(Operand, string.Empty);
         }
     }
 }

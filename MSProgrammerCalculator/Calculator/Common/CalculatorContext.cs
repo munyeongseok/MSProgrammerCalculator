@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    internal class CalculationContext
+    internal class CalculatorContext
     {
         public Queue<IExpression> InputQueue { get; }
 
@@ -14,7 +14,7 @@ namespace Calculator
 
         public Stack<IOperatorExpression> OperatorStack { get; }
 
-        public CalculationContext()
+        public CalculatorContext()
         {
             InputQueue = new Queue<IExpression>();
             OutputQueue = new Queue<IExpression>();

@@ -46,12 +46,13 @@
     <Compile Include="Common\Numbers.cs" />
     <Compile Include="Common\Associativity.cs" />
     <Compile Include="Common\CurrentOperandChangedEventArgs.cs" />
+    <Compile Include="Common\OperatorDescriptor.cs" />
     <Compile Include="Common\Operators.cs" />
     <Compile Include="Common\OperatorType.cs" />
     <Compile Include="Common\ShuntingYard.cs" />
-    <Compile Include="EvaluationResult.cs" />
+    <Compile Include="Common\EvaluationResult.cs" />
     <Compile Include="Expressions\Operator Expressions\CloseParenthesisExpression.cs" />
-    <Compile Include="CalculatorHelper.cs" />
+    <Compile Include="Common\CalculatorHelper.cs" />
     <Compile Include="Expressions\Operator Expressions\Binary Expressions\BitwiseANDExpression.cs" />
     <Compile Include="Expressions\Operator Expressions\Binary Expressions\BitwiseNANDExpression.cs" />
     <Compile Include="Expressions\Operator Expressions\DecimalSeparatorExpression.cs" />
@@ -69,7 +70,7 @@
     <Compile Include="Expressions\Operator Expressions\Binary Expressions\PlusExpression.cs" />
     <Compile Include="Expressions\BinaryOperatorExpression.cs" />
     <Compile Include="Calculator.cs" />
-    <Compile Include="CalculationContext.cs" />
+    <Compile Include="Common\CalculatorContext.cs" />
     <Compile Include="Expressions\Operator Expressions\Binary Expressions\RightShiftExpression.cs" />
     <Compile Include="Expressions\OperandExpression.cs" />
     <Compile Include="Interfaces\IBinaryOperatorExpression.cs" />

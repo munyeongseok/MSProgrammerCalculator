@@ -8,14 +8,11 @@ namespace Calculator
 {
     public class DecimalSeparatorExpression : IOperatorExpression
     {
-        public int Precedence { get; }
-
-        public Associativity Associativity { get; }
+        public OperatorDescriptor OperatorDescriptor { get; }
 
         public DecimalSeparatorExpression()
         {
-            Precedence = CalculatorHelper.GetPrecedence(Operators.DecimalSeparator);
-            Associativity = CalculatorHelper.GetAssociativity(Operators.DecimalSeparator);
+            OperatorDescriptor = CalculatorHelper.GetOperatorDescriptor(Operators.DecimalSeparator);
         }
 
         public EvaluationResult Evaluate()

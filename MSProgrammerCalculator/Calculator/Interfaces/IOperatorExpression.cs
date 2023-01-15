@@ -8,8 +8,6 @@ namespace Calculator
 {
     public interface IOperatorExpression : IExpression
     {
-        int Precedence { get; }
-
-        Associativity Associativity { get; }
+        OperatorDescriptor OperatorDescriptor { get; }
     }
 }

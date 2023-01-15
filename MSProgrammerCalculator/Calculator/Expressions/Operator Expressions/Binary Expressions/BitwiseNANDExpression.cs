@@ -8,14 +8,13 @@ namespace Calculator
 {
     public class BitwiseNANDExpression : BinaryOperatorExpression
     {
-        public BitwiseNANDExpression() : this(null, null)
+        public BitwiseNANDExpression()
+            : this(OperandExpression.Null, OperandExpression.Null)
         {
         }
 
         public BitwiseNANDExpression(IOperandExpression leftOperand, IOperandExpression rightOperand)
-            : base(leftOperand, rightOperand,
-                  CalculatorHelper.GetPrecedence(Operators.BitwiseNAND),
-                  CalculatorHelper.GetAssociativity(Operators.BitwiseNAND))
+            : base(CalculatorHelper.GetOperatorDescriptor(Operators.BitwiseNAND), leftOperand, rightOperand)
         {
         }
 

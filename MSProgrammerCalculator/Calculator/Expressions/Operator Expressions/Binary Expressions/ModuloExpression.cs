@@ -8,14 +8,13 @@ namespace Calculator
 {
     public class ModuloExpression : BinaryOperatorExpression
     {
-        public ModuloExpression() : this(null, null)
+        public ModuloExpression()
+            : this(OperandExpression.Null, OperandExpression.Null)
         {
         }
 
         public ModuloExpression(IOperandExpression leftOperand, IOperandExpression rightOperand)
-            : base(leftOperand, rightOperand,
-                  CalculatorHelper.GetPrecedence(Operators.Modulo),
-                  CalculatorHelper.GetAssociativity(Operators.Modulo))
+            : base(CalculatorHelper.GetOperatorDescriptor(Operators.Modulo), leftOperand, rightOperand)
         {
         }
 

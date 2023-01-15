@@ -13,13 +13,23 @@ namespace Calculator
         private const long MSB1111 = unchecked((long)0b_1111000000000000_0000000000000000_0000000000000000_0000000000000000);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="op"></param>
+        /// <returns></returns>
+        public static OperatorDescriptor GetOperatorDescriptor(Operators op)
+        {
+            return new OperatorDescriptor(GetPrecedence(op), GetAssociativity(op));
+        }
+
+        /// <summary>
         /// C Operator Precedence 기준.
         /// https://en.cppreference.com/w/c/language/operator_precedence
         /// </summary>
         /// <param name="op"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static int GetPrecedence(Operators op)
+        private static int GetPrecedence(Operators op)
         {
             switch (op)
             {
@@ -48,6 +58,42 @@ namespace Calculator
                 case Operators.BitwiseOR:
                 case Operators.BitwiseNOR:
                     return 10;
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        /// <summary>
+        /// C Operator Precedence 기준.
+        /// https://en.cppreference.com/w/c/language/operator_precedence
+        /// </summary>
+        /// <param name="op"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        private static Associativity GetAssociativity(Operators op)
+        {
+            switch (op)
+            {
+                case Operators.OpenParenthesis:
+                case Operators.CloseParenthesis:
+                case Operators.DecimalSeparator:
+                    return Associativity.LeftToRight;
+                case Operators.Negate:
+                case Operators.BitwiseNOT:
+                    return Associativity.RightToLeft;
+                case Operators.Multiply:
+                case Operators.Divide:
+                case Operators.Modulo:
+                case Operators.Plus:
+                case Operators.Minus:
+                case Operators.LeftShift:
+                case Operators.RightShift:
+                case Operators.BitwiseAND:
+                case Operators.BitwiseNAND:
+                case Operators.BitwiseXOR:
+                case Operators.BitwiseOR:
+                case Operators.BitwiseNOR:
+                    return Associativity.LeftToRight;
                 default:
                     throw new ArgumentException();
             }
@@ -85,42 +131,6 @@ namespace Calculator
                 case Operators.DecimalSeparator:
                 case Operators.Submit:
                     return OperatorType.Auxiliary;
-                default:
-                    throw new ArgumentException();
-            }
-        }
-
-        /// <summary>
-        /// C Operator Precedence 기준.
-        /// https://en.cppreference.com/w/c/language/operator_precedence
-        /// </summary>
-        /// <param name="op"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
-        public static Associativity GetAssociativity(Operators op)
-        {
-            switch (op)
-            {
-                case Operators.OpenParenthesis:
-                case Operators.CloseParenthesis:
-                case Operators.DecimalSeparator:
-                    return Associativity.LeftToRight;
-                case Operators.Negate:
-                case Operators.BitwiseNOT:
-                    return Associativity.RightToLeft;
-                case Operators.Multiply:
-                case Operators.Divide:
-                case Operators.Modulo:
-                case Operators.Plus:
-                case Operators.Minus:
-                case Operators.LeftShift:
-                case Operators.RightShift:
-                case Operators.BitwiseAND:
-                case Operators.BitwiseNAND:
-                case Operators.BitwiseXOR:
-                case Operators.BitwiseOR:
-                case Operators.BitwiseNOR:
-                    return Associativity.LeftToRight;
                 default:
                     throw new ArgumentException();
             }
@@ -344,7 +354,7 @@ namespace Calculator
 
         private static string GetExpression(EvaluationResult result)
         {
-            return result.Expression != null ? result.Expression : result.Result.ToString();
+            return string.IsNullOrEmpty(result.Expression) ? result.Result.ToString() : result.Expression;
         }
 
         private static string AppendExpression(Operators op, string leftExpression, string rightExpression)

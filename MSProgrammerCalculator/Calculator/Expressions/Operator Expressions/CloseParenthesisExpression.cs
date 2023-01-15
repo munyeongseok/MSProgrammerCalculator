@@ -8,14 +8,11 @@ namespace Calculator
 {
     public class CloseParenthesisExpression : IOperatorExpression
     {
-        public int Precedence { get; }
-
-        public Associativity Associativity { get; }
+        public OperatorDescriptor OperatorDescriptor { get; }
 
         public CloseParenthesisExpression()
         {
-            Precedence = CalculatorHelper.GetPrecedence(Operators.CloseParenthesis);
-            Associativity = CalculatorHelper.GetAssociativity(Operators.CloseParenthesis);
+            OperatorDescriptor = CalculatorHelper.GetOperatorDescriptor(Operators.CloseParenthesis);
         }
 
         public EvaluationResult Evaluate()

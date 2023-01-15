@@ -8,20 +8,17 @@ namespace Calculator
 {
     public abstract class BinaryOperatorExpression : IBinaryOperatorExpression
     {
+        public OperatorDescriptor OperatorDescriptor { get; }
+
         public IExpression LeftOperand { get; set; }
 
         public IExpression RightOperand { get; set; }
 
-        public int Precedence { get; }
-
-        public Associativity Associativity { get; }
-
-        protected BinaryOperatorExpression(IExpression leftOperand, IExpression rightOperand, int precedence, Associativity associativity)
+        protected BinaryOperatorExpression(OperatorDescriptor operatorDescriptor, IExpression leftOperand, IExpression rightOperand)
         {
+            OperatorDescriptor = operatorDescriptor;
             LeftOperand = leftOperand;
             RightOperand = rightOperand;
-            Precedence = precedence;
-            Associativity = associativity;
         }
 
         public abstract EvaluationResult Evaluate();

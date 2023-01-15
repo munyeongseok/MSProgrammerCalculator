@@ -57,8 +57,9 @@ namespace Calculator
                         {
                             var topOperator = operatorStack.Peek();
                             if (!(topOperator is OpenParenthesisExpression) &&
-                                topOperator.Precedence < currentOperator.Precedence ||
-                                topOperator.Precedence == currentOperator.Precedence && currentOperator.Associativity == Associativity.LeftToRight)
+                                topOperator.OperatorDescriptor.Precedence < currentOperator.OperatorDescriptor.Precedence ||
+                                topOperator.OperatorDescriptor.Precedence == currentOperator.OperatorDescriptor.Precedence &&
+                                currentOperator.OperatorDescriptor.Associativity == Associativity.LeftToRight)
                             {
                                 outputQueue.Enqueue(operatorStack.Pop());
                             }

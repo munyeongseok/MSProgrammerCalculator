@@ -8,14 +8,13 @@ namespace Calculator
 {
     public class BitwiseORExpression : BinaryOperatorExpression
     {
-        public BitwiseORExpression() : this(null, null)
+        public BitwiseORExpression()
+            : this(OperandExpression.Null, OperandExpression.Null)
         {
         }
 
         public BitwiseORExpression(IOperandExpression leftOperand, IOperandExpression rightOperand)
-            : base(leftOperand, rightOperand,
-                  CalculatorHelper.GetPrecedence(Operators.BitwiseOR),
-                  CalculatorHelper.GetAssociativity(Operators.BitwiseOR))
+            : base(CalculatorHelper.GetOperatorDescriptor(Operators.BitwiseOR), leftOperand, rightOperand)
         {
         }
 

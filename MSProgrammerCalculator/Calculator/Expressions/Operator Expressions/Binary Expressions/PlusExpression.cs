@@ -8,14 +8,13 @@ namespace Calculator
 {
     public class PlusExpression : BinaryOperatorExpression
     {
-        public PlusExpression() : this(null, null)
+        public PlusExpression()
+            : this(OperandExpression.Null, OperandExpression.Null)
         {
         }
 
         public PlusExpression(IOperandExpression leftOperand, IOperandExpression rightOperand)
-            : base(leftOperand, rightOperand,
-                  CalculatorHelper.GetPrecedence(Operators.Plus),
-                  CalculatorHelper.GetAssociativity(Operators.Plus))
+            : base(CalculatorHelper.GetOperatorDescriptor(Operators.Plus), leftOperand, rightOperand)
         {
         }
 

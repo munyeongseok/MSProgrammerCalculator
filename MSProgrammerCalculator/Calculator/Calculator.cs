@@ -53,12 +53,12 @@ namespace Calculator
 
         public event EventHandler<ExpressionEvaluatedEventArgs> ExpressionEvaluated;
 
-        private CalculationContext _context;
+        private CalculatorContext _context;
         private bool _userOperandInitialized;
 
         public Calculator(BaseNumber baseNumber = BaseNumber.Decimal)
         {
-            _context = new CalculationContext();
+            _context = new CalculatorContext();
             _userOperandInitialized = true;
             CurrentBaseNumber = baseNumber;
         }

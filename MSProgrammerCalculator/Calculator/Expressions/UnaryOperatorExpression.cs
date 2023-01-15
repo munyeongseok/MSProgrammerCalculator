@@ -8,17 +8,14 @@ namespace Calculator
 {
     public abstract class UnaryOperatorExpression : IUnaryOperatorExpression
     {
+        public OperatorDescriptor OperatorDescriptor { get; }
+
         public IExpression Operand { get; set; }
 
-        public int Precedence { get; }
-
-        public Associativity Associativity { get; }
-
-        protected UnaryOperatorExpression(IExpression operand, int precedence, Associativity associativity)
+        protected UnaryOperatorExpression(OperatorDescriptor operatorDescriptor, IExpression operand)
         {
+            OperatorDescriptor = operatorDescriptor;
             Operand = operand;
-            Precedence = precedence;
-            Associativity = associativity;
         }
 
         public abstract EvaluationResult Evaluate();

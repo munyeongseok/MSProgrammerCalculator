@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public struct EvaluationResult
+    public class EvaluationResult
     {
         public long Result { get; }
 
