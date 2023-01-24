@@ -55,17 +55,19 @@ namespace Calculator
 
         private CalculatorContext _context;
         private bool _userOperandInitialized;
+        private int _openedParenthesisCount;
 
         public Calculator(BaseNumber baseNumber = BaseNumber.Decimal)
         {
             _context = new CalculatorContext();
             _userOperandInitialized = true;
+            _openedParenthesisCount = 0;
             CurrentBaseNumber = baseNumber;
         }
 
         public void Evaluate()
         {
-            if (_context.InputQueue.Any())
+            if (_context.InputQueue.Any() && _openedParenthesisCount == 0)
             {
                 var infixExpressions = _context.InputQueue.ToList();
                 var postfixExpressions = ShuntingYard.InfixToPostfix(infixExpressions);
@@ -172,7 +174,32 @@ namespace Calculator
 
         private bool ProcessAuxiliaryOperation(Operators auxiliaryOperator)
         {
-
+            switch (auxiliaryOperator)
+            {
+                case Operators.OpenParenthesis:
+                    if (_context.InputQueue.Any() && (_context.InputQueue.Last() is OperandExpression || _context.InputQueue.Last() is CloseParenthesisExpression))
+                    {
+                        _context.InputQueue.Enqueue(new MultiplyExpression());   
+                    }
+                    _context.InputQueue.Enqueue(new OpenParenthesisExpression());
+                    _openedParenthesisCount++;
+                    break;
+                case Operators.CloseParenthesis:
+                    if (_openedParenthesisCount > 0)
+                    {
+                        if (_context.InputQueue.Any() && _context.InputQueue.Last() is OpenParenthesisExpression)
+                        {
+                            _context.InputQueue.Enqueue(new OperandExpression(CurrentOperand));
+                        }
+                        _context.InputQueue.Enqueue(new CloseParenthesisExpression());
+                        _openedParenthesisCount--;
+                    }
+                    break;
+                case Operators.DecimalSeparator:
+                    break;
+                default:
+                    return false;
+            }
 
             return true;
         }
