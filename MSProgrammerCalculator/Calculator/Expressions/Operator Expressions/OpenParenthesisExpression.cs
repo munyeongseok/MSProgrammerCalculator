@@ -11,7 +11,7 @@ namespace Calculator
         public OperatorDescriptor OperatorDescriptor { get; }
 
         public OpenParenthesisExpression()
-            : base("(")
+            : base(CalculatorHelper.GetNumericalExpressionToken(Operators.OpenParenthesis))
         {
             OperatorDescriptor = CalculatorHelper.CreateOperatorDescriptor(Operators.OpenParenthesis);
         }

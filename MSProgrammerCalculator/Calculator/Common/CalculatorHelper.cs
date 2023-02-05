@@ -176,6 +176,12 @@ namespace Calculator
                 case Operators.Plus:
                     return "+";
                 // Auxiliary Numerical Expression
+                case Operators.OpenParenthesis:
+                    return "(";
+                case Operators.CloseParenthesis:
+                    return ")";
+                case Operators.DecimalSeparator:
+                    return ".";
                 case Operators.Submit:
                     return "=";
                 default:

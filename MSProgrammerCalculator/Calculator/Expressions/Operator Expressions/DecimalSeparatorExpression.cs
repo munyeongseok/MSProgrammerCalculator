@@ -11,7 +11,7 @@ namespace Calculator
         public OperatorDescriptor OperatorDescriptor { get; }
 
         public DecimalSeparatorExpression()
-            : base(".")
+            : base(CalculatorHelper.GetNumericalExpressionToken(Operators.DecimalSeparator))
         {
             OperatorDescriptor = CalculatorHelper.CreateOperatorDescriptor(Operators.DecimalSeparator);
         }
