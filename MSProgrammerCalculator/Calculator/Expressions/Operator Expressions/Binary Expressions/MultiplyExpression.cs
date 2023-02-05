@@ -14,7 +14,7 @@ namespace Calculator
         }
 
         public MultiplyExpression(IOperandExpression leftOperand, IOperandExpression rightOperand)
-            : base(CalculatorHelper.GetOperatorDescriptor(Operators.Multiply), leftOperand, rightOperand)
+            : base(CalculatorHelper.GetNumericalExpressionToken(Operators.Multiply), CalculatorHelper.CreateOperatorDescriptor(Operators.Multiply), leftOperand, rightOperand)
         {
         }
 

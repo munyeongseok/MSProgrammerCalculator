@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public class DecimalSeparatorExpression : IOperatorExpression
+    public class DecimalSeparatorExpression : Expression, IOperatorExpression
     {
         public OperatorDescriptor OperatorDescriptor { get; }
 
         public DecimalSeparatorExpression()
+            : base(".")
         {
-            OperatorDescriptor = CalculatorHelper.GetOperatorDescriptor(Operators.DecimalSeparator);
+            OperatorDescriptor = CalculatorHelper.CreateOperatorDescriptor(Operators.DecimalSeparator);
         }
 
-        public EvaluationResult Evaluate()
+        public override EvaluationResult Evaluate()
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
     }
 }

@@ -67,16 +67,21 @@ namespace Calculator
 
         public void Evaluate()
         {
-            if (_context.InputQueue.Any() && _openedParenthesisCount == 0)
+            if (_context.InputQueue.Any())
             {
-                var infixExpressions = _context.InputQueue.ToList();
-                var postfixExpressions = ShuntingYard.InfixToPostfix(infixExpressions);
-                var rootExpression = EvaluatePostfix(postfixExpressions);
-                var result = rootExpression.Evaluate();
+                var numericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue);
 
-                _userOperandInitialized = true;
-                CurrentOperand = result.Result;
-                ExpressionEvaluated?.Invoke(this, new ExpressionEvaluatedEventArgs(result.Result, result.Expression));
+                if (_openedParenthesisCount == 0)
+                {
+                    var infixExpressions = _context.InputQueue.ToList();
+                    var postfixExpressions = ShuntingYard.InfixToPostfix(infixExpressions);
+                    var rootExpression = EvaluatePostfix(postfixExpressions);
+                    var result = rootExpression.Evaluate();
+
+                    _userOperandInitialized = true;
+                    CurrentOperand = result.Result;
+                    ExpressionEvaluated?.Invoke(this, new ExpressionEvaluatedEventArgs(result.Result, result.NumericalExpression));
+                }
             }
         }
 
@@ -85,24 +90,17 @@ namespace Calculator
             var stack = new Stack<IExpression>();
             foreach (var expression in postfixExpressions)
             {
-                if (expression is IOperandExpression)
-                {
-                    stack.Push(expression);
-                }
-                else if (expression is IUnaryOperatorExpression unaryOperator)
+                if (expression is IUnaryOperatorExpression unaryOperator)
                 {
                     unaryOperator.Operand = stack.Pop();
-                    stack.Push(unaryOperator);
                 }
                 else if (expression is IBinaryOperatorExpression binaryOperator)
                 {
-                    if (stack.Count >= 2)
-                    {
-                        binaryOperator.RightOperand = stack.Pop();
-                    }
+                    binaryOperator.RightOperand = stack.Count >= 2 ? stack.Pop() : null;
                     binaryOperator.LeftOperand = stack.Pop();
-                    stack.Push(binaryOperator);
                 }
+
+                stack.Push(expression);
             }
 
             return stack.Pop();

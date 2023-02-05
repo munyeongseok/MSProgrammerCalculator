@@ -14,7 +14,7 @@ namespace Calculator
         }
 
         public NegateExpression(IOperandExpression operand)
-            : base(CalculatorHelper.GetOperatorDescriptor(Operators.Negate), operand)
+            : base(CalculatorHelper.GetNumericalExpressionToken(Operators.Negate), CalculatorHelper.CreateOperatorDescriptor(Operators.Negate), operand)
         {
         }
 

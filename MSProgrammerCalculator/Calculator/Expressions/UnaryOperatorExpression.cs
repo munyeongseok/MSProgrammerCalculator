@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public abstract class UnaryOperatorExpression : IUnaryOperatorExpression
+    public abstract class UnaryOperatorExpression : Expression, IUnaryOperatorExpression
     {
         public OperatorDescriptor OperatorDescriptor { get; }
 
         public IExpression Operand { get; set; }
 
-        protected UnaryOperatorExpression(OperatorDescriptor operatorDescriptor, IExpression operand)
+        protected UnaryOperatorExpression(string numericalExpressionToken, OperatorDescriptor operatorDescriptor, IExpression operand)
+            : base(numericalExpressionToken)
         {
             OperatorDescriptor = operatorDescriptor;
             Operand = operand;
         }
-
-        public abstract EvaluationResult Evaluate();
     }
 }

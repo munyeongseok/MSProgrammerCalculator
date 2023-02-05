@@ -14,7 +14,7 @@ namespace Calculator
         }
 
         public BitwiseNOTExpression(IOperandExpression operand)
-            : base(CalculatorHelper.GetOperatorDescriptor(Operators.BitwiseNOT), operand)
+            : base(CalculatorHelper.GetNumericalExpressionToken(Operators.BitwiseNOT), CalculatorHelper.CreateOperatorDescriptor(Operators.BitwiseNOT), operand)
         {
         }
 

@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public class OpenParenthesisExpression : IOperatorExpression
+    public class OpenParenthesisExpression : Expression, IOperatorExpression
     {
         public OperatorDescriptor OperatorDescriptor { get; }
 
         public OpenParenthesisExpression()
+            : base("(")
         {
-            OperatorDescriptor = CalculatorHelper.GetOperatorDescriptor(Operators.OpenParenthesis);
+            OperatorDescriptor = CalculatorHelper.CreateOperatorDescriptor(Operators.OpenParenthesis);
         }
 
-        public EvaluationResult Evaluate()
+        public override EvaluationResult Evaluate()
         {
             throw new NotImplementedException();
         }

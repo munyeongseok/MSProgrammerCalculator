@@ -10,12 +10,12 @@ namespace Calculator
     {
         public long Result { get; }
 
-        public string Expression { get; }
+        public string NumericalExpression { get; }
 
-        public ExpressionEvaluatedEventArgs(long result, string expression)
+        public ExpressionEvaluatedEventArgs(long result, string numericalExpression)
         {
             Result = result;
-            Expression = expression;
+            NumericalExpression = numericalExpression;
         }
     }
 }

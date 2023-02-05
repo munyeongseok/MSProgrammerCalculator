@@ -64,7 +64,7 @@ namespace MSProgrammerCalculator.ViewModels
             _calculator.ExpressionEvaluated += (s, e) =>
             {
                 DisplayOperand = e.Result;
-                NumericalExpression = e.Expression;
+                NumericalExpression = e.NumericalExpression;
             };
         }
 

@@ -8,12 +8,15 @@ namespace Calculator
 {
     public class OperatorDescriptor
     {
+        public Operators Operator { get; }
+
         public int Precedence { get; }
 
         public Associativity Associativity { get; }
 
-        public OperatorDescriptor(int precedence, Associativity associativity)
+        public OperatorDescriptor(Operators op, int precedence, Associativity associativity)
         {
+            Operator = op;
             Precedence = precedence;
             Associativity = associativity;
         }

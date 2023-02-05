@@ -13,13 +13,13 @@ namespace Calculator
         private const long MSB1111 = unchecked((long)0b_1111000000000000_0000000000000000_0000000000000000_0000000000000000);
 
         /// <summary>
-        /// 
+        /// OperatorDescriptor를 생성합니다.
         /// </summary>
         /// <param name="op"></param>
         /// <returns></returns>
-        public static OperatorDescriptor GetOperatorDescriptor(Operators op)
+        public static OperatorDescriptor CreateOperatorDescriptor(Operators op)
         {
-            return new OperatorDescriptor(GetPrecedence(op), GetAssociativity(op));
+            return new OperatorDescriptor(op, GetPrecedence(op), GetAssociativity(op));
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Calculator
         }
 
         /// <summary>
-        /// 연산자 타입을 리턴합니다.
+        /// 연산자 타입을 가져옵니다.
         /// </summary>
         /// <param name="op"></param>
         /// <returns></returns>
@@ -134,6 +134,87 @@ namespace Calculator
                 default:
                     throw new ArgumentException();
             }
+        }
+
+        /// <summary>
+        /// 숫자 표현식 토큰을 가져옵니다.
+        /// </summary>
+        /// <param name="op"></param>
+        /// <returns></returns>
+        public static string GetNumericalExpressionToken(Operators op)
+        {
+            switch (op)
+            {
+                // Unary Numerical Expression
+                case Operators.BitwiseNOT:
+                    return "NOT";
+                case Operators.Negate:
+                    return "negate";
+                // Binary Numerical Expression
+                case Operators.BitwiseAND:
+                    return "AND";
+                case Operators.BitwiseOR:
+                    return "OR";
+                case Operators.BitwiseNAND:
+                    return "NAND";
+                case Operators.BitwiseNOR:
+                    return "NOR";
+                case Operators.BitwiseXOR:
+                    return "XOR";
+                case Operators.LeftShift:
+                    return "Lsh";
+                case Operators.RightShift:
+                    return "Rsh";
+                case Operators.Modulo:
+                    return "%";
+                case Operators.Divide:
+                    return "÷";
+                case Operators.Multiply:
+                    return "×";
+                case Operators.Minus:
+                    return "-";
+                case Operators.Plus:
+                    return "+";
+                // Auxiliary Numerical Expression
+                case Operators.Submit:
+                    return "=";
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        /// <summary>
+        /// 숫자 표현식을 생성합니다.
+        /// </summary>
+        /// <param name="infixExpressions"></param>
+        /// <returns></returns>
+        public static string CreateNumericalExpression(IEnumerable<IExpression> infixExpressions)
+        {
+            if (!infixExpressions.Any())
+            {
+                return string.Empty;
+            }
+
+            var tokens = new Stack<string>();
+            foreach (var expression in infixExpressions)
+            {
+                var token = expression.NumericalExpressionToken;
+                if (expression is IUnaryOperatorExpression)
+                {
+                    var prevToken = tokens.Pop();
+                    token = $"{token}( {prevToken} )";
+                }
+
+                tokens.Push(token);
+            }
+
+            var sb = new StringBuilder();
+            foreach (var token in tokens.Reverse())
+            {
+                sb.Append($"{token} ");
+            }
+
+            return sb.ToString();
         }
 
         /// <summary>
@@ -180,7 +261,7 @@ namespace Calculator
                 case Operators.DecimalSeparator:
                     return new DecimalSeparatorExpression();
                 default:
-                    return null;
+                    throw new ArgumentException();
             }
         }
 
@@ -269,8 +350,8 @@ namespace Calculator
 
             var result = operand.Evaluate();
             var newResult = UnaryOperation(op, result.Result);
-            var newExpression = AppendExpression(op, GetExpression(result));
-            return new EvaluationResult(newResult, newExpression);
+            var newNumericalExpression = AppendNumericalExpression(op, GetNumericalExpression(result));
+            return new EvaluationResult(newResult, newNumericalExpression);
         }
 
         /// <summary>
@@ -288,22 +369,22 @@ namespace Calculator
             }
 
             var newResult = 0L;
-            var newExpression = "";
+            var newNumericalExpression = "";
             if (rightOperand == null)
             {
                 var leftResult = leftOperand.Evaluate();
                 newResult = leftResult.Result;
-                newExpression = AppendExpression(op, GetExpression(leftResult));
+                newNumericalExpression = AppendNumericalExpression(op, GetNumericalExpression(leftResult));
             }
             else
             {
                 var leftResult = leftOperand.Evaluate();
                 var rightResult = rightOperand.Evaluate();
                 newResult = BinaryOperation(op, leftResult.Result, rightResult.Result);
-                newExpression = AppendExpression(op, GetExpression(leftResult), GetExpression(rightResult));
+                newNumericalExpression = AppendNumericalExpression(op, GetNumericalExpression(leftResult), GetNumericalExpression(rightResult));
             }
 
-            return new EvaluationResult(newResult, newExpression);
+            return new EvaluationResult(newResult, newNumericalExpression);
         }
 
         private static long UnaryOperation(Operators op, long operand)
@@ -352,53 +433,53 @@ namespace Calculator
             }
         }
 
-        private static string GetExpression(EvaluationResult result)
+        private static string GetNumericalExpression(EvaluationResult result)
         {
-            return string.IsNullOrEmpty(result.Expression) ? result.Result.ToString() : result.Expression;
+            return string.IsNullOrEmpty(result.NumericalExpression) ? result.Result.ToString() : result.NumericalExpression;
         }
 
-        private static string AppendExpression(Operators op, string leftExpression, string rightExpression)
+        private static string AppendNumericalExpression(Operators op, string leftNumericalExpression, string rightNumericalExpression)
         {
-            return $"{AppendExpression(op, leftExpression)}{rightExpression}";
+            return $"{AppendNumericalExpression(op, leftNumericalExpression)}{rightNumericalExpression}";
         }
 
-        private static string AppendExpression(Operators op, string expression)
+        private static string AppendNumericalExpression(Operators op, string numericalExpression)
         {
             switch (op)
             {
-                // Unary Expression
+                // Unary Numerical Expression
                 case Operators.BitwiseNOT:
-                    return $"NOT( {expression} )";
+                    return $"NOT( {numericalExpression} )";
                 case Operators.Negate:
-                    return $"negate( {expression} )";
-                // Binary Expression
+                    return $"negate( {numericalExpression} )";
+                // Binary Numerical Expression
                 case Operators.BitwiseAND:
-                    return $"{expression} AND ";
+                    return $"{numericalExpression} AND ";
                 case Operators.BitwiseOR:
-                    return $"{expression} OR ";
+                    return $"{numericalExpression} OR ";
                 case Operators.BitwiseNAND:
-                    return $"{expression} NAND ";
+                    return $"{numericalExpression} NAND ";
                 case Operators.BitwiseNOR:
-                    return $"{expression} NOR ";
+                    return $"{numericalExpression} NOR ";
                 case Operators.BitwiseXOR:
-                    return $"{expression} XOR ";
+                    return $"{numericalExpression} XOR ";
                 case Operators.LeftShift:
-                    return $"{expression} Lsh ";
+                    return $"{numericalExpression} Lsh ";
                 case Operators.RightShift:
-                    return $"{expression} Rsh ";
+                    return $"{numericalExpression} Rsh ";
                 case Operators.Modulo:
-                    return $"{expression} % ";
+                    return $"{numericalExpression} % ";
                 case Operators.Divide:
-                    return $"{expression} ÷ ";
+                    return $"{numericalExpression} ÷ ";
                 case Operators.Multiply:
-                    return $"{expression} × ";
+                    return $"{numericalExpression} × ";
                 case Operators.Minus:
-                    return $"{expression} - ";
+                    return $"{numericalExpression} - ";
                 case Operators.Plus:
-                    return $"{expression} + ";
-                // Auxiliary Expression
+                    return $"{numericalExpression} + ";
+                // Auxiliary Numerical Expression
                 case Operators.Submit:
-                    return $"{expression} = ";
+                    return $"{numericalExpression} = ";
                 default:
                     throw new ArgumentException();
             }

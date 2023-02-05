@@ -8,6 +8,8 @@ namespace Calculator
 {
     public interface IExpression
     {
+        string NumericalExpressionToken { get; }
+
         EvaluationResult Evaluate();
     }
 }
