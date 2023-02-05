@@ -18,9 +18,9 @@ namespace Calculator
         {
         }
 
-        public override EvaluationResult Evaluate()
+        public override long Evaluate()
         {
-            return CalculatorHelper.CreateBinaryOperationResult(Operators.Multiply, LeftOperand, RightOperand);
+            return CalculatorHelper.BinaryOperation(Operators.Multiply, LeftOperand, RightOperand);
         }
     }
 }

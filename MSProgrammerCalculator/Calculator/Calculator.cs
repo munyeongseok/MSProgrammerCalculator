@@ -79,7 +79,7 @@ namespace Calculator
                     var postfixExpressions = ShuntingYard.InfixToPostfix(infixExpressions);
                     var rootExpression = EvaluatePostfix(postfixExpressions);
                     var result = rootExpression.Evaluate();
-                    Operand = result.Result;
+                    Operand = result;
                     _userOperandInitialized = true;
                 }
             }

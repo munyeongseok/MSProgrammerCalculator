@@ -8,8 +8,15 @@ namespace Calculator
 {
     public interface IExpression
     {
+        /// <summary>
+        /// 숫자 표현식 토큰.
+        /// </summary>
         string NumericalExpressionToken { get; }
 
-        EvaluationResult Evaluate();
+        /// <summary>
+        /// 식을 평가합니다.
+        /// </summary>
+        /// <returns></returns>
+        long Evaluate();
     }
 }

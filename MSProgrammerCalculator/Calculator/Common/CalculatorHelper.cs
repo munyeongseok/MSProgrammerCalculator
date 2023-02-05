@@ -347,17 +347,14 @@ namespace Calculator
         /// <param name="op"></param>
         /// <param name="operand"></param>
         /// <returns></returns>
-        public static EvaluationResult CreateUnaryOperationResult(Operators op, IExpression operand)
+        public static long UnaryOperation(Operators op, IExpression operand)
         {
             if (operand == null)
             {
                 throw new ArgumentNullException(nameof(operand));
             }
 
-            var result = operand.Evaluate();
-            var newResult = UnaryOperation(op, result.Result);
-            var newNumericalExpression = AppendNumericalExpression(op, GetNumericalExpression(result));
-            return new EvaluationResult(newResult, newNumericalExpression);
+            return UnaryOperation(op, operand.Evaluate());
         }
 
         /// <summary>
@@ -367,30 +364,19 @@ namespace Calculator
         /// <param name="leftOperand"></param>
         /// <param name="rightOperand"></param>
         /// <returns></returns>
-        public static EvaluationResult CreateBinaryOperationResult(Operators op, IExpression leftOperand, IExpression rightOperand)
+        public static long BinaryOperation(Operators op, IExpression leftOperand, IExpression rightOperand)
         {
             if (leftOperand == null)
             {
                 throw new ArgumentNullException(nameof(leftOperand));
             }
 
-            var newResult = 0L;
-            var newNumericalExpression = "";
             if (rightOperand == null)
             {
-                var leftResult = leftOperand.Evaluate();
-                newResult = leftResult.Result;
-                newNumericalExpression = AppendNumericalExpression(op, GetNumericalExpression(leftResult));
-            }
-            else
-            {
-                var leftResult = leftOperand.Evaluate();
-                var rightResult = rightOperand.Evaluate();
-                newResult = BinaryOperation(op, leftResult.Result, rightResult.Result);
-                newNumericalExpression = AppendNumericalExpression(op, GetNumericalExpression(leftResult), GetNumericalExpression(rightResult));
+                return leftOperand.Evaluate();
             }
 
-            return new EvaluationResult(newResult, newNumericalExpression);
+            return BinaryOperation(op, leftOperand.Evaluate(), rightOperand.Evaluate());
         }
 
         private static long UnaryOperation(Operators op, long operand)
@@ -436,58 +422,6 @@ namespace Calculator
                     return leftOperand + rightOperand;
                 default:
                     throw new InvalidOperationException();
-            }
-        }
-
-        private static string GetNumericalExpression(EvaluationResult result)
-        {
-            return string.IsNullOrEmpty(result.NumericalExpression) ? result.Result.ToString() : result.NumericalExpression;
-        }
-
-        private static string AppendNumericalExpression(Operators op, string leftNumericalExpression, string rightNumericalExpression)
-        {
-            return $"{AppendNumericalExpression(op, leftNumericalExpression)}{rightNumericalExpression}";
-        }
-
-        private static string AppendNumericalExpression(Operators op, string numericalExpression)
-        {
-            switch (op)
-            {
-                // Unary Numerical Expression
-                case Operators.BitwiseNOT:
-                    return $"NOT( {numericalExpression} )";
-                case Operators.Negate:
-                    return $"negate( {numericalExpression} )";
-                // Binary Numerical Expression
-                case Operators.BitwiseAND:
-                    return $"{numericalExpression} AND ";
-                case Operators.BitwiseOR:
-                    return $"{numericalExpression} OR ";
-                case Operators.BitwiseNAND:
-                    return $"{numericalExpression} NAND ";
-                case Operators.BitwiseNOR:
-                    return $"{numericalExpression} NOR ";
-                case Operators.BitwiseXOR:
-                    return $"{numericalExpression} XOR ";
-                case Operators.LeftShift:
-                    return $"{numericalExpression} Lsh ";
-                case Operators.RightShift:
-                    return $"{numericalExpression} Rsh ";
-                case Operators.Modulo:
-                    return $"{numericalExpression} % ";
-                case Operators.Divide:
-                    return $"{numericalExpression} ÷ ";
-                case Operators.Multiply:
-                    return $"{numericalExpression} × ";
-                case Operators.Minus:
-                    return $"{numericalExpression} - ";
-                case Operators.Plus:
-                    return $"{numericalExpression} + ";
-                // Auxiliary Numerical Expression
-                case Operators.Submit:
-                    return $"{numericalExpression} = ";
-                default:
-                    throw new ArgumentException();
             }
         }
     }

@@ -18,9 +18,9 @@ namespace Calculator
             Operand = operand;
         }
 
-        public override EvaluationResult Evaluate()
+        public override long Evaluate()
         {
-            return new EvaluationResult(Operand, string.Empty);
+            return Operand;
         }
     }
 }

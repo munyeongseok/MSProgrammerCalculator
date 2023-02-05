@@ -15,6 +15,6 @@ namespace Calculator
             NumericalExpressionToken = numericalExpressionToken;
         }
 
-        public abstract EvaluationResult Evaluate();
+        public abstract long Evaluate();
     }
 }

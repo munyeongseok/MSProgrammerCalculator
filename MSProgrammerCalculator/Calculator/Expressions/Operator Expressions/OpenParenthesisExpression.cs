@@ -16,9 +16,9 @@ namespace Calculator
             OperatorDescriptor = CalculatorHelper.CreateOperatorDescriptor(Operators.OpenParenthesis);
         }
 
-        public override EvaluationResult Evaluate()
+        public override long Evaluate()
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
     }
 }

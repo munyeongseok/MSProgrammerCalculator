@@ -16,7 +16,7 @@ namespace Calculator
             OperatorDescriptor = CalculatorHelper.CreateOperatorDescriptor(Operators.DecimalSeparator);
         }
 
-        public override EvaluationResult Evaluate()
+        public override long Evaluate()
         {
             throw new NotSupportedException();
         }
