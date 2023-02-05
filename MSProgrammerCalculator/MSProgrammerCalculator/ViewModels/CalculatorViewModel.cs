@@ -32,7 +32,7 @@ namespace MSProgrammerCalculator.ViewModels
             {
                 if (SetProperty(ref selectedBaseNumber, value))
                 {
-                    _calculator.CurrentBaseNumber = selectedBaseNumber;
+                    _calculator.BaseNumber = selectedBaseNumber;
                 }
             }
         }
@@ -56,15 +56,19 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void SubscribeCalculatorEvents()
         {
-            _calculator.CurrentOperandChanged += (s, e) =>
+            _calculator.PropertyChanged += (s, e) =>
             {
-                DisplayOperand = e.Operand;
-            };
-
-            _calculator.ExpressionEvaluated += (s, e) =>
-            {
-                DisplayOperand = e.Result;
-                NumericalExpression = e.NumericalExpression;
+                switch (e.PropertyName)
+                {
+                    case nameof(ICalculator.BaseNumber):
+                        break;
+                    case nameof(ICalculator.Operand):
+                        DisplayOperand = _calculator.Operand;
+                        break;
+                    case nameof(ICalculator.NumericalExpression):
+                        NumericalExpression = _calculator.NumericalExpression;
+                        break;
+                }
             };
         }
 

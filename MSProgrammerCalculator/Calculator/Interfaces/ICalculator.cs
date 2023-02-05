@@ -1,37 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public interface ICalculator
+    public interface ICalculator : INotifyPropertyChanged
     {
         /// <summary>
         /// 현재 기수(Radix).
         /// </summary>
-        BaseNumber CurrentBaseNumber { get; set; }
+        BaseNumber BaseNumber { get; set; }
 
         /// <summary>
         /// 현재 피연산자.
         /// </summary>
-        long CurrentOperand { get; }
+        long Operand { get; }
 
         /// <summary>
-        /// 현재 표현식.
+        /// 현재 숫자 표현식.
         /// </summary>
-        string CurrentExpression { get; }
-
-        /// <summary>
-        /// 현재 피연산자가 변경됐을 때 발생합니다.
-        /// </summary>
-        event EventHandler<CurrentOperandChangedEventArgs> CurrentOperandChanged;
-
-        /// <summary>
-        /// 식이 평가됐을 때 발생합니다.
-        /// </summary>
-        event EventHandler<ExpressionEvaluatedEventArgs> ExpressionEvaluated;
+        string NumericalExpression { get; }
 
         /// <summary>
         /// 식을 평가합니다.

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,50 +10,50 @@ namespace Calculator
 {
     public class Calculator : ICalculator
     {
-        private BaseNumber currentBaseNumber;
-        public BaseNumber CurrentBaseNumber
+        private BaseNumber baseNumber;
+        public BaseNumber BaseNumber
         {
-            get => currentBaseNumber;
+            get => baseNumber;
             set
             {
-                if (currentBaseNumber != value)
+                if (baseNumber != value)
                 {
-                    currentBaseNumber = value;
-                    CurrentOperand = 0;
+                    baseNumber = value;
+                    Operand = 0;
+                    NotifyPropertyChanged();
                 }
             }
         }
 
-        private long currentOperand;
-        public long CurrentOperand
+        private long operand;
+        public long Operand
         {
-            get => currentOperand;
+            get => operand;
             private set
             {
-                if (currentOperand != value)
+                if (operand != value)
                 {
-                    currentOperand = value;
-                    CurrentOperandChanged?.Invoke(this, new CurrentOperandChangedEventArgs(currentOperand));
+                    operand = value;
+                    NotifyPropertyChanged();
                 }
             }
         }
 
-        private string currentExpression;
-        public string CurrentExpression
+        private string numericalExpression;
+        public string NumericalExpression
         {
-            get => currentExpression;
+            get => numericalExpression;
             private set
             {
-                if (currentExpression != value)
+                if (numericalExpression != value)
                 {
-                    currentExpression = value;
+                    numericalExpression = value;
+                    NotifyPropertyChanged();
                 }
             }
         }
-        
-        public event EventHandler<CurrentOperandChangedEventArgs> CurrentOperandChanged; 
 
-        public event EventHandler<ExpressionEvaluatedEventArgs> ExpressionEvaluated;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private CalculatorContext _context;
         private bool _userOperandInitialized;
@@ -62,14 +64,14 @@ namespace Calculator
             _context = new CalculatorContext();
             _userOperandInitialized = true;
             _openedParenthesisCount = 0;
-            CurrentBaseNumber = baseNumber;
+            BaseNumber = baseNumber;
         }
 
         public void Evaluate()
         {
             if (_context.InputQueue.Any())
             {
-                var numericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue);
+                NumericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue);
 
                 if (_openedParenthesisCount == 0)
                 {
@@ -77,10 +79,8 @@ namespace Calculator
                     var postfixExpressions = ShuntingYard.InfixToPostfix(infixExpressions);
                     var rootExpression = EvaluatePostfix(postfixExpressions);
                     var result = rootExpression.Evaluate();
-
+                    Operand = result.Result;
                     _userOperandInitialized = true;
-                    CurrentOperand = result.Result;
-                    ExpressionEvaluated?.Invoke(this, new ExpressionEvaluatedEventArgs(result.Result, result.NumericalExpression));
                 }
             }
         }
@@ -108,14 +108,14 @@ namespace Calculator
 
         public void InsertNumber(Numbers number)
         {
-            CurrentOperand = CalculatorHelper.InsertNumberAtRight(CurrentBaseNumber, _userOperandInitialized ? 0 : CurrentOperand, (long)number);
+            Operand = CalculatorHelper.InsertNumberAtRight(BaseNumber, _userOperandInitialized ? 0 : Operand, (long)number);
             _userOperandInitialized = false;
         }
 
         public void RemoveNumber()
         {
-            CurrentOperand = CalculatorHelper.RemoveNumberAtRight(CurrentBaseNumber, CurrentOperand);
-            _userOperandInitialized = CurrentOperand == 0;
+            Operand = CalculatorHelper.RemoveNumberAtRight(BaseNumber, Operand);
+            _userOperandInitialized = Operand == 0;
         }
 
         public bool TryEnqueueToken(Operators op)
@@ -142,9 +142,9 @@ namespace Calculator
                     return false;
                 }
                 
-                if (CurrentExpression == null)
+                if (NumericalExpression == null)
                 {
-                    CurrentOperand = -CurrentOperand;
+                    Operand = -Operand;
                     return false;
                 }
             }
@@ -155,7 +155,7 @@ namespace Calculator
             }
             else
             {
-                _context.InputQueue.Enqueue(new OperandExpression(CurrentOperand));
+                _context.InputQueue.Enqueue(new OperandExpression(Operand));
                 _context.InputQueue.Enqueue(CalculatorHelper.CreateExpression(unaryOperator));
             }
 
@@ -164,7 +164,7 @@ namespace Calculator
 
         private bool ProcessBinaryOperation(Operators binaryOperator)
         {
-            _context.InputQueue.Enqueue(new OperandExpression(CurrentOperand));
+            _context.InputQueue.Enqueue(new OperandExpression(Operand));
             _context.InputQueue.Enqueue(CalculatorHelper.CreateExpression(binaryOperator));
 
             return true;
@@ -187,7 +187,7 @@ namespace Calculator
                     {
                         if (_context.InputQueue.Any() && _context.InputQueue.Last() is OpenParenthesisExpression)
                         {
-                            _context.InputQueue.Enqueue(new OperandExpression(CurrentOperand));
+                            _context.InputQueue.Enqueue(new OperandExpression(Operand));
                         }
                         _context.InputQueue.Enqueue(new CloseParenthesisExpression());
                         _openedParenthesisCount--;
@@ -200,6 +200,11 @@ namespace Calculator
             }
 
             return true;
+        }
+
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
