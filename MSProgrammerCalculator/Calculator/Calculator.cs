@@ -137,12 +137,12 @@ namespace Calculator
         {
             if (unaryOperator == Operators.Negate)
             {
-                if (_userOperandInitialized)
+                if (Operand == 0)
                 {
                     return false;
                 }
-                
-                if (NumericalExpression == null)
+
+                if (!_userOperandInitialized)
                 {
                     Operand = -Operand;
                     return false;
