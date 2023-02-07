@@ -108,14 +108,24 @@ namespace Calculator
 
         public void InsertNumber(Numbers number)
         {
-            Operand = CalculatorHelper.InsertNumberAtRight(BaseNumber, _userOperandInitialized ? 0 : Operand, (long)number);
+            var isNegative = Operand < 0;
+            var newOperand = _userOperandInitialized ? 0 : Math.Abs(Operand);
+            newOperand = CalculatorHelper.InsertNumberAtRight(BaseNumber, newOperand, (long)number);
+            newOperand = isNegative ? -newOperand : newOperand;
+
+            Operand = newOperand;
             _userOperandInitialized = false;
         }
 
         public void RemoveNumber()
         {
-            Operand = CalculatorHelper.RemoveNumberAtRight(BaseNumber, Operand);
-            _userOperandInitialized = Operand == 0;
+            var isNegative = Operand < 0;
+            var newOperand = Math.Abs(Operand);
+            newOperand = CalculatorHelper.RemoveNumberAtRight(BaseNumber, newOperand);
+            newOperand = isNegative ? -newOperand : newOperand;
+
+            Operand = newOperand;
+            _userOperandInitialized = newOperand == 0;
         }
 
         public bool TryEnqueueToken(Operators op)
