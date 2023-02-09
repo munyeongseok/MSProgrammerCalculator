@@ -49,7 +49,8 @@
         <views:NumericKeypadView x:Name="numericKeypadView"
                                  Grid.Row="3"
                                  Visibility="{Binding ElementName=keypadControlView, Path=KeypadMode, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static common:KeypadMode.NumericKeypad}}"
-                                 TargetBaseNumber="{Binding ElementName=displayView, Path=SelectedBaseNumber, Mode=OneWay}">
+                                 TargetBaseNumber="{Binding ElementName=displayView, Path=SelectedBaseNumber, Mode=OneWay}"
+                                 ClearButtonContent="{Binding ClearButtonContent}">
             <i:Interaction.Triggers>
                 <!-- #region Click Events Command Binding: AND, OR, NOT, NAND, NOR, XOR -->
                 <i:EventTrigger EventName="ClickAND">

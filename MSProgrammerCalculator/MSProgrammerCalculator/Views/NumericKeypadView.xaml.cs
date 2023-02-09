@@ -37,6 +37,21 @@ namespace MSProgrammerCalculator.Views
             set => SetValue(TargetBaseNumberProperty, value);
         }
 
+        public static readonly DependencyProperty ClearButtonContentProperty = DependencyProperty.Register(
+            nameof(ClearButtonContent),
+            typeof(string),
+            typeof(NumericKeypadView),
+            new PropertyMetadata("C", (s, e) =>
+            {
+                var self = (NumericKeypadView)s;
+                self.OnClearButtonContentChanged((string)e.NewValue);
+            }));
+        public string ClearButtonContent
+        {
+            get => (string)GetValue(ClearButtonContentProperty);
+            set => SetValue(ClearButtonContentProperty, value);
+        }
+
         #region Click Events: AND, OR, NOT, NAND, NOR, XOR
 
         public static readonly RoutedEvent ClickANDEvent = EventManager.RegisterRoutedEvent(
@@ -593,6 +608,11 @@ namespace MSProgrammerCalculator.Views
                     numFButton.IsEnabled = true;
                     break;
             }
+        }
+
+        private void OnClearButtonContentChanged(string newValue)
+        {
+            opClearButton.Content = newValue;
         }
     }
 }

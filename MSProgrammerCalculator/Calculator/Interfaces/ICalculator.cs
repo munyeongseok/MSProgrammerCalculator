@@ -41,6 +41,11 @@ namespace Calculator
         void RemoveNumber();
 
         /// <summary>
+        /// 입력을 제거합니다.
+        /// </summary>
+        void ClearInput();
+
+        /// <summary>
         /// 연산자 토큰을 입력 대기열의 끝 부분에 추가합니다.
         /// </summary>
         /// <param name="op"></param>

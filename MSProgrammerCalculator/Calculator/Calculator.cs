@@ -128,6 +128,18 @@ namespace Calculator
             _userOperandInitialized = newOperand == 0;
         }
 
+        public void ClearInput()
+        {
+            if (Operand != 0)
+            {
+                Operand = 0;
+            }
+            else
+            {
+                NumericalExpression = null;
+            }
+        }
+
         public bool TryEnqueueToken(Operators op)
         {
             switch (CalculatorHelper.GetOperatorType(op))
@@ -204,6 +216,15 @@ namespace Calculator
                     }
                     break;
                 case Operators.DecimalSeparator:
+                    break;
+                case Operators.Backspace:
+                    RemoveNumber();
+                    return false;
+                case Operators.Clear:
+                    ClearInput();
+                    return false;
+                case Operators.Submit:
+                    throw new NotImplementedException();
                     break;
                 default:
                     return false;

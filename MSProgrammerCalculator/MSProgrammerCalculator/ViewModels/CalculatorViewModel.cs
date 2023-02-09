@@ -37,6 +37,13 @@ namespace MSProgrammerCalculator.ViewModels
             }
         }
 
+        private string clearButtonContent = "C";
+        public string ClearButtonContent
+        {
+            get => clearButtonContent;
+            set => SetProperty(ref clearButtonContent, value);
+        }
+
         public DelegateCommand<Numbers> NumberButtonClickCommand { get; private set; }
         public DelegateCommand<Operators> OperatorButtonClickCommand { get; private set; }
 
@@ -64,6 +71,7 @@ namespace MSProgrammerCalculator.ViewModels
                         break;
                     case nameof(ICalculator.Operand):
                         DisplayOperand = _calculator.Operand;
+                        ClearButtonContent = _calculator.Operand == 0 ? "C" : "CE";
                         break;
                     case nameof(ICalculator.NumericalExpression):
                         NumericalExpression = _calculator.NumericalExpression;

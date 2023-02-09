@@ -22,11 +22,11 @@ namespace Calculator
         Minus,
         Plus,
         Negate,
-        Clear,
-        Backspace,
         OpenParenthesis,
         CloseParenthesis,
         DecimalSeparator,
+        Backspace,
+        Clear,
         Submit
     }
 }
