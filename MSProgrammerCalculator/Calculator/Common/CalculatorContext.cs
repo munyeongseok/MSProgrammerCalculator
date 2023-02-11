@@ -6,19 +6,26 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    internal class CalculatorContext
+    public class CalculatorContext
     {
-        public Queue<IExpression> InputQueue { get; }
+        internal Queue<IExpression> InputQueue { get; }
 
-        public Queue<IExpression> OutputQueue { get; }
+        internal Queue<IExpression> OutputQueue { get; }
 
-        public Stack<IOperatorExpression> OperatorStack { get; }
+        internal Stack<IOperatorExpression> OperatorStack { get; }
 
         public CalculatorContext()
         {
             InputQueue = new Queue<IExpression>();
             OutputQueue = new Queue<IExpression>();
             OperatorStack = new Stack<IOperatorExpression>();
+        }
+
+        internal void Clear()
+        {
+            InputQueue.Clear();
+            OutputQueue.Clear();
+            OperatorStack.Clear();
         }
     }
 }

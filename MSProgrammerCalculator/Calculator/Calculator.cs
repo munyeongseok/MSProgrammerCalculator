@@ -136,6 +136,7 @@ namespace Calculator
             }
             else
             {
+                _context.Clear();
                 NumericalExpression = null;
             }
         }
