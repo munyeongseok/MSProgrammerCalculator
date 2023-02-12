@@ -47,22 +47,29 @@ namespace Calculator
                             throw new InvalidOperationException("Mismatched parentheses.");
                         }
                     }
+                    // 닫는 괄호가 아닐 경우
                     else
                     {
-                        // 연산자 스택의 맨 위의 연산자가 여는 괄호 연산자가 아니고,
-                        // 연산자 스택의 맨 위의 연산자의 우선순위가 현재 연산자의 우선순위보다 높거나,
-                        // 우선순위가 같고 현재 연산자가 좌측 결합 연산자일 경우,
-                        // 연산자 스택에서 연산자를 꺼내서 출력 큐에 추가
                         while (operatorStack.Any())
                         {
                             var topOperator = operatorStack.Peek();
-                            if (!(topOperator is OpenParenthesisExpression) &&
-                                topOperator.OperatorDescriptor.Precedence < currentOperator.OperatorDescriptor.Precedence ||
+                            
+                            // 연산자 스택의 맨 위의 연산자가 여는 괄호 연산자이면 break
+                            if (topOperator is OpenParenthesisExpression)
+                            {
+                                break;
+                            }
+
+                            // 연산자 스택의 맨 위의 연산자의 우선순위가 현재 연산자의 우선순위보다 높거나,
+                            // 우선순위가 같고 현재 연산자가 좌측 결합 연산자일 경우,
+                            // 연산자 스택에서 연산자를 꺼내서 출력 큐에 추가
+                            if (topOperator.OperatorDescriptor.Precedence < currentOperator.OperatorDescriptor.Precedence ||
                                 topOperator.OperatorDescriptor.Precedence == currentOperator.OperatorDescriptor.Precedence &&
                                 currentOperator.OperatorDescriptor.Associativity == Associativity.LeftToRight)
                             {
                                 outputQueue.Enqueue(operatorStack.Pop());
                             }
+                            // 그렇지 않으면 break
                             else
                             {
                                 break;

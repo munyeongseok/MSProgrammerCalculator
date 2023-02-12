@@ -8,24 +8,19 @@ namespace Calculator
 {
     public class CalculatorContext
     {
-        internal Queue<IExpression> InputQueue { get; }
+        internal Queue<IExpression> InputQueue { get; set; }
 
-        internal Queue<IExpression> OutputQueue { get; }
-
-        internal Stack<IOperatorExpression> OperatorStack { get; }
+        internal int UnmatchedParenthesisCount { get; set; }
 
         public CalculatorContext()
         {
             InputQueue = new Queue<IExpression>();
-            OutputQueue = new Queue<IExpression>();
-            OperatorStack = new Stack<IOperatorExpression>();
         }
 
         internal void Clear()
         {
             InputQueue.Clear();
-            OutputQueue.Clear();
-            OperatorStack.Clear();
+            UnmatchedParenthesisCount = 0;
         }
     }
 }
