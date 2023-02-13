@@ -88,11 +88,11 @@ namespace Calculator
             var stack = new Stack<IExpression>();
             foreach (var expression in postfixExpressions)
             {
-                if (expression is IUnaryOperatorExpression unaryOperator)
+                if (expression is UnaryOperatorExpression unaryOperator)
                 {
                     unaryOperator.Operand = stack.Pop();
                 }
-                else if (expression is IBinaryOperatorExpression binaryOperator)
+                else if (expression is BinaryOperatorExpression binaryOperator)
                 {
                     binaryOperator.RightOperand = stack.Count >= 2 ? stack.Pop() : null;
                     binaryOperator.LeftOperand = stack.Pop();
@@ -202,7 +202,7 @@ namespace Calculator
                 }
             }
 
-            if (_context.InputQueue.Any() && _context.InputQueue.Last() is IUnaryOperatorExpression)
+            if (_context.InputQueue.Any() && _context.InputQueue.Last() is UnaryOperatorExpression)
             {
                 _context.InputQueue.Enqueue(CalculatorHelper.CreateExpression(unaryOperator));
             }

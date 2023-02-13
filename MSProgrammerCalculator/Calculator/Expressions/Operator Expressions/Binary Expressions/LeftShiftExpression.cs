@@ -13,7 +13,7 @@ namespace Calculator
         {
         }
 
-        public LeftShiftExpression(IOperandExpression leftOperand, IOperandExpression rightOperand)
+        public LeftShiftExpression(OperandExpression leftOperand, OperandExpression rightOperand)
             : base(CalculatorHelper.GetNumericalExpressionToken(Operators.LeftShift), CalculatorHelper.CreateOperatorDescriptor(Operators.LeftShift), leftOperand, rightOperand)
         {
         }

@@ -13,7 +13,7 @@ namespace Calculator
         {
         }
 
-        public NegateExpression(IOperandExpression operand)
+        public NegateExpression(OperandExpression operand)
             : base(CalculatorHelper.GetNumericalExpressionToken(Operators.Negate), CalculatorHelper.CreateOperatorDescriptor(Operators.Negate), operand)
         {
         }

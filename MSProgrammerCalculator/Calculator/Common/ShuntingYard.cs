@@ -17,16 +17,16 @@ namespace Calculator
         public static Queue<IExpression> InfixToPostfix(IEnumerable<IExpression> infixExpressions)
         {
             var outputQueue = new Queue<IExpression>();
-            var operatorStack = new Stack<IOperatorExpression>();
+            var operatorStack = new Stack<IOperator>();
             foreach (var expression in infixExpressions)
             {
                 // 숫자일 경우 출력 큐에 추가
-                if (expression is IOperandExpression)
+                if (expression is OperandExpression)
                 {
                     outputQueue.Enqueue(expression);
                 }
                 // 연산자일 경우
-                else if (expression is IOperatorExpression currentOperator)
+                else if (expression is IOperator currentOperator)
                 {
                     // 닫는 괄호일 경우
                     if (currentOperator is CloseParenthesisExpression)

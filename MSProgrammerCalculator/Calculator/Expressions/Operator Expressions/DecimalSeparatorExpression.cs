@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public class DecimalSeparatorExpression : Expression, IOperatorExpression
+    public class DecimalSeparatorExpression : Expression, IOperator
     {
         public OperatorDescriptor OperatorDescriptor { get; }
 

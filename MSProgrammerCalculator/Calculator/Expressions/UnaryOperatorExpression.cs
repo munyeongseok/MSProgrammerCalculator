@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public abstract class UnaryOperatorExpression : Expression, IUnaryOperatorExpression
+    public abstract class UnaryOperatorExpression : Expression, IOperator
     {
         public OperatorDescriptor OperatorDescriptor { get; }
 

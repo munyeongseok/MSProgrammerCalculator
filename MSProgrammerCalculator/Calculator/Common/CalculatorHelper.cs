@@ -205,7 +205,7 @@ namespace Calculator
             foreach (var expression in infixExpressions)
             {
                 var token = expression.NumericalExpressionToken;
-                if (expression is IUnaryOperatorExpression)
+                if (expression is UnaryOperatorExpression)
                 {
                     var prevToken = tokens.Pop();
                     token = $"{token}( {prevToken} )";

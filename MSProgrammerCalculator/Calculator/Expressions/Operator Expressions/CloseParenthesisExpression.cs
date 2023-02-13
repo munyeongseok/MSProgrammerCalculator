@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public class CloseParenthesisExpression : Expression, IOperatorExpression
+    public class CloseParenthesisExpression : Expression, IOperator
     {
         public OperatorDescriptor OperatorDescriptor { get; }
 

@@ -72,13 +72,10 @@
     <Compile Include="Common\CalculatorContext.cs" />
     <Compile Include="Expressions\Operator Expressions\Binary Expressions\RightShiftExpression.cs" />
     <Compile Include="Expressions\OperandExpression.cs" />
-    <Compile Include="Interfaces\IBinaryOperatorExpression.cs" />
     <Compile Include="Interfaces\ICalculator.cs" />
     <Compile Include="Interfaces\IExpression.cs" />
     <Compile Include="Expressions\UnaryOperatorExpression.cs" />
-    <Compile Include="Interfaces\IOperatorExpression.cs" />
-    <Compile Include="Interfaces\IUnaryOperatorExpression.cs" />
-    <Compile Include="Interfaces\IOperandExpression.cs" />
+    <Compile Include="Interfaces\IOperator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -12,7 +12,7 @@ namespace Calculator
         {
         }
 
-        public BitwiseANDExpression(IOperandExpression leftOperand, IOperandExpression rightOperand)
+        public BitwiseANDExpression(OperandExpression leftOperand, OperandExpression rightOperand)
             : base(CalculatorHelper.GetNumericalExpressionToken(Operators.BitwiseAND), CalculatorHelper.CreateOperatorDescriptor(Operators.BitwiseAND), leftOperand, rightOperand)
         {
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public class OperandExpression : Expression, IOperandExpression
+    public class OperandExpression : Expression
     {
         public static readonly OperandExpression Null = null;
 

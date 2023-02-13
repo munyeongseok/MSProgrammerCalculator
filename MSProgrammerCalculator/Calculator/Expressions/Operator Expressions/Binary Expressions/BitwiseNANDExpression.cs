@@ -13,7 +13,7 @@ namespace Calculator
         {
         }
 
-        public BitwiseNANDExpression(IOperandExpression leftOperand, IOperandExpression rightOperand)
+        public BitwiseNANDExpression(OperandExpression leftOperand, OperandExpression rightOperand)
             : base(CalculatorHelper.GetNumericalExpressionToken(Operators.BitwiseNAND), CalculatorHelper.CreateOperatorDescriptor(Operators.BitwiseNAND), leftOperand, rightOperand)
         {
         }

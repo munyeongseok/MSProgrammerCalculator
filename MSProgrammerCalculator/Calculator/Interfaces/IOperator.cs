@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public interface IOperandExpression : IExpression
+    public interface IOperator : IExpression
     {
-        long Operand { get; }
+        OperatorDescriptor OperatorDescriptor { get; }
     }
 }
