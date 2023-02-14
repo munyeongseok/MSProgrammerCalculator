@@ -55,6 +55,7 @@
     <Compile Include="Expressions\Operator Expressions\Binary Expressions\BitwiseNANDExpression.cs" />
     <Compile Include="Expressions\Operator Expressions\DecimalSeparatorExpression.cs" />
     <Compile Include="Expressions\Operator Expressions\Expression.cs" />
+    <Compile Include="Expressions\Operator Expressions\SubmitExpression.cs" />
     <Compile Include="Expressions\Operator Expressions\Unary Expressions\NegateExpression.cs" />
     <Compile Include="Expressions\Operator Expressions\Binary Expressions\BitwiseNORExpression.cs" />
     <Compile Include="Expressions\Operator Expressions\Unary Expressions\BitwiseNOTExpression.cs" />

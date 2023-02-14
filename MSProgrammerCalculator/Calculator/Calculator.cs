@@ -56,12 +56,12 @@ namespace Calculator
         public event PropertyChangedEventHandler PropertyChanged;
 
         private CalculatorContext _context;
-        private bool _userOperandInitialized;
+        private bool _userOperandInitialized = true;
+        private bool _submitted = false;
 
         public Calculator(BaseNumber baseNumber = BaseNumber.Decimal)
         {
             _context = new CalculatorContext();
-            _userOperandInitialized = true;
             BaseNumber = baseNumber;
         }
 
@@ -139,8 +139,8 @@ namespace Calculator
             }
             else
             {
-                _context.Clear();
                 NumericalExpression = null;
+                _context.Clear();
             }
         }
 
@@ -173,6 +173,13 @@ namespace Calculator
 
         public bool TryEnqueueToken(Operators op)
         {
+            if (_submitted)
+            {
+                NumericalExpression = null;
+                _context.Clear();
+                _submitted = false;
+            }
+
             switch (CalculatorHelper.GetOperatorType(op))
             {
                 case OperatorType.Unary:
@@ -202,7 +209,7 @@ namespace Calculator
                 }
             }
 
-            if (_context.InputQueue.Any() && _context.InputQueue.Last() is UnaryOperatorExpression)
+            if (_context.InputQueue.LastOrDefault() is UnaryOperatorExpression)
             {
                 _context.InputQueue.Enqueue(CalculatorHelper.CreateExpression(unaryOperator));
             }
@@ -218,7 +225,7 @@ namespace Calculator
         private bool ProcessBinaryOperation(Operators binaryOperator)
         {
             // Input Queue에 추가된 마지막 Expression이 닫는 괄호가 아닐 경우에만 OperandExpression 추가
-            if (!(_context.InputQueue.Any() && _context.InputQueue.Last() is CloseParenthesisExpression))
+            if (!(_context.InputQueue.LastOrDefault() is CloseParenthesisExpression))
             {
                 _context.InputQueue.Enqueue(new OperandExpression(Operand));
             }
@@ -254,7 +261,7 @@ namespace Calculator
                 case Operators.CloseParenthesis:
                     if (_context.UnmatchedParenthesisCount > 0)
                     {
-                        if (_context.InputQueue.Any() && _context.InputQueue.Last() is OpenParenthesisExpression)
+                        if (_context.InputQueue.LastOrDefault() is OpenParenthesisExpression)
                         {
                             _context.InputQueue.Enqueue(new OperandExpression(Operand));
                         }
@@ -271,7 +278,20 @@ namespace Calculator
                     ClearInput();
                     return false;
                 case Operators.Submit:
-                    throw new NotImplementedException();
+                    if (!_submitted)
+                    {
+                        while (_context.UnmatchedParenthesisCount > 0)
+                        {
+                            _context.InputQueue.Enqueue(new CloseParenthesisExpression());
+                            _context.UnmatchedParenthesisCount--;
+                        }
+                        if (!(_context.InputQueue.LastOrDefault() is CloseParenthesisExpression))
+                        {
+                            _context.InputQueue.Enqueue(new OperandExpression(Operand));
+                        }
+                        _context.InputQueue.Enqueue(new SubmitExpression());
+                        _submitted = true;
+                    }
                     break;
                 default:
                     return false;
