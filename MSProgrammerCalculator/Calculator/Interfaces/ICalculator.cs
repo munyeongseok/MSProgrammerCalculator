@@ -25,6 +25,11 @@ namespace Calculator
         string NumericalExpression { get; }
 
         /// <summary>
+        /// 입력 제출 여부.
+        /// </summary>
+        bool IsInputSubmitted { get; }
+
+        /// <summary>
         /// 식을 평가합니다.
         /// </summary>
         void Evaluate();
@@ -44,6 +49,11 @@ namespace Calculator
         /// 입력을 제거합니다.
         /// </summary>
         void ClearInput();
+
+        /// <summary>
+        /// 입력을 제출합니다.
+        /// </summary>
+        void SubmitInput();
 
         /// <summary>
         /// 연산자 토큰을 입력 대기열의 끝 부분에 추가합니다.

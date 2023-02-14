@@ -53,11 +53,15 @@ namespace Calculator
             }
         }
 
+        public bool IsInputSubmitted
+        {
+            get => _context.InputQueue.LastOrDefault() is SubmitExpression;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private CalculatorContext _context;
         private bool _userOperandInitialized = true;
-        private bool _submitted = false;
 
         public Calculator(BaseNumber baseNumber = BaseNumber.Decimal)
         {
@@ -106,6 +110,12 @@ namespace Calculator
 
         public void InsertNumber(Numbers number)
         {
+            if (IsInputSubmitted)
+            {
+                _context.Clear();
+                NumericalExpression = null;
+            }
+
             var isNegative = Operand < 0;
             var newOperand = _userOperandInitialized ? 0 : Math.Abs(Operand);
             newOperand = CalculatorHelper.InsertNumberAtRight(BaseNumber, newOperand, (long)number);
@@ -131,7 +141,8 @@ namespace Calculator
             if (Operand != 0)
             {
                 Operand = 0;
-                if (_context.UnmatchedParenthesisCount != 0)
+
+                if (!IsInputSubmitted && _context.UnmatchedParenthesisCount != 0)
                 {
                     _context.InputQueue = new Queue<IExpression>(RemoveLastMatchedExpression(_context.InputQueue));
                     NumericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue);
@@ -139,8 +150,25 @@ namespace Calculator
             }
             else
             {
-                NumericalExpression = null;
                 _context.Clear();
+                NumericalExpression = null;
+            }
+        }
+
+        public void SubmitInput()
+        {
+            if (!IsInputSubmitted)
+            {
+                while (_context.UnmatchedParenthesisCount > 0)
+                {
+                    _context.InputQueue.Enqueue(new CloseParenthesisExpression());
+                    _context.UnmatchedParenthesisCount--;
+                }
+                if (!(_context.InputQueue.LastOrDefault() is CloseParenthesisExpression))
+                {
+                    _context.InputQueue.Enqueue(new OperandExpression(Operand));
+                }
+                _context.InputQueue.Enqueue(new SubmitExpression());
             }
         }
 
@@ -173,13 +201,6 @@ namespace Calculator
 
         public bool TryEnqueueToken(Operators op)
         {
-            if (_submitted)
-            {
-                NumericalExpression = null;
-                _context.Clear();
-                _submitted = false;
-            }
-
             switch (CalculatorHelper.GetOperatorType(op))
             {
                 case OperatorType.Unary:
@@ -278,20 +299,7 @@ namespace Calculator
                     ClearInput();
                     return false;
                 case Operators.Submit:
-                    if (!_submitted)
-                    {
-                        while (_context.UnmatchedParenthesisCount > 0)
-                        {
-                            _context.InputQueue.Enqueue(new CloseParenthesisExpression());
-                            _context.UnmatchedParenthesisCount--;
-                        }
-                        if (!(_context.InputQueue.LastOrDefault() is CloseParenthesisExpression))
-                        {
-                            _context.InputQueue.Enqueue(new OperandExpression(Operand));
-                        }
-                        _context.InputQueue.Enqueue(new SubmitExpression());
-                        _submitted = true;
-                    }
+                    SubmitInput();
                     break;
                 default:
                     return false;
