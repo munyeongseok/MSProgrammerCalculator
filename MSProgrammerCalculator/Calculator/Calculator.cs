@@ -159,15 +159,22 @@ namespace Calculator
         {
             if (!IsInputSubmitted)
             {
+                // 입력 큐가 비었거나 마지막 토큰이 여는 괄호나 이항 연산자일 경우 피연산자 추가
+                var last = _context.InputQueue.LastOrDefault();
+                if (last == null ||
+                    last is OpenParenthesisExpression ||
+                    last is BinaryOperatorExpression)
+                {
+                    _context.InputQueue.Enqueue(new OperandExpression(Operand));
+                }
+
+                // 닫는 괄호 추가
                 while (_context.UnmatchedParenthesisCount > 0)
                 {
                     _context.InputQueue.Enqueue(new CloseParenthesisExpression());
                     _context.UnmatchedParenthesisCount--;
                 }
-                if (!(_context.InputQueue.LastOrDefault() is CloseParenthesisExpression))
-                {
-                    _context.InputQueue.Enqueue(new OperandExpression(Operand));
-                }
+
                 _context.InputQueue.Enqueue(new SubmitExpression());
             }
         }
