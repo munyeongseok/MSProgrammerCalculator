@@ -159,7 +159,7 @@ namespace Calculator
         {
             if (!IsInputSubmitted)
             {
-                // 입력 큐가 비었거나 마지막 토큰이 여는 괄호나 이항 연산자일 경우 피연산자 추가
+                // 입력 큐가 비었거나 마지막 Expression이 여는 괄호, 이항 연산자일 경우 피연산자 추가
                 var last = _context.InputQueue.LastOrDefault();
                 if (last == null ||
                     last is OpenParenthesisExpression ||
@@ -268,20 +268,25 @@ namespace Calculator
             switch (auxiliaryOperator)
             {
                 case Operators.OpenParenthesis:
-                    if (_context.InputQueue.Any())
+                    var last = _context.InputQueue.LastOrDefault();
+                    // 마지막 Expression이 이항 연산자일 경우 Operand 초기화
+                    if (last is BinaryOperatorExpression)
                     {
-                        var last = _context.InputQueue.Last();
-                        // 마지막 Expression이 이항 연산자일 경우 Operand 초기화
-                        if (last is BinaryOperatorExpression)
-                        {
-                            Operand = 0;
-                            _userOperandInitialized = true;
-                        }
-                        // 마지막 Expression이 피연산자이거나 닫는 괄호일 경우 곱하기 연산자 추가
-                        if (last is OperandExpression || last is CloseParenthesisExpression)
-                        {
-                            _context.InputQueue.Enqueue(new MultiplyExpression());
-                        }
+                        Operand = 0;
+                        _userOperandInitialized = true;
+                    }
+                    // 마지막 Expression이 피연산자, NOT 연산자, 닫는 괄호일 경우 곱하기 연산자 추가
+                    else if (last is OperandExpression ||
+                        last is BitwiseNOTExpression ||
+                        last is CloseParenthesisExpression)
+                    {
+                        _context.InputQueue.Enqueue(new MultiplyExpression());
+                    }
+                    // 마지막 Expression이 Negate 연산자일 경우 Operand와 Negate 연산자 제거
+                    else if (last is NegateExpression)
+                    {
+                        _context.InputQueue = new Queue<IExpression>(_context.InputQueue.Take(_context.InputQueue.Count - 2));
+                        NumericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue);
                     }
                     _context.InputQueue.Enqueue(new OpenParenthesisExpression());
                     _context.UnmatchedParenthesisCount++;
