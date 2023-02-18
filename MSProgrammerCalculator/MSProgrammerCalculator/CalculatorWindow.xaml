@@ -173,5 +173,7 @@
                              Visibility="{Binding ElementName=keypadControlView, Path=KeypadMode, Converter={StaticResource enumToBooleanConverter}, ConverterParameter={x:Static common:KeypadMode.BitKeypad}}"
                              BitDataUnit="{Binding ElementName=keypadControlView, Path=BitDataUnit}"
                              ValueChanged="BitKeypadView_ValueChanged"/>
+        <!-- 메모리 뷰 미구현 -->
+        <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="10" Text="메모리 뷰 미구현" FontSize="21" FontWeight="Bold"/>
     </Grid>
 </Window>
