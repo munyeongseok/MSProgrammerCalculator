@@ -15,18 +15,18 @@ namespace MSProgrammerCalculator.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is long longValue && parameter is BaseNumber baseNumber)
+            if (value is long number && parameter is BaseNumber baseNumber)
             {
                 switch (baseNumber)
                 {
                     case BaseNumber.Binary:
-                        return FormatNumberSpacing(System.Convert.ToString(longValue, 2), 4, true);
+                        return FormatNumberSpacing(System.Convert.ToString(number, 2), 4, number != 0 ? true : false);
                     case BaseNumber.Octal:
-                        return FormatNumberSpacing(System.Convert.ToString(longValue, 8), 3);
+                        return FormatNumberSpacing(System.Convert.ToString(number, 8), 3);
                     case BaseNumber.Decimal:
-                        return longValue.ToString("N0");
+                        return number.ToString("N0");
                     case BaseNumber.Hexadecimal:
-                        return FormatNumberSpacing(System.Convert.ToString(longValue, 16).ToUpper(), 4);
+                        return FormatNumberSpacing(System.Convert.ToString(number, 16).ToUpper(), 4);
                 }
             }
             
