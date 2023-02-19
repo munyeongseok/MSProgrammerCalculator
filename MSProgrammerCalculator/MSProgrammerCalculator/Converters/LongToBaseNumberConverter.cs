@@ -57,7 +57,7 @@ namespace MSProgrammerCalculator.Converters
             {
                 sb.Append(num.ElementAt(i));
 
-                if (i % spacing == 0)
+                if (i != 0 && i % spacing == 0)
                 {
                     sb.Append(' ');
                 }
