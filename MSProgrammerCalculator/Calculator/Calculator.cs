@@ -61,7 +61,7 @@ namespace Calculator
         public event PropertyChangedEventHandler PropertyChanged;
 
         private CalculatorContext _context;
-        private bool _userOperandInitialized = true;
+        private bool _operandInputted = false;
 
         public Calculator(BaseNumber baseNumber = BaseNumber.Decimal)
         {
@@ -82,7 +82,7 @@ namespace Calculator
                     var rootExpression = EvaluatePostfix(postfixExpressions);
                     var result = rootExpression.Evaluate();
                     Operand = result;
-                    _userOperandInitialized = true;
+                    _operandInputted = false;
                 }
             }
         }
@@ -117,12 +117,12 @@ namespace Calculator
             }
 
             var isNegative = Operand < 0;
-            var newOperand = _userOperandInitialized ? 0 : Math.Abs(Operand);
+            var newOperand = _operandInputted ? Math.Abs(Operand) : 0;
             newOperand = CalculatorHelper.InsertNumberAtRight(BaseNumber, newOperand, (long)number);
             newOperand = isNegative ? -newOperand : newOperand;
 
             Operand = newOperand;
-            _userOperandInitialized = false;
+            _operandInputted = true;
         }
 
         public void RemoveNumber()
@@ -133,7 +133,7 @@ namespace Calculator
             newOperand = isNegative ? -newOperand : newOperand;
 
             Operand = newOperand;
-            _userOperandInitialized = newOperand == 0;
+            _operandInputted = newOperand != 0;
         }
 
         public void ClearInput()
@@ -159,7 +159,7 @@ namespace Calculator
         {
             if (!IsInputSubmitted)
             {
-                // 입력 큐가 비었거나 마지막 Expression이 여는 괄호, 이항 연산자일 경우 피연산자 추가
+                // 입력 큐가 비었거나 마지막 토큰이 여는 괄호, 이항 연산자일 경우 피연산자 추가
                 var last = _context.InputQueue.LastOrDefault();
                 if (last == null ||
                     last is OpenParenthesisExpression ||
@@ -230,7 +230,7 @@ namespace Calculator
                     return false;
                 }
 
-                if (!_userOperandInitialized)
+                if (_operandInputted)
                 {
                     Operand = -Operand;
                     return false;
@@ -252,12 +252,24 @@ namespace Calculator
 
         private bool ProcessBinaryOperation(Operators binaryOperator)
         {
-            // Input Queue에 추가된 마지막 Expression이 닫는 괄호가 아닐 경우에만 OperandExpression 추가
-            if (!(_context.InputQueue.LastOrDefault() is CloseParenthesisExpression))
+            if (_operandInputted)
             {
-                _context.InputQueue.Enqueue(new OperandExpression(Operand));
+                // Input Queue에 추가된 마지막 토큰이 닫는 괄호가 아닐 경우에만 피연산자 추가
+                if (!(_context.InputQueue.LastOrDefault() is CloseParenthesisExpression))
+                {
+                    _context.InputQueue.Enqueue(new OperandExpression(Operand));
+                }
+            }
+            else
+            {
+                // Input Queue에 추가된 마지막 토큰이 이항 연산자이면 제거
+                if (_context.InputQueue.LastOrDefault() is BinaryOperatorExpression)
+                {
+                    _context.InputQueue = new Queue<IExpression>(_context.InputQueue.Take(_context.InputQueue.Count - 1));
+                }
             }
 
+            // Input Queue에 이항 연산자 추가
             _context.InputQueue.Enqueue(CalculatorHelper.CreateExpression(binaryOperator));
 
             return true;
@@ -269,20 +281,20 @@ namespace Calculator
             {
                 case Operators.OpenParenthesis:
                     var last = _context.InputQueue.LastOrDefault();
-                    // 마지막 Expression이 이항 연산자일 경우 Operand 초기화
+                    // 마지막 토큰이 이항 연산자일 경우 피연산자 초기화
                     if (last is BinaryOperatorExpression)
                     {
                         Operand = 0;
-                        _userOperandInitialized = true;
+                        _operandInputted = false;
                     }
-                    // 마지막 Expression이 피연산자, NOT 연산자, 닫는 괄호일 경우 곱하기 연산자 추가
+                    // 마지막 토큰이 피연산자, NOT 연산자, 닫는 괄호일 경우 곱하기 연산자 추가
                     else if (last is OperandExpression ||
                         last is BitwiseNOTExpression ||
                         last is CloseParenthesisExpression)
                     {
                         _context.InputQueue.Enqueue(new MultiplyExpression());
                     }
-                    // 마지막 Expression이 Negate 연산자일 경우 Operand와 Negate 연산자 제거
+                    // 마지막 토큰이 Negate 연산자일 경우 피연산자와 Negate 연산자 제거
                     else if (last is NegateExpression)
                     {
                         _context.InputQueue = new Queue<IExpression>(_context.InputQueue.Take(_context.InputQueue.Count - 2));
