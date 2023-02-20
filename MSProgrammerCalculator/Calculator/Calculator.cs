@@ -19,7 +19,7 @@ namespace Calculator
                 if (baseNumber != value)
                 {
                     baseNumber = value;
-                    Operand = 0;
+                    _operandInputted = false;
                     NotifyPropertyChanged();
                 }
             }
