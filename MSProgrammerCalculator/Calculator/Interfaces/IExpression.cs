@@ -9,14 +9,16 @@ namespace Calculator
     public interface IExpression
     {
         /// <summary>
-        /// 숫자 표현식 토큰.
-        /// </summary>
-        string NumericalExpressionToken { get; }
-
-        /// <summary>
-        /// 식을 평가합니다.
+        /// 표현식을 평가합니다.
         /// </summary>
         /// <returns></returns>
         long Evaluate();
+
+        /// <summary>
+        /// 표현식 토큰을 가져옵니다.
+        /// </summary>
+        /// <param name="baseNumber"></param>
+        /// <returns></returns>
+        string GetToken(BaseNumber baseNumber = BaseNumber.Decimal);
     }
 }

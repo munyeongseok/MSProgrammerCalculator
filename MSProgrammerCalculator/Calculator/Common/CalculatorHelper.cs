@@ -193,8 +193,9 @@ namespace Calculator
         /// 숫자 표현식을 생성합니다.
         /// </summary>
         /// <param name="infixExpressions"></param>
+        /// <param name="baseNumber"></param>
         /// <returns></returns>
-        public static string CreateNumericalExpression(IEnumerable<IExpression> infixExpressions)
+        public static string CreateNumericalExpression(IEnumerable<IExpression> infixExpressions, BaseNumber baseNumber)
         {
             if (!infixExpressions.Any())
             {
@@ -204,7 +205,7 @@ namespace Calculator
             var tokens = new Stack<string>();
             foreach (var expression in infixExpressions)
             {
-                var token = expression.NumericalExpressionToken;
+                var token = expression.GetToken(baseNumber);
                 if (expression is UnaryOperatorExpression)
                 {
                     var prevToken = tokens.Pop();

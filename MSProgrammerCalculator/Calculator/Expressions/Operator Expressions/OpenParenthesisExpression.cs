@@ -6,19 +6,23 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public class OpenParenthesisExpression : Expression, IOperator
+    public class OpenParenthesisExpression : IExpression, IOperator
     {
         public OperatorDescriptor OperatorDescriptor { get; }
 
         public OpenParenthesisExpression()
-            : base(CalculatorHelper.GetNumericalExpressionToken(Operators.OpenParenthesis))
         {
             OperatorDescriptor = CalculatorHelper.CreateOperatorDescriptor(Operators.OpenParenthesis);
         }
 
-        public override long Evaluate()
+        public long Evaluate()
         {
             throw new NotSupportedException();
+        }
+
+        public string GetToken(BaseNumber _)
+        {
+            return CalculatorHelper.GetNumericalExpressionToken(Operators.OpenParenthesis);
         }
     }
 }

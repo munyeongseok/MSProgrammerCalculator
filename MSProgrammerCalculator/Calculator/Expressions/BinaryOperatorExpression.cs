@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public abstract class BinaryOperatorExpression : Expression, IOperator
+    public abstract class BinaryOperatorExpression : IExpression, IOperator
     {
         public OperatorDescriptor OperatorDescriptor { get; }
 
@@ -14,12 +14,21 @@ namespace Calculator
 
         public IExpression RightOperand { get; set; }
 
+        private readonly string _token;
+
         protected BinaryOperatorExpression(string numericalExpressionToken, OperatorDescriptor operatorDescriptor, IExpression leftOperand, IExpression rightOperand)
-            : base(numericalExpressionToken)
         {
+            _token = numericalExpressionToken;
             OperatorDescriptor = operatorDescriptor;
             LeftOperand = leftOperand;
             RightOperand = rightOperand;
+        }
+
+        public abstract long Evaluate();
+
+        public string GetToken(BaseNumber _)
+        {
+            return _token;
         }
     }
 }

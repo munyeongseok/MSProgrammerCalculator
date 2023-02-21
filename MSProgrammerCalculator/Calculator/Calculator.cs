@@ -20,6 +20,7 @@ namespace Calculator
                 {
                     baseNumber = value;
                     _operandInputted = false;
+                    NumericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue, BaseNumber);
                     NotifyPropertyChanged();
                 }
             }
@@ -73,7 +74,7 @@ namespace Calculator
         {
             if (_context.InputQueue.Any())
             {
-                NumericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue);
+                NumericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue, BaseNumber);
 
                 if (_context.UnmatchedParenthesisCount == 0)
                 {
@@ -145,7 +146,7 @@ namespace Calculator
                 if (!IsInputSubmitted && _context.UnmatchedParenthesisCount != 0)
                 {
                     _context.InputQueue = new Queue<IExpression>(RemoveLastMatchedExpression(_context.InputQueue));
-                    NumericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue);
+                    NumericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue, BaseNumber);
                 }
             }
             else
@@ -298,7 +299,7 @@ namespace Calculator
                     else if (last is NegateExpression)
                     {
                         _context.InputQueue = new Queue<IExpression>(_context.InputQueue.Take(_context.InputQueue.Count - 2));
-                        NumericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue);
+                        NumericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue, BaseNumber);
                     }
                     _context.InputQueue.Enqueue(new OpenParenthesisExpression());
                     _context.UnmatchedParenthesisCount++;

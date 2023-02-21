@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public class SubmitExpression : Expression
+    public class SubmitExpression : IExpression
     {
         public SubmitExpression()
-            : base(CalculatorHelper.GetNumericalExpressionToken(Operators.Submit))
         {
         }
 
-        public override long Evaluate()
+        public long Evaluate()
         {
             throw new NotSupportedException();
+        }
+
+        public string GetToken(BaseNumber _)
+        {
+            return CalculatorHelper.GetNumericalExpressionToken(Operators.Submit);
         }
     }
 }
