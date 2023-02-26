@@ -212,17 +212,17 @@ namespace Calculator
             switch (CalculatorHelper.GetOperatorType(op))
             {
                 case OperatorType.Unary:
-                    return ProcessUnaryOperation(op);
+                    return EnqueueUnaryOperator(op);
                 case OperatorType.Binary:
-                    return ProcessBinaryOperation(op);
+                    return EnqueueBinaryOperator(op);
                 case OperatorType.Auxiliary:
-                    return ProcessAuxiliaryOperation(op); 
+                    return EnqueueAuxiliaryOperator(op); 
             }
 
             return false;
         }
 
-        private bool ProcessUnaryOperation(Operators unaryOperator)
+        private bool EnqueueUnaryOperator(Operators unaryOperator)
         {
             if (unaryOperator == Operators.Negate)
             {
@@ -238,9 +238,25 @@ namespace Calculator
                 }
             }
 
+            // 코드 개선 필요
             if (_context.InputQueue.LastOrDefault() is UnaryOperatorExpression)
             {
-                _context.InputQueue.Enqueue(CalculatorHelper.CreateExpression(unaryOperator));
+                var count = 0;
+                foreach (var expression in _context.InputQueue.Reverse())
+                {
+                    if (expression is UnaryOperatorExpression)
+                    {
+                        count++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                var temp = new List<IExpression>(_context.InputQueue.Take(_context.InputQueue.Count - count));
+                temp.Add(CalculatorHelper.CreateExpression(unaryOperator));
+                _context.InputQueue = new Queue<IExpression>(temp.Concat(_context.InputQueue.Skip(_context.InputQueue.Count - count)));
             }
             else
             {
@@ -251,7 +267,7 @@ namespace Calculator
             return true;
         }
 
-        private bool ProcessBinaryOperation(Operators binaryOperator)
+        private bool EnqueueBinaryOperator(Operators binaryOperator)
         {
             if (_operandInputted)
             {
@@ -276,7 +292,7 @@ namespace Calculator
             return true;
         }
 
-        private bool ProcessAuxiliaryOperation(Operators auxiliaryOperator)
+        private bool EnqueueAuxiliaryOperator(Operators auxiliaryOperator)
         {
             switch (auxiliaryOperator)
             {
