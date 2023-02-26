@@ -12,7 +12,7 @@
         xmlns:calculator="clr-namespace:Calculator;assembly=Calculator"
         mc:Ignorable="d"
         Title="계산기"
-        Width="580"
+        Width="340"
         Height="510"
         MinWidth="340"
         MinHeight="510"
@@ -29,7 +29,7 @@
     </Window.Resources>
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" MaxHeight="70" />
+            <RowDefinition Height="Auto" MaxHeight="70"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="1*" MinHeight="40" MaxHeight="70"/>
             <RowDefinition Height="7*" MinHeight="240"/>
