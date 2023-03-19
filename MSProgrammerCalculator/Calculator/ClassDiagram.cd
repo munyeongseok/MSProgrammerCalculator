@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Calculator.Calculator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>4QAEAAAAAAAABOAAAAAAAkBQgAAAAAIAAUAEBCEAAQA=</HashCode>
+      <FileName>Calculator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Calculator.CalculatorContext" Collapsed="true">
+    <Position X="30.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAABAABA=</HashCode>
+      <FileName>Common\CalculatorContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.CalculatorHelper" Collapsed="true">
+    <Position X="32.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAQQAAKAAABAAAAACBAAAEAAAAgAAAMiA=</HashCode>
+      <FileName>Common\CalculatorHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.EvaluationResult" Collapsed="true">
+    <Position X="30.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Common\EvaluationResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.OperatorDescriptor" Collapsed="true">
+    <Position X="29" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAACAAAAAAIAA=</HashCode>
+      <FileName>Common\OperatorDescriptor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.ShuntingYard" Collapsed="true">
+    <Position X="30.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\ShuntingYard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.BinaryOperatorExpression" Collapsed="true">
+    <Position X="14" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAACAAAACAAAgAAAAAAIAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\BinaryOperatorExpression.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Calculator.OperandExpression" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="34.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAEAAAA=</HashCode>
+      <FileName>Expressions\OperandExpression.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Calculator.BitwiseANDExpression" Collapsed="true">
+    <Position X="6.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\Binary Expressions\BitwiseANDExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.BitwiseNANDExpression" Collapsed="true">
+    <Position X="10.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\Binary Expressions\BitwiseNANDExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.BitwiseNORExpression" Collapsed="true">
+    <Position X="15.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\Binary Expressions\BitwiseNORExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.BitwiseORExpression" Collapsed="true">
+    <Position X="19.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\Binary Expressions\BitwiseORExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.BitwiseXORExpression" Collapsed="true">
+    <Position X="24.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\Binary Expressions\BitwiseXORExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.DivideExpression" Collapsed="true">
+    <Position X="1.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\Binary Expressions\DivideExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.LeftShiftExpression" Collapsed="true">
+    <Position X="8.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\Binary Expressions\LeftShiftExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.MinusExpression" Collapsed="true">
+    <Position X="13" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\Binary Expressions\MinusExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.ModuloExpression" Collapsed="true">
+    <Position X="17.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\Binary Expressions\ModuloExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.MultiplyExpression" Collapsed="true">
+    <Position X="22" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\Binary Expressions\MultiplyExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.PlusExpression" Collapsed="true">
+    <Position X="26.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\Binary Expressions\PlusExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.RightShiftExpression" Collapsed="true">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\Binary Expressions\RightShiftExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.CloseParenthesisExpression" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="34.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAACAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\CloseParenthesisExpression.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Calculator.DecimalSeparatorExpression" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAACAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\DecimalSeparatorExpression.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Calculator.OpenParenthesisExpression" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAACAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\OpenParenthesisExpression.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Calculator.SubmitExpression" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\SubmitExpression.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Calculator.BitwiseNOTExpression" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\Unary Expressions\BitwiseNOTExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.NegateExpression" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Expressions\Operator Expressions\Unary Expressions\NegateExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Calculator.UnaryOperatorExpression" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAACAAAACAAAgAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Expressions\UnaryOperatorExpression.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Calculator.ICalculator" Collapsed="true">
+    <Position X="29" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAEAAAAAAAgAQAAAAAAAAAUAABCEAAQA=</HashCode>
+      <FileName>Interfaces\ICalculator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Calculator.IExpression" Collapsed="true">
+    <Position X="5.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IExpression.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Calculator.IOperator" Collapsed="true">
+    <Position X="5.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IOperator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Calculator.Associativity" Collapsed="true">
+    <Position X="29" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Common\Associativity.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Calculator.BaseNumber" Collapsed="true">
+    <Position X="30.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAgAAAACAAAAAAgAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Common\BaseNumber.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Calculator.Numbers" Collapsed="true">
+    <Position X="32.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAD+YQAAAAAAAAAAAAAAAM4BAAA=</HashCode>
+      <FileName>Common\Numbers.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Calculator.Operators" Collapsed="true">
+    <Position X="34.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAEAAQAAAQAgAAAAAAGBQAABAAAAAEAGCCAECQDAAAA=</HashCode>
+      <FileName>Common\Operators.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Calculator.OperatorType" Collapsed="true">
+    <Position X="29" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEBAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\OperatorType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
