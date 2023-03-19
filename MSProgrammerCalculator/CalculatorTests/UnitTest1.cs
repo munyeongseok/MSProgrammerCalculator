@@ -13,17 +13,17 @@ namespace CalculatorTests
         {
             var calculator = new Calculator.Calculator();
             
-            calculator.TryEnqueueToken(Operators.BitwiseNOT);
+            calculator.EnqueueToken(Operators.BitwiseNOT);
             calculator.Evaluate();
             Assert.AreEqual(-1, calculator.Operand);
             Assert.AreEqual("NOT( 0 ) ", calculator.NumericalExpression);
 
-            calculator.TryEnqueueToken(Operators.BitwiseNOT);
+            calculator.EnqueueToken(Operators.BitwiseNOT);
             calculator.Evaluate();
             Assert.AreEqual(0, calculator.Operand);
             Assert.AreEqual("NOT( NOT( 0 ) ) ", calculator.NumericalExpression);
 
-            calculator.TryEnqueueToken(Operators.Submit);
+            calculator.EnqueueToken(Operators.Submit);
             calculator.Evaluate();
             Assert.AreEqual(0, calculator.Operand);
             Assert.AreEqual("NOT( NOT( 0 ) ) = ", calculator.NumericalExpression);
@@ -34,18 +34,18 @@ namespace CalculatorTests
         {
             var calculator = new Calculator.Calculator();
 
-            calculator.InsertNumber(Numbers.Num1);
-            calculator.TryEnqueueToken(Operators.Plus);
+            calculator.EnqueueToken(Numbers.Num1);
+            calculator.EnqueueToken(Operators.Plus);
             calculator.Evaluate();
             Assert.AreEqual(1, calculator.Operand);
             Assert.AreEqual("1 + ", calculator.NumericalExpression);
 
-            calculator.TryEnqueueToken(Operators.BitwiseNOT);
+            calculator.EnqueueToken(Operators.BitwiseNOT);
             calculator.Evaluate();
             Assert.AreEqual(-2, calculator.Operand);
             Assert.AreEqual("1 + NOT( 1 ) ", calculator.NumericalExpression);
 
-            calculator.TryEnqueueToken(Operators.Submit);
+            calculator.EnqueueToken(Operators.Submit);
             calculator.Evaluate();
             Assert.AreEqual(-1, calculator.Operand);
             Assert.AreEqual("1 + NOT( 1 ) = ", calculator.NumericalExpression);
@@ -56,30 +56,31 @@ namespace CalculatorTests
         {
             var calculator = new Calculator.Calculator();
 
-            calculator.InsertNumber(Numbers.Num1);
-            calculator.TryEnqueueToken(Operators.Plus);
+            calculator.EnqueueToken(Numbers.Num1);
+            calculator.EnqueueToken(Operators.Plus);
             calculator.Evaluate();
             Assert.AreEqual(1, calculator.Operand);
             Assert.AreEqual("1 + ", calculator.NumericalExpression);
 
-            calculator.TryEnqueueToken(Operators.OpenParenthesis);
+            calculator.EnqueueToken(Operators.OpenParenthesis);
             calculator.Evaluate();
             Assert.AreEqual(0, calculator.Operand);
             Assert.AreEqual("1 + ( ", calculator.NumericalExpression);
 
-            calculator.InsertNumber(Numbers.Num5);
-            calculator.TryEnqueueToken(Operators.Plus);
+            calculator.EnqueueToken(Numbers.Num5);
+            calculator.EnqueueToken(Operators.Plus);
             calculator.Evaluate();
             Assert.AreEqual(5, calculator.Operand);
             Assert.AreEqual("1 + ( 5 + ", calculator.NumericalExpression);
 
-            calculator.InsertNumber(Numbers.Num6);
-            calculator.TryEnqueueToken(Operators.CloseParenthesis);
+            calculator.EnqueueToken(Numbers.Num6);
+            calculator.EnqueueToken(Operators.CloseParenthesis);
             calculator.Evaluate();
             Assert.AreEqual(11, calculator.Operand);
             Assert.AreEqual("1 + ( 5 + 6 ) ", calculator.NumericalExpression);
 
-            calculator.SubmitInput();
+            calculator.EnqueueToken(Operators.Submit);
+            calculator.Evaluate();
             Assert.AreEqual(12, calculator.Operand);
             Assert.AreEqual("1 + ( 5 + 6 ) = ", calculator.NumericalExpression);
         }

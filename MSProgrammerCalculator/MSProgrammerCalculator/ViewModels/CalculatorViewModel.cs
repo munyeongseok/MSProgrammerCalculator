@@ -82,12 +82,12 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void NumberButtonClick(Numbers number)
         {
-            _calculator.InsertNumber(number);
+            _calculator.EnqueueToken(number);
         }
 
         private void OperatorButtonClick(Operators op)
         {
-            if (_calculator.TryEnqueueToken(op))
+            if (_calculator.EnqueueToken(op))
             {
                 _calculator.Evaluate();
             }

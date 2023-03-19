@@ -70,6 +70,49 @@ namespace Calculator
             BaseNumber = baseNumber;
         }
 
+        public void EnqueueToken(Numbers number)
+        {
+            if (IsInputSubmitted)
+            {
+                _context.Clear();
+                NumericalExpression = null;
+            }
+
+            var isNegative = Operand < 0;
+            var newOperand = _operandInputted ? Math.Abs(Operand) : 0;
+            newOperand = CalculatorHelper.InsertNumberAtRight(BaseNumber, newOperand, (long)number);
+            newOperand = isNegative ? -newOperand : newOperand;
+
+            Operand = newOperand;
+            _operandInputted = true;
+        }
+
+        public bool EnqueueToken(Operators op)
+        {
+            switch (CalculatorHelper.GetOperatorType(op))
+            {
+                case OperatorType.Unary:
+                    return EnqueueUnaryOperator(op);
+                case OperatorType.Binary:
+                    return EnqueueBinaryOperator(op);
+                case OperatorType.Auxiliary:
+                    return EnqueueAuxiliaryOperator(op);
+            }
+
+            return false;
+        }
+
+        public void RemoveLastNumberToken()
+        {
+            var isNegative = Operand < 0;
+            var newOperand = Math.Abs(Operand);
+            newOperand = CalculatorHelper.RemoveNumberAtRight(BaseNumber, newOperand);
+            newOperand = isNegative ? -newOperand : newOperand;
+
+            Operand = newOperand;
+            _operandInputted = newOperand != 0;
+        }
+
         public void Evaluate()
         {
             if (_context.InputQueue.Any())
@@ -107,34 +150,6 @@ namespace Calculator
             }
 
             return stack.Pop();
-        }
-
-        public void InsertNumber(Numbers number)
-        {
-            if (IsInputSubmitted)
-            {
-                _context.Clear();
-                NumericalExpression = null;
-            }
-
-            var isNegative = Operand < 0;
-            var newOperand = _operandInputted ? Math.Abs(Operand) : 0;
-            newOperand = CalculatorHelper.InsertNumberAtRight(BaseNumber, newOperand, (long)number);
-            newOperand = isNegative ? -newOperand : newOperand;
-
-            Operand = newOperand;
-            _operandInputted = true;
-        }
-
-        public void RemoveNumber()
-        {
-            var isNegative = Operand < 0;
-            var newOperand = Math.Abs(Operand);
-            newOperand = CalculatorHelper.RemoveNumberAtRight(BaseNumber, newOperand);
-            newOperand = isNegative ? -newOperand : newOperand;
-
-            Operand = newOperand;
-            _operandInputted = newOperand != 0;
         }
 
         public void ClearInput()
@@ -205,21 +220,6 @@ namespace Calculator
             }
 
             return expressions.Take(expressions.Count() - lastMatchedCount);
-        }
-
-        public bool TryEnqueueToken(Operators op)
-        {
-            switch (CalculatorHelper.GetOperatorType(op))
-            {
-                case OperatorType.Unary:
-                    return EnqueueUnaryOperator(op);
-                case OperatorType.Binary:
-                    return EnqueueBinaryOperator(op);
-                case OperatorType.Auxiliary:
-                    return EnqueueAuxiliaryOperator(op); 
-            }
-
-            return false;
         }
 
         private bool EnqueueUnaryOperator(Operators unaryOperator)
@@ -334,7 +334,7 @@ namespace Calculator
                 case Operators.DecimalSeparator:
                     break;
                 case Operators.Backspace:
-                    RemoveNumber();
+                    RemoveLastNumberToken();
                     return false;
                 case Operators.Clear:
                     ClearInput();
