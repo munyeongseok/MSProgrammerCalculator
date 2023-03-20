@@ -125,7 +125,20 @@ namespace Calculator
                     var postfixExpressions = ShuntingYard.InfixToPostfix(infixExpressions);
                     var rootExpression = EvaluatePostfix(postfixExpressions);
                     var result = rootExpression.Evaluate();
-                    Operand = result;
+
+                    if (infixExpressions.Last() is SubmitExpression)
+                    {
+                        Operand = result;
+                    }
+                    else if (rootExpression is BinaryOperatorExpression binaryOperator && binaryOperator.RightOperand != null)
+                    {
+                        Operand = binaryOperator.RightOperand.Evaluate();
+                    }
+                    else
+                    {
+                        Operand = result;
+                    }
+
                     _operandInputted = false;
                 }
             }
