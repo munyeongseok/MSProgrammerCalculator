@@ -302,6 +302,7 @@ namespace Calculator
 
             // 이항 연산자 추가
             _context.InputQueue.Enqueue(CalculatorHelper.CreateExpression(binaryOperator));
+            _operandInputted = false;
 
             return true;
         }
