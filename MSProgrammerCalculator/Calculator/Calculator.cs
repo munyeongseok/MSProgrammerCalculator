@@ -310,38 +310,43 @@ namespace Calculator
             switch (auxiliaryOperator)
             {
                 case Operators.OpenParenthesis:
-                    var last = _context.InputQueue.LastOrDefault();
-                    // 마지막 토큰이 이항 연산자일 경우 피연산자 초기화
-                    if (last is BinaryOperatorExpression)
                     {
-                        Operand = 0;
-                        _operandInputted = false;
+                        var last = _context.InputQueue.LastOrDefault();
+                        // 마지막 토큰이 이항 연산자일 경우 피연산자 초기화
+                        if (last is BinaryOperatorExpression)
+                        {
+                            Operand = 0;
+                            _operandInputted = false;
+                        }
+                        // 마지막 토큰이 피연산자, NOT 연산자, 닫는 괄호일 경우 곱하기 연산자 추가
+                        else if (last is OperandExpression ||
+                            last is BitwiseNOTExpression ||
+                            last is CloseParenthesisExpression)
+                        {
+                            _context.InputQueue.Enqueue(new MultiplyExpression());
+                        }
+                        // 마지막 토큰이 Negate 연산자일 경우 피연산자와 Negate 연산자 제거
+                        else if (last is NegateExpression)
+                        {
+                            _context.InputQueue = new Queue<IExpression>(_context.InputQueue.Take(_context.InputQueue.Count - 2));
+                            NumericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue, BaseNumber);
+                        }
+                        _context.InputQueue.Enqueue(new OpenParenthesisExpression());
+                        _context.UnmatchedParenthesisCount++;
                     }
-                    // 마지막 토큰이 피연산자, NOT 연산자, 닫는 괄호일 경우 곱하기 연산자 추가
-                    else if (last is OperandExpression ||
-                        last is BitwiseNOTExpression ||
-                        last is CloseParenthesisExpression)
-                    {
-                        _context.InputQueue.Enqueue(new MultiplyExpression());
-                    }
-                    // 마지막 토큰이 Negate 연산자일 경우 피연산자와 Negate 연산자 제거
-                    else if (last is NegateExpression)
-                    {
-                        _context.InputQueue = new Queue<IExpression>(_context.InputQueue.Take(_context.InputQueue.Count - 2));
-                        NumericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue, BaseNumber);
-                    }
-                    _context.InputQueue.Enqueue(new OpenParenthesisExpression());
-                    _context.UnmatchedParenthesisCount++;
                     break;
                 case Operators.CloseParenthesis:
-                    if (_context.UnmatchedParenthesisCount > 0)
                     {
-                        if (_context.InputQueue.LastOrDefault() is OpenParenthesisExpression)
+                        if (_context.UnmatchedParenthesisCount > 0)
                         {
-                            _context.InputQueue.Enqueue(new OperandExpression(Operand));
+                            var last = _context.InputQueue.LastOrDefault();
+                            if (last is OpenParenthesisExpression || last is BinaryOperatorExpression)
+                            {
+                                _context.InputQueue.Enqueue(new OperandExpression(Operand));
+                            }
+                            _context.InputQueue.Enqueue(new CloseParenthesisExpression());
+                            _context.UnmatchedParenthesisCount--;
                         }
-                        _context.InputQueue.Enqueue(new CloseParenthesisExpression());
-                        _context.UnmatchedParenthesisCount--;
                     }
                     break;
                 case Operators.DecimalSeparator:
