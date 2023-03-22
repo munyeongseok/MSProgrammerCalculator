@@ -249,8 +249,9 @@ namespace Calculator
                 }
             }
 
-            // 코드 개선 필요
-            if (_context.InputQueue.LastOrDefault() is UnaryOperatorExpression)
+            var last = _context.InputQueue.LastOrDefault();
+            // 마지막 토큰이 닫는 괄호, 단항 연산자일 경우
+            if (last is CloseParenthesisExpression || last is UnaryOperatorExpression)
             {
                 var count = 0;
                 foreach (var expression in _context.InputQueue.Reverse())
