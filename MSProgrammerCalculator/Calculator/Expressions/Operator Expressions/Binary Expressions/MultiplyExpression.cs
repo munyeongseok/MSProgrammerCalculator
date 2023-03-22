@@ -8,11 +8,6 @@ namespace Calculator
 {
     public class MultiplyExpression : BinaryOperatorExpression
     {
-        public MultiplyExpression()
-            : this(OperandExpression.Null, OperandExpression.Null)
-        {
-        }
-
         public MultiplyExpression(IExpression leftOperand, IExpression rightOperand)
             : base(CalculatorHelper.GetNumericalExpressionToken(Operators.Multiply), CalculatorHelper.CreateOperatorDescriptor(Operators.Multiply), leftOperand, rightOperand)
         {

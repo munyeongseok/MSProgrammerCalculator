@@ -229,7 +229,7 @@ namespace Calculator
                     }
                 }
             }
-
+            
             return expressions.Take(expressions.Count() - lastMatchedCount);
         }
 
@@ -348,7 +348,7 @@ namespace Calculator
             // 마지막 토큰이 피연산자, NOT 연산자, 닫는 괄호일 경우 곱하기 연산자 추가
             else if (last is OperandExpression || last is BitwiseNOTExpression || last is CloseParenthesisExpression)
             {
-                _context.InputQueue.Enqueue(new MultiplyExpression());
+                _context.InputQueue.Enqueue(new MultiplyExpression(null, null));
             }
             // 마지막 토큰이 Negate 연산자일 경우 피연산자와 Negate 연산자 제거
             else if (last is NegateExpression)

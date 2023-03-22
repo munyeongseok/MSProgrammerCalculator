@@ -8,11 +8,6 @@ namespace Calculator
 {
     public class NegateExpression : UnaryOperatorExpression
     {
-        public NegateExpression()
-            : this(OperandExpression.Null)
-        {
-        }
-
         public NegateExpression(IExpression operand)
             : base(CalculatorHelper.GetNumericalExpressionToken(Operators.Negate), CalculatorHelper.CreateOperatorDescriptor(Operators.Negate), operand)
         {

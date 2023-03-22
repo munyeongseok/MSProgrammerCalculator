@@ -234,33 +234,33 @@ namespace Calculator
             switch (op)
             {
                 case Operators.BitwiseAND:
-                    return new BitwiseANDExpression();
+                    return new BitwiseANDExpression(null, null);
                 case Operators.BitwiseOR:
-                    return new BitwiseORExpression();
+                    return new BitwiseORExpression(null, null);
                 case Operators.BitwiseNOT:
-                    return new BitwiseNOTExpression();
+                    return new BitwiseNOTExpression(null);
                 case Operators.BitwiseNAND:
-                    return new BitwiseNANDExpression();
+                    return new BitwiseNANDExpression(null, null);
                 case Operators.BitwiseNOR:
-                    return new BitwiseNORExpression();
+                    return new BitwiseNORExpression(null, null);
                 case Operators.BitwiseXOR:
-                    return new BitwiseXORExpression();
+                    return new BitwiseXORExpression(null, null);
                 case Operators.LeftShift:
-                    return new LeftShiftExpression();
+                    return new LeftShiftExpression(null, null);
                 case Operators.RightShift:
-                    return new RightShiftExpression();
+                    return new RightShiftExpression(null, null);
                 case Operators.Modulo:
-                    return new ModuloExpression();
+                    return new ModuloExpression(null, null);
                 case Operators.Divide:
-                    return new DivideExpression();
+                    return new DivideExpression(null, null);
                 case Operators.Multiply:
-                    return new MultiplyExpression();
+                    return new MultiplyExpression(null, null);
                 case Operators.Minus:
-                    return new MinusExpression();
+                    return new MinusExpression(null, null);
                 case Operators.Plus:
-                    return new PlusExpression();
+                    return new PlusExpression(null, null);
                 case Operators.Negate:
-                    return new NegateExpression();
+                    return new NegateExpression(null);
                 case Operators.OpenParenthesis:
                     return new OpenParenthesisExpression();
                 case Operators.CloseParenthesis:

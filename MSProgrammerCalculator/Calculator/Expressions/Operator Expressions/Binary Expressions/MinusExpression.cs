@@ -8,11 +8,6 @@ namespace Calculator
 {
     public class MinusExpression : BinaryOperatorExpression
     {
-        public MinusExpression()
-            : this(OperandExpression.Null, OperandExpression.Null)
-        {
-        }
-
         public MinusExpression(IExpression leftOperand, IExpression rightOperand)
             : base(CalculatorHelper.GetNumericalExpressionToken(Operators.Minus), CalculatorHelper.CreateOperatorDescriptor(Operators.Minus), leftOperand, rightOperand)
         {

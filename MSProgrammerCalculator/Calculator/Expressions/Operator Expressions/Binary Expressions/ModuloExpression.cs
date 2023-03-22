@@ -8,11 +8,6 @@ namespace Calculator
 {
     public class ModuloExpression : BinaryOperatorExpression
     {
-        public ModuloExpression()
-            : this(OperandExpression.Null, OperandExpression.Null)
-        {
-        }
-
         public ModuloExpression(IExpression leftOperand, IExpression rightOperand)
             : base(CalculatorHelper.GetNumericalExpressionToken(Operators.Modulo), CalculatorHelper.CreateOperatorDescriptor(Operators.Modulo), leftOperand, rightOperand)
         {
