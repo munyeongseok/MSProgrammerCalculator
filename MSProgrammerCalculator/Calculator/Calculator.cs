@@ -121,12 +121,10 @@ namespace Calculator
 
                 if (_context.UnmatchedParenthesisCount == 0)
                 {
-                    var infixExpressions = _context.InputQueue.ToList();
-                    var postfixExpressions = ShuntingYard.InfixToPostfix(infixExpressions);
-                    var rootExpression = EvaluatePostfix(postfixExpressions);
+                    var rootExpression = CalculatorHelper.BuildRootExpression(_context.InputQueue);
                     var result = rootExpression.Evaluate();
-
-                    if (infixExpressions.Last() is SubmitExpression)
+                    var last = _context.InputQueue.LastOrDefault();
+                    if (last is SubmitExpression)
                     {
                         Operand = result;
                     }
@@ -142,27 +140,6 @@ namespace Calculator
                     _operandInputted = false;
                 }
             }
-        }
-
-        private IExpression EvaluatePostfix(IEnumerable<IExpression> postfixExpressions)
-        {
-            var stack = new Stack<IExpression>();
-            foreach (var expression in postfixExpressions)
-            {
-                if (expression is UnaryOperatorExpression unaryOperator)
-                {
-                    unaryOperator.Operand = stack.Pop();
-                }
-                else if (expression is BinaryOperatorExpression binaryOperator)
-                {
-                    binaryOperator.RightOperand = stack.Count >= 2 ? stack.Pop() : null;
-                    binaryOperator.LeftOperand = stack.Pop();
-                }
-
-                stack.Push(expression);
-            }
-
-            return stack.Pop();
         }
 
         public void ClearInput()
@@ -188,8 +165,8 @@ namespace Calculator
         {
             if (!IsInputSubmitted)
             {
-                // 입력 큐가 비었거나 마지막 토큰이 여는 괄호, 이항 연산자일 경우 피연산자 추가
                 var last = _context.InputQueue.LastOrDefault();
+                // 입력 큐가 비었거나 마지막 토큰이 여는 괄호, 이항 연산자일 경우 피연산자 추가
                 if (last == null || last is OpenParenthesisExpression || last is BinaryOperatorExpression)
                 {
                     _context.InputQueue.Enqueue(new OperandExpression(Operand));

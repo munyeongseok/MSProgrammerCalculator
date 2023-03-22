@@ -273,6 +273,33 @@ namespace Calculator
         }
 
         /// <summary>
+        /// 중위 표현식을 조합하여 루트 표현식을 만듭니다.
+        /// </summary>
+        /// <param name="infixExpressions"></param>
+        /// <returns></returns>
+        public static IExpression BuildRootExpression(IEnumerable<IExpression> infixExpressions)
+        {
+            var stack = new Stack<IExpression>();
+            var postfixExpressions = ShuntingYard.InfixToPostfix(infixExpressions);
+            foreach (var expression in postfixExpressions)
+            {
+                if (expression is UnaryOperatorExpression unaryOperator)
+                {
+                    unaryOperator.Operand = stack.Pop();
+                }
+                else if (expression is BinaryOperatorExpression binaryOperator)
+                {
+                    binaryOperator.RightOperand = stack.Count >= 2 ? stack.Pop() : null;
+                    binaryOperator.LeftOperand = stack.Pop();
+                }
+
+                stack.Push(expression);
+            }
+
+            return stack.Pop();
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="baseNumber"></param>
