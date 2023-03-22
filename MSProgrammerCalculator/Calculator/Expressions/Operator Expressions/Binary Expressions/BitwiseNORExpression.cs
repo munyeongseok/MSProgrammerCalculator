@@ -13,7 +13,7 @@ namespace Calculator
         {
         }
 
-        public BitwiseNORExpression(OperandExpression leftOperand, OperandExpression rightOperand)
+        public BitwiseNORExpression(IExpression leftOperand, IExpression rightOperand)
             : base(CalculatorHelper.GetNumericalExpressionToken(Operators.BitwiseNOR), CalculatorHelper.CreateOperatorDescriptor(Operators.BitwiseNOR), leftOperand, rightOperand)
         {
         }

@@ -13,7 +13,7 @@ namespace Calculator
         {
         }
 
-        public DivideExpression(OperandExpression leftOperand, OperandExpression rightOperand)
+        public DivideExpression(IExpression leftOperand, IExpression rightOperand)
             : base(CalculatorHelper.GetNumericalExpressionToken(Operators.Divide), CalculatorHelper.CreateOperatorDescriptor(Operators.Divide), leftOperand, rightOperand)
         {
         }

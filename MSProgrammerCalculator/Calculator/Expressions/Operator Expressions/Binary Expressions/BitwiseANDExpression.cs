@@ -8,11 +8,12 @@ namespace Calculator
 {
     public class BitwiseANDExpression : BinaryOperatorExpression
     {
-        public BitwiseANDExpression() : this(new OperandExpression(3), null)
+        public BitwiseANDExpression()
+            : this(OperandExpression.Null, OperandExpression.Null)
         {
         }
 
-        public BitwiseANDExpression(OperandExpression leftOperand, OperandExpression rightOperand)
+        public BitwiseANDExpression(IExpression leftOperand, IExpression rightOperand)
             : base(CalculatorHelper.GetNumericalExpressionToken(Operators.BitwiseAND), CalculatorHelper.CreateOperatorDescriptor(Operators.BitwiseAND), leftOperand, rightOperand)
         {
         }

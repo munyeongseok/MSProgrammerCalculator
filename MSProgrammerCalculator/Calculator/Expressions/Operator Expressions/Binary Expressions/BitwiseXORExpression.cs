@@ -13,7 +13,7 @@ namespace Calculator
         {
         }
 
-        public BitwiseXORExpression(OperandExpression leftOperand, OperandExpression rightOperand)
+        public BitwiseXORExpression(IExpression leftOperand, IExpression rightOperand)
             : base(CalculatorHelper.GetNumericalExpressionToken(Operators.BitwiseXOR), CalculatorHelper.CreateOperatorDescriptor(Operators.BitwiseXOR), leftOperand, rightOperand)
         {
         }

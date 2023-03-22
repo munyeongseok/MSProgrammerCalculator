@@ -13,7 +13,7 @@ namespace Calculator
         {
         }
 
-        public PlusExpression(OperandExpression leftOperand, OperandExpression rightOperand)
+        public PlusExpression(IExpression leftOperand, IExpression rightOperand)
             : base(CalculatorHelper.GetNumericalExpressionToken(Operators.Plus), CalculatorHelper.CreateOperatorDescriptor(Operators.Plus), leftOperand, rightOperand)
         {
         }

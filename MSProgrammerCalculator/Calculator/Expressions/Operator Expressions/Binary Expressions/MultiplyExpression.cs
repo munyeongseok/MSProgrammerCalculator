@@ -13,7 +13,7 @@ namespace Calculator
         {
         }
 
-        public MultiplyExpression(OperandExpression leftOperand, OperandExpression rightOperand)
+        public MultiplyExpression(IExpression leftOperand, IExpression rightOperand)
             : base(CalculatorHelper.GetNumericalExpressionToken(Operators.Multiply), CalculatorHelper.CreateOperatorDescriptor(Operators.Multiply), leftOperand, rightOperand)
         {
         }

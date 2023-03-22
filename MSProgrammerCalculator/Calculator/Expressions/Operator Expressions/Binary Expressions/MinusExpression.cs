@@ -13,7 +13,7 @@ namespace Calculator
         {
         }
 
-        public MinusExpression(OperandExpression leftOperand, OperandExpression rightOperand)
+        public MinusExpression(IExpression leftOperand, IExpression rightOperand)
             : base(CalculatorHelper.GetNumericalExpressionToken(Operators.Minus), CalculatorHelper.CreateOperatorDescriptor(Operators.Minus), leftOperand, rightOperand)
         {
         }
