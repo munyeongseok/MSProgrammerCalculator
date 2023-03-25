@@ -17,11 +17,11 @@ namespace MSProgrammerCalculator.ViewModels
             set => SetProperty(ref displayOperand, value);
         }
 
-        private string numericalExpression;
-        public string NumericalExpression
+        private string expression;
+        public string Expression
         {
-            get => numericalExpression;
-            set => SetProperty(ref numericalExpression, value);
+            get => expression;
+            set => SetProperty(ref expression, value);
         }
 
         private BaseNumber selectedBaseNumber;
@@ -73,8 +73,8 @@ namespace MSProgrammerCalculator.ViewModels
                         DisplayOperand = _calculator.Operand;
                         ClearButtonContent = _calculator.Operand == 0 ? "C" : "CE";
                         break;
-                    case nameof(ICalculator.NumericalExpression):
-                        NumericalExpression = _calculator.NumericalExpression;
+                    case nameof(ICalculator.Expression):
+                        Expression = _calculator.Expression;
                         break;
                 }
             };

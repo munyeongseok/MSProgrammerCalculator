@@ -137,20 +137,20 @@ namespace Calculator
         }
 
         /// <summary>
-        /// 숫자 표현식 토큰을 가져옵니다.
+        /// 수식 토큰을 가져옵니다.
         /// </summary>
         /// <param name="op"></param>
         /// <returns></returns>
-        public static string GetNumericalExpressionToken(Operators op)
+        public static string GetExpressionToken(Operators op)
         {
             switch (op)
             {
-                // Unary Numerical Expression
+                // Unary Expression Token
                 case Operators.BitwiseNOT:
                     return "NOT";
                 case Operators.Negate:
                     return "negate";
-                // Binary Numerical Expression
+                // Binary Expression Token
                 case Operators.BitwiseAND:
                     return "AND";
                 case Operators.BitwiseOR:
@@ -175,7 +175,7 @@ namespace Calculator
                     return "-";
                 case Operators.Plus:
                     return "+";
-                // Auxiliary Numerical Expression
+                // Auxiliary Expression Token
                 case Operators.OpenParenthesis:
                     return "(";
                 case Operators.CloseParenthesis:
@@ -190,12 +190,12 @@ namespace Calculator
         }
 
         /// <summary>
-        /// 숫자 표현식을 생성합니다.
+        /// 수식을 생성합니다.
         /// </summary>
         /// <param name="infixExpressions"></param>
         /// <param name="baseNumber"></param>
         /// <returns></returns>
-        public static string CreateNumericalExpression(IEnumerable<IExpression> infixExpressions, BaseNumber baseNumber)
+        public static string CreateExpression(IEnumerable<IExpression> infixExpressions, BaseNumber baseNumber)
         {
             if (!infixExpressions.Any())
             {

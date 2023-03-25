@@ -19,12 +19,12 @@ namespace Calculator
 
         public string EvaluateExpression(BaseNumber _)
         {
-            return CalculatorHelper.GetNumericalExpressionToken(Operators.Submit);
+            return CalculatorHelper.GetExpressionToken(Operators.Submit);
         }
 
         public string GetToken(BaseNumber _)
         {
-            return CalculatorHelper.GetNumericalExpressionToken(Operators.Submit);
+            return CalculatorHelper.GetExpressionToken(Operators.Submit);
         }
     }
 }

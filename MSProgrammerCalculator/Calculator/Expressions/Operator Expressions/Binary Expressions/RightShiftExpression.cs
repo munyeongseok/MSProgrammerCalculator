@@ -9,7 +9,7 @@ namespace Calculator
     public class RightShiftExpression : BinaryOperatorExpression
     {
         public RightShiftExpression(IExpression leftOperand, IExpression rightOperand)
-            : base(CalculatorHelper.GetNumericalExpressionToken(Operators.RightShift), CalculatorHelper.CreateOperatorDescriptor(Operators.RightShift), leftOperand, rightOperand)
+            : base(CalculatorHelper.GetExpressionToken(Operators.RightShift), CalculatorHelper.CreateOperatorDescriptor(Operators.RightShift), leftOperand, rightOperand)
         {
         }
     }

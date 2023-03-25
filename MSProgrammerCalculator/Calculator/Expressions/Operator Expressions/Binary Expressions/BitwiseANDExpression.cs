@@ -9,7 +9,7 @@ namespace Calculator
     public class BitwiseANDExpression : BinaryOperatorExpression
     {
         public BitwiseANDExpression(IExpression leftOperand, IExpression rightOperand)
-            : base(CalculatorHelper.GetNumericalExpressionToken(Operators.BitwiseAND), CalculatorHelper.CreateOperatorDescriptor(Operators.BitwiseAND), leftOperand, rightOperand)
+            : base(CalculatorHelper.GetExpressionToken(Operators.BitwiseAND), CalculatorHelper.CreateOperatorDescriptor(Operators.BitwiseAND), leftOperand, rightOperand)
         {
         }
     }

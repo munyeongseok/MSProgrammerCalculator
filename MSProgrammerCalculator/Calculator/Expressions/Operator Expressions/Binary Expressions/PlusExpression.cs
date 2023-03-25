@@ -9,7 +9,7 @@ namespace Calculator
     public class PlusExpression : BinaryOperatorExpression
     {
         public PlusExpression(IExpression leftOperand, IExpression rightOperand)
-            : base(CalculatorHelper.GetNumericalExpressionToken(Operators.Plus), CalculatorHelper.CreateOperatorDescriptor(Operators.Plus), leftOperand, rightOperand)
+            : base(CalculatorHelper.GetExpressionToken(Operators.Plus), CalculatorHelper.CreateOperatorDescriptor(Operators.Plus), leftOperand, rightOperand)
         {
         }
     }

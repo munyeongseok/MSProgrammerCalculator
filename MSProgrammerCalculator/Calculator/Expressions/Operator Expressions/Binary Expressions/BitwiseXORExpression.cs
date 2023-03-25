@@ -9,7 +9,7 @@ namespace Calculator
     public class BitwiseXORExpression : BinaryOperatorExpression
     {
         public BitwiseXORExpression(IExpression leftOperand, IExpression rightOperand)
-            : base(CalculatorHelper.GetNumericalExpressionToken(Operators.BitwiseXOR), CalculatorHelper.CreateOperatorDescriptor(Operators.BitwiseXOR), leftOperand, rightOperand)
+            : base(CalculatorHelper.GetExpressionToken(Operators.BitwiseXOR), CalculatorHelper.CreateOperatorDescriptor(Operators.BitwiseXOR), leftOperand, rightOperand)
         {
         }
     }

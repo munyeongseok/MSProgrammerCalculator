@@ -20,9 +20,9 @@ namespace Calculator
         long Operand { get; }
 
         /// <summary>
-        /// 현재 숫자 표현식.
+        /// 현재 수식.
         /// </summary>
-        string NumericalExpression { get; }
+        string Expression { get; }
 
         /// <summary>
         /// 입력 제출 여부.

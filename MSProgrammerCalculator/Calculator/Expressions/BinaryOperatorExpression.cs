@@ -16,9 +16,9 @@ namespace Calculator
 
         private readonly string _token;
 
-        protected BinaryOperatorExpression(string numericalExpressionToken, OperatorDescriptor operatorDescriptor, IExpression leftOperand, IExpression rightOperand)
+        protected BinaryOperatorExpression(string expressionToken, OperatorDescriptor operatorDescriptor, IExpression leftOperand, IExpression rightOperand)
         {
-            _token = numericalExpressionToken;
+            _token = expressionToken;
             OperatorDescriptor = operatorDescriptor;
             LeftOperand = leftOperand;
             RightOperand = rightOperand;

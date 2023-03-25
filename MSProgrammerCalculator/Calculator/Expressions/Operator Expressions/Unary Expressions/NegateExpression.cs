@@ -9,7 +9,7 @@ namespace Calculator
     public class NegateExpression : UnaryOperatorExpression
     {
         public NegateExpression(IExpression operand)
-            : base(CalculatorHelper.GetNumericalExpressionToken(Operators.Negate), CalculatorHelper.CreateOperatorDescriptor(Operators.Negate), operand)
+            : base(CalculatorHelper.GetExpressionToken(Operators.Negate), CalculatorHelper.CreateOperatorDescriptor(Operators.Negate), operand)
         {
         }
     }

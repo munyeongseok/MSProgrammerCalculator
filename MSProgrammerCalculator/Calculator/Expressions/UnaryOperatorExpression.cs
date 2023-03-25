@@ -14,9 +14,9 @@ namespace Calculator
 
         private readonly string _token;
 
-        protected UnaryOperatorExpression(string numericalExpressionToken, OperatorDescriptor operatorDescriptor, IExpression operand)
+        protected UnaryOperatorExpression(string expressionToken, OperatorDescriptor operatorDescriptor, IExpression operand)
         {
-            _token = numericalExpressionToken;
+            _token = expressionToken;
             OperatorDescriptor = operatorDescriptor;
             Operand = operand;
         }

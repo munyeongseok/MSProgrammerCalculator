@@ -9,7 +9,7 @@ namespace Calculator
     public class ModuloExpression : BinaryOperatorExpression
     {
         public ModuloExpression(IExpression leftOperand, IExpression rightOperand)
-            : base(CalculatorHelper.GetNumericalExpressionToken(Operators.Modulo), CalculatorHelper.CreateOperatorDescriptor(Operators.Modulo), leftOperand, rightOperand)
+            : base(CalculatorHelper.GetExpressionToken(Operators.Modulo), CalculatorHelper.CreateOperatorDescriptor(Operators.Modulo), leftOperand, rightOperand)
         {
         }
     }

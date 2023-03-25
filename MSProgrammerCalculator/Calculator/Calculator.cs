@@ -20,7 +20,7 @@ namespace Calculator
                 {
                     baseNumber = value;
                     _operandInputted = false;
-                    NumericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue, BaseNumber);
+                    Expression = CalculatorHelper.CreateExpression(_context.InputQueue, BaseNumber);
                     NotifyPropertyChanged();
                 }
             }
@@ -40,15 +40,15 @@ namespace Calculator
             }
         }
 
-        private string numericalExpression;
-        public string NumericalExpression
+        private string expression;
+        public string Expression
         {
-            get => numericalExpression;
+            get => expression;
             private set
             {
-                if (numericalExpression != value)
+                if (expression != value)
                 {
-                    numericalExpression = value;
+                    expression = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -75,7 +75,7 @@ namespace Calculator
             if (IsInputSubmitted)
             {
                 _context.Clear();
-                NumericalExpression = null;
+                Expression = null;
             }
 
             var isNegative = Operand < 0;
@@ -117,7 +117,7 @@ namespace Calculator
         {
             if (_context.InputQueue.Any())
             {
-                NumericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue, BaseNumber);
+                Expression = CalculatorHelper.CreateExpression(_context.InputQueue, BaseNumber);
 
                 if (_context.UnmatchedParenthesisCount == 0)
                 {
@@ -151,13 +151,13 @@ namespace Calculator
                 if (!IsInputSubmitted && _context.UnmatchedParenthesisCount != 0)
                 {
                     _context.InputQueue = new Queue<IExpression>(RemoveLastMatchedExpression(_context.InputQueue));
-                    NumericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue, BaseNumber);
+                    Expression = CalculatorHelper.CreateExpression(_context.InputQueue, BaseNumber);
                 }
             }
             else
             {
                 _context.Clear();
-                NumericalExpression = null;
+                Expression = null;
             }
         }
 
@@ -327,7 +327,7 @@ namespace Calculator
             else if (last is NegateExpression)
             {
                 _context.InputQueue = new Queue<IExpression>(_context.InputQueue.Take(_context.InputQueue.Count - 2));
-                NumericalExpression = CalculatorHelper.CreateNumericalExpression(_context.InputQueue, BaseNumber);
+                Expression = CalculatorHelper.CreateExpression(_context.InputQueue, BaseNumber);
             }
 
             // 여는 괄호 추가

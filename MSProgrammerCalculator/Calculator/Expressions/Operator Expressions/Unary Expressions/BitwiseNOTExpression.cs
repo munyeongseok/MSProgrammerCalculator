@@ -9,7 +9,7 @@ namespace Calculator
     public class BitwiseNOTExpression : UnaryOperatorExpression
     {
         public BitwiseNOTExpression(IExpression operand)
-            : base(CalculatorHelper.GetNumericalExpressionToken(Operators.BitwiseNOT), CalculatorHelper.CreateOperatorDescriptor(Operators.BitwiseNOT), operand)
+            : base(CalculatorHelper.GetExpressionToken(Operators.BitwiseNOT), CalculatorHelper.CreateOperatorDescriptor(Operators.BitwiseNOT), operand)
         {
         }
     }

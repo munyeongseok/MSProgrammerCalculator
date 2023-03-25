@@ -9,7 +9,7 @@ namespace Calculator
     public class MinusExpression : BinaryOperatorExpression
     {
         public MinusExpression(IExpression leftOperand, IExpression rightOperand)
-            : base(CalculatorHelper.GetNumericalExpressionToken(Operators.Minus), CalculatorHelper.CreateOperatorDescriptor(Operators.Minus), leftOperand, rightOperand)
+            : base(CalculatorHelper.GetExpressionToken(Operators.Minus), CalculatorHelper.CreateOperatorDescriptor(Operators.Minus), leftOperand, rightOperand)
         {
         }
     }

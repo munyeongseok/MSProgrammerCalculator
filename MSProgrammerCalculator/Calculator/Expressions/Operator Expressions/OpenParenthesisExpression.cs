@@ -22,12 +22,12 @@ namespace Calculator
 
         public string EvaluateExpression(BaseNumber _)
         {
-            return CalculatorHelper.GetNumericalExpressionToken(Operators.OpenParenthesis);
+            return CalculatorHelper.GetExpressionToken(Operators.OpenParenthesis);
         }
 
         public string GetToken(BaseNumber _)
         {
-            return CalculatorHelper.GetNumericalExpressionToken(Operators.OpenParenthesis);
+            return CalculatorHelper.GetExpressionToken(Operators.OpenParenthesis);
         }
     }
 }
