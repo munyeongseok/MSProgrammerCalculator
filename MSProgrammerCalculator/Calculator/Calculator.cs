@@ -172,12 +172,8 @@ namespace Calculator
                     _context.InputQueue.Enqueue(new OperandExpression(Operand));
                 }
 
-                // 닫는 괄호 추가
-                while (_context.UnmatchedParenthesisCount > 0)
-                {
-                    _context.InputQueue.Enqueue(new CloseParenthesisExpression());
-                    _context.UnmatchedParenthesisCount--;
-                }
+                // 닫히지 않은 모든 괄호를 닫음
+                CloseAllParenthesis();
 
                 _context.InputQueue.Enqueue(new SubmitExpression());
             }
@@ -356,6 +352,14 @@ namespace Calculator
             // 닫는 괄호 추가
             _context.InputQueue.Enqueue(new CloseParenthesisExpression());
             _context.UnmatchedParenthesisCount--;
+        }
+
+        private void CloseAllParenthesis()
+        {
+            while (_context.UnmatchedParenthesisCount > 0)
+            {
+                EnqueueCloseParenthesis();
+            }
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
