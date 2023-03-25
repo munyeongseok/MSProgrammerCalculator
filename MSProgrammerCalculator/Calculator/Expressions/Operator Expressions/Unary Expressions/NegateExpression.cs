@@ -13,7 +13,7 @@ namespace Calculator
         {
         }
 
-        public override long Evaluate()
+        public override long EvaluateResult()
         {
             return CalculatorHelper.UnaryOperation(Operators.Negate, Operand);
         }

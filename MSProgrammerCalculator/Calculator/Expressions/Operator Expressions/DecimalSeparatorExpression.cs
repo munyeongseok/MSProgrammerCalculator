@@ -15,9 +15,14 @@ namespace Calculator
             OperatorDescriptor = CalculatorHelper.CreateOperatorDescriptor(Operators.DecimalSeparator);
         }
 
-        public long Evaluate()
+        public long EvaluateResult()
         {
             throw new NotSupportedException();
+        }
+
+        public string EvaluateExpression(BaseNumber _)
+        {
+            return CalculatorHelper.GetNumericalExpressionToken(Operators.DecimalSeparator);
         }
 
         public string GetToken(BaseNumber _)

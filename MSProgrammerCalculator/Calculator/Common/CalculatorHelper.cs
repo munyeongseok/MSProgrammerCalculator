@@ -382,7 +382,7 @@ namespace Calculator
                 throw new ArgumentNullException(nameof(operand));
             }
 
-            return UnaryOperation(op, operand.Evaluate());
+            return UnaryOperation(op, operand.EvaluateResult());
         }
 
         /// <summary>
@@ -401,10 +401,10 @@ namespace Calculator
 
             if (rightOperand == null)
             {
-                return leftOperand.Evaluate();
+                return leftOperand.EvaluateResult();
             }
 
-            return BinaryOperation(op, leftOperand.Evaluate(), rightOperand.Evaluate());
+            return BinaryOperation(op, leftOperand.EvaluateResult(), rightOperand.EvaluateResult());
         }
 
         private static long UnaryOperation(Operators op, long operand)

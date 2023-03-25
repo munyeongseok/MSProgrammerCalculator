@@ -12,9 +12,14 @@ namespace Calculator
         {
         }
 
-        public long Evaluate()
+        public long EvaluateResult()
         {
             throw new NotSupportedException();
+        }
+
+        public string EvaluateExpression(BaseNumber _)
+        {
+            return CalculatorHelper.GetNumericalExpressionToken(Operators.Submit);
         }
 
         public string GetToken(BaseNumber _)

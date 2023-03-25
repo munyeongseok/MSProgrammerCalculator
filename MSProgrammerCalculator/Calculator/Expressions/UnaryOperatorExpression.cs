@@ -21,7 +21,12 @@ namespace Calculator
             Operand = operand;
         }
 
-        public abstract long Evaluate();
+        public abstract long EvaluateResult();
+
+        public string EvaluateExpression(BaseNumber baseNumber)
+        {
+            return $"{_token}( {Operand.EvaluateExpression(baseNumber)} )";
+        }
 
         public string GetToken(BaseNumber _)
         {

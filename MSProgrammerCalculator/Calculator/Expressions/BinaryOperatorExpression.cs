@@ -24,7 +24,12 @@ namespace Calculator
             RightOperand = rightOperand;
         }
 
-        public abstract long Evaluate();
+        public abstract long EvaluateResult();
+
+        public string EvaluateExpression(BaseNumber baseNumber)
+        {
+            return $"{LeftOperand.EvaluateExpression(baseNumber)} {_token} {RightOperand.EvaluateExpression(baseNumber)}";
+        }
 
         public string GetToken(BaseNumber _)
         {

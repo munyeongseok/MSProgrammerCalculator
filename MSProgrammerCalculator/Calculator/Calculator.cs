@@ -122,7 +122,7 @@ namespace Calculator
                 if (_context.UnmatchedParenthesisCount == 0)
                 {
                     var rootExpression = CalculatorHelper.BuildRootExpression(_context.InputQueue);
-                    var result = rootExpression.Evaluate();
+                    var result = rootExpression.EvaluateResult();
                     var last = _context.InputQueue.LastOrDefault();
                     if (last is SubmitExpression)
                     {
@@ -130,7 +130,7 @@ namespace Calculator
                     }
                     else if (rootExpression is BinaryOperatorExpression binaryOperator && binaryOperator.RightOperand != null)
                     {
-                        Operand = binaryOperator.RightOperand.Evaluate();
+                        Operand = binaryOperator.RightOperand.EvaluateResult();
                     }
                     else
                     {
