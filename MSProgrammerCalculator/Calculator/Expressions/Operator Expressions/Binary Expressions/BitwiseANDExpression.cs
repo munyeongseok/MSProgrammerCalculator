@@ -12,10 +12,5 @@ namespace Calculator
             : base(CalculatorHelper.GetNumericalExpressionToken(Operators.BitwiseAND), CalculatorHelper.CreateOperatorDescriptor(Operators.BitwiseAND), leftOperand, rightOperand)
         {
         }
-
-        public override long EvaluateResult()
-        {
-            return CalculatorHelper.BinaryOperation(Operators.BitwiseAND, LeftOperand, RightOperand);
-        }
     }
 }

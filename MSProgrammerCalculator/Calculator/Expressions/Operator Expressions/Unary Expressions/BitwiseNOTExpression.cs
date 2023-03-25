@@ -12,10 +12,5 @@ namespace Calculator
             : base(CalculatorHelper.GetNumericalExpressionToken(Operators.BitwiseNOT), CalculatorHelper.CreateOperatorDescriptor(Operators.BitwiseNOT), operand)
         {
         }
-
-        public override long EvaluateResult()
-        {
-            return CalculatorHelper.UnaryOperation(Operators.BitwiseNOT, Operand);
-        }
     }
 }

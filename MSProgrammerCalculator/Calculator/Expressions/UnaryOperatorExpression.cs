@@ -21,7 +21,10 @@ namespace Calculator
             Operand = operand;
         }
 
-        public abstract long EvaluateResult();
+        public long EvaluateResult()
+        {
+            return CalculatorHelper.UnaryOperation(OperatorDescriptor.Operator, Operand);
+        }
 
         public string EvaluateExpression(BaseNumber baseNumber)
         {

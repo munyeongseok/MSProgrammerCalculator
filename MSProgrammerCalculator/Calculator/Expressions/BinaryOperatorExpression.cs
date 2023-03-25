@@ -24,7 +24,10 @@ namespace Calculator
             RightOperand = rightOperand;
         }
 
-        public abstract long EvaluateResult();
+        public long EvaluateResult()
+        {
+            return CalculatorHelper.BinaryOperation(OperatorDescriptor.Operator, LeftOperand, RightOperand);
+        }
 
         public string EvaluateExpression(BaseNumber baseNumber)
         {
