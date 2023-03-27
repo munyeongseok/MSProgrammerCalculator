@@ -190,41 +190,6 @@ namespace Calculator
         }
 
         /// <summary>
-        /// 수식을 생성합니다.
-        /// </summary>
-        /// <param name="infixExpressions"></param>
-        /// <param name="baseNumber"></param>
-        /// <returns></returns>
-        public static string CreateExpression(IEnumerable<IExpression> infixExpressions, BaseNumber baseNumber)
-        {
-            if (!infixExpressions.Any())
-            {
-                return string.Empty;
-            }
-
-            var tokens = new Stack<string>();
-            foreach (var expression in infixExpressions)
-            {
-                var token = expression.GetToken(baseNumber);
-                if (expression is UnaryOperatorExpression)
-                {
-                    var prevToken = tokens.Pop();
-                    token = $"{token}( {prevToken} )";
-                }
-
-                tokens.Push(token);
-            }
-
-            var sb = new StringBuilder();
-            foreach (var token in tokens.Reverse())
-            {
-                sb.Append($"{token} ");
-            }
-
-            return sb.ToString();
-        }
-
-        /// <summary>
         /// 연산자 Expression을 생성합니다.
         /// </summary>
         /// <param name="op"></param>
@@ -279,6 +244,11 @@ namespace Calculator
         /// <returns></returns>
         public static IExpression BuildRootExpression(IEnumerable<IExpression> infixExpressions)
         {
+            if (infixExpressions.Count() <= 1)
+            {
+                return infixExpressions.FirstOrDefault();
+            }
+
             var stack = new Stack<IExpression>();
             var postfixExpressions = ShuntingYard.InfixToPostfix(infixExpressions);
             foreach (var expression in postfixExpressions)

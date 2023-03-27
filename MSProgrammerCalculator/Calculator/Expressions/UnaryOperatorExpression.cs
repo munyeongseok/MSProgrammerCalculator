@@ -28,12 +28,19 @@ namespace Calculator
 
         public string EvaluateExpression(BaseNumber baseNumber)
         {
-            return $"{_token}( {Operand.EvaluateExpression(baseNumber)} )";
+            var expression = Operand != null ? Operand.EvaluateExpression(baseNumber) : string.Empty;
+
+            return $"{_token}( {expression} )";
         }
 
         public string GetToken(BaseNumber _)
         {
             return _token;
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

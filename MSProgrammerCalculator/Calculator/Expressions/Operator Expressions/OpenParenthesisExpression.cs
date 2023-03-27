@@ -29,5 +29,10 @@ namespace Calculator
         {
             return CalculatorHelper.GetExpressionToken(Operators.OpenParenthesis);
         }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

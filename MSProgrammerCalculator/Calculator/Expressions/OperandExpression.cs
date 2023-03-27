@@ -53,5 +53,10 @@ namespace Calculator
 
             throw new ArgumentException();
         }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public interface IExpression
+    public interface IExpression : ICloneable
     {
         /// <summary>
         /// 결과를 평가합니다.

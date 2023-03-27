@@ -31,12 +31,20 @@ namespace Calculator
 
         public string EvaluateExpression(BaseNumber baseNumber)
         {
-            return $"{LeftOperand.EvaluateExpression(baseNumber)} {_token} {RightOperand.EvaluateExpression(baseNumber)}";
+            var leftExpression = LeftOperand != null ? $"{LeftOperand.EvaluateExpression(baseNumber)} " : string.Empty;
+            var rightExpression = RightOperand != null ? $" {RightOperand.EvaluateExpression(baseNumber)}" : string.Empty;
+
+            return $"{leftExpression}{_token}{rightExpression}";
         }
 
         public string GetToken(BaseNumber _)
         {
             return _token;
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }
