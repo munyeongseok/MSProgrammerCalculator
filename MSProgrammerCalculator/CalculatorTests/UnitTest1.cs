@@ -331,5 +331,28 @@ namespace CalculatorTests
             Assert.AreEqual(-27, calculator.Operand);
             Assert.AreEqual("9 - 6 × 6 = ", calculator.Expression);
         }
+
+        [TestMethod("2 / \"1 + ( 2 ) \" -> Clear -> 0 / \"1 + \"")]
+        public void TestMethod13()
+        {
+            var calculator = new Calculator.Calculator();
+
+            calculator.EnqueueToken(Numbers.Num1);
+            calculator.EnqueueToken(Operators.Plus);
+            calculator.EnqueueToken(Operators.OpenParenthesis);
+            calculator.EnqueueToken(Numbers.Num2);
+            calculator.EnqueueToken(Operators.CloseParenthesis);
+            calculator.Evaluate();
+            Assert.AreEqual(2, calculator.Operand);
+            Assert.AreEqual("1 + ( 2 ) ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.Clear);
+            Assert.AreEqual(0, calculator.Operand);
+            Assert.AreEqual("1 + ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.Clear);
+            Assert.AreEqual(0, calculator.Operand);
+            Assert.AreEqual(string.Empty, calculator.Expression);
+        }
     }
 }

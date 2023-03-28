@@ -75,7 +75,7 @@ namespace Calculator
             if (IsInputSubmitted)
             {
                 _context.Clear();
-                Expression = null;
+                Expression = string.Empty;
             }
 
             var isNegative = Operand < 0;
@@ -176,7 +176,7 @@ namespace Calculator
             else
             {
                 _context.Clear();
-                Expression = null;
+                Expression = string.Empty;
             }
         }
 
