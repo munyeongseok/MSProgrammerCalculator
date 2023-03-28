@@ -118,28 +118,7 @@ namespace Calculator
             if (_context.InputQueue.Any())
             {
                 UpdateExpression();
-
-                if (_context.UnmatchedParenthesisCount == 0)
-                {
-                    var clonedInputQueue = _context.InputQueue.Select(input => (IExpression)input.Clone());
-                    var rootExpression = CalculatorHelper.BuildRootExpression(clonedInputQueue);
-                    var result = rootExpression.EvaluateResult();
-                    var last = _context.InputQueue.LastOrDefault();
-                    if (last is SubmitExpression)
-                    {
-                        Operand = result;
-                    }
-                    else if (rootExpression is BinaryOperatorExpression binaryOperator && binaryOperator.RightOperand != null)
-                    {
-                        Operand = binaryOperator.RightOperand.EvaluateResult();
-                    }
-                    else
-                    {
-                        Operand = result;
-                    }
-
-                    _operandInputted = false;
-                }
+                UpdateOperand();
             }
         }
 
@@ -153,6 +132,33 @@ namespace Calculator
             }
 
             Expression = sb.ToString();
+        }
+
+        private void UpdateOperand()
+        {
+            if (_context.UnmatchedParenthesisCount != 0)
+            {
+                return;
+            }
+
+            var clonedInputQueue = _context.InputQueue.Select(input => (IExpression)input.Clone());
+            var rootExpression = CalculatorHelper.BuildRootExpression(clonedInputQueue);
+            var result = rootExpression.EvaluateResult();
+            var last = _context.InputQueue.LastOrDefault();
+            if (last is SubmitExpression)
+            {
+                Operand = result;
+            }
+            else if (rootExpression is BinaryOperatorExpression binaryOperator && binaryOperator.RightOperand != null)
+            {
+                Operand = binaryOperator.RightOperand.EvaluateResult();
+            }
+            else
+            {
+                Operand = result;
+            }
+
+            _operandInputted = false;
         }
 
         public void ClearInput()
