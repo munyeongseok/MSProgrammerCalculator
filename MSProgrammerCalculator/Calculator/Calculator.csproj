@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\BaseNumber.cs" />
+    <Compile Include="Common\Deque.cs" />
     <Compile Include="Common\Numbers.cs" />
     <Compile Include="Common\Associativity.cs" />
     <Compile Include="Common\OperatorDescriptor.cs" />
