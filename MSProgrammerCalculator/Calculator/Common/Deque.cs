@@ -19,12 +19,16 @@ namespace Calculator
 
         [NonSerialized]
         private object _syncRoot;
-
         private readonly LinkedList<T> _deque;
 
         public Deque() 
         {
             _deque = new LinkedList<T>();
+        }
+
+        public Deque(IEnumerable<T> collection)
+        {
+            _deque = new LinkedList<T>(collection);
         }
 
         public void EnqueueFirst(T item)

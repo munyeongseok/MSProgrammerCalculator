@@ -8,18 +8,18 @@ namespace Calculator
 {
     public class CalculatorContext
     {
-        internal Queue<IExpression> InputQueue { get; set; }
+        internal Deque<IExpression> InputDeque { get; set; }
 
         internal int UnmatchedParenthesisCount { get; set; }
 
         public CalculatorContext()
         {
-            InputQueue = new Queue<IExpression>();
+            InputDeque = new Deque<IExpression>();
         }
 
         internal void Clear()
         {
-            InputQueue.Clear();
+            InputDeque.Clear();
             UnmatchedParenthesisCount = 0;
         }
     }

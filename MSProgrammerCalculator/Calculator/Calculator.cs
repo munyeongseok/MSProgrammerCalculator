@@ -56,7 +56,7 @@ namespace Calculator
 
         public bool IsInputSubmitted
         {
-            get => _context.InputQueue.LastOrDefault() is SubmitExpression;
+            get => _context.InputDeque.LastOrDefault() is SubmitExpression;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -115,7 +115,7 @@ namespace Calculator
 
         public void Evaluate()
         {
-            if (_context.InputQueue.Any())
+            if (_context.InputDeque.Any())
             {
                 UpdateExpression();
                 UpdateOperand();
@@ -125,7 +125,7 @@ namespace Calculator
         private void UpdateExpression()
         {
             var sb = new StringBuilder();
-            foreach (var input in _context.InputQueue)
+            foreach (var input in _context.InputDeque)
             {
                 sb.Append(input.EvaluateExpression(BaseNumber));
                 sb.Append(' ');
@@ -141,10 +141,10 @@ namespace Calculator
                 return;
             }
 
-            var clonedInputQueue = _context.InputQueue.Select(input => (IExpression)input.Clone());
-            var rootExpression = CalculatorHelper.BuildRootExpression(clonedInputQueue);
+            var clonedInputDeque = _context.InputDeque.Select(input => (IExpression)input.Clone());
+            var rootExpression = CalculatorHelper.BuildRootExpression(clonedInputDeque);
             var result = rootExpression.EvaluateResult();
-            var last = _context.InputQueue.LastOrDefault();
+            var last = _context.InputDeque.LastOrDefault();
             if (last is SubmitExpression)
             {
                 Operand = result;
@@ -169,7 +169,7 @@ namespace Calculator
 
                 if (!IsInputSubmitted && _context.UnmatchedParenthesisCount != 0)
                 {
-                    _context.InputQueue = new Queue<IExpression>(RemoveLastMatchedExpression(_context.InputQueue));
+                    _context.InputDeque = new Deque<IExpression>(RemoveLastMatchedExpression(_context.InputDeque));
                     UpdateExpression();
                 }
             }
@@ -184,17 +184,17 @@ namespace Calculator
         {
             if (!IsInputSubmitted)
             {
-                var last = _context.InputQueue.LastOrDefault();
-                // 입력 큐가 비었거나 마지막 토큰이 여는 괄호, 이항 연산자일 경우 피연산자 추가
+                var last = _context.InputDeque.LastOrDefault();
+                // 입력 데크가 비었거나 마지막 토큰이 여는 괄호, 이항 연산자일 경우 피연산자 추가
                 if (last == null || last is OpenParenthesisExpression || last is BinaryOperatorExpression)
                 {
-                    _context.InputQueue.Enqueue(new OperandExpression(Operand));
+                    _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
                 }
 
                 // 닫히지 않은 모든 괄호를 닫음
                 CloseAllParenthesis();
 
-                _context.InputQueue.Enqueue(new SubmitExpression());
+                _context.InputDeque.EnqueueLast(new SubmitExpression());
             }
         }
 
@@ -241,12 +241,12 @@ namespace Calculator
                 }
             }
 
-            var last = _context.InputQueue.LastOrDefault();
+            var last = _context.InputDeque.LastOrDefault();
             // 마지막 토큰이 닫는 괄호, 단항 연산자일 경우
             if (last is CloseParenthesisExpression || last is UnaryOperatorExpression)
             {
                 var count = 0;
-                foreach (var expression in _context.InputQueue.Reverse())
+                foreach (var expression in _context.InputDeque.Reverse())
                 {
                     if (expression is UnaryOperatorExpression)
                     {
@@ -258,16 +258,16 @@ namespace Calculator
                     }
                 }
 
-                var temp = new List<IExpression>(_context.InputQueue.Take(_context.InputQueue.Count - count))
+                var temp = new List<IExpression>(_context.InputDeque.Take(_context.InputDeque.Count - count))
                 {
                     CalculatorHelper.CreateExpression(unaryOperator)
                 };
-                _context.InputQueue = new Queue<IExpression>(temp.Concat(_context.InputQueue.Skip(_context.InputQueue.Count - count)));
+                _context.InputDeque = new Deque<IExpression>(temp.Concat(_context.InputDeque.Skip(_context.InputDeque.Count - count)));
             }
             else
             {
-                _context.InputQueue.Enqueue(new OperandExpression(Operand));
-                _context.InputQueue.Enqueue(CalculatorHelper.CreateExpression(unaryOperator));
+                _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
+                _context.InputDeque.EnqueueLast(CalculatorHelper.CreateExpression(unaryOperator));
             }
 
             return true;
@@ -275,13 +275,13 @@ namespace Calculator
 
         private bool EnqueueBinaryOperator(Operators binaryOperator)
         {
-            var last = _context.InputQueue.LastOrDefault();
+            var last = _context.InputDeque.LastOrDefault();
             if (_operandInputted)
             {
                 // 마지막 토큰이 닫는 괄호가 아닐 경우에만 피연산자 추가
                 if (!(last is CloseParenthesisExpression))
                 {
-                    _context.InputQueue.Enqueue(new OperandExpression(Operand));
+                    _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
                 }
             }
             else
@@ -289,12 +289,12 @@ namespace Calculator
                 // 마지막 토큰이 이항 연산자이면 제거
                 if (last is BinaryOperatorExpression)
                 {
-                    _context.InputQueue = new Queue<IExpression>(_context.InputQueue.Take(_context.InputQueue.Count - 1));
+                    _context.InputDeque = new Deque<IExpression>(_context.InputDeque.Take(_context.InputDeque.Count - 1));
                 }
             }
 
             // 이항 연산자 추가
-            _context.InputQueue.Enqueue(CalculatorHelper.CreateExpression(binaryOperator));
+            _context.InputDeque.EnqueueLast(CalculatorHelper.CreateExpression(binaryOperator));
             _operandInputted = false;
 
             return true;
@@ -330,7 +330,7 @@ namespace Calculator
 
         private void EnqueueOpenParenthesis()
         {
-            var last = _context.InputQueue.LastOrDefault();
+            var last = _context.InputDeque.LastOrDefault();
             // 마지막 토큰이 이항 연산자일 경우 피연산자 초기화
             if (last is BinaryOperatorExpression)
             {
@@ -340,17 +340,17 @@ namespace Calculator
             // 마지막 토큰이 피연산자, NOT 연산자, 닫는 괄호일 경우 곱하기 연산자 추가
             else if (last is OperandExpression || last is BitwiseNOTExpression || last is CloseParenthesisExpression)
             {
-                _context.InputQueue.Enqueue(new MultiplyExpression(null, null));
+                _context.InputDeque.EnqueueLast(new MultiplyExpression(null, null));
             }
             // 마지막 토큰이 Negate 연산자일 경우 피연산자와 Negate 연산자 제거
             else if (last is NegateExpression)
             {
-                _context.InputQueue = new Queue<IExpression>(_context.InputQueue.Take(_context.InputQueue.Count - 2));
+                _context.InputDeque = new Deque<IExpression>(_context.InputDeque.Take(_context.InputDeque.Count - 2));
                 UpdateExpression();
             }
 
             // 여는 괄호 추가
-            _context.InputQueue.Enqueue(new OpenParenthesisExpression());
+            _context.InputDeque.EnqueueLast(new OpenParenthesisExpression());
             _context.UnmatchedParenthesisCount++;
         }
 
@@ -361,15 +361,15 @@ namespace Calculator
                 return;
             }
 
-            var last = _context.InputQueue.LastOrDefault();
+            var last = _context.InputDeque.LastOrDefault();
             // 마지막 토큰이 여는 괄호, 이항 연산자일 경우 피연산자 추가
             if (last is OpenParenthesisExpression || last is BinaryOperatorExpression)
             {
-                _context.InputQueue.Enqueue(new OperandExpression(Operand));
+                _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
             }
 
             // 닫는 괄호 추가
-            _context.InputQueue.Enqueue(new CloseParenthesisExpression());
+            _context.InputDeque.EnqueueLast(new CloseParenthesisExpression());
             _context.UnmatchedParenthesisCount--;
         }
 
