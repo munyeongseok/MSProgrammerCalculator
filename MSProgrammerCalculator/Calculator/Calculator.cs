@@ -165,13 +165,13 @@ namespace Calculator
         {
             if (Operand != 0)
             {
-                Operand = 0;
-
-                if (!IsInputSubmitted && _context.UnmatchedParenthesisCount != 0)
+                if (!IsInputSubmitted)
                 {
-                    _context.InputDeque = new Deque<IExpression>(RemoveLastMatchedExpression(_context.InputDeque));
+                    RemoveLastMatchedExpression();
                     UpdateExpression();
                 }
+
+                Operand = 0;
             }
             else
             {
@@ -198,31 +198,26 @@ namespace Calculator
             }
         }
 
-        private IEnumerable<IExpression> RemoveLastMatchedExpression(IEnumerable<IExpression> expressions)
+        private void RemoveLastMatchedExpression()
         {
-            var count = 0;
-            var lastMatchedCount = 0;
-            var reversedExpressions = expressions.Reverse();
-            foreach (var expression in reversedExpressions)
+            if (_context.UnmatchedParenthesisCount != 0)
             {
-                lastMatchedCount++;
+                return;
+            }
 
-                if (expression is CloseParenthesisExpression)
-                {
-                    count++;
-                }
-                else if (expression is OpenParenthesisExpression)
-                {
-                    count--;
-
-                    if (count == 0)
-                    {
-                        break;
-                    }
-                }
+            if (!(_context.InputDeque.LastOrDefault() is CloseParenthesisExpression))
+            {
+                return;
             }
             
-            return expressions.Take(expressions.Count() - lastMatchedCount);
+            while (true)
+            {
+                var last = _context.InputDeque.DequeueLast();
+                if (last is OpenParenthesisExpression)
+                {
+                    break;
+                }
+            }
         }
 
         private bool EnqueueUnaryOperator(Operators unaryOperator)
