@@ -389,5 +389,113 @@ namespace CalculatorTests
             Assert.AreEqual(-2, calculator.Operand);
             Assert.AreEqual("NOT( NOT( NOT( NOT( NOT( 1 ) ) ) ) ) ", calculator.Expression);
         }
+
+        [TestMethod("[1, \"1 + \"] -> [1, \"1 - \"] -> [1, \"1 × \"] -> [1, \"1 ÷ \"] -> [1, \"1 % \"]")]
+        public void TestMethod15()
+        {
+            var calculator = new Calculator.Calculator();
+
+            calculator.EnqueueToken(Numbers.Num1);
+            calculator.EnqueueToken(Operators.Plus);
+            calculator.Evaluate();
+            Assert.AreEqual(1, calculator.Operand);
+            Assert.AreEqual("1 + ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.Minus);
+            calculator.Evaluate();
+            Assert.AreEqual(1, calculator.Operand);
+            Assert.AreEqual("1 - ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.Multiply);
+            calculator.Evaluate();
+            Assert.AreEqual(1, calculator.Operand);
+            Assert.AreEqual("1 × ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.Divide);
+            calculator.Evaluate();
+            Assert.AreEqual(1, calculator.Operand);
+            Assert.AreEqual("1 ÷ ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.Modulo);
+            calculator.Evaluate();
+            Assert.AreEqual(1, calculator.Operand);
+            Assert.AreEqual("1 % ", calculator.Expression);
+        }
+
+        [TestMethod("[0, \"0 + \"] -> Clear -> [0, \"0 - \"] -> Clear -> [0, \"0 × \"] -> Clear -> [0, \"0 ÷ \"] -> Clear -> [0, \"0 % \"]")]
+        public void TestMethod16()
+        {
+            var calculator = new Calculator.Calculator();
+
+            calculator.EnqueueToken(Operators.Plus);
+            calculator.Evaluate();
+            Assert.AreEqual(0, calculator.Operand);
+            Assert.AreEqual("0 + ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.Clear);
+            calculator.EnqueueToken(Operators.Minus);
+            calculator.Evaluate();
+            Assert.AreEqual(0, calculator.Operand);
+            Assert.AreEqual("0 - ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.Clear);
+            calculator.EnqueueToken(Operators.Multiply);
+            calculator.Evaluate();
+            Assert.AreEqual(0, calculator.Operand);
+            Assert.AreEqual("0 × ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.Clear);
+            calculator.EnqueueToken(Operators.Divide);
+            calculator.Evaluate();
+            Assert.AreEqual(0, calculator.Operand);
+            Assert.AreEqual("0 ÷ ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.Clear);
+            calculator.EnqueueToken(Operators.Modulo);
+            calculator.Evaluate();
+            Assert.AreEqual(0, calculator.Operand);
+            Assert.AreEqual("0 % ", calculator.Expression);
+        }
+
+        [TestMethod("[2, \"1 + 2 - 3 × 4 ÷ 5 % \"]")]
+        public void TestMethod17()
+        {
+            var calculator = new Calculator.Calculator();
+
+            calculator.EnqueueToken(Numbers.Num1);
+            calculator.EnqueueToken(Operators.Plus);
+            calculator.Evaluate();
+            Assert.AreEqual(1, calculator.Operand);
+            Assert.AreEqual("1 + ", calculator.Expression);
+
+            calculator.EnqueueToken(Numbers.Num2);
+            calculator.EnqueueToken(Operators.Minus);
+            calculator.Evaluate();
+            Assert.AreEqual(3, calculator.Operand);
+            Assert.AreEqual("1 + 2 - ", calculator.Expression);
+
+            calculator.EnqueueToken(Numbers.Num3);
+            calculator.EnqueueToken(Operators.Multiply);
+            calculator.Evaluate();
+            Assert.AreEqual(3, calculator.Operand);
+            Assert.AreEqual("1 + 2 - 3 × ", calculator.Expression);
+
+            calculator.EnqueueToken(Numbers.Num4);
+            calculator.EnqueueToken(Operators.Divide);
+            calculator.Evaluate();
+            Assert.AreEqual(12, calculator.Operand);
+            Assert.AreEqual("1 + 2 - 3 × 4 ÷ ", calculator.Expression);
+
+            calculator.EnqueueToken(Numbers.Num5);
+            calculator.EnqueueToken(Operators.Modulo);
+            calculator.Evaluate();
+            Assert.AreEqual(2, calculator.Operand);
+            Assert.AreEqual("1 + 2 - 3 × 4 ÷ 5 % ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.Submit);
+            calculator.Evaluate();
+            Assert.AreEqual(3, calculator.Operand);
+            Assert.AreEqual("1 + 2 - 3 × 4 ÷ 5 % 2 = ", calculator.Expression);
+        }
     }
 }
