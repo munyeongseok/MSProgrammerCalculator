@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -220,9 +221,9 @@ namespace Calculator
             }
         }
 
-        private bool EnqueueUnaryOperator(Operators unaryOperator)
+        private bool EnqueueUnaryOperator(Operators op)
         {
-            if (unaryOperator == Operators.Negate)
+            if (op == Operators.Negate)
             {
                 if (Operand == 0)
                 {
@@ -240,9 +241,8 @@ namespace Calculator
             // 마지막 토큰이 단항 연산자일 경우
             if (last is UnaryOperatorExpression)
             {
-                var unaryExpression = CalculatorHelper.CreateUnaryExpression(unaryOperator, last);
                 _context.InputDeque.DequeueLast();
-                _context.InputDeque.EnqueueLast(unaryExpression);
+                _context.InputDeque.EnqueueLast(CalculatorHelper.CreateUnaryExpression(op, last));
             }
             // 마지막 토큰이 닫는 괄호일 경우
             else if (last is CloseParenthesisExpression)
@@ -251,44 +251,52 @@ namespace Calculator
             }
             else
             {
-                var operandExpression = new OperandExpression(Operand);
-                var unaryExpression = CalculatorHelper.CreateUnaryExpression(unaryOperator, operandExpression);
-                _context.InputDeque.EnqueueLast(unaryExpression);
+                // 단항 연산자 추가
+                _context.InputDeque.EnqueueLast(CalculatorHelper.CreateUnaryExpression(op, new OperandExpression(Operand)));
             }
 
             return true;
         }
 
-        private bool EnqueueBinaryOperator(Operators binaryOperator)
+        private bool EnqueueBinaryOperator(Operators op)
         {
             var last = _context.InputDeque.LastOrDefault();
-            if (_operandInputted)
+            // 피연산자가 입력되지 않았을 경우
+            if (!_operandInputted)
             {
-                // 마지막 토큰이 닫는 괄호가 아닐 경우에만 피연산자 추가
-                if (!(last is CloseParenthesisExpression))
+                if (last is BinaryOperatorExpression binaryOperator)
                 {
-                    _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
+                    // 마지막 토큰인 이항 연산자와 같은 이항 연산자이면 리턴
+                    if (binaryOperator.OperatorDescriptor.Operator == op)
+                    {
+                        return false;
+                    }
+                    // 그렇지 않으면 연산자만 교체
+                    else
+                    {
+                        _context.InputDeque.DequeueLast();
+                        _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(op));
+                        return true;
+                    }
                 }
             }
-            else
+
+            // 마지막 토큰이 닫는 괄호가 아니면 피연산자 추가
+            if (!(last is CloseParenthesisExpression))
             {
-                // 마지막 토큰이 이항 연산자이면 제거
-                if (last is BinaryOperatorExpression)
-                {
-                    _context.InputDeque = new Deque<IExpression>(_context.InputDeque.Take(_context.InputDeque.Count - 1));
-                }
+                _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
             }
 
             // 이항 연산자 추가
-            _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(binaryOperator));
-            _operandInputted = false;
+            _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(op));
 
+            _operandInputted = false;
             return true;
         }
 
-        private bool EnqueueAuxiliaryOperator(Operators auxiliaryOperator)
+        private bool EnqueueAuxiliaryOperator(Operators op)
         {
-            switch (auxiliaryOperator)
+            switch (op)
             {
                 case Operators.OpenParenthesis:
                     EnqueueOpenParenthesis();
