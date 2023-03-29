@@ -357,5 +357,37 @@ namespace CalculatorTests
             Assert.AreEqual(0, calculator.Operand);
             Assert.AreEqual(string.Empty, calculator.Expression);
         }
+
+        [TestMethod("[-2, \"NOT( NOT( NOT( NOT( NOT( 1 ) ) ) ) ) \"")]
+        public void TestMethod14()
+        {
+            var calculator = new Calculator.Calculator();
+
+            calculator.EnqueueToken(Numbers.Num1);
+            calculator.EnqueueToken(Operators.BitwiseNOT);
+            calculator.Evaluate();
+            Assert.AreEqual(-2, calculator.Operand);
+            Assert.AreEqual("NOT( 1 ) ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.BitwiseNOT);
+            calculator.Evaluate();
+            Assert.AreEqual(1, calculator.Operand);
+            Assert.AreEqual("NOT( NOT( 1 ) ) ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.BitwiseNOT);
+            calculator.Evaluate();
+            Assert.AreEqual(-2, calculator.Operand);
+            Assert.AreEqual("NOT( NOT( NOT( 1 ) ) ) ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.BitwiseNOT);
+            calculator.Evaluate();
+            Assert.AreEqual(1, calculator.Operand);
+            Assert.AreEqual("NOT( NOT( NOT( NOT( 1 ) ) ) ) ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.BitwiseNOT);
+            calculator.Evaluate();
+            Assert.AreEqual(-2, calculator.Operand);
+            Assert.AreEqual("NOT( NOT( NOT( NOT( NOT( 1 ) ) ) ) ) ", calculator.Expression);
+        }
     }
 }
