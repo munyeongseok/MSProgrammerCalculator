@@ -5,10 +5,13 @@ using System.Runtime.InteropServices;
 
 namespace CalculatorTests
 {
+    /// <summary>
+    /// [Display Operand, Expression]
+    /// </summary>
     [TestClass]
     public class UnitTest1
     {
-        [TestMethod("Display Value: 0, Expression: \"NOT( NOT( 0 ) ) = \"")]
+        [TestMethod("[0, \"NOT( NOT( 0 ) ) = \"]")]
         public void TestMethod1()
         {
             var calculator = new Calculator.Calculator();
@@ -29,7 +32,7 @@ namespace CalculatorTests
             Assert.AreEqual("NOT( NOT( 0 ) ) = ", calculator.Expression);
         }
 
-        [TestMethod("Display Value: -1, Expression: \"1 + NOT( 1 ) = \"")]
+        [TestMethod("[-1, \"1 + NOT( 1 ) = \"]")]
         public void TestMethod2()
         {
             var calculator = new Calculator.Calculator();
@@ -51,7 +54,7 @@ namespace CalculatorTests
             Assert.AreEqual("1 + NOT( 1 ) = ", calculator.Expression);
         }
 
-        [TestMethod("Display Value: -11, Expression: \"1 + NOT( 5 + 6 ) = \"")]
+        [TestMethod("[-11, \"1 + NOT( 5 + 6 ) = \"]")]
         public void TestMethod3()
         {
             var calculator = new Calculator.Calculator();
@@ -90,7 +93,7 @@ namespace CalculatorTests
             Assert.AreEqual("1 + NOT( 5 + 6 ) = ", calculator.Expression);
         }
 
-        [TestMethod("Display Value: 2, Expression: \"1 + negate( negate( 1 ) ) = \"")]
+        [TestMethod("[2, \"1 + negate( negate( 1 ) ) = \"]")]
         public void TestMethod4()
         {
             var calculator = new Calculator.Calculator();
@@ -123,7 +126,7 @@ namespace CalculatorTests
             Assert.AreEqual("1 + negate( negate( 1 ) ) = ", calculator.Expression);
         }
 
-        [TestMethod("Display Value: 6, Expression: \"1 + 2 + 3 = \"")]
+        [TestMethod("[6, \"1 + 2 + 3 = \"]")]
         public void TestMethod5()
         {
             var calculator = new Calculator.Calculator();
@@ -146,7 +149,7 @@ namespace CalculatorTests
             Assert.AreEqual("1 + 2 + 3 = ", calculator.Expression);
         }
 
-        [TestMethod("Display Value: 0, Expression: \"0 = \"")]
+        [TestMethod("[0, \"0 = \"]")]
         public void TestMethod6()
         {
             var calculator = new Calculator.Calculator();
@@ -157,7 +160,7 @@ namespace CalculatorTests
             Assert.AreEqual("0 = ", calculator.Expression);
         }
 
-        [TestMethod("Display Value: 1, Expression: \"1 = \"")]
+        [TestMethod("[1, \"1 = \"]")]
         public void TestMethod7()
         {
             var calculator = new Calculator.Calculator();
@@ -169,7 +172,7 @@ namespace CalculatorTests
             Assert.AreEqual("1 = ", calculator.Expression);
         }
 
-        [TestMethod("Display Value: 5, Expression: \"4 + 1 = \"")]
+        [TestMethod("[5, \"4 + 1 = \"]")]
         public void TestMethod8()
         {
             var calculator = new Calculator.Calculator();
@@ -201,7 +204,7 @@ namespace CalculatorTests
             Assert.AreEqual("4 + 1 = ", calculator.Expression);
         }
 
-        [TestMethod("Display Value: 30, Expression: \"24 + 6 = \"")]
+        [TestMethod("[30, \"24 + 6 = \"]")]
         public void TestMethod9()
         {
             var calculator = new Calculator.Calculator();
@@ -237,7 +240,7 @@ namespace CalculatorTests
             Assert.AreEqual("24 + 6 = ", calculator.Expression);
         }
 
-        [TestMethod("Display Value: 6, Expression: \"( 1 + ( 2 + 3 ) ) = \"")]
+        [TestMethod("[6, \"( 1 + ( 2 + 3 ) ) = \"]")]
         public void TestMethod10()
         {
             var calculator = new Calculator.Calculator();
@@ -266,7 +269,7 @@ namespace CalculatorTests
             Assert.AreEqual("6 = ", calculator.Expression);
         }
 
-        [TestMethod("Display Value: 10, Expression: \"( 1 + 2 ) + ( 3 + 4 ) + ( 0 ) = \"")]
+        [TestMethod("[10, \"( 1 + 2 ) + ( 3 + 4 ) + ( 0 ) = \"]")]
         public void TestMethod11()
         {
             var calculator = new Calculator.Calculator();
@@ -304,7 +307,7 @@ namespace CalculatorTests
             Assert.AreEqual("10 + 0 = ", calculator.Expression);
         }
 
-        [TestMethod("Display Value: -27, Expression: \"9 - 6 × 6 = \"")]
+        [TestMethod("[-27, \"9 - 6 × 6 = \"]")]
         public void TestMethod12()
         {
             var calculator = new Calculator.Calculator();
@@ -332,7 +335,7 @@ namespace CalculatorTests
             Assert.AreEqual("9 - 6 × 6 = ", calculator.Expression);
         }
 
-        [TestMethod("2 / \"1 + ( 2 ) \" -> Clear -> 0 / \"1 + \"")]
+        [TestMethod("[2, \"1 + ( 2 ) \"] -> Clear -> [0, \"1 + \"]")]
         public void TestMethod13()
         {
             var calculator = new Calculator.Calculator();
