@@ -237,32 +237,23 @@ namespace Calculator
             }
 
             var last = _context.InputDeque.LastOrDefault();
-            // 마지막 토큰이 닫는 괄호, 단항 연산자일 경우
-            if (last is CloseParenthesisExpression || last is UnaryOperatorExpression)
+            // 마지막 토큰이 단항 연산자일 경우
+            if (last is UnaryOperatorExpression)
             {
-                var count = 0;
-                foreach (var expression in _context.InputDeque.Reverse())
-                {
-                    if (expression is UnaryOperatorExpression)
-                    {
-                        count++;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-
-                var temp = new List<IExpression>(_context.InputDeque.Take(_context.InputDeque.Count - count))
-                {
-                    CalculatorHelper.CreateExpression(unaryOperator)
-                };
-                _context.InputDeque = new Deque<IExpression>(temp.Concat(_context.InputDeque.Skip(_context.InputDeque.Count - count)));
+                var unaryExpression = CalculatorHelper.CreateUnaryExpression(unaryOperator, last);
+                _context.InputDeque.DequeueLast();
+                _context.InputDeque.EnqueueLast(unaryExpression);
+            }
+            // 마지막 토큰이 닫는 괄호일 경우
+            else if (last is CloseParenthesisExpression)
+            {
+                throw new NotImplementedException();
             }
             else
             {
-                _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
-                _context.InputDeque.EnqueueLast(CalculatorHelper.CreateExpression(unaryOperator));
+                var operandExpression = new OperandExpression(Operand);
+                var unaryExpression = CalculatorHelper.CreateUnaryExpression(unaryOperator, operandExpression);
+                _context.InputDeque.EnqueueLast(unaryExpression);
             }
 
             return true;
@@ -289,7 +280,7 @@ namespace Calculator
             }
 
             // 이항 연산자 추가
-            _context.InputDeque.EnqueueLast(CalculatorHelper.CreateExpression(binaryOperator));
+            _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(binaryOperator));
             _operandInputted = false;
 
             return true;

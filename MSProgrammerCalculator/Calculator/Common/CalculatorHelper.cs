@@ -190,42 +190,76 @@ namespace Calculator
         }
 
         /// <summary>
-        /// 연산자 Expression을 생성합니다.
+        /// 단항 연산자 Expression을 생성합니다.
         /// </summary>
         /// <param name="op"></param>
+        /// <param name="operand"></param>
         /// <returns></returns>
-        public static IExpression CreateExpression(Operators op)
+        /// <exception cref="ArgumentException"></exception>
+        public static UnaryOperatorExpression CreateUnaryExpression(Operators op, IExpression operand = null)
+        {
+            switch (op)
+            {
+                case Operators.BitwiseNOT:
+                    return new BitwiseNOTExpression(operand);
+                case Operators.Negate:
+                    return new NegateExpression(operand);
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        /// <summary>
+        /// 이항 연산자 Expression을 생성합니다.
+        /// </summary>
+        /// <param name="op"></param>
+        /// <param name="leftOperand"></param>
+        /// <param name="rightOperand"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static BinaryOperatorExpression CreateBinaryExpression(Operators op, IExpression leftOperand = null, IExpression rightOperand = null)
         {
             switch (op)
             {
                 case Operators.BitwiseAND:
-                    return new BitwiseANDExpression(null, null);
+                    return new BitwiseANDExpression(leftOperand, rightOperand);
                 case Operators.BitwiseOR:
-                    return new BitwiseORExpression(null, null);
-                case Operators.BitwiseNOT:
-                    return new BitwiseNOTExpression(null);
+                    return new BitwiseORExpression(leftOperand, rightOperand);
                 case Operators.BitwiseNAND:
-                    return new BitwiseNANDExpression(null, null);
+                    return new BitwiseNANDExpression(leftOperand, rightOperand);
                 case Operators.BitwiseNOR:
-                    return new BitwiseNORExpression(null, null);
+                    return new BitwiseNORExpression(leftOperand, rightOperand);
                 case Operators.BitwiseXOR:
-                    return new BitwiseXORExpression(null, null);
+                    return new BitwiseXORExpression(leftOperand, rightOperand);
                 case Operators.LeftShift:
-                    return new LeftShiftExpression(null, null);
+                    return new LeftShiftExpression(leftOperand, rightOperand);
                 case Operators.RightShift:
-                    return new RightShiftExpression(null, null);
+                    return new RightShiftExpression(leftOperand, rightOperand);
                 case Operators.Modulo:
-                    return new ModuloExpression(null, null);
+                    return new ModuloExpression(leftOperand, rightOperand);
                 case Operators.Divide:
-                    return new DivideExpression(null, null);
+                    return new DivideExpression(leftOperand, rightOperand);
                 case Operators.Multiply:
-                    return new MultiplyExpression(null, null);
+                    return new MultiplyExpression(leftOperand, rightOperand);
                 case Operators.Minus:
-                    return new MinusExpression(null, null);
+                    return new MinusExpression(leftOperand, rightOperand);
                 case Operators.Plus:
-                    return new PlusExpression(null, null);
-                case Operators.Negate:
-                    return new NegateExpression(null);
+                    return new PlusExpression(leftOperand, rightOperand);
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        /// <summary>
+        /// 보조 연산자 Expression을 생성합니다.
+        /// </summary>
+        /// <param name="op"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static IExpression CreateAuxiliaryExpression(Operators op)
+        {
+            switch (op)
+            {
                 case Operators.OpenParenthesis:
                     return new OpenParenthesisExpression();
                 case Operators.CloseParenthesis:
