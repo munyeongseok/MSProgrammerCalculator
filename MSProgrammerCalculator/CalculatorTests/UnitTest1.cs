@@ -497,5 +497,93 @@ namespace CalculatorTests
             Assert.AreEqual(3, calculator.Operand);
             Assert.AreEqual("1 + 2 - 3 × 4 ÷ 5 % 2 = ", calculator.Expression);
         }
+
+        [TestMethod("[0, \"1 × ( \"]")]
+        public void TestMethod18()
+        {
+            var calculator = new Calculator.Calculator();
+
+            calculator.EnqueueToken(Numbers.Num1);
+            calculator.EnqueueToken(Operators.Multiply);
+            calculator.Evaluate();
+            Assert.AreEqual(1, calculator.Operand);
+            Assert.AreEqual("1 × ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.OpenParenthesis);
+            calculator.Evaluate();
+            Assert.AreEqual(0, calculator.Operand);
+            Assert.AreEqual("1 × ( ", calculator.Expression);
+        }
+
+        [TestMethod("[-2, \"NOT( 1 ) × ( \"]")]
+        public void TestMethod19()
+        {
+            var calculator = new Calculator.Calculator();
+
+            calculator.EnqueueToken(Numbers.Num1);
+            calculator.EnqueueToken(Operators.BitwiseNOT);
+            calculator.Evaluate();
+            Assert.AreEqual(-2, calculator.Operand);
+            Assert.AreEqual("NOT( 1 ) ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.OpenParenthesis);
+            calculator.Evaluate();
+            Assert.AreEqual(-2, calculator.Operand);
+            Assert.AreEqual("NOT( 1 ) × ( ", calculator.Expression);
+        }
+
+        [TestMethod("[-2, \"1 + NOT( 1 ) × ( \"]")]
+        public void TestMethod20()
+        {
+            var calculator = new Calculator.Calculator();
+
+            calculator.EnqueueToken(Numbers.Num1);
+            calculator.EnqueueToken(Operators.Plus);
+            calculator.EnqueueToken(Operators.BitwiseNOT);
+            calculator.Evaluate();
+            Assert.AreEqual(-2, calculator.Operand);
+            Assert.AreEqual("1 + NOT( 1 ) ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.OpenParenthesis);
+            calculator.Evaluate();
+            Assert.AreEqual(-2, calculator.Operand);
+            Assert.AreEqual("1 + NOT( 1 ) × ( ", calculator.Expression);
+        }
+
+        [TestMethod("[1, \"( 1 ) × ( \"]")]
+        public void TestMethod21()
+        {
+            var calculator = new Calculator.Calculator();
+
+            calculator.EnqueueToken(Operators.OpenParenthesis);
+            calculator.EnqueueToken(Numbers.Num1);
+            calculator.EnqueueToken(Operators.CloseParenthesis);
+            calculator.Evaluate();
+            Assert.AreEqual(1, calculator.Operand);
+            Assert.AreEqual("( 1 ) ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.OpenParenthesis);
+            calculator.Evaluate();
+            Assert.AreEqual(1, calculator.Operand);
+            Assert.AreEqual("( 1 ) × ( ", calculator.Expression);
+        }
+
+        [TestMethod("[-1, \"1 + negate( 1 ) \"] -> [-1, \"1 + ( \"]")]
+        public void TestMethod22()
+        {
+            var calculator = new Calculator.Calculator();
+
+            calculator.EnqueueToken(Numbers.Num1);
+            calculator.EnqueueToken(Operators.Plus);
+            calculator.EnqueueToken(Operators.Negate);
+            calculator.Evaluate();
+            Assert.AreEqual(-1, calculator.Operand);
+            Assert.AreEqual("1 + negate( 1 ) ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.OpenParenthesis);
+            calculator.Evaluate();
+            Assert.AreEqual(-1, calculator.Operand);
+            Assert.AreEqual("1 + ( ", calculator.Expression);
+        }
     }
 }
