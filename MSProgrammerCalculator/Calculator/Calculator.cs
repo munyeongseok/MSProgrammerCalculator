@@ -331,16 +331,15 @@ namespace Calculator
                 Operand = 0;
                 _operandInputted = false;
             }
-            // 마지막 토큰이 피연산자, NOT 연산자, 닫는 괄호일 경우 곱하기 연산자 추가
-            else if (last is OperandExpression || last is BitwiseNOTExpression || last is CloseParenthesisExpression)
+            // 마지막 토큰이 NOT 연산자, 닫는 괄호일 경우 곱하기 연산자 추가
+            else if (last is BitwiseNOTExpression || last is CloseParenthesisExpression)
             {
-                _context.InputDeque.EnqueueLast(new MultiplyExpression(null, null));
+                _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(Operators.Multiply));
             }
-            // 마지막 토큰이 Negate 연산자일 경우 피연산자와 Negate 연산자 제거
+            // 마지막 토큰이 Negate 연산자일 경우 제거
             else if (last is NegateExpression)
             {
-                _context.InputDeque = new Deque<IExpression>(_context.InputDeque.Take(_context.InputDeque.Count - 2));
-                UpdateExpression();
+                _context.InputDeque.DequeueLast();
             }
 
             // 여는 괄호 추가
