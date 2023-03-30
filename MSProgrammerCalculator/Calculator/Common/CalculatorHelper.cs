@@ -287,11 +287,7 @@ namespace Calculator
             var postfixExpressions = ShuntingYard.InfixToPostfix(infixExpressions);
             foreach (var expression in postfixExpressions)
             {
-                if (expression is UnaryOperatorExpression unaryOperator)
-                {
-                    unaryOperator.Operand = stack.Pop();
-                }
-                else if (expression is BinaryOperatorExpression binaryOperator)
+                if (expression is BinaryOperatorExpression binaryOperator)
                 {
                     binaryOperator.RightOperand = stack.Count >= 2 ? stack.Pop() : null;
                     binaryOperator.LeftOperand = stack.Pop();
