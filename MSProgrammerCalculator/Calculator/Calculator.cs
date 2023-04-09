@@ -184,10 +184,35 @@ namespace Calculator
 
         public void SubmitInput()
         {
-            if (!IsInputSubmitted)
+            if (IsInputSubmitted)
             {
+                // Submit 토큰 제거
+                _context.InputDeque.DequeueLast();
+
                 var last = _context.InputDeque.LastOrDefault();
+                // 마지막 연산자 토큰이 단항 연산자일 경우
+                if (last is UnaryOperatorExpression)
+                {
+                    throw new NotImplementedException();
+                }
+                // 마지막 연산자 토큰이 이항 연산자일 경우
+                else
+                {
+                    var leftOperand = new OperandExpression(Operand);
+                    var rightOperand = _context.InputDeque.DequeueLast();
+                    var binaryOperator = _context.InputDeque.DequeueLast();
+                    
+                    _context.InputDeque.Clear();
+                    _context.InputDeque.EnqueueLast(leftOperand);
+                    _context.InputDeque.EnqueueLast(binaryOperator);
+                    _context.InputDeque.EnqueueLast(rightOperand);
+                    _context.InputDeque.EnqueueLast(new SubmitExpression());
+                }
+            }
+            else
+            {
                 // 입력 데크가 비었거나 마지막 토큰이 이항 연산자, 여는 괄호일 경우 피연산자 추가
+                var last = _context.InputDeque.LastOrDefault();
                 if (last == null || last is BinaryOperatorExpression || CalculatorHelper.IsOpenParenthesis(last))
                 {
                     _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
