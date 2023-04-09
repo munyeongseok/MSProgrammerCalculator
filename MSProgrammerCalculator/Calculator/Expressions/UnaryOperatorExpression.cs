@@ -28,9 +28,13 @@ namespace Calculator
 
         public string EvaluateExpression(BaseNumber baseNumber)
         {
-            var expression = Operand != null ? Operand.EvaluateExpression(baseNumber) : string.Empty;
+            if (Operand == null)
+            {
+                return string.Empty;
+            }
 
-            return $"{_token}( {expression} )";
+            var expression = Operand.EvaluateExpression(baseNumber);
+            return Operand is ParenthesisExpression ? $"{_token}{expression}" : $"{_token}( {expression} )";
         }
 
         public string GetToken(BaseNumber _)

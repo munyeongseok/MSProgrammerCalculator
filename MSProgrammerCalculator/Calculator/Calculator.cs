@@ -248,11 +248,12 @@ namespace Calculator
             // 마지막 토큰이 닫는 괄호일 경우
             else if (CalculatorHelper.IsCloseParenthesis(last))
             {
-                throw new NotImplementedException();
+                // 괄호를 포함한 단항 연산자 추가
+                _context.InputDeque.EnqueueLast(CalculatorHelper.CreateUnaryExpression(op, _context.InputDeque.DequeueLast()));
             }
             else
             {
-                // 단항 연산자 추가
+                // 피연산자를 포함한 단항 연산자 추가
                 _context.InputDeque.EnqueueLast(CalculatorHelper.CreateUnaryExpression(op, new OperandExpression(Operand)));
             }
 

@@ -33,7 +33,6 @@ namespace Calculator
         {
             var leftExpression = LeftOperand != null ? $"{LeftOperand.EvaluateExpression(baseNumber)} " : string.Empty;
             var rightExpression = RightOperand != null ? $" {RightOperand.EvaluateExpression(baseNumber)}" : string.Empty;
-
             return $"{leftExpression}{_token}{rightExpression}";
         }
 
