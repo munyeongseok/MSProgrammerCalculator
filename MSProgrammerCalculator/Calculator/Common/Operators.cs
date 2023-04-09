@@ -22,6 +22,7 @@ namespace Calculator
         Minus,
         Plus,
         Negate,
+        Parenthesis,
         OpenParenthesis,
         CloseParenthesis,
         DecimalSeparator,

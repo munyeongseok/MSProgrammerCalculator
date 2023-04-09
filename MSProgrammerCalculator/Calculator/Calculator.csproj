@@ -49,11 +49,11 @@
     <Compile Include="Common\Operators.cs" />
     <Compile Include="Common\OperatorType.cs" />
     <Compile Include="Common\ShuntingYard.cs" />
-    <Compile Include="Expressions\Operator Expressions\CloseParenthesisExpression.cs" />
     <Compile Include="Common\CalculatorHelper.cs" />
     <Compile Include="Expressions\Operator Expressions\Binary Expressions\BitwiseANDExpression.cs" />
     <Compile Include="Expressions\Operator Expressions\Binary Expressions\BitwiseNANDExpression.cs" />
     <Compile Include="Expressions\Operator Expressions\DecimalSeparatorExpression.cs" />
+    <Compile Include="Expressions\Operator Expressions\ParenthesisExpression.cs" />
     <Compile Include="Expressions\Operator Expressions\SubmitExpression.cs" />
     <Compile Include="Expressions\Operator Expressions\Unary Expressions\NegateExpression.cs" />
     <Compile Include="Expressions\Operator Expressions\Binary Expressions\BitwiseNORExpression.cs" />
@@ -65,7 +65,6 @@
     <Compile Include="Expressions\Operator Expressions\Binary Expressions\MinusExpression.cs" />
     <Compile Include="Expressions\Operator Expressions\Binary Expressions\ModuloExpression.cs" />
     <Compile Include="Expressions\Operator Expressions\Binary Expressions\MultiplyExpression.cs" />
-    <Compile Include="Expressions\Operator Expressions\OpenParenthesisExpression.cs" />
     <Compile Include="Expressions\Operator Expressions\Binary Expressions\PlusExpression.cs" />
     <Compile Include="Expressions\BinaryOperatorExpression.cs" />
     <Compile Include="Calculator.cs" />

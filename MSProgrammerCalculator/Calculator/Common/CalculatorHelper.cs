@@ -33,6 +33,7 @@ namespace Calculator
         {
             switch (op)
             {
+                case Operators.Parenthesis:
                 case Operators.OpenParenthesis:
                 case Operators.CloseParenthesis:
                 case Operators.DecimalSeparator:
@@ -74,6 +75,7 @@ namespace Calculator
         {
             switch (op)
             {
+                case Operators.Parenthesis:
                 case Operators.OpenParenthesis:
                 case Operators.CloseParenthesis:
                 case Operators.DecimalSeparator:
@@ -260,10 +262,8 @@ namespace Calculator
         {
             switch (op)
             {
-                case Operators.OpenParenthesis:
-                    return new OpenParenthesisExpression();
-                case Operators.CloseParenthesis:
-                    return new CloseParenthesisExpression();
+                case Operators.Parenthesis:
+                    return new ParenthesisExpression();
                 case Operators.DecimalSeparator:
                     return new DecimalSeparatorExpression();
                 default:
@@ -405,6 +405,16 @@ namespace Calculator
             }
 
             return BinaryOperation(op, leftOperand.EvaluateResult(), rightOperand.EvaluateResult());
+        }
+
+        public static bool IsOpenParenthesis(IExpression expression)
+        {
+            return expression is ParenthesisExpression parenthesis && !parenthesis.IsClosed;
+        }
+
+        public static bool IsCloseParenthesis(IExpression expression)
+        {
+            return expression is ParenthesisExpression parenthesis && parenthesis.IsClosed;
         }
 
         private static long UnaryOperation(Operators op, long operand)

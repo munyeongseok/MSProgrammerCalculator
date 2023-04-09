@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -186,8 +187,8 @@ namespace Calculator
             if (!IsInputSubmitted)
             {
                 var last = _context.InputDeque.LastOrDefault();
-                // 입력 데크가 비었거나 마지막 토큰이 여는 괄호, 이항 연산자일 경우 피연산자 추가
-                if (last == null || last is OpenParenthesisExpression || last is BinaryOperatorExpression)
+                // 입력 데크가 비었거나 마지막 토큰이 이항 연산자, 여는 괄호일 경우 피연산자 추가
+                if (last == null || last is BinaryOperatorExpression || CalculatorHelper.IsOpenParenthesis(last))
                 {
                     _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
                 }
@@ -206,7 +207,7 @@ namespace Calculator
                 return;
             }
 
-            if (!(_context.InputDeque.LastOrDefault() is CloseParenthesisExpression))
+            if (!(CalculatorHelper.IsCloseParenthesis(_context.InputDeque.LastOrDefault())))
             {
                 return;
             }
@@ -214,7 +215,7 @@ namespace Calculator
             while (true)
             {
                 var last = _context.InputDeque.DequeueLast();
-                if (last is OpenParenthesisExpression)
+                if (CalculatorHelper.IsOpenParenthesis(last))
                 {
                     break;
                 }
@@ -245,7 +246,7 @@ namespace Calculator
                 _context.InputDeque.EnqueueLast(CalculatorHelper.CreateUnaryExpression(op, last));
             }
             // 마지막 토큰이 닫는 괄호일 경우
-            else if (last is CloseParenthesisExpression)
+            else if (CalculatorHelper.IsCloseParenthesis(last))
             {
                 throw new NotImplementedException();
             }
@@ -282,7 +283,7 @@ namespace Calculator
             }
 
             // 마지막 토큰이 닫는 괄호가 아니면 피연산자 추가
-            if (!(last is CloseParenthesisExpression))
+            if (!(CalculatorHelper.IsCloseParenthesis(last)))
             {
                 _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
             }
@@ -332,7 +333,7 @@ namespace Calculator
                 _operandInputted = false;
             }
             // 마지막 토큰이 NOT 연산자, 닫는 괄호일 경우 곱하기 연산자 추가
-            else if (last is BitwiseNOTExpression || last is CloseParenthesisExpression)
+            else if (last is BitwiseNOTExpression || CalculatorHelper.IsCloseParenthesis(last))
             {
                 _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(Operators.Multiply));
             }
@@ -343,7 +344,7 @@ namespace Calculator
             }
 
             // 여는 괄호 추가
-            _context.InputDeque.EnqueueLast(new OpenParenthesisExpression());
+            _context.InputDeque.EnqueueLast(new ParenthesisExpression());
             _context.UnmatchedParenthesisCount++;
         }
 
@@ -355,14 +356,22 @@ namespace Calculator
             }
 
             var last = _context.InputDeque.LastOrDefault();
-            // 마지막 토큰이 여는 괄호, 이항 연산자일 경우 피연산자 추가
-            if (last is OpenParenthesisExpression || last is BinaryOperatorExpression)
+            // 마지막 토큰이 이항 연산자, 여는 괄호일 경우 피연산자 추가
+            if (last is BinaryOperatorExpression || CalculatorHelper.IsOpenParenthesis(last))
             {
                 _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
             }
 
             // 닫는 괄호 추가
-            _context.InputDeque.EnqueueLast(new CloseParenthesisExpression());
+            var stack = new Stack<IExpression>();
+            while (!CalculatorHelper.IsOpenParenthesis(_context.InputDeque.Last()))
+            {
+                stack.Push(_context.InputDeque.DequeueLast());
+            }
+            var parenthesisExpression = (ParenthesisExpression)_context.InputDeque.Last();
+            var subRootExpression = CalculatorHelper.BuildRootExpression(stack);
+            parenthesisExpression.Operand = subRootExpression;
+            parenthesisExpression.IsClosed = true;
             _context.UnmatchedParenthesisCount--;
         }
 

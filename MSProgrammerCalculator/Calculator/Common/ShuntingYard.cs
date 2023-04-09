@@ -29,16 +29,16 @@ namespace Calculator
                 else if (expression is IOperator currentOperator)
                 {
                     // 닫는 괄호일 경우
-                    if (currentOperator is CloseParenthesisExpression)
+                    if (CalculatorHelper.IsCloseParenthesis(currentOperator))
                     {
                         // 연산자 스택에서 여는 괄호가 나타날 때까지 연산자를 꺼내서 출력 큐에 추가
-                        while (operatorStack.Any() && !(operatorStack.Peek() is OpenParenthesisExpression))
+                        while (operatorStack.Any() && !CalculatorHelper.IsOpenParenthesis(operatorStack.Peek()))
                         {
                             outputQueue.Enqueue(operatorStack.Pop());
                         }
 
                         // 연산자 스택에서 여는 괄호가 나타나면 여는 괄호 연산자를 제거
-                        if (operatorStack.Any() && operatorStack.Peek() is OpenParenthesisExpression)
+                        if (operatorStack.Any() && CalculatorHelper.IsOpenParenthesis(operatorStack.Peek()))
                         {
                             operatorStack.Pop();
                         }
@@ -55,7 +55,7 @@ namespace Calculator
                             var topOperator = operatorStack.Peek();
                             
                             // 연산자 스택의 맨 위의 연산자가 여는 괄호 연산자이면 break
-                            if (topOperator is OpenParenthesisExpression)
+                            if (CalculatorHelper.IsOpenParenthesis(topOperator))
                             {
                                 break;
                             }
@@ -85,7 +85,7 @@ namespace Calculator
             // 연산자 스택에 남은 연산자를 전부 꺼내서 출력 큐에 추가
             while (operatorStack.Any())
             {
-                if (operatorStack.Peek() is OpenParenthesisExpression || operatorStack.Peek() is CloseParenthesisExpression)
+                if (CalculatorHelper.IsOpenParenthesis(operatorStack.Peek()) || CalculatorHelper.IsCloseParenthesis(operatorStack.Peek()))
                 {
                     throw new InvalidOperationException("Mismatched parentheses.");
                 }

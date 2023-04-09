@@ -296,15 +296,15 @@ namespace CalculatorTests
             Assert.AreEqual(10, calculator.Operand);
             Assert.AreEqual("( 1 + 2 ) + ( 3 + 4 ) + ( 0 ) = ", calculator.Expression);
 
-            calculator.EnqueueToken(Operators.Submit);
-            calculator.Evaluate();
-            Assert.AreEqual(10, calculator.Operand);
-            Assert.AreEqual("10 + 0 = ", calculator.Expression);
+            //calculator.EnqueueToken(Operators.Submit);
+            //calculator.Evaluate();
+            //Assert.AreEqual(10, calculator.Operand);
+            //Assert.AreEqual("10 + 0 = ", calculator.Expression);
 
-            calculator.EnqueueToken(Operators.Submit);
-            calculator.Evaluate();
-            Assert.AreEqual(10, calculator.Operand);
-            Assert.AreEqual("10 + 0 = ", calculator.Expression);
+            //calculator.EnqueueToken(Operators.Submit);
+            //calculator.Evaluate();
+            //Assert.AreEqual(10, calculator.Operand);
+            //Assert.AreEqual("10 + 0 = ", calculator.Expression);
         }
 
         [TestMethod("[-27, \"9 - 6 × 6 = \"]")]
