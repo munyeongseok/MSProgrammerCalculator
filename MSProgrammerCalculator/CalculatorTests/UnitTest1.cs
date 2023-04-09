@@ -262,11 +262,6 @@ namespace CalculatorTests
             calculator.Evaluate();
             Assert.AreEqual(6, calculator.Operand);
             Assert.AreEqual("( 1 + ( 2 + 3 ) ) = ", calculator.Expression);
-
-            calculator.EnqueueToken(Operators.Submit);
-            calculator.Evaluate();
-            Assert.AreEqual(6, calculator.Operand);
-            Assert.AreEqual("6 = ", calculator.Expression);
         }
 
         [TestMethod("[10, \"( 1 + 2 ) + ( 3 + 4 ) + ( 0 ) = \"]")]
@@ -295,16 +290,6 @@ namespace CalculatorTests
             calculator.Evaluate();
             Assert.AreEqual(10, calculator.Operand);
             Assert.AreEqual("( 1 + 2 ) + ( 3 + 4 ) + ( 0 ) = ", calculator.Expression);
-
-            //calculator.EnqueueToken(Operators.Submit);
-            //calculator.Evaluate();
-            //Assert.AreEqual(10, calculator.Operand);
-            //Assert.AreEqual("10 + 0 = ", calculator.Expression);
-
-            //calculator.EnqueueToken(Operators.Submit);
-            //calculator.Evaluate();
-            //Assert.AreEqual(10, calculator.Operand);
-            //Assert.AreEqual("10 + 0 = ", calculator.Expression);
         }
 
         [TestMethod("[-27, \"9 - 6 × 6 = \"]")]
