@@ -35,8 +35,12 @@ classDiagram
     UnaryOperatorExpression <|-- BitwiseNOTExpression
     UnaryOperatorExpression <|-- NegateExpression
     <<interface>> IExpression
+    IExpression : long EvaluateResult()
+    IExpression : string EvaluateExpression(BaseNumber)
     <<interface>> IOperator
+    IOperator : OperatorDescriptor OperatorDescriptor
     <<abstract>> UnaryOperatorExpression
+    UnaryOperatorExpression : IExpression Operand
 ```
 
 ```mermaid
@@ -57,8 +61,13 @@ classDiagram
     BinaryOperatorExpression <|-- PlusExpression
     BinaryOperatorExpression <|-- RightShiftExpression
     <<interface>> IExpression
+    IExpression : long EvaluateResult()
+    IExpression : string EvaluateExpression(BaseNumber)
     <<interface>> IOperator
+    IOperator : OperatorDescriptor OperatorDescriptor
     <<abstract>> BinaryOperatorExpression
+    BinaryOperatorExpression : IExpression LeftOperand
+    BinaryOperatorExpression : IExpression RightOperand
 ```
 
 ```mermaid
@@ -69,5 +78,8 @@ classDiagram
     IExpression <|-- ParenthesisExpression
     IOperator <|-- ParenthesisExpression
     <<interface>> IExpression
+    IExpression : long EvaluateResult()
+    IExpression : string EvaluateExpression(BaseNumber)
     <<interface>> IOperator
+    IOperator : OperatorDescriptor OperatorDescriptor
 ```
