@@ -37,11 +37,6 @@ namespace Calculator
             return Operand is ParenthesisExpression ? $"{_token}{expression}" : $"{_token}( {expression} )";
         }
 
-        public string GetToken(BaseNumber _)
-        {
-            return _token;
-        }
-
         public object Clone()
         {
             return MemberwiseClone();

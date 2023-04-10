@@ -22,11 +22,6 @@ namespace Calculator
             return CalculatorHelper.GetExpressionToken(Operators.Submit);
         }
 
-        public string GetToken(BaseNumber _)
-        {
-            return CalculatorHelper.GetExpressionToken(Operators.Submit);
-        }
-
         public object Clone()
         {
             return MemberwiseClone();

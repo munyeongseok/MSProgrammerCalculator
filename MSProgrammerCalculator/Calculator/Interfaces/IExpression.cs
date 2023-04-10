@@ -19,12 +19,5 @@ namespace Calculator
         /// </summary>
         /// <returns></returns>
         string EvaluateExpression(BaseNumber baseNumber);
-
-        /// <summary>
-        /// 표현식 토큰을 가져옵니다.
-        /// </summary>
-        /// <param name="baseNumber"></param>
-        /// <returns></returns>
-        string GetToken(BaseNumber baseNumber = BaseNumber.Decimal);
     }
 }

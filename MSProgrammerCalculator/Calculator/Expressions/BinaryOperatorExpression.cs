@@ -36,11 +36,6 @@ namespace Calculator
             return $"{leftExpression}{_token}{rightExpression}";
         }
 
-        public string GetToken(BaseNumber _)
-        {
-            return _token;
-        }
-
         public object Clone()
         {
             return MemberwiseClone();

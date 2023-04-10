@@ -37,23 +37,6 @@ namespace Calculator
             throw new ArgumentException();
         }
 
-        public string GetToken(BaseNumber baseNumber = BaseNumber.Decimal)
-        {
-            switch (baseNumber)
-            {
-                case BaseNumber.Binary:
-                    return Convert.ToString(Operand, 2);
-                case BaseNumber.Octal:
-                    return Convert.ToString(Operand, 8);
-                case BaseNumber.Decimal:
-                    return Operand.ToString();
-                case BaseNumber.Hexadecimal:
-                    return Convert.ToString(Operand, 16).ToUpper();
-            }
-
-            throw new ArgumentException();
-        }
-
         public object Clone()
         {
             return MemberwiseClone();

@@ -34,11 +34,6 @@ namespace Calculator
             return $"( {Operand.EvaluateExpression(baseNumber)}{(IsClosed ? " )" : string.Empty)}";
         }
 
-        public string GetToken(BaseNumber _)
-        {
-            throw new NotImplementedException();
-        }
-
         public object Clone()
         {
             return MemberwiseClone();

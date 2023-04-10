@@ -25,11 +25,6 @@ namespace Calculator
             return CalculatorHelper.GetExpressionToken(Operators.DecimalSeparator);
         }
 
-        public string GetToken(BaseNumber _)
-        {
-            return CalculatorHelper.GetExpressionToken(Operators.DecimalSeparator);
-        }
-
         public object Clone()
         {
             return MemberwiseClone();
