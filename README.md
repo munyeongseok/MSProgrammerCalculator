@@ -1,7 +1,5 @@
 # MSProgrammerCalculator
 
-**For checking coding style.**
-
 [**MSProgrammerCalculator:**](/MSProgrammerCalculator/MSProgrammerCalculator)
 Calculator application.
 
