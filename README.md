@@ -64,17 +64,10 @@ classDiagram
 ```mermaid
 classDiagram
     IExpression <|-- IOperator
-    IExpression <|-- DecimalSeparatorExpression
-    IOperator <|-- DecimalSeparatorExpression
+    IExpression <|-- OperandExpression
+    IExpression <|-- SubmitExpression
     IExpression <|-- ParenthesisExpression
     IOperator <|-- ParenthesisExpression
     <<interface>> IExpression
     <<interface>> IOperator
-```
-
-```mermaid
-classDiagram
-    IExpression <|-- SubmitExpression
-    IExpression <|-- OperandExpression
-    <<interface>> IExpression
 ```
