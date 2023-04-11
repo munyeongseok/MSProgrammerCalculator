@@ -48,7 +48,7 @@ namespace Calculator
         void RemoveLastNumberToken();
 
         /// <summary>
-        /// 식을 평가합니다.
+        /// 수식을 평가합니다.
         /// </summary>
         void Evaluate();
 

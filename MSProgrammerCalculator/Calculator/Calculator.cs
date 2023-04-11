@@ -2,6 +2,7 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -91,17 +92,27 @@ namespace Calculator
 
         public bool EnqueueToken(Operators op)
         {
+            var tokenEnqueued = false;
             switch (CalculatorHelper.GetOperatorType(op))
             {
                 case OperatorType.Unary:
-                    return EnqueueUnaryOperator(op);
+                    tokenEnqueued = EnqueueUnaryOperator(op);
+                    break;
                 case OperatorType.Binary:
-                    return EnqueueBinaryOperator(op);
+                    tokenEnqueued = EnqueueBinaryOperator(op);
+                    break;
                 case OperatorType.Auxiliary:
-                    return EnqueueAuxiliaryOperator(op);
+                    tokenEnqueued = EnqueueAuxiliaryOperator(op);
+                    break;
             }
 
-            return false;
+            // 토큰이 추가됐으면 수식 평가
+            if (tokenEnqueued)
+            {
+                Evaluate();
+            }
+
+            return tokenEnqueued;
         }
 
         public void RemoveLastNumberToken()
