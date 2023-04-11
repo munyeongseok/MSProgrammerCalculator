@@ -81,12 +81,22 @@ namespace Calculator
                 Expression = string.Empty;
             }
 
-            var isNegative = Operand < 0;
-            var newOperand = _operandInputted ? Math.Abs(Operand) : 0;
-            newOperand = CalculatorHelper.InsertNumberAtRight(BaseNumber, newOperand, (long)number);
-            newOperand = isNegative ? -newOperand : newOperand;
+            // 피연산자 입력이 초기화된 상태이고, 입력 데크 마지막 요소가 단항 연산자일 경우 마지막 단항 연산자 제거
+            if (!_operandInputted && _context.InputDeque.LastOrDefault() is UnaryOperatorExpression)
+            {
+                _context.InputDeque.DequeueLast();
+                UpdateExpression();
+                Operand = CalculatorHelper.InsertNumberAtRight(BaseNumber, 0, (long)number);
+            }
+            else
+            {
+                var isNegative = Operand < 0;
+                var newOperand = _operandInputted ? Math.Abs(Operand) : 0;
+                newOperand = CalculatorHelper.InsertNumberAtRight(BaseNumber, newOperand, (long)number);
+                newOperand = isNegative ? -newOperand : newOperand;
+                Operand = newOperand;
+            }
 
-            Operand = newOperand;
             _operandInputted = true;
         }
 
@@ -293,6 +303,7 @@ namespace Calculator
                 _context.InputDeque.EnqueueLast(CalculatorHelper.CreateUnaryExpression(op, new OperandExpression(Operand)));
             }
 
+            _operandInputted = false;
             return true;
         }
 
