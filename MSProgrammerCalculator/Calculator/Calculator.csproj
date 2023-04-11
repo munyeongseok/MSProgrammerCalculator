@@ -45,6 +45,7 @@
     <Compile Include="Common\Deque.cs" />
     <Compile Include="Common\Numbers.cs" />
     <Compile Include="Common\Associativity.cs" />
+    <Compile Include="Common\OperandInputState.cs" />
     <Compile Include="Common\OperatorDescriptor.cs" />
     <Compile Include="Common\Operators.cs" />
     <Compile Include="Common\OperatorType.cs" />
