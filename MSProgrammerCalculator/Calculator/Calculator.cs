@@ -13,17 +13,15 @@ namespace Calculator
 {
     public class Calculator : ICalculator
     {
-        private BaseNumber baseNumber;
-        public BaseNumber BaseNumber
+        private string expression;
+        public string Expression
         {
-            get => baseNumber;
-            set
+            get => expression;
+            private set
             {
-                if (baseNumber != value)
+                if (expression != value)
                 {
-                    baseNumber = value;
-                    _operandInputState = OperandInputState.Initialized;
-                    UpdateExpression();
+                    expression = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -43,15 +41,17 @@ namespace Calculator
             }
         }
 
-        private string expression;
-        public string Expression
+        private BaseNumber baseNumber;
+        public BaseNumber BaseNumber
         {
-            get => expression;
-            private set
+            get => baseNumber;
+            set
             {
-                if (expression != value)
+                if (baseNumber != value)
                 {
-                    expression = value;
+                    baseNumber = value;
+                    _operandInputState = OperandInputState.Initialized;
+                    UpdateExpression();
                     NotifyPropertyChanged();
                 }
             }
@@ -65,12 +65,20 @@ namespace Calculator
         public event PropertyChangedEventHandler PropertyChanged;
 
         private CalculatorContext _context;
-        private OperandInputState _operandInputState = OperandInputState.Initialized;
+        private OperandInputState _operandInputState;
 
-        public Calculator(BaseNumber baseNumber = BaseNumber.Decimal)
+        public Calculator()
+        {
+            Initialize();
+        }
+
+        public void Initialize()
         {
             _context = new CalculatorContext();
-            BaseNumber = baseNumber;
+            _operandInputState = OperandInputState.Initialized;
+            Expression = string.Empty;
+            Operand = 0;
+            BaseNumber = BaseNumber.Decimal;
         }
 
         public void EnqueueToken(Numbers number)

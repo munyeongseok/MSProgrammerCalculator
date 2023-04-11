@@ -46,6 +46,17 @@ namespace MSProgrammerCalculator.Views
             set => SetValue(DisplayValueProperty, value);
         }
 
+        public static readonly DependencyProperty ErrorMessageProperty = DependencyProperty.Register(
+            nameof(ErrorMessage),
+            typeof(string),
+            typeof(DisplayView),
+            new PropertyMetadata(string.Empty));
+        public string ErrorMessage
+        {
+            get => (string)GetValue(ErrorMessageProperty);
+            set => SetValue(ErrorMessageProperty, value);
+        }
+
         public static readonly DependencyProperty SelectedBaseNumberProperty = DependencyProperty.Register(
             nameof(SelectedBaseNumber),
             typeof(BaseNumber),
@@ -60,6 +71,20 @@ namespace MSProgrammerCalculator.Views
         public DisplayView()
         {
             InitializeComponent();
+        }
+
+        private void ErrorMessageTextBlock_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(errorMessageTextBlock.Text))
+            {
+                displayValueTextBlock.Visibility = Visibility.Visible;
+                errorMessageTextBlock.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                displayValueTextBlock.Visibility = Visibility.Collapsed;
+                errorMessageTextBlock.Visibility = Visibility.Visible;
+            }
         }
     }
 }

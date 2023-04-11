@@ -10,9 +10,9 @@ namespace Calculator
     public interface ICalculator : INotifyPropertyChanged
     {
         /// <summary>
-        /// 현재 기수(Radix).
+        /// 현재 수식.
         /// </summary>
-        BaseNumber BaseNumber { get; set; }
+        string Expression { get; }
 
         /// <summary>
         /// 현재 피연산자.
@@ -20,14 +20,19 @@ namespace Calculator
         long Operand { get; }
 
         /// <summary>
-        /// 현재 수식.
+        /// 현재 기수(Radix).
         /// </summary>
-        string Expression { get; }
+        BaseNumber BaseNumber { get; set; }
 
         /// <summary>
         /// 입력 제출 여부.
         /// </summary>
         bool IsInputSubmitted { get; }
+
+        /// <summary>
+        /// 계산기를 초기화합니다.
+        /// </summary>
+        void Initialize();
 
         /// <summary>
         /// 숫자 토큰을 입력 대기열의 끝 부분에 추가합니다.

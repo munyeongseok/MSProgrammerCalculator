@@ -38,15 +38,21 @@
                  VerticalAlignment="Top"
                  MaxHeight="100"
                  Margin="5,0">
-            <TextBlock x:Name="displayValueTextBlock"
-                       FontSize="26">
-                <TextBlock.Text>
-                    <MultiBinding Converter="{StaticResource displayValueConverter}">
-                        <Binding Path="DisplayValue" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
-                        <Binding Path="SelectedBaseNumber" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
+            <Grid>
+                <TextBlock x:Name="displayValueTextBlock"
+                           FontSize="26">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{StaticResource displayValueConverter}">
+                            <Binding Path="DisplayValue" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                            <Binding Path="SelectedBaseNumber" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock x:Name="errorMessageTextBlock"
+                           FontSize="40"
+                           Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=ErrorMessage, NotifyOnTargetUpdated=True}"
+                           TargetUpdated="ErrorMessageTextBlock_TargetUpdated"/>
+            </Grid>
         </Viewbox>
         <!-- HEX RadioButton -->
         <controls:DisplayViewRadioButton x:Name="hexRadioButton"

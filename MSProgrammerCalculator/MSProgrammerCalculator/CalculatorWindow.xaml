@@ -43,6 +43,7 @@
                            Grid.Row="1"
                            Expression="{Binding Expression}"
                            DisplayValue="{Binding DisplayOperand}"
+                           ErrorMessage="{Binding ErrorMessage}"
                            SelectedBaseNumber="{Binding SelectedBaseNumber, Mode=OneWayToSource}"/>
         <views:KeypadControlView x:Name="keypadControlView"
                                  Grid.Row="2"/>

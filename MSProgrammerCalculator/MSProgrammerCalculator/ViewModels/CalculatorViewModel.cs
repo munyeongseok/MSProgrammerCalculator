@@ -10,6 +10,13 @@ namespace MSProgrammerCalculator.ViewModels
 {
     public class CalculatorViewModel : BindableBase
     {
+        private string expression;
+        public string Expression
+        {
+            get => expression;
+            set => SetProperty(ref expression, value);
+        }
+
         private long displayOperand;
         public long DisplayOperand
         {
@@ -17,11 +24,11 @@ namespace MSProgrammerCalculator.ViewModels
             set => SetProperty(ref displayOperand, value);
         }
 
-        private string expression;
-        public string Expression
+        private string errorMessage;
+        public string ErrorMessage
         {
-            get => expression;
-            set => SetProperty(ref expression, value);
+            get => errorMessage;
+            set => SetProperty(ref errorMessage, value);
         }
 
         private BaseNumber selectedBaseNumber;
@@ -82,12 +89,37 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void NumberButtonClick(Numbers number)
         {
+            InitializeCalculatorIfErrorOccurred();
+
             _calculator.EnqueueToken(number);
         }
 
         private void OperatorButtonClick(Operators op)
         {
-            _calculator.EnqueueToken(op);
+            InitializeCalculatorIfErrorOccurred();
+
+            try
+            {
+                _calculator.EnqueueToken(op);
+            }
+            catch (DivideByZeroException)
+            {
+                ErrorMessage = "0으로 나눌 수 없습니다.";
+            }
+            catch (Exception)
+            {
+                ErrorMessage = "정의되지 않은 결과입니다.";
+            }
+        }
+
+        private void InitializeCalculatorIfErrorOccurred()
+        {
+            if (!string.IsNullOrWhiteSpace(ErrorMessage))
+            {
+                ErrorMessage = string.Empty;
+
+                _calculator.Initialize();
+            }
         }
     }
 }
