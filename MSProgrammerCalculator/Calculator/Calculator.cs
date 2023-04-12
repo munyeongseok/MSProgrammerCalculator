@@ -319,8 +319,15 @@ namespace Calculator
         private bool EnqueueBinaryOperator(Operators op)
         {
             var last = _context.InputDeque.LastOrDefault();
+            // 수식이 평가된 상태일 경우
+            if (last is SubmitExpression)
+            {
+                // 입력 데크 클리어 후 피연산자 추가
+                _context.InputDeque.Clear();
+                _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
+            }
             // 피연산자 입력이 초기화된 상태일 경우
-            if (_operandInputState == OperandInputState.Initialized)
+            else if (_operandInputState == OperandInputState.Initialized)
             {
                 if (last is BinaryOperatorExpression binaryOperator)
                 {
@@ -338,9 +345,8 @@ namespace Calculator
                     }
                 }
             }
-
             // 마지막 토큰이 닫는 괄호가 아니면 피연산자 추가
-            if (!(CalculatorHelper.IsCloseParenthesis(last)))
+            else if (!(CalculatorHelper.IsCloseParenthesis(last)))
             {
                 _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
             }
