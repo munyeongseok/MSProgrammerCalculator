@@ -294,8 +294,15 @@ namespace Calculator
             }
 
             var last = _context.InputDeque.LastOrDefault();
+            // 수식이 평가된 상태일 경우
+            if (last is SubmitExpression)
+            {
+                // 입력 데크 클리어 후 이전 수식에서 평가된 값을 단항 연산자의 피연산자로 추가
+                _context.InputDeque.Clear();
+                _context.InputDeque.EnqueueLast(CalculatorHelper.CreateUnaryExpression(op, new OperandExpression(Operand)));
+            }
             // 마지막 토큰이 단항 연산자일 경우
-            if (last is UnaryOperatorExpression)
+            else if (last is UnaryOperatorExpression)
             {
                 _context.InputDeque.DequeueLast();
                 _context.InputDeque.EnqueueLast(CalculatorHelper.CreateUnaryExpression(op, last));
@@ -322,7 +329,7 @@ namespace Calculator
             // 수식이 평가된 상태일 경우
             if (last is SubmitExpression)
             {
-                // 입력 데크 클리어 후 피연산자 추가
+                // 입력 데크 클리어 후 이전 수식에서 평가된 값을 왼쪽 피연산자로 추가
                 _context.InputDeque.Clear();
                 _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
             }
