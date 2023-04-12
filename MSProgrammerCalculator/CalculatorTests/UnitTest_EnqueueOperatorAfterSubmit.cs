@@ -122,8 +122,28 @@ namespace CalculatorTests
             Assert.AreEqual("( ", calculator.Expression);
         }
 
-        [TestMethod("[3, \"1 + 2 = \"] -> [3, \"\"]")]
+        [TestMethod("[3, \"1 + 2 = \"] -> [3, \"( \"] -> [27, \"( 3 × 9 ) = \"]")]
         public void TestMethod9()
+        {
+            var calculator = new Calculator.Calculator();
+
+            calculator.EnqueueToken(Numbers.Num1);
+            calculator.EnqueueToken(Operators.Plus);
+            calculator.EnqueueToken(Numbers.Num2);
+            calculator.EnqueueToken(Operators.Submit);
+            calculator.EnqueueToken(Operators.OpenParenthesis);
+            Assert.AreEqual(3, calculator.Operand);
+            Assert.AreEqual("( ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.Multiply);
+            calculator.EnqueueToken(Numbers.Num9);
+            calculator.EnqueueToken(Operators.Submit);
+            Assert.AreEqual(27, calculator.Operand);
+            Assert.AreEqual("( 3 × 9 ) = ", calculator.Expression);
+        }
+
+        [TestMethod("[3, \"1 + 2 = \"] -> [3, \"\"]")]
+        public void TestMethod10()
         {
             var calculator = new Calculator.Calculator();
 
@@ -136,8 +156,28 @@ namespace CalculatorTests
             Assert.AreEqual("", calculator.Expression);
         }
 
+        [TestMethod("[3, \"1 + 2 = \"] -> [3, \"\"] -> [27, \"3 × 9 = \"]")]
+        public void TestMethod11()
+        {
+            var calculator = new Calculator.Calculator();
+
+            calculator.EnqueueToken(Numbers.Num1);
+            calculator.EnqueueToken(Operators.Plus);
+            calculator.EnqueueToken(Numbers.Num2);
+            calculator.EnqueueToken(Operators.Submit);
+            calculator.EnqueueToken(Operators.CloseParenthesis);
+            Assert.AreEqual(3, calculator.Operand);
+            Assert.AreEqual("", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.Multiply);
+            calculator.EnqueueToken(Numbers.Num9);
+            calculator.EnqueueToken(Operators.Submit);
+            Assert.AreEqual(27, calculator.Operand);
+            Assert.AreEqual("3 × 9 = ", calculator.Expression);
+        }
+
         [TestMethod("[3, \"1 + 2 = \"] -> [-3, \"negate(3) \"]")]
-        public void TestMethod10()
+        public void TestMethod12()
         {
             var calculator = new Calculator.Calculator();
 
@@ -151,7 +191,7 @@ namespace CalculatorTests
         }
 
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"3 AND \"]")]
-        public void TestMethod11()
+        public void TestMethod13()
         {
             var calculator = new Calculator.Calculator();
 
@@ -165,7 +205,7 @@ namespace CalculatorTests
         }
 
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"3 OR \"]")]
-        public void TestMethod12()
+        public void TestMethod14()
         {
             var calculator = new Calculator.Calculator();
 
@@ -179,7 +219,7 @@ namespace CalculatorTests
         }
 
         [TestMethod("[3, \"1 + 2 = \"] -> [-4, \"NOT(3) \"]")]
-        public void TestMethod13()
+        public void TestMethod15()
         {
             var calculator = new Calculator.Calculator();
 
@@ -193,7 +233,7 @@ namespace CalculatorTests
         }
 
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"3 NAND \"]")]
-        public void TestMethod14()
+        public void TestMethod16()
         {
             var calculator = new Calculator.Calculator();
 
@@ -207,7 +247,7 @@ namespace CalculatorTests
         }
 
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"3 NOR \"]")]
-        public void TestMethod15()
+        public void TestMethod17()
         {
             var calculator = new Calculator.Calculator();
 
@@ -221,7 +261,7 @@ namespace CalculatorTests
         }
 
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"3 XOR \"]")]
-        public void TestMethod16()
+        public void TestMethod18()
         {
             var calculator = new Calculator.Calculator();
 
