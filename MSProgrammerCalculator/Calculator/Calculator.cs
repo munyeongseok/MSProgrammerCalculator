@@ -370,13 +370,11 @@ namespace Calculator
             switch (op)
             {
                 case Operators.OpenParenthesis:
-                    EnqueueOpenParenthesis();
-                    break;
+                    return EnqueueOpenParenthesis();
                 case Operators.CloseParenthesis:
-                    EnqueueCloseParenthesis();
-                    break;
+                    return EnqueueCloseParenthesis();
                 case Operators.DecimalSeparator:
-                    break;
+                    throw new NotSupportedException();
                 case Operators.Backspace:
                     RemoveLastNumberToken();
                     return false;
@@ -385,17 +383,27 @@ namespace Calculator
                     return false;
                 case Operators.Submit:
                     SubmitInput();
-                    break;
+                    return true;
                 default:
                     return false;
             }
-
-            return true;
         }
 
-        private void EnqueueOpenParenthesis()
+        private bool EnqueueOpenParenthesis()
         {
             var last = _context.InputDeque.LastOrDefault();
+            // 수식이 평가된 상태일 경우
+            if (last is SubmitExpression)
+            {
+                // 입력 데크 클리어 후 여는 괄호 추가
+                _context.InputDeque.Clear();
+                _context.InputDeque.EnqueueLast(new ParenthesisExpression());
+                _context.UnmatchedParenthesisCount++;
+                _operandInputState = OperandInputState.Inputted;
+                UpdateExpression();
+                return false;
+            }
+
             // 마지막 토큰이 이항 연산자일 경우 피연산자 초기화
             if (last is BinaryOperatorExpression)
             {
@@ -416,33 +424,45 @@ namespace Calculator
             // 여는 괄호 추가
             _context.InputDeque.EnqueueLast(new ParenthesisExpression());
             _context.UnmatchedParenthesisCount++;
+
+            return true;
         }
 
-        private void EnqueueCloseParenthesis()
+        private bool EnqueueCloseParenthesis()
         {
-            if (_context.UnmatchedParenthesisCount <= 0)
-            {
-                return;
-            }
-
             var last = _context.InputDeque.LastOrDefault();
-            // 마지막 토큰이 이항 연산자, 여는 괄호일 경우 피연산자 추가
-            if (last is BinaryOperatorExpression || CalculatorHelper.IsOpenParenthesis(last))
+            // 수식이 평가된 상태일 경우
+            if (last is SubmitExpression)
             {
-                _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
+                // 입력 데크 클리어
+                _context.InputDeque.Clear();
+                _operandInputState = OperandInputState.Inputted;
+                UpdateExpression();
+                return false;
+            }
+            
+            if (_context.UnmatchedParenthesisCount > 0)
+            {
+                // 마지막 토큰이 이항 연산자, 여는 괄호일 경우 피연산자 추가
+                if (last is BinaryOperatorExpression || CalculatorHelper.IsOpenParenthesis(last))
+                {
+                    _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
+                }
+
+                // 닫는 괄호 추가
+                var stack = new Stack<IExpression>();
+                while (!CalculatorHelper.IsOpenParenthesis(_context.InputDeque.Last()))
+                {
+                    stack.Push(_context.InputDeque.DequeueLast());
+                }
+                var parenthesisExpression = (ParenthesisExpression)_context.InputDeque.Last();
+                var subRootExpression = CalculatorHelper.BuildRootExpression(stack);
+                parenthesisExpression.Operand = subRootExpression;
+                parenthesisExpression.IsClosed = true;
+                _context.UnmatchedParenthesisCount--;
             }
 
-            // 닫는 괄호 추가
-            var stack = new Stack<IExpression>();
-            while (!CalculatorHelper.IsOpenParenthesis(_context.InputDeque.Last()))
-            {
-                stack.Push(_context.InputDeque.DequeueLast());
-            }
-            var parenthesisExpression = (ParenthesisExpression)_context.InputDeque.Last();
-            var subRootExpression = CalculatorHelper.BuildRootExpression(stack);
-            parenthesisExpression.Operand = subRootExpression;
-            parenthesisExpression.IsClosed = true;
-            _context.UnmatchedParenthesisCount--;
+            return true;
         }
 
         private void CloseAllParenthesis()
