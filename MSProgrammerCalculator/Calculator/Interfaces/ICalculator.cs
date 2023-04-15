@@ -27,7 +27,7 @@ namespace Calculator
         /// <summary>
         /// 입력 제출 여부.
         /// </summary>
-        bool IsInputSubmitted { get; }
+        bool IsSubmitted { get; }
 
         /// <summary>
         /// 계산기를 초기화합니다.

@@ -57,7 +57,7 @@ namespace Calculator
             }
         }
 
-        public bool IsInputSubmitted
+        public bool IsSubmitted
         {
             get => _context.InputDeque.LastOrDefault() is SubmitExpression;
         }
@@ -83,7 +83,7 @@ namespace Calculator
 
         public void EnqueueToken(Numbers number)
         {
-            if (IsInputSubmitted)
+            if (IsSubmitted)
             {
                 _context.Clear();
                 Expression = string.Empty;
@@ -196,7 +196,7 @@ namespace Calculator
         {
             if (Operand != 0)
             {
-                if (!IsInputSubmitted)
+                if (!IsSubmitted)
                 {
                     RemoveLastMatchedExpression();
                     UpdateExpression();
@@ -213,7 +213,7 @@ namespace Calculator
 
         public void SubmitInput()
         {
-            if (IsInputSubmitted)
+            if (IsSubmitted)
             {
                 // Submit 토큰 제거
                 _context.InputDeque.DequeueLast();
@@ -222,7 +222,15 @@ namespace Calculator
                 // 마지막 연산자 토큰이 단항 연산자일 경우
                 if (last is UnaryOperatorExpression)
                 {
-                    throw new NotImplementedException();
+                    var leftOperand = new OperandExpression(Operand);
+                    var rightOperand = new OperandExpression(_context.InputDeque.DequeueLast().EvaluateResult());
+                    var binaryOperator = _context.InputDeque.DequeueLast();
+
+                    _context.InputDeque.Clear();
+                    _context.InputDeque.EnqueueLast(leftOperand);
+                    _context.InputDeque.EnqueueLast(binaryOperator);
+                    _context.InputDeque.EnqueueLast(rightOperand);
+                    _context.InputDeque.EnqueueLast(new SubmitExpression());
                 }
                 // 마지막 연산자 토큰이 이항 연산자일 경우
                 else
