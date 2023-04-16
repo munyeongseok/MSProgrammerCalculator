@@ -44,8 +44,7 @@ namespace Calculator
         /// 연산자 토큰을 입력 대기열의 끝 부분에 추가합니다.
         /// </summary>
         /// <param name="op"></param>
-        /// <returns>연산자 토큰이 추가됐으면 true이고, 그렇지 않으면 false입니다.</returns>
-        bool EnqueueToken(Operators op);
+        void EnqueueToken(Operators op);
 
         /// <summary>
         /// 입력 대기열의 끝 부분에 추가된 숫자 토큰을 제거합니다.
