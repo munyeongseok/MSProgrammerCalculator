@@ -167,5 +167,29 @@ namespace CalculatorTests
             Assert.AreEqual(-23, calculator.Operand);
             Assert.AreEqual("-17 + -6 = ", calculator.Expression);
         }
+
+        [TestMethod("[-2, \"NOT( 1 ) = \"] -> [-2, \"-2 = \"] -> [-2, \"-2 = \"] -> [-2, \"-2 = \"]")]
+        public void TestMethod7()
+        {
+            var calculator = new Calculator.Calculator();
+
+            calculator.EnqueueToken(Numbers.Num1);
+            calculator.EnqueueToken(Operators.BitwiseNOT);
+            calculator.EnqueueToken(Operators.Submit);
+            Assert.AreEqual(-2, calculator.Operand);
+            Assert.AreEqual("NOT( 1 ) = ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.Submit);
+            Assert.AreEqual(-2, calculator.Operand);
+            Assert.AreEqual("-2 = ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.Submit);
+            Assert.AreEqual(-2, calculator.Operand);
+            Assert.AreEqual("-2 = ", calculator.Expression);
+
+            calculator.EnqueueToken(Operators.Submit);
+            Assert.AreEqual(-2, calculator.Operand);
+            Assert.AreEqual("-2 = ", calculator.Expression);
+        }
     }
 }
