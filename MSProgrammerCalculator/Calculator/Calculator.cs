@@ -209,15 +209,26 @@ namespace Calculator
                 // Submit 토큰 제거
                 _context.InputDeque.DequeueLast();
 
+                // 피연산자 하나만 있을 경우
+                if (_context.InputDeque.Count == 1 && _context.InputDeque.First() is OperandExpression operand)
+                {
+                    _context.InputDeque.Clear();
+                    _context.InputDeque.EnqueueLast(operand);
+                    _context.InputDeque.EnqueueLast(new SubmitExpression());
+                    EvaluateExpression();
+                    EvaluateOperand();
+                    return;
+                }
+
                 IExpression leftOperand;
                 IExpression rightOperand;
                 IExpression binaryOperator;
                 var last = _context.InputDeque.LastOrDefault();
-                // 마지막 연산자 토큰이 단항 연산자일 경우
+                // 마지막 토큰이 단항 연산자일 경우
                 if (last is UnaryOperatorExpression)
                 {
                     // 수식에 단항 연산자 외의 토큰이 있지 않을 경우
-                    if (_context.InputDeque.Count == 0)
+                    if (_context.InputDeque.Count == 1)
                     {
                         _context.InputDeque.Clear();
                         _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
@@ -235,7 +246,7 @@ namespace Calculator
                         binaryOperator = _context.InputDeque.DequeueLast();
                     }
                 }
-                // 마지막 연산자 토큰이 이항 연산자일 경우
+                // 마지막 토큰이 이항 연산자일 경우
                 else
                 {
                     leftOperand = new OperandExpression(Operand);
