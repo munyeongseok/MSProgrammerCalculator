@@ -163,8 +163,8 @@ namespace Calculator
                 return;
             }
 
-            var clonedInputDeque = _context.InputDeque.Select(input => (IExpression)input.Clone());
-            var rootExpression = CalculatorHelper.BuildRootExpression(clonedInputDeque);
+            var clonedInputs = _context.InputDeque.Select(input => (IExpression)input.Clone());
+            var rootExpression = CalculatorHelper.BuildRootExpression(clonedInputs);
             var result = rootExpression.EvaluateResult();
             var last = _context.InputDeque.LastOrDefault();
             if (last is SubmitExpression)
@@ -216,7 +216,6 @@ namespace Calculator
                 // 마지막 연산자 토큰이 단항 연산자일 경우
                 if (last is UnaryOperatorExpression)
                 {
-                    var unaryOperator = (UnaryOperatorExpression)_context.InputDeque.DequeueLast();
                     // 수식에 단항 연산자 외의 토큰이 있지 않을 경우
                     if (_context.InputDeque.Count == 0)
                     {
@@ -230,16 +229,15 @@ namespace Calculator
                     // 수식에 단항 연산자 외의 토큰이 있을 경우
                     else
                     {
+                        var subRootExpression = BuildSubRootExpressionFromLast();
                         leftOperand = new OperandExpression(Operand);
-                        rightOperand = new OperandExpression(unaryOperator.EvaluateResult());
+                        rightOperand = new OperandExpression(subRootExpression.EvaluateResult());
                         binaryOperator = _context.InputDeque.DequeueLast();
                     }
                 }
                 // 마지막 연산자 토큰이 이항 연산자일 경우
                 else
                 {
-                    // 여기에 코드 추가
-
                     leftOperand = new OperandExpression(Operand);
                     rightOperand = _context.InputDeque.DequeueLast();
                     binaryOperator = _context.InputDeque.DequeueLast();
@@ -267,6 +265,50 @@ namespace Calculator
             }
 
             Evaluate();
+        }
+
+        private IExpression BuildSubRootExpressionFromLast()
+        {
+            var deque = _context.InputDeque;
+            if (deque.Any())
+            {
+                if (deque.Count == 1)
+                {
+                    return deque.DequeueFirst();
+                }
+                else if (deque.Last() is ParenthesisExpression parenthesis)
+                {
+                    if (parenthesis.IsClosed)
+                    {
+                        throw new NotImplementedException();
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException();
+                    }
+                }
+                else
+                {
+                    var stack = new Stack<IExpression>();
+                    stack.Push(deque.DequeueLast());
+                    while (deque.Any())
+                    {
+                        if (deque.Last() is BinaryOperatorExpression binaryOperator && binaryOperator.OperatorDescriptor.Precedence == 3)
+                        {
+                            stack.Push(deque.DequeueLast()); // 이항 연산자
+                            stack.Push(deque.DequeueLast()); // 왼쪽 피연산자
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    return CalculatorHelper.BuildRootExpression(stack);
+                }
+            }
+
+            return null;
         }
 
         private void RemoveLastMatchedExpression()
