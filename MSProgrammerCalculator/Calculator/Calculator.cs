@@ -101,7 +101,7 @@ namespace Calculator
             // 마지막 토큰이 닫힌 괄호이고, 입력 데크에 토큰이 2개 이상 추가된 상태일 경우 
             else if (last is ParenthesisExpression parenthesis && parenthesis.IsClosed && _context.InputDeque.Count > 1)
             {
-                // 마지막 괄호 제거
+                // 마지막 닫힌 괄호 제거
                 _context.InputDeque.DequeueLast();
                 EvaluateExpression();
                 Operand = CalculatorHelper.InsertNumberAtRight(BaseNumber, 0, (long)number);
@@ -197,9 +197,11 @@ namespace Calculator
         {
             if (Operand != 0)
             {
-                if (!IsSubmitted)
+                // 수식이 평가된 상태가 아니고, 마지막 토큰이 닫힌 괄호일 경우
+                if (!IsSubmitted && _context.InputDeque.LastOrDefault() is ParenthesisExpression parenthesis && parenthesis.IsClosed)
                 {
-                    RemoveLastMatchedExpression();
+                    // 마지막 닫힌 괄호 제거
+                    _context.InputDeque.DequeueLast();
                     EvaluateExpression();
                 }
 
@@ -330,28 +332,6 @@ namespace Calculator
             }
 
             return null;
-        }
-
-        private void RemoveLastMatchedExpression()
-        {
-            if (_context.UnmatchedParenthesisCount != 0)
-            {
-                return;
-            }
-
-            if (!(CalculatorHelper.IsCloseParenthesis(_context.InputDeque.LastOrDefault())))
-            {
-                return;
-            }
-            
-            while (true)
-            {
-                var last = _context.InputDeque.DequeueLast();
-                if (CalculatorHelper.IsOpenParenthesis(last))
-                {
-                    break;
-                }
-            }
         }
 
         private void EnqueueUnaryOperator(Operators op)
