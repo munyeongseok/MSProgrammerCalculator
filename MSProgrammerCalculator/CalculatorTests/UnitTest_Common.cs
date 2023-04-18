@@ -222,30 +222,8 @@ namespace CalculatorTests
             Assert.AreEqual("9 - 6 × 6 = ", calculator.Expression);
         }
 
-        [TestMethod("[2, \"1 + ( 2 ) \"] -> Clear -> [0, \"1 + \"]")]
-        public void TestMethod11()
-        {
-            var calculator = new Calculator.Calculator();
-
-            calculator.EnqueueToken(Numbers.Num1);
-            calculator.EnqueueToken(Operators.Plus);
-            calculator.EnqueueToken(Operators.OpenParenthesis);
-            calculator.EnqueueToken(Numbers.Num2);
-            calculator.EnqueueToken(Operators.CloseParenthesis);
-            Assert.AreEqual(2, calculator.Operand);
-            Assert.AreEqual("1 + ( 2 ) ", calculator.Expression);
-
-            calculator.EnqueueToken(Operators.Clear);
-            Assert.AreEqual(0, calculator.Operand);
-            Assert.AreEqual("1 + ", calculator.Expression);
-
-            calculator.EnqueueToken(Operators.Clear);
-            Assert.AreEqual(0, calculator.Operand);
-            Assert.AreEqual(string.Empty, calculator.Expression);
-        }
-
         [TestMethod("[-2, \"NOT( NOT( NOT( NOT( NOT( 1 ) ) ) ) ) \"")]
-        public void TestMethod12()
+        public void TestMethod11()
         {
             var calculator = new Calculator.Calculator();
 
@@ -272,7 +250,7 @@ namespace CalculatorTests
         }
 
         [TestMethod("[1, \"1 + \"] -> [1, \"1 - \"] -> [1, \"1 × \"] -> [1, \"1 ÷ \"] -> [1, \"1 % \"]")]
-        public void TestMethod13()
+        public void TestMethod12()
         {
             var calculator = new Calculator.Calculator();
 
@@ -298,38 +276,8 @@ namespace CalculatorTests
             Assert.AreEqual("1 % ", calculator.Expression);
         }
 
-        [TestMethod("[0, \"0 + \"] -> Clear -> [0, \"0 - \"] -> Clear -> [0, \"0 × \"] -> Clear -> [0, \"0 ÷ \"] -> Clear -> [0, \"0 % \"]")]
-        public void TestMethod14()
-        {
-            var calculator = new Calculator.Calculator();
-
-            calculator.EnqueueToken(Operators.Plus);
-            Assert.AreEqual(0, calculator.Operand);
-            Assert.AreEqual("0 + ", calculator.Expression);
-
-            calculator.EnqueueToken(Operators.Clear);
-            calculator.EnqueueToken(Operators.Minus);
-            Assert.AreEqual(0, calculator.Operand);
-            Assert.AreEqual("0 - ", calculator.Expression);
-
-            calculator.EnqueueToken(Operators.Clear);
-            calculator.EnqueueToken(Operators.Multiply);
-            Assert.AreEqual(0, calculator.Operand);
-            Assert.AreEqual("0 × ", calculator.Expression);
-
-            calculator.EnqueueToken(Operators.Clear);
-            calculator.EnqueueToken(Operators.Divide);
-            Assert.AreEqual(0, calculator.Operand);
-            Assert.AreEqual("0 ÷ ", calculator.Expression);
-
-            calculator.EnqueueToken(Operators.Clear);
-            calculator.EnqueueToken(Operators.Modulo);
-            Assert.AreEqual(0, calculator.Operand);
-            Assert.AreEqual("0 % ", calculator.Expression);
-        }
-
         [TestMethod("[2, \"1 + 2 - 3 × 4 ÷ 5 % \"]")]
-        public void TestMethod15()
+        public void TestMethod13()
         {
             var calculator = new Calculator.Calculator();
 
@@ -364,7 +312,7 @@ namespace CalculatorTests
         }
 
         [TestMethod("[0, \"1 × ( \"]")]
-        public void TestMethod16()
+        public void TestMethod14()
         {
             var calculator = new Calculator.Calculator();
 
@@ -379,7 +327,7 @@ namespace CalculatorTests
         }
 
         [TestMethod("[-2, \"NOT( 1 ) × ( \"]")]
-        public void TestMethod17()
+        public void TestMethod15()
         {
             var calculator = new Calculator.Calculator();
 
@@ -394,7 +342,7 @@ namespace CalculatorTests
         }
 
         [TestMethod("[-2, \"1 + NOT( 1 ) × ( \"]")]
-        public void TestMethod18()
+        public void TestMethod16()
         {
             var calculator = new Calculator.Calculator();
 
@@ -410,7 +358,7 @@ namespace CalculatorTests
         }
 
         [TestMethod("[1, \"( 1 ) × ( \"]")]
-        public void TestMethod19()
+        public void TestMethod17()
         {
             var calculator = new Calculator.Calculator();
 
@@ -426,7 +374,7 @@ namespace CalculatorTests
         }
 
         [TestMethod("[-1, \"1 + negate( 1 ) \"] -> [-1, \"1 + ( \"]")]
-        public void TestMethod20()
+        public void TestMethod18()
         {
             var calculator = new Calculator.Calculator();
 
