@@ -395,38 +395,33 @@ namespace Calculator
                 // 입력 데크 클리어 후 이전 수식에서 평가된 값을 왼쪽 피연산자로 추가
                 _context.InputDeque.Clear();
                 _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
+                _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(op));
+                Evaluate();
             }
-            // 피연산자 입력이 초기화된 상태일 경우
-            else if (_operandInputState == OperandInputState.Initialized)
+            // 피연산자 입력이 초기화된 상태이고 마지막 토큰이 이항 연산자일 경우
+            else if (_operandInputState == OperandInputState.Initialized && last is BinaryOperatorExpression binaryOperator)
             {
-                if (last is BinaryOperatorExpression binaryOperator)
+                // 마지막 토큰인 이항 연산자와 다른 이항 연산자이면 연산자 교체
+                if (binaryOperator.OperatorDescriptor.Operator != op)
                 {
-                    // 마지막 토큰인 이항 연산자와 같은 이항 연산자이면 리턴
-                    if (binaryOperator.OperatorDescriptor.Operator == op)
-                    {
-                        return;
-                    }
-                    // 그렇지 않으면 연산자만 교체
-                    else
-                    {
-                        _context.InputDeque.DequeueLast();
-                        _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(op));
-                        Evaluate();
-                        return;
-                    }
+                    _context.InputDeque.DequeueLast();
+                    _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(op));
+                    Evaluate();
                 }
             }
-            // 마지막 토큰이 닫는 괄호가 아니면 피연산자 추가
-            else if (!(CalculatorHelper.IsCloseParenthesis(last)))
+            else
             {
-                _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
+                // 마지막 토큰이 닫는 괄호가 아니면 피연산자 추가
+                if (!CalculatorHelper.IsCloseParenthesis(last))
+                {
+                    _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
+                }
+
+                // 이항 연산자 추가
+                _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(op));
+                _operandInputState = OperandInputState.Initialized;
+                Evaluate();
             }
-
-            // 이항 연산자 추가
-            _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(op));
-
-            _operandInputState = OperandInputState.Initialized;
-            Evaluate();
         }
 
         private void EnqueueAuxiliaryOperator(Operators op)

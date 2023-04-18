@@ -106,10 +106,10 @@ namespace MSProgrammerCalculator.ViewModels
             {
                 ErrorMessage = "0으로 나눌 수 없습니다.";
             }
-            //catch (Exception)
-            //{
-            //    ErrorMessage = "정의되지 않은 결과입니다.";
-            //}
+            catch (Exception)
+            {
+                ErrorMessage = "정의되지 않은 결과입니다.";
+            }
         }
 
         private void InitializeCalculatorIfErrorOccurred()
