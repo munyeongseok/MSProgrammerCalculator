@@ -89,9 +89,19 @@ namespace Calculator
                 Expression = string.Empty;
             }
 
-            // 피연산자 입력이 초기화된 상태이고, 입력 데크 마지막 요소가 단항 연산자일 경우 마지막 단항 연산자 제거
-            if (_operandInputState == OperandInputState.Initialized && _context.InputDeque.LastOrDefault() is UnaryOperatorExpression)
+            var last = _context.InputDeque.LastOrDefault();
+            // 마지막 토큰이 단항 연산자일 경우
+            if (last is UnaryOperatorExpression)
             {
+                // 마지막 단항 연산자 제거
+                _context.InputDeque.DequeueLast();
+                EvaluateExpression();
+                Operand = CalculatorHelper.InsertNumberAtRight(BaseNumber, 0, (long)number);
+            }
+            // 마지막 토큰이 닫힌 괄호이고, 입력 데크에 토큰이 2개 이상 추가된 상태일 경우 
+            else if (last is ParenthesisExpression parenthesis && parenthesis.IsClosed && _context.InputDeque.Count > 1)
+            {
+                // 마지막 괄호 제거
                 _context.InputDeque.DequeueLast();
                 EvaluateExpression();
                 Operand = CalculatorHelper.InsertNumberAtRight(BaseNumber, 0, (long)number);
