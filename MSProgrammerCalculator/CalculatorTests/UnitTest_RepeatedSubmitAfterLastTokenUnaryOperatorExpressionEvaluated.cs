@@ -13,7 +13,7 @@ namespace CalculatorTests
         [TestMethod("[0, \"1 + negate( 1 ) = \"] -> [-1, \"0 + -1 = \"] -> [-2, \"-1 + -1 = \"] -> [-3, \"-2 + -1 = \"]")]
         public void TestMethod1()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -38,7 +38,7 @@ namespace CalculatorTests
         [TestMethod("[0, \"1 + 2 + negate( 3 ) = \"] -> [-3, \"0 + -3 = \"] -> [-6, \"-3 + -3 = \"] -> [-9, \"-6 + -3 = \"]")]
         public void TestMethod2()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -65,7 +65,7 @@ namespace CalculatorTests
         [TestMethod("[-3, \"1 + 2 × negate( 2 ) = \"] -> [-7, \"-3 + -4 = \"] -> [-11, \"-7 + -4 = \"] -> [-15, \"-11 + -4 = \"]")]
         public void TestMethod3()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -92,7 +92,7 @@ namespace CalculatorTests
         [TestMethod("[-1, \"1 + NOT( 1 ) = \"] -> [-3, \"-1 + -2 = \"] -> [-5, \"-3 + -2 = \"] -> [-7, \"-5 + -2 = \"]")]
         public void TestMethod4()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -117,7 +117,7 @@ namespace CalculatorTests
         [TestMethod("[-1, \"1 + 2 + NOT( 3 ) = \"] -> [-5, \"-1 + -4 = \"] -> [-9, \"-5 + -4 = \"] -> [-13, \"-9 + -4 = \"]")]
         public void TestMethod5()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -144,7 +144,7 @@ namespace CalculatorTests
         [TestMethod("[-5, \"1 + 2 × NOT( 2 ) = \"] -> [-11, \"-5 + -6 = \"] -> [-17, \"-11 + -6 = \"] -> [-23, \"-17 + -6 = \"]")]
         public void TestMethod6()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -171,7 +171,7 @@ namespace CalculatorTests
         [TestMethod("[-2, \"NOT( 1 ) = \"] -> [-2, \"-2 = \"] -> [-2, \"-2 = \"] -> [-2, \"-2 = \"]")]
         public void TestMethod7()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.BitwiseNOT);

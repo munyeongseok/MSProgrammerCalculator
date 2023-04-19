@@ -13,7 +13,7 @@ namespace CalculatorTests
         [TestMethod("[1, \"(1) \"] -> [7, \"(1) \"] -> [78, \"(1) \"] -> [789, \"(1) \"]")]
         public void TestMethod1()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Operators.OpenParenthesis);
             calculator.EnqueueToken(Numbers.Num1);
@@ -37,7 +37,7 @@ namespace CalculatorTests
         [TestMethod("[2, \"(1) + (2) \"] -> [7, \"(1) + \"] -> [78, \"(1) + \"] -> [789, \"(1) + \"]")]
         public void TestMethod2()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Operators.OpenParenthesis);
             calculator.EnqueueToken(Numbers.Num1);
@@ -65,7 +65,7 @@ namespace CalculatorTests
         [TestMethod("[2, \"(1) × (2) \"] -> [7, \"(1) × \"] -> [78, \"(1) × \"] -> [789, \"(1) × \"]")]
         public void TestMethod3()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Operators.OpenParenthesis);
             calculator.EnqueueToken(Numbers.Num1);

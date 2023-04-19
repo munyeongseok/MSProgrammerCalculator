@@ -39,7 +39,7 @@ namespace MSProgrammerCalculator.ViewModels
             {
                 if (SetProperty(ref selectedBaseNumber, value))
                 {
-                    _calculator.BaseNumber = selectedBaseNumber;
+                    _programmerCalculator.BaseNumber = selectedBaseNumber;
                 }
             }
         }
@@ -54,7 +54,7 @@ namespace MSProgrammerCalculator.ViewModels
         public DelegateCommand<Numbers> NumberButtonClickCommand { get; private set; }
         public DelegateCommand<Operators> OperatorButtonClickCommand { get; private set; }
 
-        private readonly ICalculator _calculator = new Calculator.Calculator();
+        private readonly ICalculator _programmerCalculator = new ProgrammerCalculator();
 
         public CalculatorViewModel()
         {
@@ -70,18 +70,18 @@ namespace MSProgrammerCalculator.ViewModels
 
         private void SubscribeCalculatorEvents()
         {
-            _calculator.PropertyChanged += (s, e) =>
+            _programmerCalculator.PropertyChanged += (s, e) =>
             {
                 switch (e.PropertyName)
                 {
                     case nameof(ICalculator.BaseNumber):
                         break;
                     case nameof(ICalculator.Operand):
-                        DisplayOperand = _calculator.Operand;
-                        ClearButtonContent = _calculator.Operand == 0 ? "C" : "CE";
+                        DisplayOperand = _programmerCalculator.Operand;
+                        ClearButtonContent = _programmerCalculator.Operand == 0 ? "C" : "CE";
                         break;
                     case nameof(ICalculator.Expression):
-                        Expression = _calculator.Expression;
+                        Expression = _programmerCalculator.Expression;
                         break;
                 }
             };
@@ -91,7 +91,7 @@ namespace MSProgrammerCalculator.ViewModels
         {
             InitializeCalculatorIfErrorOccurred();
 
-            _calculator.EnqueueToken(number);
+            _programmerCalculator.EnqueueToken(number);
         }
 
         private void OperatorButtonClick(Operators op)
@@ -100,7 +100,7 @@ namespace MSProgrammerCalculator.ViewModels
 
             try
             {
-                _calculator.EnqueueToken(op);
+                _programmerCalculator.EnqueueToken(op);
             }
             catch (DivideByZeroException)
             {
@@ -118,7 +118,7 @@ namespace MSProgrammerCalculator.ViewModels
             {
                 ErrorMessage = string.Empty;
 
-                _calculator.Initialize();
+                _programmerCalculator.Initialize();
             }
         }
     }

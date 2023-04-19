@@ -68,7 +68,7 @@
     <Compile Include="Expressions\Operator Expressions\Binary Expressions\MultiplyExpression.cs" />
     <Compile Include="Expressions\Operator Expressions\Binary Expressions\PlusExpression.cs" />
     <Compile Include="Expressions\BinaryOperatorExpression.cs" />
-    <Compile Include="Calculator.cs" />
+    <Compile Include="ProgrammerCalculator.cs" />
     <Compile Include="Common\CalculatorContext.cs" />
     <Compile Include="Expressions\Operator Expressions\Binary Expressions\RightShiftExpression.cs" />
     <Compile Include="Expressions\OperandExpression.cs" />

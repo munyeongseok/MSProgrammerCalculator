@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public class Calculator : ICalculator
+    public class ProgrammerCalculator : ICalculator
     {
         private string expression;
         public string Expression
@@ -39,7 +39,7 @@ namespace Calculator
         private CalculatorContext _context;
         private OperandInputState _inputState;
 
-        public Calculator()
+        public ProgrammerCalculator()
         {
             Initialize();
         }

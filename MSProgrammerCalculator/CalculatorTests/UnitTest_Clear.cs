@@ -13,7 +13,7 @@ namespace CalculatorTests
         [TestMethod("[2, \"1 + ( 2 ) \"] -> Clear -> [0, \"1 + \"]")]
         public void TestMethod1()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -35,7 +35,7 @@ namespace CalculatorTests
         [TestMethod("[0, \"0 + \"] -> Clear -> [0, \"0 - \"] -> Clear -> [0, \"0 × \"] -> Clear -> [0, \"0 ÷ \"] -> Clear -> [0, \"0 % \"]")]
         public void TestMethod2()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Operators.Plus);
             Assert.AreEqual(0, calculator.Operand);

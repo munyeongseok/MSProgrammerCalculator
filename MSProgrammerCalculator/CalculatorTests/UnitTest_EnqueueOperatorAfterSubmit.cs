@@ -13,7 +13,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"3 + \"]")]
         public void TestMethod1()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -27,7 +27,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"3 - \"]")]
         public void TestMethod2()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -41,7 +41,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"3 × \"]")]
         public void TestMethod3()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -55,7 +55,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"3 ÷ \"]")]
         public void TestMethod4()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -69,7 +69,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"3 % \"]")]
         public void TestMethod5()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -83,7 +83,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"3 Lsh \"]")]
         public void TestMethod6()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -97,7 +97,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"3 Rsh \"]")]
         public void TestMethod7()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -111,7 +111,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"( \"]")]
         public void TestMethod8()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -125,7 +125,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"( \"] -> [27, \"( 3 × 9 ) = \"]")]
         public void TestMethod9()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -145,7 +145,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"\"]")]
         public void TestMethod10()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -159,7 +159,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"\"] -> [27, \"3 × 9 = \"]")]
         public void TestMethod11()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -179,7 +179,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [-3, \"negate(3) \"]")]
         public void TestMethod12()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -193,7 +193,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"3 AND \"]")]
         public void TestMethod13()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -207,7 +207,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"3 OR \"]")]
         public void TestMethod14()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -221,7 +221,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [-4, \"NOT(3) \"]")]
         public void TestMethod15()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -235,7 +235,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"3 NAND \"]")]
         public void TestMethod16()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -249,7 +249,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"3 NOR \"]")]
         public void TestMethod17()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -263,7 +263,7 @@ namespace CalculatorTests
         [TestMethod("[3, \"1 + 2 = \"] -> [3, \"3 XOR \"]")]
         public void TestMethod18()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);

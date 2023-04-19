@@ -13,7 +13,7 @@ namespace CalculatorTests
         [TestMethod("[30, \"24 + 6 = \"]")]
         public void TestMethod1()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -44,7 +44,7 @@ namespace CalculatorTests
         [TestMethod("[5, \"4 + 1 = \"]")]
         public void TestMethod2()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Plus);
@@ -71,7 +71,7 @@ namespace CalculatorTests
         [TestMethod("[5, \"-3 - 2 = \"]")]
         public void TestMethod3()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Minus);
@@ -92,7 +92,7 @@ namespace CalculatorTests
         [TestMethod("[8, \"4 × 2 = \"]")]
         public void TestMethod4()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Multiply);
@@ -113,7 +113,7 @@ namespace CalculatorTests
         [TestMethod("[0, \"0 ÷ 2 = \"]")]
         public void TestMethod5()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Divide);
@@ -134,7 +134,7 @@ namespace CalculatorTests
         [TestMethod("[1, \"1 % 2 = \"]")]
         public void TestMethod6()
         {
-            var calculator = new Calculator.Calculator();
+            var calculator = new ProgrammerCalculator();
 
             calculator.EnqueueToken(Numbers.Num1);
             calculator.EnqueueToken(Operators.Modulo);
