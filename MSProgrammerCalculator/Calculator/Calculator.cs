@@ -50,17 +50,15 @@ namespace Calculator
                 if (baseNumber != value)
                 {
                     baseNumber = value;
+                    NotifyPropertyChanged();
+
                     _operandInputState = OperandInputState.Initialized;
                     EvaluateExpression();
-                    NotifyPropertyChanged();
                 }
             }
         }
 
-        public bool IsSubmitted
-        {
-            get => _context.InputDeque.LastOrDefault() is SubmitExpression;
-        }
+        public bool IsSubmitted => _context.InputDeque.LastOrDefault() is SubmitExpression;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -96,7 +94,7 @@ namespace Calculator
                 // 마지막 단항 연산자 제거
                 _context.InputDeque.DequeueLast();
                 EvaluateExpression();
-                Operand = CalculatorHelper.InsertNumberAtRight(BaseNumber, 0, (long)number);
+                Operand = CalculatorHelper.InsertRightDigit(BaseNumber, 0, (long)number);
             }
             // 마지막 토큰이 닫힌 괄호이고, 입력 데크에 토큰이 2개 이상 추가된 상태일 경우 
             else if (last is ParenthesisExpression parenthesis && parenthesis.IsClosed && _context.InputDeque.Count > 1)
@@ -104,13 +102,13 @@ namespace Calculator
                 // 마지막 닫힌 괄호 제거
                 _context.InputDeque.DequeueLast();
                 EvaluateExpression();
-                Operand = CalculatorHelper.InsertNumberAtRight(BaseNumber, 0, (long)number);
+                Operand = CalculatorHelper.InsertRightDigit(BaseNumber, 0, (long)number);
             }
             else
             {
                 var isNegative = Operand < 0;
                 var newOperand = _operandInputState == OperandInputState.Inputted ? Math.Abs(Operand) : 0;
-                newOperand = CalculatorHelper.InsertNumberAtRight(BaseNumber, newOperand, (long)number);
+                newOperand = CalculatorHelper.InsertRightDigit(BaseNumber, newOperand, (long)number);
                 newOperand = isNegative ? -newOperand : newOperand;
                 Operand = newOperand;
             }
@@ -134,13 +132,12 @@ namespace Calculator
             }
         }
 
-        public void RemoveLastNumberToken()
+        public void RemoveOperandRightDigit()
         {
             var isNegative = Operand < 0;
             var newOperand = Math.Abs(Operand);
-            newOperand = CalculatorHelper.RemoveNumberAtRight(BaseNumber, newOperand);
+            newOperand = CalculatorHelper.RemoveRightDigit(BaseNumber, newOperand);
             newOperand = isNegative ? -newOperand : newOperand;
-
             Operand = newOperand;
             _operandInputState = newOperand == 0 ? OperandInputState.Initialized : OperandInputState.Inputted;
         }
@@ -197,6 +194,8 @@ namespace Calculator
         {
             if (Operand != 0)
             {
+                Operand = 0;
+
                 // 수식이 평가된 상태가 아니고, 마지막 토큰이 닫힌 괄호일 경우
                 if (!IsSubmitted && _context.InputDeque.LastOrDefault() is ParenthesisExpression parenthesis && parenthesis.IsClosed)
                 {
@@ -204,8 +203,6 @@ namespace Calculator
                     _context.InputDeque.DequeueLast();
                     EvaluateExpression();
                 }
-
-                Operand = 0;
             }
             else
             {
@@ -227,8 +224,7 @@ namespace Calculator
                     _context.InputDeque.Clear();
                     _context.InputDeque.EnqueueLast(operand);
                     _context.InputDeque.EnqueueLast(new SubmitExpression());
-                    EvaluateExpression();
-                    EvaluateOperand();
+                    Evaluate();
                     return;
                 }
 
@@ -245,8 +241,7 @@ namespace Calculator
                         _context.InputDeque.Clear();
                         _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
                         _context.InputDeque.EnqueueLast(new SubmitExpression());
-                        EvaluateExpression();
-                        EvaluateOperand();
+                        Evaluate();
                         return;
                     }
                     // 수식에 단항 연산자 외의 토큰이 있을 경우
@@ -338,6 +333,7 @@ namespace Calculator
         {
             if (op == Operators.Negate)
             {
+                // 피연산자가 0일 경우 바로 리턴
                 if (Operand == 0)
                 {
                     return;
@@ -382,8 +378,10 @@ namespace Calculator
                 return;
             }
 
-            _operandInputState = OperandInputState.Initialized;
+            // 수식 평가
             Evaluate();
+
+            _operandInputState = OperandInputState.Initialized;
         }
 
         private void EnqueueBinaryOperator(Operators op)
@@ -396,7 +394,6 @@ namespace Calculator
                 _context.InputDeque.Clear();
                 _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
                 _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(op));
-                Evaluate();
             }
             // 피연산자 입력이 초기화된 상태이고 마지막 토큰이 이항 연산자일 경우
             else if (_operandInputState == OperandInputState.Initialized && last is BinaryOperatorExpression binaryOperator)
@@ -406,7 +403,6 @@ namespace Calculator
                 {
                     _context.InputDeque.DequeueLast();
                     _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(op));
-                    Evaluate();
                 }
             }
             else
@@ -419,9 +415,12 @@ namespace Calculator
 
                 // 이항 연산자 추가
                 _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(op));
-                _operandInputState = OperandInputState.Initialized;
-                Evaluate();
             }
+
+            // 수식 평가
+            Evaluate();
+
+            _operandInputState = OperandInputState.Initialized;
         }
 
         private void EnqueueAuxiliaryOperator(Operators op)
@@ -437,7 +436,7 @@ namespace Calculator
                 case Operators.DecimalSeparator:
                     throw new NotSupportedException();
                 case Operators.Backspace:
-                    RemoveLastNumberToken();
+                    RemoveOperandRightDigit();
                     break;
                 case Operators.Clear:
                     ClearInput();
@@ -462,9 +461,8 @@ namespace Calculator
                 EvaluateExpression();
                 return;
             }
-
             // 마지막 토큰이 이항 연산자일 경우 피연산자 초기화
-            if (last is BinaryOperatorExpression)
+            else if (last is BinaryOperatorExpression)
             {
                 Operand = 0;
                 _operandInputState = OperandInputState.Initialized;
@@ -499,8 +497,7 @@ namespace Calculator
                 EvaluateExpression();
                 return;
             }
-            
-            if (_context.UnmatchedParenthesisCount > 0)
+            else if (_context.UnmatchedParenthesisCount > 0)
             {
                 // 마지막 토큰이 이항 연산자, 여는 괄호일 경우 피연산자 추가
                 if (last is BinaryOperatorExpression || CalculatorHelper.IsOpenParenthesis(last))

@@ -47,9 +47,9 @@ namespace Calculator
         void EnqueueToken(Operators op);
 
         /// <summary>
-        /// 입력 대기열의 끝 부분에 추가된 숫자 토큰을 제거합니다.
+        /// 피연산자 오른쪽 숫자를 제거합니다.
         /// </summary>
-        void RemoveLastNumberToken();
+        void RemoveOperandRightDigit();
 
         /// <summary>
         /// 수식을 평가합니다.

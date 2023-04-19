@@ -306,7 +306,7 @@ namespace Calculator
         /// <param name="operand"></param>
         /// <param name="number"></param>
         /// <returns></returns>
-        public static long InsertNumberAtRight(BaseNumber baseNumber, long operand, long number)
+        public static long InsertRightDigit(BaseNumber baseNumber, long operand, long number)
         {
             switch (baseNumber)
             {
@@ -348,7 +348,7 @@ namespace Calculator
         /// <param name="baseNumber"></param>
         /// <param name="operand"></param>
         /// <returns></returns>
-        public static long RemoveNumberAtRight(BaseNumber baseNumber, long operand)
+        public static long RemoveRightDigit(BaseNumber baseNumber, long operand)
         {
             switch (baseNumber)
             {
