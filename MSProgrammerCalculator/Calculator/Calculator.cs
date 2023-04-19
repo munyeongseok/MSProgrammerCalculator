@@ -58,8 +58,6 @@ namespace Calculator
             }
         }
 
-        public bool IsSubmitted => _context.InputDeque.LastOrDefault() is SubmitExpression;
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private CalculatorContext _context;
@@ -81,15 +79,16 @@ namespace Calculator
 
         public void EnqueueToken(Numbers number)
         {
-            if (IsSubmitted)
+            var last = _context.InputDeque.LastOrDefault();
+            // 수식이 평가된 상태일 경우
+            if (IsSubmit(last))
             {
                 _context.Clear();
                 Expression = string.Empty;
             }
 
-            var last = _context.InputDeque.LastOrDefault();
             // 마지막 토큰이 단항 연산자일 경우
-            if (last is UnaryOperatorExpression)
+            if (IsUnaryOperator(last))
             {
                 // 마지막 단항 연산자 제거
                 _context.InputDeque.DequeueLast();
@@ -97,7 +96,7 @@ namespace Calculator
                 Operand = CalculatorHelper.InsertRightDigit(BaseNumber, 0, (long)number);
             }
             // 마지막 토큰이 닫힌 괄호이고, 입력 데크에 토큰이 2개 이상 추가된 상태일 경우 
-            else if (last is ParenthesisExpression parenthesis && parenthesis.IsClosed && _context.InputDeque.Count > 1)
+            else if (IsCloseParenthesis(last) && _context.InputDeque.Count > 1)
             {
                 // 마지막 닫힌 괄호 제거
                 _context.InputDeque.DequeueLast();
@@ -174,7 +173,8 @@ namespace Calculator
             var rootExpression = CalculatorHelper.BuildRootExpression(clonedInputs);
             var result = rootExpression.EvaluateResult();
             var last = _context.InputDeque.LastOrDefault();
-            if (last is SubmitExpression)
+            // 수식이 평가된 상태일 경우
+            if (IsSubmit(last))
             {
                 Operand = result;
             }
@@ -196,8 +196,9 @@ namespace Calculator
             {
                 Operand = 0;
 
-                // 수식이 평가된 상태가 아니고, 마지막 토큰이 닫힌 괄호일 경우
-                if (!IsSubmitted && _context.InputDeque.LastOrDefault() is ParenthesisExpression parenthesis && parenthesis.IsClosed)
+                var last = _context.InputDeque.LastOrDefault();
+                // 마지막 토큰이 닫힌 괄호이고, 수식이 평가된 상태가 아닐 경우
+                if (IsCloseParenthesis(last) && !IsSubmit(last))
                 {
                     // 마지막 닫힌 괄호 제거
                     _context.InputDeque.DequeueLast();
@@ -213,32 +214,29 @@ namespace Calculator
 
         public void SubmitInput()
         {
-            if (IsSubmitted)
+            var last = _context.InputDeque.LastOrDefault();
+            // 수식이 평가된 상태일 경우
+            if (IsSubmit(last))
             {
-                // Submit 토큰 제거
-                _context.InputDeque.DequeueLast();
-
-                // 피연산자 하나만 있을 경우
-                if (_context.InputDeque.Count == 1 && _context.InputDeque.First() is OperandExpression operand)
+                // 수식에 피연산자 하나만 존재할 경우 (예를 들어, "2 = ")
+                if (_context.InputDeque.Count == 2 && IsOperand(_context.InputDeque.First()))
                 {
-                    _context.InputDeque.Clear();
-                    _context.InputDeque.EnqueueLast(operand);
-                    _context.InputDeque.EnqueueLast(new SubmitExpression());
-                    Evaluate();
                     return;
                 }
+
+                // Submit 토큰 제거
+                _context.InputDeque.DequeueLast();
 
                 IExpression leftOperand;
                 IExpression rightOperand;
                 IExpression binaryOperator;
-                var last = _context.InputDeque.LastOrDefault();
                 // 마지막 토큰이 단항 연산자일 경우
-                if (last is UnaryOperatorExpression)
+                if (IsUnaryOperator(_context.InputDeque.LastOrDefault()))
                 {
                     // 수식에 단항 연산자 외의 토큰이 있지 않을 경우
                     if (_context.InputDeque.Count == 1)
                     {
-                        _context.InputDeque.Clear();
+                        _context.Clear();
                         _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
                         _context.InputDeque.EnqueueLast(new SubmitExpression());
                         Evaluate();
@@ -261,7 +259,7 @@ namespace Calculator
                     binaryOperator = _context.InputDeque.DequeueLast();
                 }
 
-                _context.InputDeque.Clear();
+                _context.Clear();
                 _context.InputDeque.EnqueueLast(leftOperand);
                 _context.InputDeque.EnqueueLast(binaryOperator);
                 _context.InputDeque.EnqueueLast(rightOperand);
@@ -270,8 +268,7 @@ namespace Calculator
             else
             {
                 // 입력 데크가 비었거나 마지막 토큰이 이항 연산자, 여는 괄호일 경우 피연산자 추가
-                var last = _context.InputDeque.LastOrDefault();
-                if (last == null || last is BinaryOperatorExpression || CalculatorHelper.IsOpenParenthesis(last))
+                if (last == null || IsBinaryOperator(last) || IsOpenParenthesis(last))
                 {
                     _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
                 }
@@ -294,16 +291,13 @@ namespace Calculator
                 {
                     return deque.DequeueFirst();
                 }
-                else if (deque.Last() is ParenthesisExpression parenthesis)
+                else if (IsOpenParenthesis(deque.Last()))
                 {
-                    if (parenthesis.IsClosed)
-                    {
-                        throw new NotImplementedException();
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException();
-                    }
+                    throw new InvalidOperationException();
+                }
+                else if (IsCloseParenthesis(deque.Last()))
+                {
+                    throw new NotImplementedException();
                 }
                 else
                 {
@@ -349,20 +343,20 @@ namespace Calculator
 
             var last = _context.InputDeque.LastOrDefault();
             // 수식이 평가된 상태일 경우
-            if (last is SubmitExpression)
+            if (IsSubmit(last))
             {
                 // 입력 데크 클리어 후 이전 수식에서 평가된 값을 단항 연산자의 피연산자로 추가
-                _context.InputDeque.Clear();
+                _context.Clear();
                 _context.InputDeque.EnqueueLast(CalculatorHelper.CreateUnaryExpression(op, new OperandExpression(Operand)));
             }
             // 마지막 토큰이 닫는 괄호일 경우
-            else if (CalculatorHelper.IsCloseParenthesis(last))
+            else if (IsCloseParenthesis(last))
             {
                 // 괄호를 포함한 단항 연산자 추가
                 _context.InputDeque.EnqueueLast(CalculatorHelper.CreateUnaryExpression(op, _context.InputDeque.DequeueLast()));
             }
             // 마지막 토큰이 단항 연산자일 경우
-            else if (last is UnaryOperatorExpression)
+            else if (IsUnaryOperator(last))
             {
                 _context.InputDeque.DequeueLast();
                 _context.InputDeque.EnqueueLast(CalculatorHelper.CreateUnaryExpression(op, last));
@@ -388,10 +382,10 @@ namespace Calculator
         {
             var last = _context.InputDeque.LastOrDefault();
             // 수식이 평가된 상태일 경우
-            if (last is SubmitExpression)
+            if (IsSubmit(last))
             {
                 // 입력 데크 클리어 후 이전 수식에서 평가된 값을 왼쪽 피연산자로 추가
-                _context.InputDeque.Clear();
+                _context.Clear();
                 _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
                 _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(op));
             }
@@ -408,7 +402,7 @@ namespace Calculator
             else
             {
                 // 마지막 토큰이 닫는 괄호가 아니면 피연산자 추가
-                if (!CalculatorHelper.IsCloseParenthesis(last))
+                if (!IsCloseParenthesis(last))
                 {
                     _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
                 }
@@ -451,10 +445,10 @@ namespace Calculator
         {
             var last = _context.InputDeque.LastOrDefault();
             // 수식이 평가된 상태일 경우
-            if (last is SubmitExpression)
+            if (IsSubmit(last))
             {
                 // 입력 데크 클리어 후 여는 괄호 추가
-                _context.InputDeque.Clear();
+                _context.Clear();
                 _context.InputDeque.EnqueueLast(new ParenthesisExpression());
                 _context.UnmatchedParenthesisCount++;
                 _operandInputState = OperandInputState.Inputted;
@@ -462,18 +456,18 @@ namespace Calculator
                 return;
             }
             // 마지막 토큰이 이항 연산자일 경우 피연산자 초기화
-            else if (last is BinaryOperatorExpression)
+            else if (IsBinaryOperator(last))
             {
                 Operand = 0;
                 _operandInputState = OperandInputState.Initialized;
             }
             // 마지막 토큰이 NOT 연산자, 닫는 괄호일 경우 곱하기 연산자 추가
-            else if (last is BitwiseNOTExpression || CalculatorHelper.IsCloseParenthesis(last))
+            else if (IsBitwiseNOT(last) || IsCloseParenthesis(last))
             {
                 _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(Operators.Multiply));
             }
             // 마지막 토큰이 Negate 연산자일 경우 제거
-            else if (last is NegateExpression)
+            else if (IsNegate(last))
             {
                 _context.InputDeque.DequeueLast();
             }
@@ -489,10 +483,10 @@ namespace Calculator
         {
             var last = _context.InputDeque.LastOrDefault();
             // 수식이 평가된 상태일 경우
-            if (last is SubmitExpression)
+            if (IsSubmit(last))
             {
                 // 입력 데크 클리어
-                _context.InputDeque.Clear();
+                _context.Clear();
                 _operandInputState = OperandInputState.Inputted;
                 EvaluateExpression();
                 return;
@@ -500,14 +494,14 @@ namespace Calculator
             else if (_context.UnmatchedParenthesisCount > 0)
             {
                 // 마지막 토큰이 이항 연산자, 여는 괄호일 경우 피연산자 추가
-                if (last is BinaryOperatorExpression || CalculatorHelper.IsOpenParenthesis(last))
+                if (IsBinaryOperator(last) || IsOpenParenthesis(last))
                 {
                     _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
                 }
 
                 // 닫는 괄호 추가
                 var stack = new Stack<IExpression>();
-                while (!CalculatorHelper.IsOpenParenthesis(_context.InputDeque.Last()))
+                while (!IsOpenParenthesis(_context.InputDeque.Last()))
                 {
                     stack.Push(_context.InputDeque.DequeueLast());
                 }
@@ -528,6 +522,22 @@ namespace Calculator
                 EnqueueCloseParenthesis();
             }
         }
+
+        private bool IsOperand(IExpression expression) => expression is OperandExpression;
+
+        private bool IsUnaryOperator(IExpression expression) => expression is UnaryOperatorExpression;
+
+        private bool IsBinaryOperator(IExpression expression) => expression is BinaryOperatorExpression;
+
+        private bool IsOpenParenthesis(IExpression expression) => expression is ParenthesisExpression parenthesis && !parenthesis.IsClosed;
+
+        private bool IsCloseParenthesis(IExpression expression) => expression is ParenthesisExpression parenthesis && parenthesis.IsClosed;
+
+        private bool IsBitwiseNOT(IExpression expression) => expression is BitwiseNOTExpression;
+
+        private bool IsNegate(IExpression expression) => expression is NegateExpression;
+
+        private bool IsSubmit(IExpression expression) => expression is SubmitExpression;
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {

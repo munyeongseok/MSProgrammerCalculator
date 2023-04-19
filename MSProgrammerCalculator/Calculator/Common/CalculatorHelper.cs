@@ -407,16 +407,6 @@ namespace Calculator
             return BinaryOperation(op, leftOperand.EvaluateResult(), rightOperand.EvaluateResult());
         }
 
-        public static bool IsOpenParenthesis(IExpression expression)
-        {
-            return expression is ParenthesisExpression parenthesis && !parenthesis.IsClosed;
-        }
-
-        public static bool IsCloseParenthesis(IExpression expression)
-        {
-            return expression is ParenthesisExpression parenthesis && parenthesis.IsClosed;
-        }
-
         private static long UnaryOperation(Operators op, long operand)
         {
             switch (op)

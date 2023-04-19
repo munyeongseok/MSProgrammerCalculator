@@ -25,11 +25,6 @@ namespace Calculator
         BaseNumber BaseNumber { get; set; }
 
         /// <summary>
-        /// 입력 제출 여부.
-        /// </summary>
-        bool IsSubmitted { get; }
-
-        /// <summary>
         /// 계산기를 초기화합니다.
         /// </summary>
         void Initialize();
