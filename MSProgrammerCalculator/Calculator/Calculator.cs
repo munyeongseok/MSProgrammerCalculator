@@ -17,51 +17,27 @@ namespace Calculator
         public string Expression
         {
             get => expression;
-            private set
-            {
-                if (expression != value)
-                {
-                    expression = value;
-                    NotifyPropertyChanged();
-                }
-            }
+            private set => SetProperty(ref expression, value);
         }
 
         private long operand;
         public long Operand
         {
             get => operand;
-            private set
-            {
-                if (operand != value)
-                {
-                    operand = value;
-                    NotifyPropertyChanged();
-                }
-            }
+            private set => SetProperty(ref operand, value);
         }
 
         private BaseNumber baseNumber;
         public BaseNumber BaseNumber
         {
             get => baseNumber;
-            set
-            {
-                if (baseNumber != value)
-                {
-                    baseNumber = value;
-                    NotifyPropertyChanged();
-
-                    _operandInputState = OperandInputState.Initialized;
-                    EvaluateExpression();
-                }
-            }
+            set => SetProperty(ref baseNumber, value, OnBaseNumberChanged);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         private CalculatorContext _context;
-        private OperandInputState _operandInputState;
+        private OperandInputState _inputState;
 
         public Calculator()
         {
@@ -71,10 +47,16 @@ namespace Calculator
         public void Initialize()
         {
             _context = new CalculatorContext();
-            _operandInputState = OperandInputState.Initialized;
+            _inputState = OperandInputState.Initialized;
             Expression = string.Empty;
             Operand = 0;
             BaseNumber = BaseNumber.Decimal;
+        }
+
+        private void OnBaseNumberChanged()
+        {
+            _inputState = OperandInputState.Initialized;
+            EvaluateExpression();
         }
 
         public void EnqueueToken(Numbers number)
@@ -106,13 +88,13 @@ namespace Calculator
             else
             {
                 var isNegative = Operand < 0;
-                var newOperand = _operandInputState == OperandInputState.Inputted ? Math.Abs(Operand) : 0;
+                var newOperand = _inputState == OperandInputState.Inputted ? Math.Abs(Operand) : 0;
                 newOperand = CalculatorHelper.InsertRightDigit(BaseNumber, newOperand, (long)number);
                 newOperand = isNegative ? -newOperand : newOperand;
                 Operand = newOperand;
             }
 
-            _operandInputState = OperandInputState.Inputted;
+            _inputState = OperandInputState.Inputted;
         }
 
         public void EnqueueToken(Operators op)
@@ -138,7 +120,7 @@ namespace Calculator
             newOperand = CalculatorHelper.RemoveRightDigit(BaseNumber, newOperand);
             newOperand = isNegative ? -newOperand : newOperand;
             Operand = newOperand;
-            _operandInputState = newOperand == 0 ? OperandInputState.Initialized : OperandInputState.Inputted;
+            _inputState = newOperand == 0 ? OperandInputState.Initialized : OperandInputState.Inputted;
         }
 
         public void Evaluate()
@@ -187,7 +169,7 @@ namespace Calculator
                 Operand = result;
             }
 
-            _operandInputState = OperandInputState.Initialized;
+            _inputState = OperandInputState.Initialized;
         }
 
         public void ClearInput()
@@ -334,7 +316,7 @@ namespace Calculator
                 }
 
                 // 피연산자가 입력된 상태일 경우
-                if (_operandInputState == OperandInputState.Inputted)
+                if (_inputState == OperandInputState.Inputted)
                 {
                     Operand = -Operand;
                     return;
@@ -368,14 +350,14 @@ namespace Calculator
                 _context.InputDeque.EnqueueLast(unaryOperator);
                 EvaluateExpression();
                 Operand = unaryOperator.EvaluateResult();
-                _operandInputState = OperandInputState.Initialized;
+                _inputState = OperandInputState.Initialized;
                 return;
             }
 
             // 수식 평가
             Evaluate();
 
-            _operandInputState = OperandInputState.Initialized;
+            _inputState = OperandInputState.Initialized;
         }
 
         private void EnqueueBinaryOperator(Operators op)
@@ -390,7 +372,7 @@ namespace Calculator
                 _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(op));
             }
             // 피연산자 입력이 초기화된 상태이고 마지막 토큰이 이항 연산자일 경우
-            else if (_operandInputState == OperandInputState.Initialized && last is BinaryOperatorExpression binaryOperator)
+            else if (_inputState == OperandInputState.Initialized && last is BinaryOperatorExpression binaryOperator)
             {
                 // 마지막 토큰인 이항 연산자와 다른 이항 연산자이면 연산자 교체
                 if (binaryOperator.OperatorDescriptor.Operator != op)
@@ -414,7 +396,7 @@ namespace Calculator
             // 수식 평가
             Evaluate();
 
-            _operandInputState = OperandInputState.Initialized;
+            _inputState = OperandInputState.Initialized;
         }
 
         private void EnqueueAuxiliaryOperator(Operators op)
@@ -451,7 +433,7 @@ namespace Calculator
                 _context.Clear();
                 _context.InputDeque.EnqueueLast(new ParenthesisExpression());
                 _context.UnmatchedParenthesisCount++;
-                _operandInputState = OperandInputState.Inputted;
+                _inputState = OperandInputState.Inputted;
                 EvaluateExpression();
                 return;
             }
@@ -459,7 +441,7 @@ namespace Calculator
             else if (IsBinaryOperator(last))
             {
                 Operand = 0;
-                _operandInputState = OperandInputState.Initialized;
+                _inputState = OperandInputState.Initialized;
             }
             // 마지막 토큰이 NOT 연산자, 닫는 괄호일 경우 곱하기 연산자 추가
             else if (IsBitwiseNOT(last) || IsCloseParenthesis(last))
@@ -487,7 +469,7 @@ namespace Calculator
             {
                 // 입력 데크 클리어
                 _context.Clear();
-                _operandInputState = OperandInputState.Inputted;
+                _inputState = OperandInputState.Inputted;
                 EvaluateExpression();
                 return;
             }
@@ -539,7 +521,32 @@ namespace Calculator
 
         private bool IsSubmit(IExpression expression) => expression is SubmitExpression;
 
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        private bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(storage, value))
+            {
+                return false;
+            }
+
+            storage = value;
+            RaisePropertyChanged(propertyName);
+            return true;
+        }
+
+        private bool SetProperty<T>(ref T storage, T value, Action onChanged, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(storage, value))
+            {
+                return false;
+            }
+
+            storage = value;
+            onChanged?.Invoke();
+            RaisePropertyChanged(propertyName);
+            return true;
+        }
+
+        private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
