@@ -34,6 +34,10 @@ namespace Calculator
             set => SetProperty(ref baseNumber, value, OnBaseNumberChanged);
         }
 
+        private bool IsOperandInputted => _inputState == OperandInputState.Inputted;
+
+        private bool IsOperandInitialized => _inputState == OperandInputState.Initialized;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private CalculatorContext _context;
@@ -88,7 +92,7 @@ namespace Calculator
             else
             {
                 var isNegative = Operand < 0;
-                var newOperand = _inputState == OperandInputState.Inputted ? Math.Abs(Operand) : 0;
+                var newOperand = IsOperandInputted ? Math.Abs(Operand) : 0;
                 newOperand = CalculatorHelper.InsertRightDigit(BaseNumber, newOperand, (long)number);
                 newOperand = isNegative ? -newOperand : newOperand;
                 Operand = newOperand;
@@ -316,7 +320,7 @@ namespace Calculator
                 }
 
                 // 피연산자가 입력된 상태일 경우
-                if (_inputState == OperandInputState.Inputted)
+                if (IsOperandInputted)
                 {
                     Operand = -Operand;
                     return;
@@ -371,15 +375,39 @@ namespace Calculator
                 _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
                 _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(op));
             }
-            // 피연산자 입력이 초기화된 상태이고 마지막 토큰이 이항 연산자일 경우
-            else if (_inputState == OperandInputState.Initialized && last is BinaryOperatorExpression binaryOperator)
+            // 마지막 토큰이 이항 연산자이고 피연산자 입력이 초기화된 상태일 경우
+            else if (IsBinaryOperator(last) && IsOperandInitialized)
             {
                 // 마지막 토큰인 이항 연산자와 다른 이항 연산자이면 연산자 교체
+                var binaryOperator = (BinaryOperatorExpression)last;
                 if (binaryOperator.OperatorDescriptor.Operator != op)
                 {
                     _context.InputDeque.DequeueLast();
                     _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(op));
                 }
+            }
+            // 입력 토큰의 우선순위가 3인 이항 연산자이고 피연산자 입력이 초기화된 상태일 경우
+            else if (IsPrecedenceEqual(op, 3) && IsOperandInputted)
+            {
+                var clonedInputs = _context.InputDeque.Select(input => (IExpression)input.Clone());
+                var stack = new Stack<IExpression>();
+                stack.Push(new OperandExpression(Operand));
+                foreach (var input in clonedInputs.Reverse())
+                {
+                    if (input is IOperator innerOp && innerOp.OperatorDescriptor.Precedence != 3)
+                    {
+                        break;
+                    }
+
+                    stack.Push(input);
+                }
+
+                _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
+                _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(op));
+                EvaluateExpression();
+                Operand = CalculatorHelper.BuildRootExpression(stack).EvaluateResult();
+                _inputState = OperandInputState.Initialized;
+                return;
             }
             else
             {
@@ -511,6 +539,8 @@ namespace Calculator
 
         private bool IsBinaryOperator(IExpression expression) => expression is BinaryOperatorExpression;
 
+        private bool IsPrecedenceEqual(Operators op, int precedence) => CalculatorHelper.CreateOperatorDescriptor(op).Precedence == precedence;
+
         private bool IsOpenParenthesis(IExpression expression) => expression is ParenthesisExpression parenthesis && !parenthesis.IsClosed;
 
         private bool IsCloseParenthesis(IExpression expression) => expression is ParenthesisExpression parenthesis && parenthesis.IsClosed;
@@ -520,6 +550,10 @@ namespace Calculator
         private bool IsNegate(IExpression expression) => expression is NegateExpression;
 
         private bool IsSubmit(IExpression expression) => expression is SubmitExpression;
+
+        private bool IsArithmeticBinaryOperator(IExpression expression) => expression is BinaryOperatorExpression binaryOperator && (2 <= binaryOperator.OperatorDescriptor.Precedence && binaryOperator.OperatorDescriptor.Precedence <= 3);
+
+        private bool IsBitwiseBinaryOperator(IExpression expression) => expression is BinaryOperatorExpression binaryOperator && (4 <= binaryOperator.OperatorDescriptor.Precedence && binaryOperator.OperatorDescriptor.Precedence <= 9);
 
         private bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
