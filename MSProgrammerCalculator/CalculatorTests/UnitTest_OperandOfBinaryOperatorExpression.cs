@@ -109,7 +109,7 @@ namespace CalculatorTests
             calculator.EnqueueToken(Numbers.Num2);
             calculator.EnqueueToken(Operators.Multiply);
             Assert.AreEqual(2, calculator.Operand);
-            Assert.AreEqual("1 + 2 ×", calculator.Expression);
+            Assert.AreEqual("1 + 2 × ", calculator.Expression);
 
             calculator.EnqueueToken(Numbers.Num3);
             calculator.EnqueueToken(Operators.Multiply);
@@ -337,7 +337,7 @@ namespace CalculatorTests
             Assert.AreEqual(5, calculator.Operand);
             Assert.AreEqual("5 % ", calculator.Expression);
 
-            calculator.EnqueueToken(Numbers.Num2);
+            calculator.EnqueueToken(Numbers.Num3);
             calculator.EnqueueToken(Operators.Plus);
             Assert.AreEqual(2, calculator.Operand);
             Assert.AreEqual("5 % 3 + ", calculator.Expression);
