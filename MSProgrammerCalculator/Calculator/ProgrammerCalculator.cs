@@ -386,8 +386,14 @@ namespace Calculator
                     _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(op));
                 }
             }
-            // 입력 토큰이 우선순위가 3, 4인 이항 연산자이고 피연산자 입력이 초기화된 상태일 경우
-            else if ((IsPrecedenceEqual(op, 3) || IsPrecedenceEqual(op, 4)) && IsOperandInputted)
+            // 입력 토큰이 우선순위가 4인 이항 연산자이고 피연산자 입력이 초기화된 상태일 경우
+            else if (IsPrecedenceEqual(op, 4) && IsOperandInputted)
+            {
+                _context.InputDeque.EnqueueLast(new OperandExpression(Operand));
+                _context.InputDeque.EnqueueLast(CalculatorHelper.CreateBinaryExpression(op));
+            }
+            // 입력 토큰이 우선순위가 3 이항 연산자이고 피연산자 입력이 초기화된 상태일 경우
+            else if (IsPrecedenceEqual(op, 3) && IsOperandInputted)
             {
                 var precedence = CalculatorHelper.CreateOperatorDescriptor(op).Precedence;
                 var clonedInputs = _context.InputDeque.Select(input => (IExpression)input.Clone());
